@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #2563eb;   /* Cor alterada dinamicamente por matéria */
+  --secondary: #3b82f6;
+}
