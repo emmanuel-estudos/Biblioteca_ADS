@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "unified.better-mdx",
+    "bradlc.vscode-tailwindcss",
+    "esbenp.prettier-vscode",
+    "christian-kohler.path-intellisense",
+    "dbaeumer.vscode-eslint",
+    "csstools.postcss",
+    "styled-components.vscode-styled-components"
+  ]
+}

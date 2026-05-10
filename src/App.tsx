@@ -1,11 +1,23 @@
+// src/App.tsx
+import * as c from './components';
+import * as aulas from './contents';
+
 function App() {
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <h1 className="text-4xl font-bold text-blue-600 shadow-lg p-8 bg-white rounded-2xl">
-        Biblioteca ADS Pronta!
-      </h1>
+    <div className="min-h-screen bg-gray-50 p-8">
+      <header className="max-w-4xl mx-auto mb-10">
+        <h1 className="text-3xl font-bold text-slate-800">Minha Biblioteca ADS</h1>
+      </header>
+
+      <main className="max-w-4xl mx-auto bg-white shadow-md rounded-xl p-10">
+        {/* Renderizando uma aula específica do objeto 'aulas' */}
+        <aulas.Aula01SO />
+        
+        {/* Se você precisar usar um componente solto aqui: */}
+        <c.Gabarito resposta="Exemplo">Teste</c.Gabarito>
+      </main>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
