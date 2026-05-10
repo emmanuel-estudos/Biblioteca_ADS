@@ -1,0 +1,10 @@
+{
+  "Comentário CSS": {
+    "scope": "css",
+    "prefix": "/comentario",
+    "body": [
+      "/* $0 */"
+    ],
+    "description": "Insere a estrutura de comentário em CSS."
+  }
+}

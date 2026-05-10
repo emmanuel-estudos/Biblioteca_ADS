@@ -1,0 +1,1 @@
+export { Periodo } from './Periodo'

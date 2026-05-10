@@ -1,7 +1,11 @@
-@import "tailwindcss";
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  background-color: #f1f5f9; /* Um cinza bem clarinho para destacar os cards brancos */
+  color: #1e293b;
+}
 
-@theme {
-  /* Certifique-se de que o nome é --color-primary */
-  --color-primary: #3b82f6; 
-  /* ou qualquer cor que você desejar */
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
 }

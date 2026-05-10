@@ -1,2 +1,1 @@
-export * from './Gabarito'
 export * from './Breadcrumbs'
