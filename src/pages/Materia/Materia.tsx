@@ -90,7 +90,7 @@ export const Materia = () => {
           {tabAtiva === 'assuntos' ? (
             listaAssuntos.map(item => (
               <S.ListItem key={item.path}>
-                <Link to={`${window.location.pathname}/assuntos/${item.nome.replace(/\s/g, '-')}`}>
+                <Link to={`${window.location.pathname}/assuntos/${item.nome.toLowerCase().replace(/\s/g, '-')}`}>
                   📄 {item.nome}
                 </Link>
               </S.ListItem>
