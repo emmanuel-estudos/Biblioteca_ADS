@@ -1,6 +1,6 @@
-// src/App.tsx
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Home, Periodo, Materia } from './pages';
+import { Conteudo, AtividadeDetalhe } from './components';
 
 function App() {
   return (
@@ -9,6 +9,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/:periodo" element={<Periodo />} />
         <Route path="/:periodo/:materia" element={<Materia />} />
+        <Route path="/:periodo/:materia/assuntos/:slug" element={<Conteudo />} />
+        <Route path="/:periodo/:materia/atividades/:pasta" element={<AtividadeDetalhe />} />
       </Routes>
     </BrowserRouter>
   );
