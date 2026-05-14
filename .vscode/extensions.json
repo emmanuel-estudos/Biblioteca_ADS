@@ -6,6 +6,8 @@
     "christian-kohler.path-intellisense",
     "dbaeumer.vscode-eslint",
     "csstools.postcss",
-    "styled-components.vscode-styled-components"
+    "styled-components.vscode-styled-components",
+    "steoates.autoimport",
+    "codegyan.auto-closing-tags"
   ]
 }

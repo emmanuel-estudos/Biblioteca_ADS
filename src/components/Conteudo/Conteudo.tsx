@@ -1,51 +1,81 @@
 import { useParams } from 'react-router-dom';
-import { useMemo, useEffect, useState, ComponentType } from 'react';
+import { useEffect, useState, ComponentType } from 'react';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
-import { MDXProvider } from '@mdx-js/react'
+import { MDXProvider } from '@mdx-js/react';
+import { ThemeProvider } from 'styled-components';
+import * as MDX from '../../components/MDX-Elements'
 import * as S from './styles';
 
-
 const components = {
-  h1: (props: any) => <S.Title {...props} />,
-  p: (props: any) => <S.Paragraph {...props} />,
-  code: (props: any) => <S.CodeBlock {...props} />,
-  // ... outros componentes
+  // Componentes Básicos
+  h1: MDX.H1,
+  h2: MDX.H2,
+  p: MDX.Paragraph,
+  strong: MDX.Strong,
+  code: MDX.CodeBlock,
+
+  // Componentes para Terminal Personalizado
+  Box: MDX.Box,
+  Tabs: MDX.TabsContainer,
+  Tab: MDX.Tab,
+  Code: MDX.CodeArea,
+  Comment: MDX.Comment,
+  Prompt: MDX.Prompt,
+  Line: MDX.Line
 };
 
 export const Conteudo = () => {
   const { periodo, materia, slug } = useParams();
   const [MDXComponent, setMDXComponent] = useState<ComponentType | null>(null);
+  
+  // Estado para armazenar o tema dinâmico da matéria
+  const [temaMateria, setTemaMateria] = useState({
+    corPrimaria: '#2c3e50',
+    corSecundaria: '#3498db'
+  });
 
-  // Importamos todos os arquivos MDX como componentes
+  // Globals para arquivos e configurações
   const todosArquivos = import.meta.glob('/src/contents/**/*.mdx');
+  const todasConfigs = import.meta.glob('/src/contents/**/config.ts');
 
   useEffect(() => {
-    const carregarConteudo = async () => {
+    const carregarTudo = async () => {
       const numero = periodo?.split('-')[0] || '';
       const pastaPeriodo = `periodo${numero.padStart(2, '0')}`;
-      
-      const caminhos = Object.keys(todosArquivos);
-      const caminhoReal = caminhos.find(path => {
+      const materiaLower = materia?.toLowerCase();
+
+      // 1. Carregar Configuração de Cores da Matéria
+      const caminhoConfig = Object.keys(todasConfigs).find(path => 
+        path.toLowerCase().includes(`/${materiaLower}/config.ts`)
+      );
+
+      if (caminhoConfig) {
+        const modConfig = (await todasConfigs[caminhoConfig]()) as { config: typeof temaMateria };
+        setTemaMateria(modConfig.config);
+      }
+
+      // 2. Carregar o Arquivo MDX
+      const caminhosMDX = Object.keys(todosArquivos);
+      const caminhoReal = caminhosMDX.find(path => {
         const nomeArquivo = path.split('/').pop()?.replace('.mdx', '').toLowerCase();
         return (
           path.toLowerCase().includes(`/${pastaPeriodo}/`) &&
-          path.toLowerCase().includes(`/${materia?.toLowerCase()}/`) &&
+          path.toLowerCase().includes(`/${materiaLower}/`) &&
           nomeArquivo === slug?.toLowerCase()
         );
       });
 
       if (caminhoReal) {
-        // Importa o arquivo dinamicamente como um componente React
-        const modulo: any = await todosArquivos[caminhoReal]();
+        const modulo = (await todosArquivos[caminhoReal]()) as { default: ComponentType };
         setMDXComponent(() => modulo.default);
       }
     };
 
-    carregarConteudo();
-  }, [periodo, materia, slug, todosArquivos]);
+    carregarTudo();
+  }, [periodo, materia, slug, todosArquivos, todasConfigs]);
 
   return (
-    <>
+    <ThemeProvider theme={temaMateria}>
       <Breadcrumbs />
       <S.PageContainer>
         {MDXComponent ? (
@@ -58,6 +88,6 @@ export const Conteudo = () => {
           <p>Carregando conteúdo ou arquivo não encontrado...</p>
         )}
       </S.PageContainer>
-    </>
+    </ThemeProvider>
   );
 };
