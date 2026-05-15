@@ -2,7 +2,12 @@ import { Link, useLocation } from 'react-router-dom';
 import * as s from './styles';
 import { TRADUCAO_NOMES } from '../../utils/traducoes';
 
-export const Breadcrumbs = () => {
+// Definimos a interface para receber o nome vindo do config.ts via Conteudo.tsx
+interface BreadcrumbsProps {
+  aulaAtual?: string;
+}
+
+export const Breadcrumbs = ({ aulaAtual }: BreadcrumbsProps) => {
   const location = useLocation();
   const pathnames = location.pathname.split('/').filter((x) => x);
 
@@ -14,13 +19,10 @@ export const Breadcrumbs = () => {
       return `${numero}º Período`;
     }
 
-    // 2. Verifica se existe tradução pré-definida
+    // 2. Verifica se existe tradução pré-definida no arquivo de traduções global
     if (TRADUCAO_NOMES[texto]) return TRADUCAO_NOMES[texto];
 
-    // 3. Formatação geral: 
-    // - Substitui hífens por espaços
-    // - Adiciona espaço entre letras e números (Ex: Aula01 -> Aula 01)
-    // - Capitaliza a primeira letra de cada palavra
+    // 3. Formatação geral (fallback)
     return texto
       .replace(/-/g, ' ')
       .replace(/([a-zA-Z])(\d)/g, '$1 $2')
@@ -33,20 +35,24 @@ export const Breadcrumbs = () => {
       {pathnames.map((value, index) => {
         const last = index === pathnames.length - 1;
 
-        // Problema 1: Se clicar em 'assuntos' ou 'atividades', volta para a Matéria
+        // Pular níveis de pasta puramente organizacionais
         const isFolderLevel = value === 'assuntos' || value === 'atividades';
         
         const to = isFolderLevel 
           ? `/${pathnames.slice(0, index).join('/')}` 
           : `/${pathnames.slice(0, index + 1).join('/')}`;
 
+        // Se for o último item e tivermos o título amigável do config.ts, usamos ele.
+        // Caso contrário, usamos a função de formatação padrão.
+        const labelFinal = (last && aulaAtual) ? aulaAtual : formatarLabel(value);
+
         return (
           <div key={`${to}-${index}`} style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
             <span>/</span>
             {last ? (
-              <strong className="current">{formatarLabel(value)}</strong>
+              <strong className="current">{labelFinal}</strong>
             ) : (
-              <Link to={to}>{formatarLabel(value)}</Link>
+              <Link to={to}>{labelFinal}</Link>
             )}
           </div>
         );

@@ -1,5 +1,6 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react'; // ADICIONADO: useEffect
 import { useParams, Link } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components'; // ADICIONADO: ThemeProvider
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import * as S from './styles';
 import { TRADUCAO_NOMES } from '../../utils/traducoes';
@@ -8,14 +9,37 @@ export const Materia = () => {
   const { periodo, materia } = useParams<{ periodo: string; materia: string }>();
   const [tabAtiva, setTabAtiva] = useState<'assuntos' | 'atividades'>('assuntos');
 
-  // 1. Buscamos todos os arquivos dentro de src/contents
-  const todosArquivos = import.meta.glob('/src/contents/**/*.{mdx,pdf,txt}');
+  // ADICIONADO: Estado para o tema dinâmico igual ao Conteudo.tsx
+  const [temaMateria, setTemaMateria] = useState({
+    nome: '',
+    corPrimaria: '#2c3e50',
+    corSecundaria: '#3498db',
+    periodo: ''
+  });
 
-  // 2. Lógica de normalização de caminho (ex: 5-periodo -> periodo05)
+  const todosArquivos = import.meta.glob('/src/contents/**/*.{mdx,pdf,txt}');
+  const todasConfigs = import.meta.glob('/src/contents/**/config.ts'); // ADICIONADO
+
   const numeroPeriodo = periodo?.split('-')[0] || '';
   const nomePastaPeriodo = `periodo${numeroPeriodo.padStart(2, '0')}`;
 
-  // 3. Filtro inteligente para Assuntos
+  // ADICIONADO: Carregar as configurações de cores da matéria atual
+  useEffect(() => {
+    const carregarConfig = async () => {
+      const materiaLower = materia?.toLowerCase();
+      const caminhoConfig = Object.keys(todasConfigs).find(path => 
+        path.toLowerCase().includes(`/${materiaLower}/config.ts`)
+      );
+
+      if (caminhoConfig) {
+        const modConfig = (await todasConfigs[caminhoConfig]()) as { config: typeof temaMateria };
+        setTemaMateria(modConfig.config);
+      }
+    };
+    carregarConfig();
+  }, [materia, todasConfigs]);
+
+  // Filtro inteligente para Assuntos
   const listaAssuntos = useMemo(() => {
     const caminhos = Object.keys(todosArquivos);
     const materiaLower = materia?.toLowerCase();
@@ -24,19 +48,20 @@ export const Materia = () => {
     return caminhos
       .filter(path => {
         const pathLower = path.toLowerCase();
-        // Verifica se o caminho contém /periodoXX/materia-nome/assuntos/
-        return (
-          pathLower.includes(`/${periodoLower}/${materiaLower}/assuntos/`)
-        );
+        return pathLower.includes(`/${periodoLower}/${materiaLower}/assuntos/`);
       })
-      .map(path => ({
-        path,
-        nome: path.split('/').pop()?.replace(/\.(mdx|pdf|txt)$/, '').replace(/-/g, ' ') || ''
-      }))
-      .sort((a, b) => a.nome.localeCompare(b.nome));
+      .map(path => {
+        const slugReal = path.split('/').pop()?.replace(/\.(mdx|pdf|txt)$/, '') || '';
+        return {
+          path,
+          slug: slugReal,
+          nomeExibicao: slugReal.replace(/-/g, ' ')
+        };
+      })
+      .sort((a, b) => a.nomeExibicao.localeCompare(b.nomeExibicao));
   }, [nomePastaPeriodo, materia, todosArquivos]);
 
-  // 4. Filtro inteligente para Atividades
+  // Filtro inteligente para Atividades
   const listaAtividades = useMemo(() => {
     const caminhos = Object.keys(todosArquivos);
     const materiaLower = materia?.toLowerCase();
@@ -49,19 +74,18 @@ export const Materia = () => {
       })
       .map(path => {
         const partes = path.split('/');
-        // Localizamos o índice da pasta 'atividades' para pegar a subpasta seguinte
         const idxAtividades = partes.findIndex(p => p.toLowerCase() === 'atividades');
         const nomePasta = partes[idxAtividades + 1];
         return { path, nomePasta };
       })
-      // Remove duplicatas caso haja vários arquivos na mesma pasta de atividade
       .filter((value, index, self) => 
         self.findIndex(v => v.nomePasta === value.nomePasta) === index
       );
   }, [nomePastaPeriodo, materia, todosArquivos]);
 
   return (
-    <>
+    // ADICIONADO: ThemeProvider envelopando tudo para o Breadcrumbs e os estilos herdarem as cores
+    <ThemeProvider theme={temaMateria}>
       <Breadcrumbs />
       <S.PageWrapper>
         <S.Header>
@@ -90,8 +114,8 @@ export const Materia = () => {
           {tabAtiva === 'assuntos' ? (
             listaAssuntos.map(item => (
               <S.ListItem key={item.path}>
-                <Link to={`${window.location.pathname}/assuntos/${item.nome.toLowerCase().replace(/\s/g, '-')}`}>
-                  📄 {item.nome}
+                <Link to={`${window.location.pathname}/assuntos/${item.slug}`}>
+                  📄 {item.nomeExibicao}
                 </Link>
               </S.ListItem>
             ))
@@ -112,6 +136,6 @@ export const Materia = () => {
           </p>
         )}
       </S.PageWrapper>
-    </>
+    </ThemeProvider>
   );
 };

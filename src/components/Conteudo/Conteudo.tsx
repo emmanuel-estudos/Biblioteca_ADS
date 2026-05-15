@@ -3,20 +3,18 @@ import { useEffect, useState, ComponentType } from 'react';
 import { MDXProvider } from '@mdx-js/react';
 import { ThemeProvider } from 'styled-components';
 
-import * as MDX from '../../components/MDX-Elements'
+import * as MDX from '../../components/MDX-Elements';
 import * as S from './styles';
 
-import { Breadcrumbs, TableOfContents } from '../../components'
+import { Breadcrumbs, TableOfContents } from '../../components';
 
 const components = {
-  // Componentes Básicos
   h1: MDX.H1,
   h2: MDX.H2,
+  h3: MDX.H3,
   p: MDX.Paragraph,
   strong: MDX.Strong,
   code: MDX.CodeBlock,
-
-  // Componentes para Terminal Personalizado
   Box: MDX.Box,
   Tabs: MDX.TabsContainer,
   Tab: MDX.Tab,
@@ -29,14 +27,16 @@ const components = {
 export const Conteudo = () => {
   const { periodo, materia, slug } = useParams();
   const [MDXComponent, setMDXComponent] = useState<ComponentType | null>(null);
+  const [tituloAula, setTituloAula] = useState<string>('');
   
-  // Estado para armazenar o tema dinâmico da matéria
   const [temaMateria, setTemaMateria] = useState({
+    nome: '',
     corPrimaria: '#2c3e50',
-    corSecundaria: '#3498db'
+    corSecundaria: '#3498db',
+    periodo: '',
+    assuntos: {} as Record<string, string>
   });
 
-  // Globals para arquivos e configurações
   const todosArquivos = import.meta.glob('/src/contents/**/*.mdx');
   const todasConfigs = import.meta.glob('/src/contents/**/config.ts');
 
@@ -46,14 +46,23 @@ export const Conteudo = () => {
       const pastaPeriodo = `periodo${numero.padStart(2, '0')}`;
       const materiaLower = materia?.toLowerCase();
 
-      // 1. Carregar Configuração de Cores da Matéria
+      // 1. Carregar Configuração da Matéria
       const caminhoConfig = Object.keys(todasConfigs).find(path => 
         path.toLowerCase().includes(`/${materiaLower}/config.ts`)
       );
 
       if (caminhoConfig) {
         const modConfig = (await todasConfigs[caminhoConfig]()) as { config: typeof temaMateria };
-        setTemaMateria(modConfig.config);
+        const configData = modConfig.config;
+        
+        setTemaMateria(configData);
+
+        // Define o título amigável baseado no slug atual
+        if (slug && configData.assuntos) {
+          const nomeAmigavel = configData.assuntos[slug] || slug;
+          setTituloAula(nomeAmigavel);
+          document.title = `${nomeAmigavel} | Biblioteca ADS`;
+        }
       }
 
       // 2. Carregar o Arquivo MDX
@@ -70,6 +79,8 @@ export const Conteudo = () => {
       if (caminhoReal) {
         const modulo = (await todosArquivos[caminhoReal]()) as { default: ComponentType };
         setMDXComponent(() => modulo.default);
+      } else {
+        setMDXComponent(null);
       }
     };
 
@@ -77,23 +88,24 @@ export const Conteudo = () => {
   }, [periodo, materia, slug, todosArquivos, todasConfigs]);
 
   return (
-  <ThemeProvider theme={temaMateria}>
-    <Breadcrumbs />
-    <S.PageContainer>
-      {MDXComponent ? (
-        <>
-          {/* O SUMÁRIO FICA AQUI (Lado Esquerdo ou Direito) */}
-          <TableOfContents /> 
+    <ThemeProvider theme={temaMateria}>
+      {/* Passamos o título da aula para o Breadcrumbs exibir o nome bonito */}
+      <Breadcrumbs aulaAtual={tituloAula} />
+      
+      <S.PageContainer>
+        {MDXComponent ? (
+          <>
+            <TableOfContents /> 
 
-          <S.ArticleWrapper>
-            <MDXProvider components={components}>
-              <MDXComponent />
-            </MDXProvider>
-          </S.ArticleWrapper>
-        </>
-      ) : (
-        <p>Carregando conteúdo ou arquivo não encontrado...</p>
-      )}
+            <S.ArticleWrapper>
+              <MDXProvider components={components}>
+                <MDXComponent />
+              </MDXProvider>
+            </S.ArticleWrapper>
+          </>
+        ) : (
+          <p>Carregando conteúdo ou arquivo não encontrado...</p>
+        )}
       </S.PageContainer>
     </ThemeProvider>
   );

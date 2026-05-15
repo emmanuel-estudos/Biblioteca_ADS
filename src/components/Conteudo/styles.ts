@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 
 export const PageContainer = styled.div`
+  background-color: #09090b; /* Cinza quase preto para o fundo global da página */
+  min-height: 100vh;
   width: 100%;
-  max-width: 750px; /* Limita a largura do conteúdo para ele ficar centralizado */
-  margin: 0 auto;    /* Centraliza o conteúdo na tela */
-  padding: 2rem;
+  
+  /* Se você quiser centralizar o conteúdo ou alinhar os itens: */
   display: flex;
-  justify-content: center;
-  position: relative;
+  justify-content: center; 
+  gap: 2rem;
+  padding: 2rem;
 `;
 
 export const ArticleWrapper = styled.article`

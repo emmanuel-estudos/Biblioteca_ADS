@@ -46,12 +46,28 @@ export const H2 = styled.h2`
   &::before { content: counter(h1counter) "." counter(h2counter) ". » "; }
 `;
 
+export const H3 = styled.h3`
+  color: #f8fafc; /* Branco suave */
+  font-size: 1.3rem;
+  margin: 1.75rem 0 0.75rem 0;
+  font-weight: 600;
+`;
+
 export const Paragraph = styled.p`
   font-size: 1.125rem;
   line-height: 1.8;
-  color: #334155;
+  color: gray;
   margin-bottom: 1.25rem;
   text-indent: 2rem;
+  
+  a {
+    color: #38bdf8;
+    text-decoration: underline;
+
+    &:hover {
+      color: #7dd3fc;
+    }
+  }
 `;
 
 export const Strong = styled.strong`
@@ -62,8 +78,8 @@ export const Strong = styled.strong`
 `;
 
 export const CodeBlock = styled.code`
-  background-color: #f1f5f9;
-  color: #e11d48;
+  background-color: #27272a;
+  color: #f43f5e;
   padding: 0.2rem 0.4rem;
   border-radius: 6px;
   font-family: 'Fira Code', monospace;
