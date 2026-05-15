@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import mdx from '@mdx-js/rollup'
 import remarkGfm from 'remark-gfm'
+import rehypeSlug from 'rehype-slug'
 
 export default defineConfig({
   plugins: [
@@ -13,7 +14,10 @@ export default defineConfig({
         // Adiciona suporte a tabelas e listas de tarefas do GitHub
         remarkPlugins: [remarkGfm],
         // Aqui você adicionaria outros plugins de rehype se quisesse
-        rehypePlugins: [],
+        rehypePlugins: [
+          // Adiciona IDs automaticamente aos títulos
+          rehypeSlug,
+        ],
       })
     }, 
     react()

@@ -1,21 +1,19 @@
 import styled from 'styled-components';
 
 export const PageContainer = styled.div`
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 2rem 1.5rem;
-  min-height: 100vh;
+  width: 100%;
+  max-width: 750px; /* Limita a largura do conteúdo para ele ficar centralizado */
+  margin: 0 auto;    /* Centraliza o conteúdo na tela */
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  position: relative;
 `;
 
 export const ArticleWrapper = styled.article`
-  background-color: #ffffff;
-  padding: 3rem;
+  width: 100%;
+  background: #111; /* Cor de fundo do conteúdo */
   border-radius: 16px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-  counter-reset: h1counter; // Inicia o contador aqui
-  
-  @media (max-width: 768px) {
-    padding: 1.5rem;
-  }
+  padding: 3rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 `;

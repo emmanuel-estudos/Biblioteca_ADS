@@ -12,5 +12,7 @@ export const TRADUCAO_NOMES: Record<string, string> = {
   'SistemasOperacionais-SO': 'Sistemas Operacionais (SO)',
   'banco-de-dados': 'Banco de Dados',
   'analise-de-sistemas': 'Análise de Sistemas',
+  'seguranca-de-dados': 'Segurança de Dados',
+  'Seguranca-de-Dados': 'Segurança de Dados',
   // Basta adicionar aqui e refletirá em todo o site
 };

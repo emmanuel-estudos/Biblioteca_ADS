@@ -1,10 +1,12 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState, ComponentType } from 'react';
-import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { MDXProvider } from '@mdx-js/react';
 import { ThemeProvider } from 'styled-components';
+
 import * as MDX from '../../components/MDX-Elements'
 import * as S from './styles';
+
+import { Breadcrumbs, TableOfContents } from '../../components'
 
 const components = {
   // Componentes Básicos
@@ -75,18 +77,23 @@ export const Conteudo = () => {
   }, [periodo, materia, slug, todosArquivos, todasConfigs]);
 
   return (
-    <ThemeProvider theme={temaMateria}>
-      <Breadcrumbs />
-      <S.PageContainer>
-        {MDXComponent ? (
+  <ThemeProvider theme={temaMateria}>
+    <Breadcrumbs />
+    <S.PageContainer>
+      {MDXComponent ? (
+        <>
+          {/* O SUMÁRIO FICA AQUI (Lado Esquerdo ou Direito) */}
+          <TableOfContents /> 
+
           <S.ArticleWrapper>
             <MDXProvider components={components}>
               <MDXComponent />
             </MDXProvider>
           </S.ArticleWrapper>
-        ) : (
-          <p>Carregando conteúdo ou arquivo não encontrado...</p>
-        )}
+        </>
+      ) : (
+        <p>Carregando conteúdo ou arquivo não encontrado...</p>
+      )}
       </S.PageContainer>
     </ThemeProvider>
   );
