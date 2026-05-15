@@ -1,0 +1,21 @@
+{
+    "Bloco de Código para MDX": {
+        "prefix": "/bloco-de-codigo",
+        "scope": ".mdx",
+        "body": [
+            "<Box>",
+            "    <Tabs>",
+            "        <Tab active>Main.js</Tab>",
+            "    </Tabs>",
+            "    ",    
+            "    <Code>",
+            "        <Comment>// Agora você pode dar enter e espaço à vontade!</Comment>",
+            "        <Prompt>{\"\"}</Prompt> ls -la",
+            "        <Comment>// Será que dá espaço?</Comment>",
+            "        <Prompt>{\"\"}</Prompt> npm i",
+            "    </Code>",
+            "</Box>"
+        ],
+        "description": "Cria a estrutura que é usada para criar um estilo de 'terminal' em arquivos MDX."
+    }
+}

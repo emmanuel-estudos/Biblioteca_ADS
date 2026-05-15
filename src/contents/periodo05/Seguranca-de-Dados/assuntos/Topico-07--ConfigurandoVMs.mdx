@@ -46,8 +46,34 @@ Quando a instalação estiver concluída, aparecerá uma tela com a versão do U
 - Nome: ads
 - Senha: 654123
 
+### Instalações de Dependências Internas
+
+Se transforme o Super Usuário use os comandos a seguir.
+
+
+
+ 'apt list --upgradeable'. Baixe o docker usando 'apt install docker.io' e 'docker pull ubuntu' 'docker ps -a' 'docker run -it ubuntu' 'o ID no Docker são os 2 primeiros caracteres' 'exit' 'docker start \'ID\'' 'docker attach \'ID\''. instalando attach2: 'apt update' e 'apt install apache2'
+
 awdawda
 
 ```bash
 npm install
 ```
+
+# Mover Certificados Digitais para uma pasta
+
+Esses certificados podem ser usados para a atividade 01, sem a necessidade de recriá-los. Para fazer isso, siga o passo a passo abaixo:
+
+- (root@24c166e57434:/var/www/html#) mkdir atv1 // criando a pasta
+- (root@24c166e57434:/var/www/html#) mv djr.\* atv1 // movendo todos os arquivos relacionados ao usuário para a pasta
+- (root@24c166e57434:/var/www/html#) ls
+// resultado esperado
+atv1, daladierjr.key daladierjr.pem index.html index.nginx-debian.html
+
+(root@24c166e57434:/var/www/html#) openssl req -x509 -nodes -days 365 -newkey rsa:2048 -extensions v3_ca  -config /etc/ssl/openssl.cnf -keyout djr.kay -out djr.pem
+
+// escolha as opções para a criação do nome do domínio
+
+// nos arquivos a seguir, tire os parâmetros das linhas que iniciam com ""
+
+(root@24c166e57434:/var/www/html#) pico /etc/nginx/sites-enabled/www.djr.com 'www.djr.com.br' 'www.djr.net' 'www.djr.br' 

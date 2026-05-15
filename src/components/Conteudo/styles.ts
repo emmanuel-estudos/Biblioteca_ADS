@@ -10,6 +10,10 @@ export const PageContainer = styled.div`
   justify-content: center; 
   gap: 2rem;
   padding: 2rem;
+
+  /* Centralizando o conteúdo renderizado */
+  max-width: 800px; /* Limita a largura do conteúdo para ele ficar centralizado */
+  margin: 0 auto; /* Centraliza o conteúdo na tela */
 `;
 
 export const ArticleWrapper = styled.article`
