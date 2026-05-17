@@ -15,13 +15,13 @@ const components = {
   p: MDX.Paragraph,
   strong: MDX.Strong,
   code: MDX.CodeBlock,
-  Box: MDX.Box,
-  Tabs: MDX.TabsContainer,
-  Tab: MDX.Tab,
+  Terminal: MDX.Box,
+  Abas: MDX.TabsContainer,
+  Aba: MDX.Tab,
   Code: MDX.CodeArea,
-  Comment: MDX.Comment,
+  Comentario: MDX.Comment,
   Prompt: MDX.Prompt,
-  Line: MDX.Line
+  Resultado: MDX.Resultado
 };
 
 export const Conteudo = () => {

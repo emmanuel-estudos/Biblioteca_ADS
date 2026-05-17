@@ -1,0 +1,35 @@
+{
+    "Terminal Customizado MDX": {
+        "prefix": "/terminal",
+        "body": [
+            "<Terminal>",
+            "    <Abas>",
+            "        <Aba active>${1:Terminal}</Aba>",
+            "    </Abas>",
+            "    <Linha>",
+            "        <Comentario>// ${2:Comando de configuração}</Comentario>",
+            "        <Prompt>{\"\"}</Prompt> $3",
+            "        $0",
+            "    </Linha>",
+            "</Terminal>"
+        ],
+        "description": "Insere um bloco de terminal limpo e customizado no MDX."
+    },
+
+    "Comentário dentro do MDX_Terminal": {
+        "prefix": "/comentario_terminal",
+        "body": [
+            "<Comentario>$1</Comentario>",
+            "$2"
+        ],
+        "description": "Insere um comentádio, específico para a estrutura do Terminal_MDX"
+    },
+
+    "Comando dentro do MDX_Terminal": {
+        "prefix": "/comando_terminal",
+        "body": [
+            "<Prompt>{\"${1:Corpo do Prompt do Comando}\"}</Prompt> ${0:Comando}"
+        ],
+        "description": "Insere um Comando, específico para a estrutura do Terminal_MDX"
+    }
+}

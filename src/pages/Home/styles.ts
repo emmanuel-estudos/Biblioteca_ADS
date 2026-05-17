@@ -25,8 +25,8 @@ export const Title = styled.h1`
 `;
 
 export const Grid = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 350px 350px 350px;
   gap: 2rem;
   justify-content: center; /* Centraliza 1, 2 ou o 4º item sozinho */
 `;

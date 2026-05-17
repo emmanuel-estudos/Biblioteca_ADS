@@ -50,9 +50,15 @@ Quando a instalação estiver concluída, aparecerá uma tela com a versão do U
 
 Se transforme o Super Usuário use os comandos a seguir.
 
+<Terminal>
+    <Abas>
+        <Aba active>Terminal</Aba>
+    </Abas>
+      <Comentario>// Comando de configuração</Comentario>
+      <Prompt>{""}</Prompt> 
+</Terminal>
 
-
- 'apt list --upgradeable'. Baixe o docker usando 'apt install docker.io' e 'docker pull ubuntu' 'docker ps -a' 'docker run -it ubuntu' 'o ID no Docker são os 2 primeiros caracteres' 'exit' 'docker start \'ID\'' 'docker attach \'ID\''. instalando attach2: 'apt update' e 'apt install apache2'
+'apt list --upgradeable'. Baixe o docker usando 'apt install docker.io' e 'docker pull ubuntu' 'docker ps -a' 'docker run -it ubuntu' 'o ID no Docker são os 2 primeiros caracteres' 'exit' 'docker start \'ID\'' 'docker attach \'ID\''. instalando attach2: 'apt update' e 'apt install apache2'
 
 awdawda
 
@@ -63,6 +69,21 @@ npm install
 # Mover Certificados Digitais para uma pasta
 
 Esses certificados podem ser usados para a atividade 01, sem a necessidade de recriá-los. Para fazer isso, siga o passo a passo abaixo:
+
+<Terminal>
+    <Abas>
+        <Aba active>Docker</Aba>
+    </Abas>
+    <Comentario>// criando a pasta</Comentario>
+    <Prompt>{"root@24c166e57434:/var/www/html#"}</Prompt> mkdir atv1
+    <Comentario>// movendo todos os arquivos relacionados ao usuário para a pasta</Comentario>
+    <Prompt>{"root@24c166e57434:/var/www/html#"}</Prompt> mv djr.\* atv1
+    <Comentario>// verificando os arquivos existentes</Comentario>
+    <Prompt>{"root@24c166e57434:/var/www/html#"}</Prompt> ls
+    <Comentario>// resultado esperado</Comentario>
+    <Resultado>atv1 daladierjr.key daladierjr.pem index.html index.nginx-debian.html</Resultado>
+    
+</Terminal>
 
 - (root@24c166e57434:/var/www/html#) mkdir atv1 // criando a pasta
 - (root@24c166e57434:/var/www/html#) mv djr.\* atv1 // movendo todos os arquivos relacionados ao usuário para a pasta

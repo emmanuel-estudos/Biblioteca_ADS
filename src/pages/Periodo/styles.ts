@@ -27,13 +27,12 @@ export const Container = styled.div`
 
 // 2. O Bloco Central que lista as matérias (Substitui o GridMaterias)
 export const MateriaGrid = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 1.25rem;
   width: 100%;
   max-width: 800px;
   
-  /* REQUISITO: Fundo idêntico ao container do artigo (#111111) */
   background-color: #111111; 
   
   padding: 2.5rem;
@@ -44,7 +43,7 @@ export const MateriaGrid = styled.div`
 `;
 
 // 3. Cada card ou linha que representa uma matéria na lista (Substitui o CardMateria)
-// Nota: Como o seu componente usa "to={...}", ele precisa herdar o comportamento do Link do react-router-dom
+// Nota: Como o componente usa "to={...}", ele precisa herdar o comportamento do Link do react-router-dom
 export const MateriaCard = styled(Link)`
   display: block;
   

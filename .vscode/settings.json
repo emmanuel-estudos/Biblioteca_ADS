@@ -9,9 +9,22 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "emmet.includeLanguages": {
-    "mdx": "javascriptreact"
+    "mdx": "typescriptreact"
   },
   "files.associations": {
-      "*.mdx": "mdx"
+      "*.mdx": "markdown"
+  },
+  "[markdown]": {
+    "editor.quickSuggestions": {
+      "other": "on",
+      "comments": "off",
+      "strings": "off"
+    },
+    "editor.snippetSuggestions": "top" // Joga os seus snippets para o topo da lista de sugestões
+  },
+  
+  // Ativa as sugestões rápidas de forma global caso o interpretador mude
+  "editor.quickSuggestions": {
+    "other": "on"
   }
 }

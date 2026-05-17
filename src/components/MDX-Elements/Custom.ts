@@ -1,27 +1,5 @@
 import styled from 'styled-components';
 
-/**
- * Terminal-like Box: Centralizada e com largura controlada.
- * Atua como um "pop-up" de conteúdo técnico.
- */
-export const Box = styled.div`
-  align-self: center;
-  min-width: 60%;
-  max-width: 95%;
-  background-color: #1a1b1e;
-  border-radius: 10px;
-  border: 1px solid #2c2e33;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
-  margin: 2rem auto;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  
-  @media (max-width: 768px) {
-    min-width: 100%;
-  }
-`;
-
 export const TabsContainer = styled.div`
   display: flex;
   background-color: #25262b;
@@ -59,7 +37,6 @@ export const CodeArea = styled.div`
   background-color: #1a1b1e;
   color: ${props => props.theme.corPrimaria}cc;
 
-  /* O SEGREDO ESTÁ AQUI: */
   display: flex;
   flex-direction: column; /* Empilha os elementos verticalmente */
   gap: 4px; /* Controla a distância exata entre as linhas */
@@ -74,6 +51,7 @@ export const CodeArea = styled.div`
  */
 export const Comment = styled.span`
   color: ${props => props.theme.corPrimaria};
+  background-color: transparent;
   filter: brightness(0.6);
   font-style: italic;
   user-select: none;
@@ -84,17 +62,46 @@ export const Comment = styled.span`
   display: block;
 `;
 
-export const Line = styled.div`
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  text-indent: 0;
-`;
-
 export const Prompt = styled.span`
   color: ${props => props.theme.corSecundaria}; 
   font-weight: bold;
   user-select: none;
   white-space: nowrap;
 
+`;
+
+export const Resultado = styled.span`
+  color: ${props => props.theme.corPrimaria};
+  filter: brightness(1);
+  margin-left: 1rem;
+`;
+
+/**
+ * Terminal-like Box: Centralizada e com largura controlada.
+ * Atua como um "pop-up" de conteúdo técnico.
+ */
+export const Box = styled.div`
+  align-self: center;
+  min-width: 60%;
+  max-width: 95%;
+  background-color: #1a1b1e;
+  border-radius: 10px;
+  border: 1px solid #2c2e33;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  
+  @media (max-width: 768px) {
+    min-width: 100%;
+  }
+
+  ${Comment} {
+    margin-left: 0.5rem;
+  }
+
+  ${Prompt} {
+    margin-left: 0.5rem;
+  }
 `;
