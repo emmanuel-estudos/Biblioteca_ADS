@@ -51,11 +51,40 @@ Quando a instalação estiver concluída, aparecerá uma tela com a versão do U
 Se transforme o Super Usuário use os comandos a seguir.
 
 <Terminal>
-    <Abas>
-        <Aba active>Terminal</Aba>
-    </Abas>
-      <Comentario>// Comando de configuração</Comentario>
-      <Prompt>{""}</Prompt> 
+  <Abas>
+    <Aba active>Terminal</Aba>
+  </Abas>
+  <Comentario>// Transformação em SuperUsuário</Comentario>
+  <Prompt>{''}</Prompt> sudo su
+  <Prompt>{''}</Prompt> ads
+  <Prompt>{''}</Prompt> 654123
+
+  <Comentario>// Chegando o estado de atualização do sistema para garantir compatibilidade e segurança</Comentario>
+  <Prompt>{""}</Prompt> apt list --upgradeable
+  
+  <Comentario>// Instalando o Docker na VM</Comentario>
+  <Prompt>{""}</Prompt> apt install docker.io
+
+  <Comentario>// Baixando a imagem oficial do Ubuntu do Docker</Comentario>
+  <Prompt>{""}</Prompt> docker pull ubuntu
+  
+  <Comentario>// Listando os Containers da VM</Comentario>
+  <Prompt>{""}</Prompt> docker ps -a
+
+  <Comentario>// Criando e Ligando um container</Comentario>
+  <Prompt>{""}</Prompt> docker run -it ubuntu
+  
+  <Comentario>// O ID do Container serão os 2 primeiros caracteres </Comentario>
+  
+  <Comentario>// Saindo do Container</Comentario>
+  <Prompt>{""}</Prompt> exit
+
+  <Comentario>// Ligando o Docker para rodar em segundo plano</Comentario>
+  <Prompt>{""}</Prompt> docker start 'ID'; docker attach 'ID'
+
+  <Comentario>// Configuração de Serviços Internos</Comentario>
+  <Prompt>{""}</Prompt> apt update <Comentario>// Atualizando a lista de comando</Comentario>
+  <Prompt>{""}</Prompt> apt install apache2 <Comentario>// Instalando o apache2</Comentario>
 </Terminal>
 
 'apt list --upgradeable'. Baixe o docker usando 'apt install docker.io' e 'docker pull ubuntu' 'docker ps -a' 'docker run -it ubuntu' 'o ID no Docker são os 2 primeiros caracteres' 'exit' 'docker start \'ID\'' 'docker attach \'ID\''. instalando attach2: 'apt update' e 'apt install apache2'
@@ -71,30 +100,23 @@ npm install
 Esses certificados podem ser usados para a atividade 01, sem a necessidade de recriá-los. Para fazer isso, siga o passo a passo abaixo:
 
 <Terminal>
-    <Abas>
-        <Aba active>Docker</Aba>
-    </Abas>
-    <Comentario>// criando a pasta</Comentario>
-    <Prompt>{"root@24c166e57434:/var/www/html#"}</Prompt> mkdir atv1
-    <Comentario>// movendo todos os arquivos relacionados ao usuário para a pasta</Comentario>
-    <Prompt>{"root@24c166e57434:/var/www/html#"}</Prompt> mv djr.\* atv1
-    <Comentario>// verificando os arquivos existentes</Comentario>
-    <Prompt>{"root@24c166e57434:/var/www/html#"}</Prompt> ls
-    <Comentario>// resultado esperado</Comentario>
-    <Resultado>atv1 daladierjr.key daladierjr.pem index.html index.nginx-debian.html</Resultado>
-    
+  <Abas>
+    <Aba active>Docker</Aba>
+  </Abas>
+  <Comentario>// criando a pasta</Comentario>
+  <Prompt>{'root@24c166e57434:/var/www/html#'}</Prompt> mkdir atv1
+  <Comentario>// movendo todos os arquivos relacionados ao usuário para a pasta</Comentario>
+  <Prompt>{'root@24c166e57434:/var/www/html#'}</Prompt> mv djr.\* atv1
+  <Comentario>// verificando os arquivos existentes</Comentario>
+  <Prompt>{'root@24c166e57434:/var/www/html#'}</Prompt> ls
+  <Comentario>// resultado esperado</Comentario>
+  <Resultado>atv1 daladierjr.key daladierjr.pem index.html index.nginx-debian.html</Resultado>
 </Terminal>
 
-- (root@24c166e57434:/var/www/html#) mkdir atv1 // criando a pasta
-- (root@24c166e57434:/var/www/html#) mv djr.\* atv1 // movendo todos os arquivos relacionados ao usuário para a pasta
-- (root@24c166e57434:/var/www/html#) ls
-// resultado esperado
-atv1, daladierjr.key daladierjr.pem index.html index.nginx-debian.html
-
-(root@24c166e57434:/var/www/html#) openssl req -x509 -nodes -days 365 -newkey rsa:2048 -extensions v3_ca  -config /etc/ssl/openssl.cnf -keyout djr.kay -out djr.pem
+(root@24c166e57434:/var/www/html#) openssl req -x509 -nodes -days 365 -newkey rsa:2048 -extensions v3_ca -config /etc/ssl/openssl.cnf -keyout djr.kay -out djr.pem
 
 // escolha as opções para a criação do nome do domínio
 
 // nos arquivos a seguir, tire os parâmetros das linhas que iniciam com ""
 
-(root@24c166e57434:/var/www/html#) pico /etc/nginx/sites-enabled/www.djr.com 'www.djr.com.br' 'www.djr.net' 'www.djr.br' 
+(root@24c166e57434:/var/www/html#) pico /etc/nginx/sites-enabled/www.djr.com 'www.djr.com.br' 'www.djr.net' 'www.djr.br'

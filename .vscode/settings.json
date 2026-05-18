@@ -1,19 +1,33 @@
 {
+  // Configurações Específicas para JSON
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+
+  // Configurações GLOBAIS
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "editor.tabSize": 2,
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.tabSize": 4,
+  "editor.guides.indentation": true,
+  "editor.guides.highlightActiveIndentation": true,
+  "editor.detectIndentation": false,
+
+  "editor.quickSuggestions": {
+    "other": "on"
   },
-  "[mdx]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
+
+  // Configurações de Equivalência de Linguagens
   "emmet.includeLanguages": {
     "mdx": "typescriptreact"
   },
+
   "files.associations": {
-      "*.mdx": "markdown"
+    "*.mdx": "markdown"
   },
+
+  // Configurações Específicas para MARKDOWN
   "[markdown]": {
     "editor.quickSuggestions": {
       "other": "on",
@@ -22,9 +36,26 @@
     },
     "editor.snippetSuggestions": "top" // Joga os seus snippets para o topo da lista de sugestões
   },
+
   
-  // Ativa as sugestões rápidas de forma global caso o interpretador mude
-  "editor.quickSuggestions": {
-    "other": "on"
+  // Configurações Específicas para TYPESCRIPT - REACT
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+
+  // Configurações Específicas para JAVASCRIPT - REACT
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+
+  // Configurações Específicas para MDX
+  "[mdx]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
   }
 }
