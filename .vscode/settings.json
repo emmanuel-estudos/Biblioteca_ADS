@@ -10,9 +10,33 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.tabSize": 4,
-  "editor.guides.indentation": true,
   "editor.guides.highlightActiveIndentation": true,
   "editor.detectIndentation": false,
+
+    // Configurações para Linhas Verticais e Horizontais para cada Bloco de Código
+    "editor.bracketPairColorization.enabled": true,
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+    "editor.guides.bracketPairs": true,
+    "editor.guides.bracketPairsHorizontal": true,
+    "editor.guides.highlightActiveBracketPair": true,
+    "editor.guides.indentation": true,
+
+    // Customização de Cores (Transparência Segura de Fallback)
+    "workbench.colorCustomizations": {
+      "editorBracketPairGuide.activeBackground1": "#a1a1a135",
+      "editorBracketPairGuide.activeBackground2": "#a1a1a135",
+      "editorBracketPairGuide.activeBackground3": "#a1a1a135",
+      "editorBracketPairGuide.activeBackground4": "#a1a1a135",
+      "editorBracketPairGuide.activeBackground5": "#a1a1a135",
+      "editorBracketPairGuide.activeBackground6": "#a1a1a135",
+
+      "editorBracketPairGuide.background1": "#3b82f6ff",
+      "editorBracketPairGuide.background2": "#10b981ff",
+      "editorBracketPairGuide.background3": "#f59e0bff",
+      "editorBracketPairGuide.background4": "#ef4444ff",
+      "editorBracketPairGuide.background5": "#8b5cf6ff",
+      "editorBracketPairGuide.background6": "#ec4899ff",
+    },
 
   "editor.quickSuggestions": {
     "other": "on"
