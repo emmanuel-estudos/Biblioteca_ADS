@@ -1,2 +1,2 @@
-export * from './Custom'
-export * from './styles'
+export * from './Custom.ts'
+export * from './styles.ts'

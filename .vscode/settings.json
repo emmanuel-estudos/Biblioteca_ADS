@@ -9,33 +9,41 @@
   // Configurações GLOBAIS
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "editor.tabSize": 4,
+  "editor.tabSize": 2,
   "editor.guides.highlightActiveIndentation": true,
   "editor.detectIndentation": false,
 
     // Configurações para Linhas Verticais e Horizontais para cada Bloco de Código
     "editor.bracketPairColorization.enabled": true,
     "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
-    "editor.guides.bracketPairs": true,
+    "editor.guides.bracketPairs": "active",
     "editor.guides.bracketPairsHorizontal": true,
     "editor.guides.highlightActiveBracketPair": true,
     "editor.guides.indentation": true,
+    "editor.renderLineHighlight": "none", // tira o destaque da linha em que o cursor está
 
     // Customização de Cores (Transparência Segura de Fallback)
     "workbench.colorCustomizations": {
-      "editorBracketPairGuide.activeBackground1": "#a1a1a135",
-      "editorBracketPairGuide.activeBackground2": "#a1a1a135",
-      "editorBracketPairGuide.activeBackground3": "#a1a1a135",
-      "editorBracketPairGuide.activeBackground4": "#a1a1a135",
-      "editorBracketPairGuide.activeBackground5": "#a1a1a135",
-      "editorBracketPairGuide.activeBackground6": "#a1a1a135",
+      "editorBracketPairGuide.activeBackground1": "#ab7efdcc", // Roxo elétrico: Mantém a identidade principal do tema, criando uma linha de destaque perfeitamente integrada ao fundo.
+      "editorBracketPairGuide.activeBackground2": "#ffd866cc", // Amarelo Monokai: O clássico amarelo do Monokai. Excelente contraste com o roxo, ideal para a segunda camada de indentação.
+      "editorBracketPairGuide.activeBackground3": "#78e2e2cc", // Ciano Pastel: Um tom azul-esverdeado refrescante que quebra os tons quentes sem agredir a visão.
+      "editorBracketPairGuide.activeBackground4": "#ff6188cc", // Rosa Choque: Cor vibrante tradicional do Monokai para funções. Fica linda sobre o fundo roxo e indica níveis profundos.
+      "editorBracketPairGuide.activeBackground5": "#a9dc76cc", // Verde Oliva Suave: Um verde equilibrado que ajuda a rastrear blocos longos sem cansar os olhos em sessões longas.
+      "editorBracketPairGuide.activeBackground6": "#fc9867cc", // Laranja Tangerina: Tom quente que ajuda a fechar o ciclo de repetição (6º nível) com excelente legibilidade.
 
-      "editorBracketPairGuide.background1": "#3b82f6ff",
-      "editorBracketPairGuide.background2": "#10b981ff",
-      "editorBracketPairGuide.background3": "#f59e0bff",
-      "editorBracketPairGuide.background4": "#ef4444ff",
-      "editorBracketPairGuide.background5": "#8b5cf6ff",
-      "editorBracketPairGuide.background6": "#ec4899ff",
+      "editorBracketPairGuide.background1": "#ffffff15",
+      "editorBracketPairGuide.background2": "#ffffff15",
+      "editorBracketPairGuide.background3": "#ffffff15",
+      "editorBracketPairGuide.background4": "#ffffff15",
+      "editorBracketPairGuide.background5": "#ffffff15",
+      "editorBracketPairGuide.background6": "#ffffff15",
+
+      // Configurações para a Linha em que o cursor está
+        // Forçando ela a ficar transparente
+      "editor.lineHighlightBorder": "#00000000",
+      "editor.lineHighlightBackground": "#00000000",
+      "editorLineNumber.activeForeground": "#ab7efdff", // destaca a linha em que o cursor está
+      "editorLineNumber.foreground": "#5c5466aa", // deixa as demais linhas mais apagadas
     },
 
   "editor.quickSuggestions": {

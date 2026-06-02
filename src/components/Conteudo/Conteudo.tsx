@@ -6,7 +6,11 @@ import { ThemeProvider } from 'styled-components';
 import * as MDX from '../../components/MDX-Elements';
 import * as S from './styles';
 
-import { Breadcrumbs, TableOfContents } from '../../components';
+// Importação de Componentes Individualmente
+import { Breadcrumbs } from '../Breadcrumbs';
+import { TableOfContents } from '../TableOfContents';
+import { LinhaTerminal } from '../LinhaTerminal';
+
 
 const components = {
   h1: MDX.H1,
@@ -20,8 +24,8 @@ const components = {
   Aba: MDX.Tab,
   Code: MDX.CodeArea,
   Comentario: MDX.Comment,
-  Prompt: MDX.Prompt,
-  Resultado: MDX.Resultado
+  Resultado: MDX.Resultado,
+  Linha: LinhaTerminal
 };
 
 export const Conteudo = () => {

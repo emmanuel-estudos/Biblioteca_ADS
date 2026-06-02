@@ -8,20 +8,20 @@ export const TabsContainer = styled.div`
   border-bottom: 1px solid #2c2e33;
 `;
 
-export const Tab = styled.button<{ active?: boolean }>`
-  background: ${props => props.active ? '#1a1b1e' : 'transparent'};
-  color: ${props => props.active ? props.theme.corSecundaria : '#909296'};
+export const Tab = styled.button<{ $active?: boolean }>`
+  background: ${props => props.$active ? '#1a1b1e' : 'transparent'};
+  color: ${props => props.$active ? props.theme.corSecundaria : '#909296'};
   padding: 8px 16px;
   border: none;
   border-radius: 6px 6px 0 0;
   cursor: pointer;
   font-size: 0.85rem;
-  font-weight: ${props => props.active ? '600' : '400'};
-  border-bottom: 2px solid ${props => props.active ? props.theme.corSecundaria : 'transparent'};
+  font-weight: ${props => props.$active ? '600' : '400'};
+  border-bottom: 2px solid ${props => props.$active ? props.theme.corSecundaria : 'transparent'};
   transition: all 0.2s ease;
 
   &:hover {
-    color: ${props => !props.active && '#c1c2c5'};
+    color: ${props => !props.$active && '#c1c2c5'};
   }
 `;
 
@@ -40,9 +40,14 @@ export const CodeArea = styled.div`
   display: flex;
   flex-direction: column; /* Empilha os elementos verticalmente */
   gap: 4px; /* Controla a distância exata entre as linhas */
-  
-  /* Permite que o texto dentro dele ainda possa ser selecionado 
-     e copiado como código, mas ignora os "Enters" do teclado no MDX */
+  align-items: flex-start; /* Garante que tudo alinhe estritamente à esquerda */
+
+  /* Neutraliza parágrafos fantasmas que o parser do MDX possa injetar */
+  p {
+    margin: 0;
+    padding: 0;
+    display: contents;
+  }
 `;
 
 /**
@@ -60,20 +65,6 @@ export const Comment = styled.span`
   margin: 0;
   padding: 0;
   display: block;
-`;
-
-export const Prompt = styled.span`
-  color: ${props => props.theme.corSecundaria}; 
-  font-weight: bold;
-  user-select: none;
-  white-space: nowrap;
-
-`;
-
-export const Resultado = styled.span`
-  color: ${props => props.theme.corPrimaria};
-  filter: brightness(1);
-  margin-left: 1rem;
 `;
 
 /**
@@ -100,8 +91,10 @@ export const Box = styled.div`
   ${Comment} {
     margin-left: 0.5rem;
   }
+`;
 
-  ${Prompt} {
-    margin-left: 0.5rem;
-  }
+export const Resultado = styled.span`
+  color: ${props => props.theme.corPrimaria};
+  filter: brightness(1);
+  margin-left: 1rem;
 `;

@@ -8,6 +8,8 @@
     "csstools.postcss",
     "styled-components.vscode-styled-components",
     "steoates.autoimport",
-    "codegyan.auto-closing-tags"
+    "codegyan.auto-closing-tags",
+    "formulahendry.auto-complete-tag",
+    "usernamehw.errorlens"
   ]
 }

@@ -1,0 +1,80 @@
+# Configurando Ambiente - Atividade 02
+
+## Como conseguir as VMs?
+
+Daladier vai passar um HD externo durante a aula para que as VMs necessárias sejam copiadas.
+
+## Configurações de Rede das VMs 'Mininet'
+
+Clique com o botão direito em cada VM, depois em configurações. Selecione o modo **Expert**, vá no tópico de **Rede** e troque o campo `Ligado a` e troque para "host-only" para todas as VMs nos primeiros adaptadores.
+
+A Mininet3 deverá ser trocada para "host-only" nos dois primeiros adaptadores.
+
+## Iniciando a Mininet3
+
+Faça login na VM usando as credenciais abaixo:
+
+<Terminal>
+  <Abas>
+    <Aba active></Aba>
+  </Abas>
+  <Code>
+    <Comentario>// Login</Comentario>
+    <Linha texto="mininet-vm login:">mininet</Linha>
+    <Linha texto="Password:">mininet</Linha>
+
+    <Comentario>// Iniciando a interface gráfica</Comentario>
+    <Linha texto="mininet@mininet-vm:~$">startx</Linha>
+  </Code>
+</Terminal>
+
+Já dentro da interface gráfica, vá no menu inicial (primeiro ícone), depois em **Accessories** e em **LXTerminal**.
+
+Dentro do **LXTerminal**, vá em `File` e em `New Tab`. Crie 3 abas, cada uma para uma VM. "Mininet1", "Mininet2" e "Mininet3".
+
+<Terminal>
+  <Abas>
+    <Aba>Mininet1</Aba>
+    <Aba>Mininet2</Aba>
+    <Aba active>Mininet3</Aba>
+  </Abas>
+  <Code>
+    <Linha texto="mininet@mininet-vm:~$">teste</Linha>
+    <Linha texto="mininet@mininet-vm:~$">teste</Linha>
+    <Linha texto="mininet@mininet-vm:~$">segunda linha</Linha>
+  </Code>
+</Terminal>
+
+## Configurando Rotas
+
+Dentro da Mininet3, depois da criação das abas, vamos configurar para que cada uma seja a porta de comunicação para as outras VMs.
+
+<Terminal>
+  <Abas>
+    <Aba active>Mininet1</Aba>
+    <Aba>Mininet2</Aba>
+    <Aba>Mininet3</Aba>
+  </Abas>
+  <Code>
+    <Linha texto="mininet@mininet-vm:~$">sudo su</Linha>
+    <Linha texto="root@mininet-vm:/home/mininet#">ssh mininet@192.168.1.10</Linha>
+    <Linha texto="mininet@192.168.1.10's password:">mininet</Linha>
+    <Linha texto="mininet@mininet-vm:~S">sudo su</Linha>
+    <Linha texto="root@mininet-vm:/home/mininet#">route add -net 192.168.2.0 netmask 255.255.255.0 gw 192.168.1.1</Linha>
+  </Code>
+</Terminal>
+
+<Terminal>
+  <Abas>
+    <Aba>Mininet1</Aba>
+    <Aba active>Mininet2</Aba>
+    <Aba>Mininet3</Aba>
+  </Abas>
+  <Code>
+    <Linha texto="mininet@mininet-vm:~$">sudo su</Linha>
+    <Linha texto="root@mininet-vm:/home/mininet#">ssh mininet@192.168.2.20</Linha>
+    <Linha texto="mininet@192.168.2.20's password:">mininet</Linha>
+    <Linha texto="mininet@mininet-vm:~S">sudo su</Linha>
+    <Linha texto="root@mininet-vm:/home/mininet#">route add -net 192.168.1.0 netmask 255.255.255.0 gw 192.168.2.1</Linha>
+  </Code>
+</Terminal>
