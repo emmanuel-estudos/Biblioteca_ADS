@@ -9,7 +9,7 @@ export const TableOfContents = () => {
 
   useEffect(() => {
     const parseHeadings = () => {
-      const elements = Array.from(document.querySelectorAll('article h2, article h3'))
+      const elements = Array.from(document.querySelectorAll('article h1, article h2, article h3'))
         .map((elem) => {
           const text = elem.textContent || '';
           const id = elem.id || text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
@@ -18,21 +18,21 @@ export const TableOfContents = () => {
         });
       setHeadings(elements);
     };
-
+    
     const timer = setTimeout(parseHeadings, 150);
     return () => clearTimeout(timer);
   }, [slug]);
-
+  
   if (headings.length === 0) return null;
-
+  
   return (
     <S.TocContainer $isOpen={isOpen}>
       <S.ToggleButton onClick={() => setIsOpen(!isOpen)}>
         {isOpen ? '‹' : '☰'} 
       </S.ToggleButton>
-
+      
       <S.TocWrapper $isOpen={isOpen}>
-        <S.TocTitle>Nesta aula</S.TocTitle>
+        <S.TocTitle>Tópicos</S.TocTitle>
         <S.TocList>
           {headings.map((h) => (
             <S.TocLink 

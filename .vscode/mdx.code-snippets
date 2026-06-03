@@ -22,7 +22,6 @@
         ],
         "description": "Insere um comentádio, específico para a estrutura do Terminal_MDX"
     },
-
     "Comando dentro do MDX_Terminal": {
         "prefix": "/comando_terminal",
         "body": [

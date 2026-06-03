@@ -12,7 +12,6 @@ export const TocContainer = styled.div<TocProps>`
   z-index: 100;
   display: flex;
   align-items: flex-start;
-  /* O container não tem largura fixa para não bloquear cliques no fundo */
 `;
 
 export const ToggleButton = styled.button`
@@ -71,11 +70,34 @@ export const TocList = styled.div`
 `;
 
 export const TocLink = styled.a<{ $level: number }>`
-  color: #888;
   text-decoration: none;
   font-size: 0.85rem;
-  padding-left: ${props => (props.$level > 2 ? '1rem' : '0')};
-  transition: color 0.2s;
+  transition: all 0.2s ease-in-out;
+  width: fit-content; /* Garante que o sublinhado do H1 ocupe apenas o tamanho do texto */
+
+  // 1. Definição de Cores e Pesos baseado no nível do título
+  color: ${props => (props.$level === 1 ? '#ffffff' : '#888888')};
+  font-weight: ${props => (props.$level === 1 ? '600' : '400')};
+
+  // 2. Hierarquia de Recuo (H1 encostado na esquerda, H2 um pouco pra frente, H3 mais recuado)
+  padding-left: ${props => {
+    if (props.$level === 3) return '1.25rem';
+    if (props.$level === 2) return '0.6rem';
+    return '0'; // Para o H1
+  }};
+
+  // 3. Estilização exclusiva para os títulos principais (H1)
+  ${props => props.$level === 1 && `
+    border-bottom: 2px solid ${props.theme.corSecundaria};
+    padding-bottom: 0.15rem;
+    margin-top: 0.4rem;
+    margin-bottom: 0.15rem;
+  `}
+
+  /* Remove o espaçamento do topo se o primeiro item da lista for um H1 */
+  &:first-child {
+    margin-top: 0;
+  }
 
   &:hover {
     color: ${props => props.theme.corSecundaria};
