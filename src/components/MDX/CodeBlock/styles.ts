@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const CodeBlock = styled.code`
   background-color: #27272a;
-  color: #f43f5e;
+  color: ${props => props.theme.corPrimaria};
   padding: 0.2rem 0.4rem;
   border-radius: 6px;
   font-family: 'Fira Code', monospace;

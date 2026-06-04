@@ -10,6 +10,7 @@
     "steoates.autoimport",
     "codegyan.auto-closing-tags",
     "formulahendry.auto-complete-tag",
-    "usernamehw.errorlens"
+    "usernamehw.errorlens",
+    "IBM.output-colorizer"
   ]
 }

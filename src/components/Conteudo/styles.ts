@@ -11,6 +11,8 @@ export const PageContainer = styled.main`
   gap: 4rem; /* Espaço seguro entre o Sumário flutuante e o Artigo */
   padding: 2rem;
   position: relative;
+
+	zoom: 0.8;
 `;
 
 // Conteúdo dos Arquivos Renderizados

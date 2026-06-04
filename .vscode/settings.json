@@ -52,11 +52,11 @@
 
   // Configurações de Equivalência de Linguagens
   "emmet.includeLanguages": {
-    "mdx": "typescriptreact"
+    "*.mdx": "typescriptreact"
   },
 
   "files.associations": {
-    "*.mdx": "markdown"
+    "*.mdx": "typescriptreact"
   },
 
   // Configurações Específicas para MARKDOWN

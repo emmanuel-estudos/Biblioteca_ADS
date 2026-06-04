@@ -1,10 +1,15 @@
 import styled from 'styled-components';
+import { BaseTitulo } from '../EstilosGerais';
 
 export const H2 = styled.h2`
+	/* Injetando regras gerais para títulos do arquivo 'EstilosGerais.ts' */
+	${BaseTitulo}
+
+	/* Configurações para Contadores das Sub-Seções */
   counter-increment: h2counter;
   counter-reset: h3counter;
-  gap: 7px;
-
+  
+	gap: 7px;
   color: ${props => props.theme.corPrimaria};
   background: linear-gradient(90deg, ${props => props.theme.corSecundaria} 30%, transparent 90%);
   border-left: 4px solid ${props => props.theme.corPrimaria};

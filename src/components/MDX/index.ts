@@ -9,7 +9,7 @@ import { TabsContainer } from './ContainerAbasTerminal';
 import { AbaTerminal } from './AbaTerminal';
 import { CodeArea } from './CodeArea';
 import { Comment } from './Comentario';
-import { Resultado } from './Resultado/styles';
+import { Resultado } from './Resultado';
 import { LinhaTerminal } from './LinhaTerminal';
 
 export const MDX = {

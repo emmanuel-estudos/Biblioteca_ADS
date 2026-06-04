@@ -1,8 +1,8 @@
 export const config = {
     nome: "Segurança de Dados",
     periodo: "5º Período",
-    corPrimaria: "#e11d48", 
-    corSecundaria: "#4c0519",
+    corPrimaria: '#06b6d4',
+  corSecundaria: '#0369a1',
     
     // Mapeamento para nomes amigáveis
     assuntos: {

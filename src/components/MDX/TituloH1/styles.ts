@@ -1,7 +1,11 @@
 import styled from 'styled-components';
+import { BaseTitulo } from '../EstilosGerais';
 
 export const H1 = styled.h1`
-  /* Reinicia os contadores para as sub-seções */
+	/* Injetando regras gerais para títulos do arquivo 'EstilosGerais.ts' */
+	${BaseTitulo}
+
+  /* Configurações para Contadores das Sub-Seções */
   counter-increment: h1counter;
   counter-reset: h2counter;
 	
