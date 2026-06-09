@@ -6,11 +6,15 @@ import { Strong } from './Negrito';
 import { CodeBlock } from './CodeBlock';
 import { Box } from './Terminal';
 import { TabsContainer } from './ContainerAbasTerminal';
+import { Imagem } from './Imagem'
+import { ItemListaNaoOrdenada } from './ItemListaNaoOrdenada';
+import { LinhaTerminal } from './LinhaTerminal';
+import { ListaNaoOrdenada } from './ListaNaoOrdenada';
 import { AbaTerminal } from './AbaTerminal';
 import { CodeArea } from './CodeArea';
 import { Comment } from './Comentario';
 import { Resultado } from './Resultado';
-import { LinhaTerminal } from './LinhaTerminal';
+
 
 export const MDX = {
   TituloH1,
@@ -25,5 +29,8 @@ export const MDX = {
   CodeArea,
   Comment,
   Resultado,
-	LinhaTerminal
+	LinhaTerminal,
+	ItemListaNaoOrdenada,
+	ListaNaoOrdenada,
+	Imagem
 };

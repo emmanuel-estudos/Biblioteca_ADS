@@ -9,7 +9,6 @@ import * as S from './styles';
 // Importação de Componentes Individualmente
 import { Breadcrumbs } from '../Breadcrumbs';
 import { TableOfContents } from '../TableOfContents';
-import { LinhaTerminal } from '../MDX/LinhaTerminal';
 
 const components = {
   h1: MDX.TituloH1,
@@ -18,13 +17,17 @@ const components = {
   p: MDX.Paragraph,
   strong: MDX.Strong,
   code: MDX.CodeBlock,
+  ol: MDX.ListaNaoOrdenada,
+  ul: MDX.ListaNaoOrdenada,
+  li: MDX.ItemListaNaoOrdenada,
+  img: MDX.Imagem,
   Terminal: MDX.Box,
   Abas: MDX.TabsContainer,
   Aba: MDX.AbaTerminal,
   Code: MDX.CodeArea,
   Comentario: MDX.Comment,
   Resultado: MDX.Resultado,
-  Linha: LinhaTerminal,
+  Linha: MDX.LinhaTerminal,
 };
 
 export const Conteudo = () => {
