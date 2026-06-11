@@ -1,0 +1,10 @@
+# Conceitos de Hardware - Parte 05
+
+## Resumo Básico
+
+Descreve a estrutura interna do Sistema Operacional (SO) e suas diferentes arquiteturas. Um SO não é um bloco único, sendo composto pelo Núcleo, Drivers, Código de inicialização e Utilitários. São apresentadas as quatro principais arquiteturas de núcleo:
+
+1. Monolíticos: Todos os componentes operam no modo núcleo, oferecendo alto desempenho, mas menor robustez, pois um erro pode colapsar o sistema.
+2. Em Camadas: Organizado em níveis de abstração crescentes, facilitando a depuração, porém com perda de desempenho devido ao empilhamento.
+3. Micronúcleo (μ-kernel): Apenas funções básicas ficam no núcleo; serviços rodam no espaço de usuário, garantindo maior robustez e flexibilidade, apesar do alto custo de troca de mensagens.
+4. Híbridos: Uma abordagem intermediária (como no Windows) que traz componentes críticos de volta ao núcleo para melhorar o desempenho.

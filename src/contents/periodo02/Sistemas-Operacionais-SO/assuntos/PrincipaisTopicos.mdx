@@ -1,0 +1,68 @@
+# Resumo
+
+## Conceito Geral (A Integração Hardware-SO)
+O conceito central destes materiais é que o **hardware e o sistema operacional são interdependentes**. O hardware fornece as capacidades físicas brutas, enquanto o SO atua como o gerente que utiliza esses recursos de forma segura e eficiente, escondendo a complexidade técnica das aplicações.
+
+---
+
+## Principais Conceitos e Definições
+
+### 1. Arquiteturas de Computador (Arquivo 04)
+
+* **Arquitetura de Von Neumann:** Modelo onde uma **única região de memória** armazena tanto dados quanto instruções. É simples e flexível, mas pode gerar um "gargalo" de desempenho no barramento único.
+* **Arquitetura de Harvard:** Utiliza **duas regiões de memória distintas** (e barramentos separados) para instruções e para dados. Isso permite que o processador acesse ambos simultaneamente, aumentando o desempenho.
+* **Barramentos:** Canais de comunicação que interligam os dispositivos (CPU, memória, I/O). Dividem-se em:
+    * **Controle:** Trafega sinais de comando (leitura, escrita, clock).
+    * **Endereços:** Indica a origem ou o destino da informação (a largura define quanta memória o sistema pode endereçar).
+    * **Dados:** Transporta a informação real entre os componentes.
+
+### 2. Processamento e Memória (Arquivo 05)
+
+* **Unidade de Controle (UC):** O coordenador da CPU que busca, decodifica e organiza a execução das instruções.
+* **ULA (Unidade Lógica e Aritmética):** Realiza os cálculos matemáticos e operações lógicas (AND, OR, etc.).
+* **Registradores:** Pequenas memórias de altíssima velocidade dentro da CPU para armazenamento temporário. Destaque para o **Contador de Programa** (aponta a próxima instrução) e o **Registrador de Instrução** (guarda a instrução atual).
+* **MMU (Unidade de Gerenciamento de Memória):** Dispositivo de hardware que **converte endereços lógicos (das apps) em endereços físicos (na RAM)** e garante que uma aplicação não acesse a memória de outra.
+
+### 3. Técnicas de Entrada e Saída (Arquivo 05)
+
+* **E/S Programada:** A CPU envia um comando e fica **esperando** o dispositivo terminar, o que desperdiça tempo de processamento.
+* **E/S Dirigida por Interrupção:** A CPU inicia a operação e volta a fazer outras tarefas; o dispositivo avisa quando terminar.
+* **DMA (Acesso Direto à Memória):** Um chip específico controla a transferência de dados entre periférico e memória **sem intervenção da CPU**, liberando o processador para tarefas mais complexas.
+
+### 4. Interrupções e Exceções (Arquivo 06)
+
+* **Interrupção (IRQ):** Sinal enviado por um hardware para a CPU avisando sobre um evento (ex: clique do mouse). A CPU suspende o que está fazendo, salva o contexto e executa uma **Rotina de Tratamento (Interrupt Handler)**.
+* **Exceção:** Desvio de fluxo gerado pela própria CPU devido a **erros de software** (ex: divisão por zero ou acesso proibido à memória).
+* **IVT/IDT:** Tabelas que mapeiam cada interrupção ao seu respectivo tratador.
+
+### 5. Proteção e Chamadas de Sistema (Arquivo 07)
+
+* **Modo Núcleo (Kernel Mode):** Nível de privilégio total, restrito ao SO, onde todas as instruções e hardwares são acessíveis.
+* **Modo Usuário (User Mode):** Nível limitado onde rodam os aplicativos; qualquer tentativa de acesso direto ao hardware gera uma exceção.
+* **Chamada de Sistema (System Call):** Interface que permite a uma aplicação solicitar serviços ao núcleo (ex: ler um arquivo).
+* **Trap:** Instrução especial (interrupção de software) usada para mudar do Modo Usuário para o Modo Núcleo de forma controlada.
+
+### 6. Arquiteturas de Núcleo (Arquivo 08)
+
+* **Monolítico:** Todo o sistema operacional roda no modo núcleo. É rápido, mas menos robusto (um erro em um driver pode derrubar o sistema).
+* **Micronúcleo ($\mu$-kernel):** Apenas o essencial fica no núcleo; drivers e serviços rodam no espaço de usuário. É muito robusto e flexível, mas pode ser lento devido à troca de mensagens.
+* **Híbrido:** Traz componentes críticos de volta ao núcleo para equilibrar desempenho e estabilidade (ex: Windows).
+
+---
+
+## Principais Informações e Importância para o SO
+
+1. **Por que o Clock é importante?** Ele sincroniza a comunicação entre os dispositivos e determina a velocidade de operação da CPU e dos barramentos.
+2. **Por que as System Calls são vitais?** Elas são a única "porta de entrada" segura para o hardware. Sem elas, os aplicativos não poderiam ler arquivos ou enviar dados pela rede sem colocar o sistema em risco.
+3. **Qual o papel dos Drivers?** São módulos que ensinam o núcleo do SO a conversar com hardwares específicos. Muitas vezes são feitos pelo fabricante do dispositivo.
+4. **Importância do Salvamento de Contexto:** Quando ocorre uma interrupção, o SO salva o estado da CPU (registradores e flags) para que o programa interrompido possa continuar exatamente de onde parou após o tratamento.
+
+---
+
+## Resumo para a Prova (Checklist)
+
+* **Arquitetura:** Von Neumann (Memória única) vs Harvard (Memória separada).
+* **Segurança:** MMU (Isolamento de memória) e Níveis de Privilégio (Usuário vs Núcleo).
+* **Eficiência:** DMA (I/O sem CPU) e Interrupções (Multitarefa).
+* **Comunicação:** System Calls via instrução Trap.
+* **Estrutura:** Monolítico (Desempenho) vs Micronúcleo (Robustez).

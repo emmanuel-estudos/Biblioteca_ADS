@@ -1,0 +1,47 @@
+import { Imagem } from '../../../../components/MDX/Imagem'
+import Esquematizacao_Arquitetura_Harvard from '../assets/SO-Sistemas_Operacionais-Arquitetura_de_Harvard.jpeg'
+
+# Conceitos de Hardware
+
+A interação entre o sistema operacional e o _hardware_ da máquina serve para que as aplicações tenham acesso aos serviços oferecidos pelo dispositivo.
+
+Precisamos entender o que compõe o _hardware_ de um sistema computacional e como esses dispositivos são acessados.
+
+## Breve Resumo
+
+Este documento foca na estrutura básica de um sistema computacional e na comunicação interna entre seus componentes. O hardware típico é composto pelo processador (CPU), memória e dispositivos de entrada/saída (E/S). São apresentadas as duas arquiteturas principais de computadores: a de Harvard, que utiliza memórias e barramentos distintos para instruções e dados, visando desempenho e segurança, e a de Von Neumann, que utiliza uma única memória para ambos, priorizando a simplicidade de projeto e flexibilidade. O arquivo detalha os barramentos como canais de comunicação divididos em três tipos: Controle (sinais de comando), Endereços (origem/destino) e Dados (informação trafegada). Além disso, explica o papel do Clock como sinal digital que sincroniza a comunicação e determina a frequência de operação da CPU.
+
+## Composição de Hardware Típico
+
+O hardware de um sistema de computador típico é composto de:
+
+- ``Processador`` (execução das instruções das aplicações)
+- ``Memória`` (armazenamento das aplicações em execução)
+- ``Dispositivos`` de Entrada/Saída (armazenamento de dados e comunicação com o mundo externo)
+
+## Arquitetura de um Computador
+
+O hardware de um sistema de computador foi pensado seguindo duas arquiteturas diferentes:
+
+- Arquitetura de Harvard
+- Arquitetura de Von Neumann
+
+## Arquitetura de Harvard
+
+Duas regiões de memória distintas são utilizadas, uma para os programas (instruções) e outra para os dados acessados pelos programas.
+
+Essa separação permite que o processador acesse os dois tipos de memória simultaneamente e de forma mais eficiente.
+
+<Imagem src={Esquematizacao_Arquitetura_Harvard} alt="Esquematicação da Arquitetura de Harvard" />
+
+### Vantagens
+
+- ``Busca e execução Simultânea de Instruções e Dados``: permite um aumento de desempenho em determinadas situações;
+- ``Maior largura de banda de memória``: instruções e dados possuem barramentos distintos;
+- ``Segurança Aprimorada``: A separação física entre instruções e dados pode contribuir para uma segurança aprimorada, pois dificulta certos tipos de ataques, como ataques de injeção de código.
+
+### Desvantagens
+
+- ``Complexidade de projeto``: a separação física de barramentos de instruções e dados pode tornar o projeto de hardware mais complexo;
+- ``Custo``: os dispositivos que utilizam arquitetura Harvard podem ser mais caros de produzir devido à complexidade adicional do hardware;
+- ``Uso ineficiente de recursos``: pode haver uma utilização ineficiente de recursos, especialmente se as instruções e os dados não forem acessados em taxas balanceadas;

@@ -1,0 +1,5 @@
+# Conceitos de Hardware - Parte 03
+
+## Resumo Básico
+
+O foco central deste documento são as interrupções e exceções. As interrupções (IRQ) permitem que o processador execute outras tarefas enquanto operações de E/S ocorrem, aumentando a eficiência. Quando ocorre uma interrupção, o fluxo atual é suspenso, o contexto (registradores e flags) é salvo e a execução desvia para um Interrupt Handler (rotina de tratamento) mapeado na Tabela Vetor de Interrupções (IVT) ou na IDT. O arquivo diferencia interrupções sequenciais (desabilitadas durante o processamento) de interrupções por prioridade. Também são explicadas as exceções, que são desvios gerados pela própria CPU devido a erros de software, como divisão por zero ou acesso não autorizado à memória.

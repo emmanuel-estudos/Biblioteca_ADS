@@ -1,0 +1,5 @@
+# Conceitos de Hardware - Parte 04
+
+## Resumo Básico
+
+Este arquivo aborda os mecanismos de segurança e a interface entre aplicações e o núcleo do sistema. Para garantir a integridade, o hardware oferece níveis de privilégio: o Modo Núcleo (acesso total aos recursos, restrito ao kernel e drivers) e o Modo Usuário (acesso limitado, onde instruções proibidas geram exceções). A comunicação segura entre esses modos ocorre via Chamadas de Sistema (System Calls), que utilizam instruções de "armadilha" (trap) para alternar do modo usuário para o modo núcleo. O documento detalha os passos técnicos de uma system call (como a função read), que envolvem o empilhamento de parâmetros e a execução do tratador no núcleo. As chamadas são organizadas em áreas como gestão de processos, memória, arquivos e dispositivos.
