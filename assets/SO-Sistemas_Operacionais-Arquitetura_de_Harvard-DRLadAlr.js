@@ -1,1 +1,0 @@
-var e=`/Biclioteca_ADS/assets/SO-Sistemas_Operacionais-Arquitetura_de_Harvard-BXZVttHd.jpeg`;export{e as default};
