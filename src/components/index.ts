@@ -1,4 +1,3 @@
-export * from './AtividadeDetalhe';
 export * from './Breadcrumbs';
 export * from './Conteudo';
 export * from './Gabarito';

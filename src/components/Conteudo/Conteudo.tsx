@@ -6,7 +6,6 @@ import { ThemeProvider } from 'styled-components';
 import { MDX } from '../MDX';
 import * as S from './styles';
 
-// Importação de Componentes Individualmente
 import { Breadcrumbs } from '../Breadcrumbs';
 import { TableOfContents } from '../TableOfContents';
 
@@ -31,7 +30,14 @@ const components = {
 };
 
 export const Conteudo = () => {
-  const { periodo, materia, slug } = useParams();
+  // Captura também o parâmetro ':atividade' caso venha da rota de atividades
+  const { periodo, materia, atividade, slug } = useParams<{
+    periodo: string;
+    materia: string;
+    atividade?: string; // Opcional, pois na aba assuntos ele não existirá
+    slug: string;
+  }>();
+
   const [MDXComponent, setMDXComponent] = useState<ComponentType | null>(null);
   const [tituloAula, setTituloAula] = useState<string>('');
 
@@ -41,6 +47,7 @@ export const Conteudo = () => {
     corSecundaria: '#3498db',
     periodo: '',
     assuntos: {} as Record<string, string>,
+    atividades: {} as Record<string, string>,
   });
 
   const todosArquivos = import.meta.glob('/src/contents/**/*.mdx');
@@ -62,30 +69,47 @@ export const Conteudo = () => {
           config: typeof temaMateria;
         };
         const configData = modConfig.config;
-
         setTemaMateria(configData);
 
-        // Define o título amigável baseado no slug atual
-        if (slug && configData.assuntos) {
-          const nomeAmigavel = configData.assuntos[slug] || slug;
+        // 2. Definir o título amigável com fallback inteligente
+        if (slug) {
+          let nomeAmigavel = slug.replace(/[-_]/g, ' '); // Fallback padrão
+          
+          if (atividade) {
+            // Se for uma atividade, você pode opcionalmente mapear o arquivo interno no config.ts 
+            // ou deixar o fallback de cima limpar os hífens automaticamente
+            nomeAmigavel = configData.atividades?.[slug] || nomeAmigavel;
+          } else if (configData.assuntos) {
+            // Se for um assunto, busca no catálogo padrão
+            nomeAmigavel = configData.assuntos[slug] || nomeAmigavel;
+          }
+
           setTituloAula(nomeAmigavel);
           document.title = `${nomeAmigavel} | Biblioteca ADS`;
         }
       }
 
-      // 2. Carregar o Arquivo MDX
+      // 3. Carregar o Arquivo MDX com Filtro Dinâmico de Escopo
       const caminhosMDX = Object.keys(todosArquivos);
       const caminhoReal = caminhosMDX.find((path) => {
-        const nomeArquivo = path
-          .split('/')
-          .pop()
-          ?.replace('.mdx', '')
-          .toLowerCase();
-        return (
-          path.toLowerCase().includes(`/${pastaPeriodo}/`) &&
-          path.toLowerCase().includes(`/${materiaLower}/`) &&
-          nomeArquivo === slug?.toLowerCase()
-        );
+        const pathLower = path.toLowerCase();
+        const nomeArquivo = path.split('/').pop()?.replace('.mdx', '').toLowerCase();
+
+        const pertenceAMateria = 
+          pathLower.includes(`/${pastaPeriodo}/`) && 
+          pathLower.includes(`/${materiaLower}/`);
+        
+        const nomeIdentico = nomeArquivo === slug?.toLowerCase();
+
+        if (!pertenceAMateria || !nomeIdentico) return false;
+
+        // SE existir o parâmetro 'atividade' na URL, força a busca na subpasta de atividades
+        if (atividade) {
+          return pathLower.includes(`/atividades/${atividade.toLowerCase()}/`);
+        }
+
+        // CASO CONTRÁRIO, força a busca estritamente na pasta de assuntos
+        return pathLower.includes('/assuntos/');
       });
 
       if (caminhoReal) {
@@ -99,18 +123,16 @@ export const Conteudo = () => {
     };
 
     carregarTudo();
-  }, [periodo, materia, slug, todosArquivos, todasConfigs]);
+  }, [periodo, materia, atividade, slug, todosArquivos, todasConfigs]);
 
   return (
     <ThemeProvider theme={temaMateria}>
-      {/* Passamos o título da aula para o Breadcrumbs exibir o nome bonito */}
       <Breadcrumbs aulaAtual={tituloAula} />
 
       <S.PageContainer>
         {MDXComponent ? (
           <>
             <TableOfContents />
-
             <S.ArticleWrapper>
               <MDXProvider components={components}>
                 <MDXComponent />
@@ -118,7 +140,9 @@ export const Conteudo = () => {
             </S.ArticleWrapper>
           </>
         ) : (
-          <p>Carregando conteúdo ou arquivo não encontrado...</p>
+          <p style={{ color: '#64748b', textAlign: 'center', marginTop: '4rem' }}>
+            Carregando conteúdo ou arquivo .mdx não encontrado...
+          </p>
         )}
       </S.PageContainer>
     </ThemeProvider>

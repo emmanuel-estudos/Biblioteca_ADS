@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Home, Periodo, Materia } from './pages';
-import { Conteudo, AtividadeDetalhe } from './components';
+import { Home, Periodo, Materia, Atividades } from './pages';
+import { Conteudo } from './components';
 
 function App() {
   return (
@@ -10,7 +10,8 @@ function App() {
         <Route path="/:periodo" element={<Periodo />} />
         <Route path="/:periodo/:materia" element={<Materia />} />
         <Route path="/:periodo/:materia/assuntos/:slug" element={<Conteudo />} />
-        <Route path="/:periodo/:materia/atividades/:pasta" element={<AtividadeDetalhe />} />
+        <Route path="/:periodo/:materia/atividades/:atividade" element={<Atividades />} />
+        <Route path="/:periodo/:materia/atividades/:atividade/:slug" element={<Conteudo />} />
       </Routes>
     </BrowserRouter>
   );

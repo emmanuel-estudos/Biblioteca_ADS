@@ -4,7 +4,7 @@ export const config = {
     corPrimaria: '#06b6d4',
   corSecundaria: '#0369a1',
     
-	// Mapeamento para nomes amigáveis
+	// Mapeamento para arquivos da aba 'Assuntos' (Materia.tsx)
 	assuntos: {
 		"Configuracao-Ambiente-Atividade02--End-Points": "Configuração Atividade 02: End Points",
 
@@ -16,5 +16,10 @@ export const config = {
 		"Topico-07--ConfigurandoVMs": "Tópico 07: Configurando VMs",
 		"Topico-08--Criptografia": "Tópico 08: Fundamentos de Criptografia",
 		// Adicione os próximos arquivos conforme forem criados
+	},
+	// Mapeamento para aba de 'Atividades' (Materia.tsx)
+	atividades: {
+		"Atividade01": "Atividade 01",
+		"Atividade02": "Atividade 02: Mininet"
 	}
 };

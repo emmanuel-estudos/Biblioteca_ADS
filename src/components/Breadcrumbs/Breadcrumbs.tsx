@@ -2,57 +2,75 @@ import { Link, useLocation } from 'react-router-dom';
 import * as s from './styles';
 import { TRADUCAO_NOMES } from '../../utils/traducoes';
 
-// Definimos a interface para receber o nome vindo do config.ts via Conteudo.tsx
 interface BreadcrumbsProps {
   aulaAtual?: string;
+  abaAtiva?: 'assuntos' | 'atividades'; // Nova propriedade para saber qual aba está aberta na Matéria
 }
 
-export const Breadcrumbs = ({ aulaAtual }: BreadcrumbsProps) => {
+export const Breadcrumbs = ({ aulaAtual, abaAtiva }: BreadcrumbsProps) => {
   const location = useLocation();
   const pathnames = location.pathname.split('/').filter((x) => x);
 
-  // Função para formatar o texto (Ex: 5-periodo -> 5º Período)
   const formatarLabel = (texto: string) => {
-    // 1. Verifica se é período
     if (texto.includes('-periodo')) {
       const numero = texto.split('-')[0];
       return `${numero}º Período`;
     }
 
-    // 2. Verifica se existe tradução pré-definida no arquivo de traduções global
     if (TRADUCAO_NOMES[texto]) return TRADUCAO_NOMES[texto];
 
-    // 3. Formatação geral (fallback)
     return texto
       .replace(/-/g, ' ')
       .replace(/([a-zA-Z])(\d)/g, '$1 $2')
       .replace(/\b\w/g, (l) => l.toUpperCase());
   };
 
+  // 1. Mapeia os caminhos reais da URL
+  const items = pathnames.map((value, index) => {
+    const isFolderLevel = value === 'assuntos' || value === 'atividades';
+    
+    // Se for 'assuntos' ou 'atividades', corta a URL para apontar de volta para a matéria
+    const to = isFolderLevel 
+      ? `/${pathnames.slice(0, index).join('/')}` 
+      : `/${pathnames.slice(0, index + 1).join('/')}`;
+
+    return {
+      value,
+      to,
+      isFolderLevel,
+    };
+  });
+
+  // REQUISITO: Se estivermos na página raiz da matéria (ex: /5-periodo/seguranca-de-dados)
+  // e houver uma aba ativa informada, injetamos ela virtualmente como o último item (texto estático)
+  if (pathnames.length === 2 && abaAtiva) {
+    items.push({
+      value: abaAtiva,
+      to: location.pathname, // Aponta para ela mesma
+      isFolderLevel: false,
+    });
+  }
+
   return (
     <s.Nav>
       <Link to="/">Home</Link>
-      {pathnames.map((value, index) => {
-        const last = index === pathnames.length - 1;
-
-        // Pular níveis de pasta puramente organizacionais
-        const isFolderLevel = value === 'assuntos' || value === 'atividades';
-        
-        const to = isFolderLevel 
-          ? `/${pathnames.slice(0, index).join('/')}` 
-          : `/${pathnames.slice(0, index + 1).join('/')}`;
-
-        // Se for o último item e tivermos o título amigável do config.ts, usamos ele.
-        // Caso contrário, usamos a função de formatação padrão.
-        const labelFinal = (last && aulaAtual) ? aulaAtual : formatarLabel(value);
+      {items.map((item, index) => {
+        const last = index === items.length - 1;
+        const labelFinal = (last && aulaAtual) ? aulaAtual : formatarLabel(item.value);
 
         return (
-          <div key={`${to}-${index}`} style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+          <div key={`${item.to}-${index}-${item.value}`} style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
             <span>/</span>
             {last ? (
               <strong className="current">{labelFinal}</strong>
             ) : (
-              <Link to={to}>{labelFinal}</Link>
+              // REQUISITO: Passamos a propriedade state informando qual aba o destino deve abrir
+              <Link 
+                to={item.to} 
+                state={item.isFolderLevel ? { tab: item.value } : undefined}
+              >
+                {labelFinal}
+              </Link>
             )}
           </div>
         );

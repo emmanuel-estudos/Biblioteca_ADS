@@ -12,6 +12,7 @@
   "editor.tabSize": 2,
   "editor.guides.highlightActiveIndentation": true,
   "editor.detectIndentation": false,
+  "editor.wordWrap": "on",
 
     // Configurações para Linhas Verticais e Horizontais para cada Bloco de Código
     "editor.bracketPairColorization.enabled": true,
@@ -55,9 +56,9 @@
     "*.mdx": "typescriptreact"
   },
 
-  "files.associations": {
-    "*.mdx": "typescriptreact"
-  },
+  // "files.associations": {
+  //   "*.mdx": "typescriptreact"
+  // },
 
   // Configurações Específicas para MARKDOWN
   "[markdown]": {

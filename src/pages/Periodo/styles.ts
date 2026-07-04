@@ -1,69 +1,74 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom'; // Necessário já que o MateriaCard usa a propriedade 'to'
+import { Link } from 'react-router-dom';
 
-// 1. O fundo global da página (Substitui o PageWrapper pelo nome correto do seu componente)
 export const Container = styled.div`
-  background-color: #09090b; /* Fundo escuro nativo global */
+  background-color: #09090b;
   min-height: 100vh;
-  width: 100%;
-  color: gray; /* REQUISITO: Textos padrão em cinza neutro */
-  padding: 2rem;
+  width: 100vw;
+  max-width: 100%;
+  padding: 4rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 
   h1 {
-    width: 100%;
-    max-width: 800px;
-    margin-bottom: 2.5rem;
-    text-align: left;
-    border-bottom: 1px solid #27272a; /* Linha divisória escura e sutil */
-    padding-bottom: 1rem;
-    color: gray; /* REQUISITO: Título em cinza neutro */
+    color: gray;
     font-size: 2.5rem;
-    font-weight: 700;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 3rem;
+    width: 100%;
+    max-width: 1200px;
   }
 `;
 
-// 2. O Bloco Central que lista as matérias (Substitui o GridMaterias)
 export const MateriaGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem; /* Espaçamento seguro entre os cards */
   width: 100%;
-  max-width: 800px;
-  
-  background-color: #111111; 
-  
-  padding: 2.5rem;
-  border-radius: 8px;
-  
-  /* Borda escura sutil para o container em modo escuro */
-  border: 1px solid #27272a; 
+  max-width: 615px; /* LIMITADOR: (3 colunas * 175px) + (2 gaps * 24px/1.5rem) = ~615px */
+  justify-content: center; /* Centraliza horizontalmente os cards de cada linha de forma independente */
+  margin: 0 auto;
 `;
 
-// 3. Cada card ou linha que representa uma matéria na lista (Substitui o CardMateria)
-// Nota: Como o componente usa "to={...}", ele precisa herdar o comportamento do Link do react-router-dom
-export const MateriaCard = styled(Link)`
-  display: block;
+export const MateriaCard = styled(Link)<{ $corPrimaria: string; $corSecundaria: string }>`
+  border-radius: 12px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 90px;
   
-  /* REQUISITO: Nome das matérias em cinza neutro */
-  color: gray; 
+  /* Flex basis define o tamanho alvo do card. O max-width impede que ele estique sozinho */
+  flex: 1 1 175px; 
+  max-width: 200px; /* Margem de folga para preenchimento visual elegante */
   
   text-decoration: none;
-  font-size: 1.2rem;
-  font-weight: 500;
-  padding: 1rem;
-  border-radius: 6px;
-  border: 1px solid #1e1e24; /* Leve contorno nos itens */
-  background-color: #16161a; /* Fundo ligeiramente mais claro que o container principal */
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
 
-  /* Efeito ao passar o mouse por cima da matéria */
+  background: #111111;
+  border: 1px solid #27272a;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.5);
+
+  h2 {
+    color: #e2e8f0;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.3;
+    transition: color 0.3s ease;
+  }
+
   &:hover {
-    background-color: #1f1f24; /* Clareia o fundo do item discretamente */
-    color: #e2e8f0;            /* O texto ganha brilho (quase branco) apenas no hover */
-    border-color: #3f3f46;     /* A borda do item fica mais visível */
-    transform: translateX(5px); /* Deslocamento suave para a direita */
+    transform: translateY(-4px);
+    border-color: ${props => props.$corPrimaria};
+    box-shadow: 0 10px 15px -5px ${props => props.$corSecundaria}40;
+
+    h2 {
+      color: ${props => props.$corPrimaria};
+    }
   }
 `;

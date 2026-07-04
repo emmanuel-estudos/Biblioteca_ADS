@@ -1,16 +1,37 @@
-import { useState, useMemo, useEffect } from 'react'; // ADICIONADO: useEffect
-import { useParams, Link } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components'; // ADICIONADO: ThemeProvider
+import { useState, useMemo, useEffect } from 'react';
+// Adicionado o 'useLocation' nos imports do react-router-dom
+import { useParams, Link, useLocation } from 'react-router-dom'; 
+import { ThemeProvider } from 'styled-components';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import * as S from './styles';
 import { TRADUCAO_NOMES } from '../../utils/traducoes';
 
+interface ConfigMateria {
+  nome: string;
+  corPrimaria: string;
+  corSecundaria: string;
+  periodo: string;
+  assuntos?: Record<string, string>;
+  atividades?: Record<string, string>;
+}
+
 export const Materia = () => {
   const { periodo, materia } = useParams<{ periodo: string; materia: string }>();
+  const location = useLocation(); // Instancia o hook de localização para ler o state dinâmico
+  
+  // Captura o estado enviado pelo clique do Breadcrumb se ele existir
+  const estadoNavegacao = location.state as { tab?: 'assuntos' | 'atividades' } | null;
+
   const [tabAtiva, setTabAtiva] = useState<'assuntos' | 'atividades'>('assuntos');
 
-  // ADICIONADO: Estado para o tema dinâmico igual ao Conteudo.tsx
-  const [temaMateria, setTemaMateria] = useState({
+  // REQUISITO: Sincroniza a aba ativa caso o usuário venha de um clique do Breadcrumbs
+  useEffect(() => {
+    if (estadoNavegacao?.tab) {
+      setTabAtiva(estadoNavegacao.tab);
+    }
+  }, [estadoNavegacao]);
+
+  const [configMateria, setConfigMateria] = useState<ConfigMateria>({
     nome: '',
     corPrimaria: '#2c3e50',
     corSecundaria: '#3498db',
@@ -18,12 +39,11 @@ export const Materia = () => {
   });
 
   const todosArquivos = import.meta.glob('/src/contents/**/*.{mdx,pdf,txt}');
-  const todasConfigs = import.meta.glob('/src/contents/**/config.ts'); // ADICIONADO
+  const todasConfigs = import.meta.glob('/src/contents/**/config.ts');
 
   const numeroPeriodo = periodo?.split('-')[0] || '';
   const nomePastaPeriodo = `periodo${numeroPeriodo.padStart(2, '0')}`;
 
-  // ADICIONADO: Carregar as configurações de cores da matéria atual
   useEffect(() => {
     const carregarConfig = async () => {
       const materiaLower = materia?.toLowerCase();
@@ -32,79 +52,69 @@ export const Materia = () => {
       );
 
       if (caminhoConfig) {
-        const modConfig = (await todasConfigs[caminhoConfig]()) as { config: typeof temaMateria };
-        setTemaMateria(modConfig.config);
+        const modConfig = (await todasConfigs[caminhoConfig]()) as { config: ConfigMateria };
+        setConfigMateria(modConfig.config);
       }
     };
     carregarConfig();
   }, [materia, todasConfigs]);
 
-  // Filtro inteligente para Assuntos
   const listaAssuntos = useMemo(() => {
     const caminhos = Object.keys(todosArquivos);
     const materiaLower = materia?.toLowerCase();
     const periodoLower = nomePastaPeriodo.toLowerCase();
 
     return caminhos
-      .filter(path => {
-        const pathLower = path.toLowerCase();
-        return pathLower.includes(`/${periodoLower}/${materiaLower}/assuntos/`);
-      })
+      .filter(path => path.toLowerCase().includes(`/${periodoLower}/${materiaLower}/assuntos/`))
       .map(path => {
         const slugReal = path.split('/').pop()?.replace(/\.(mdx|pdf|txt)$/, '') || '';
-        return {
-          path,
-          slug: slugReal,
-          nomeExibicao: slugReal.replace(/-/g, ' ')
-        };
+        const nomeCatalogado = configMateria.assuntos?.[slugReal];
+        const nomeExibicao = nomeCatalogado || slugReal.replace(/[-_]/g, ' ');
+
+        return { path, slug: slugReal, nomeExibicao };
       })
       .sort((a, b) => a.nomeExibicao.localeCompare(b.nomeExibicao));
-  }, [nomePastaPeriodo, materia, todosArquivos]);
+  }, [nomePastaPeriodo, materia, todosArquivos, configMateria]);
 
-  // Filtro inteligente para Atividades
   const listaAtividades = useMemo(() => {
     const caminhos = Object.keys(todosArquivos);
     const materiaLower = materia?.toLowerCase();
     const periodoLower = nomePastaPeriodo.toLowerCase();
 
     return caminhos
-      .filter(path => {
-        const pathLower = path.toLowerCase();
-        return pathLower.includes(`/${periodoLower}/${materiaLower}/atividades/`);
-      })
+      .filter(path => path.toLowerCase().includes(`/${periodoLower}/${materiaLower}/atividades/`))
       .map(path => {
         const partes = path.split('/');
         const idxAtividades = partes.findIndex(p => p.toLowerCase() === 'atividades');
         const nomePasta = partes[idxAtividades + 1];
-        return { path, nomePasta };
+        
+        const nomeCatalogado = configMateria.atividades?.[nomePasta];
+        const nomeExibicao = nomeCatalogado || nomePasta.replace(/[-_]/g, ' ');
+
+        return { path, nomePasta, nomeExibicao };
       })
       .filter((value, index, self) => 
         self.findIndex(v => v.nomePasta === value.nomePasta) === index
-      );
-  }, [nomePastaPeriodo, materia, todosArquivos]);
+      )
+      .sort((a, b) => a.nomeExibicao.localeCompare(b.nomeExibicao));
+  }, [nomePastaPeriodo, materia, todosArquivos, configMateria]);
 
   return (
-    // ADICIONADO: ThemeProvider envelopando tudo para o Breadcrumbs e os estilos herdarem as cores
-    <ThemeProvider theme={temaMateria}>
-      <Breadcrumbs />
+    <ThemeProvider theme={configMateria}>
+      {/* REQUISITO: Passamos a propriedade informando qual aba está renderizada na tela */}
+      <Breadcrumbs abaAtiva={tabAtiva} />
       <S.PageWrapper>
         <S.Header>
-          <h1>{materia ? (TRADUCAO_NOMES[materia] || materia.replace(/-/g, ' ')) : ''}</h1>
+          <h1>{configMateria.nome || (materia ? (TRADUCAO_NOMES[materia] || materia.replace(/[-_]/g, ' ')) : '')}</h1>
         </S.Header>
 
         <S.TabContainer>
-          <S.TabButton 
-            $active={tabAtiva === 'assuntos'} 
-            onClick={() => setTabAtiva('assuntos')}
-          >
+          <S.TabButton $active={tabAtiva === 'assuntos'} onClick={() => setTabAtiva('assuntos')}>
             Assuntos
           </S.TabButton>
           
           {listaAtividades.length > 0 && (
-            <S.TabButton 
-              $active={tabAtiva === 'atividades'} 
-              onClick={() => setTabAtiva('atividades')}
-            >
+            <S.TabButton $active={tabAtiva === 'atividades'} onClick={() => setTabAtiva('atividades')}>
               Atividades
             </S.TabButton>
           )}
@@ -123,7 +133,7 @@ export const Materia = () => {
             listaAtividades.map(item => (
               <S.ListItem key={item.nomePasta}>
                 <Link to={`${window.location.pathname}/atividades/${item.nomePasta}`}>
-                  📁 {item.nomePasta.replace(/-/g, ' ')}
+                  📁 {item.nomeExibicao}
                 </Link>
               </S.ListItem>
             ))
