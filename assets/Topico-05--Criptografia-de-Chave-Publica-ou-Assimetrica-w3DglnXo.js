@@ -1,0 +1,1 @@
+import{n as e,r as t}from"./lib-CrvGBhFj.js";var n=t();function r(t){return(0,n.jsx)({h1:`h1`,...e(),...t.components}.h1,{id:`criptografia-de-chave-pública-ou-assimétrica`,children:`Criptografia-de-Chave Pública ou Assimétrica`})}function i(t={}){let{wrapper:i}={...e(),...t.components};return i?(0,n.jsx)(i,{...t,children:(0,n.jsx)(r,{...t})}):r(t)}export{i as default};
