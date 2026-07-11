@@ -4,7 +4,7 @@ import { TRADUCAO_NOMES } from '../../utils/traducoes';
 
 interface BreadcrumbsProps {
   aulaAtual?: string;
-  abaAtiva?: 'assuntos' | 'atividades'; // Nova propriedade para saber qual aba está aberta na Matéria
+  abaAtiva?: 'assuntos' | 'atividades'; // Propriedade para saber qual aba está aberta na Matéria
 }
 
 export const Breadcrumbs = ({ aulaAtual, abaAtiva }: BreadcrumbsProps) => {

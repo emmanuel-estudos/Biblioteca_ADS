@@ -4,7 +4,7 @@ import { Conteudo } from './components';
 
 function App() {
   return (
-    <BrowserRouter> 
+    <BrowserRouter basename="/Biblioteca_ADS"> 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:periodo" element={<Periodo />} />

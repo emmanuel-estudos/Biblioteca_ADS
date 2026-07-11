@@ -2,14 +2,17 @@ import { useState, useMemo, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
-import * as S from '../Materia/styles'; // Reaproveita os estilos estruturais da Materia
+import * as S from '../Materia/styles'; 
 
 interface ConfigMateria {
   nome: string;
   corPrimaria: string;
   corSecundaria: string;
   periodo: string;
-  atividades?: Record<string, string>;
+  atividades?: Record<string, {
+    nome: string;
+    arquivos: Record<string, string>;
+  }>;
 }
 
 export const Atividades = () => {
@@ -28,7 +31,6 @@ export const Atividades = () => {
   const numeroPeriodo = periodo?.split('-')[0] || '';
   const nomePastaPeriodo = `periodo${numeroPeriodo.padStart(2, '0')}`;
 
-  // Carrega as configurações (essencial para manter as cores de hover do tema dinâmico)
   useEffect(() => {
     const carregarConfig = async () => {
       const materiaLower = materia?.toLowerCase();
@@ -44,7 +46,14 @@ export const Atividades = () => {
     carregarConfig();
   }, [materia, todasConfigs]);
 
-  // Filtra apenas os arquivos contidos estritamente dentro da pasta desta atividade
+  // Encontra a chave exata dentro do config ignorando maiúsculas/minúsculas
+  const chaveAtividadeConfig = useMemo(() => {
+    if (!atividade || !configMateria.atividades) return null;
+    return Object.keys(configMateria.atividades).find(
+      key => key.toLowerCase() === atividade.toLowerCase()
+    );
+  }, [atividade, configMateria]);
+
   const arquivosDaAtividade = useMemo(() => {
     const caminhos = Object.keys(todosArquivos);
     const materiaLower = materia?.toLowerCase();
@@ -58,19 +67,21 @@ export const Atividades = () => {
       .map(path => {
         const slugReal = path.split('/').pop()?.replace(/\.(mdx|pdf|txt)$/, '') || '';
         
-        // REQUISITO: Se não catalogado, formata limpando traços e underlines
-        const nomeExibicao = slugReal.replace(/[-_]/g, ' ');
+        // Usa a chave flexível para buscar os arquivos catalogados no config.ts
+        const dadosAtividade = chaveAtividadeConfig ? configMateria.atividades?.[chaveAtividadeConfig] : null;
+        const nomeAmigavel = dadosAtividade?.arquivos?.[slugReal] || slugReal.replace(/[-_]/g, ' ');
 
-        return { path, slug: slugReal, nomeExibicao };
+        return { path, slug: slugReal, nomeExibicao: nomeAmigavel };
       })
       .sort((a, b) => a.nomeExibicao.localeCompare(b.nomeExibicao));
-  }, [nomePastaPeriodo, materia, atividade, todosArquivos]);
+  }, [nomePastaPeriodo, materia, atividade, todosArquivos, configMateria, chaveAtividadeConfig]);
 
-  // Captura o nome amigável da pasta da atividade configurado no config.ts
+  // Busca a propriedade '.nome' usando a chave flexível
   const tituloAtividade = useMemo(() => {
     if (!atividade) return '';
-    return configMateria.atividades?.[atividade] || atividade.replace(/[-_]/g, ' ');
-  }, [atividade, configMateria]);
+    const dadosAtividade = chaveAtividadeConfig ? configMateria.atividades?.[chaveAtividadeConfig] : null;
+    return dadosAtividade?.nome || atividade.replace(/[-_]/g, ' ');
+  }, [atividade, configMateria, chaveAtividadeConfig]);
 
   return (
     <ThemeProvider theme={configMateria}>
@@ -86,8 +97,8 @@ export const Atividades = () => {
         <S.ContentList>
           {arquivosDaAtividade.map(arquivo => (
             <S.ListItem key={arquivo.path}>
-              {/* Encaminha para o visualizador de conteúdo do arquivo */}
-              <Link to={`${window.location.pathname}/${arquivo.slug}`}>
+              {/* Monta uma rota limpa e relativa usando useParams */}
+              <Link to={`/${periodo}/${materia}/atividades/${atividade}/${arquivo.slug}`}>
                 📄 {arquivo.nomeExibicao}
               </Link>
             </S.ListItem>
