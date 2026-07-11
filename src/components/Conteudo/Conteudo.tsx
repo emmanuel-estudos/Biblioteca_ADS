@@ -30,24 +30,24 @@ const components = {
 };
 
 export const Conteudo = () => {
-  // Captura também o parâmetro ':atividade' caso venha da rota de atividades
   const { periodo, materia, atividade, slug } = useParams<{
     periodo: string;
     materia: string;
-    atividade?: string; // Opcional, pois na aba assuntos ele não existirá
+    atividade?: string;
     slug: string;
   }>();
 
   const [MDXComponent, setMDXComponent] = useState<ComponentType | null>(null);
   const [tituloAula, setTituloAula] = useState<string>('');
 
+  // Atualizada a tipagem padrão do estado para aceitar objetos em atividades
   const [temaMateria, setTemaMateria] = useState({
     nome: '',
     corPrimaria: '#2c3e50',
     corSecundaria: '#3498db',
     periodo: '',
     assuntos: {} as Record<string, string>,
-    atividades: {} as Record<string, string>,
+    atividades: {} as Record<string, { nome: string; arquivos: Record<string, string> }>,
   });
 
   const todosArquivos = import.meta.glob('/src/contents/**/*.mdx');
@@ -75,12 +75,10 @@ export const Conteudo = () => {
         if (slug) {
           let nomeAmigavel = slug.replace(/[-_]/g, ' '); // Fallback padrão
           
+          // Rota de busca corrigida para navegar por dentro de atividades[atividade].arquivos[slug]
           if (atividade) {
-            // Se for uma atividade, você pode opcionalmente mapear o arquivo interno no config.ts 
-            // ou deixar o fallback de cima limpar os hífens automaticamente
-            nomeAmigavel = configData.atividades?.[slug] || nomeAmigavel;
+            nomeAmigavel = configData.atividades?.[atividade]?.arquivos?.[slug] || nomeAmigavel;
           } else if (configData.assuntos) {
-            // Se for um assunto, busca no catálogo padrão
             nomeAmigavel = configData.assuntos[slug] || nomeAmigavel;
           }
 
@@ -103,12 +101,10 @@ export const Conteudo = () => {
 
         if (!pertenceAMateria || !nomeIdentico) return false;
 
-        // SE existir o parâmetro 'atividade' na URL, força a busca na subpasta de atividades
         if (atividade) {
           return pathLower.includes(`/atividades/${atividade.toLowerCase()}/`);
         }
 
-        // CASO CONTRÁRIO, força a busca estritamente na pasta de assuntos
         return pathLower.includes('/assuntos/');
       });
 
@@ -127,7 +123,7 @@ export const Conteudo = () => {
 
   return (
     <ThemeProvider theme={temaMateria}>
-      <Breadcrumbs aulaAtual={tituloAula} />
+      <Breadcrumbs />
 
       <S.PageContainer>
         {MDXComponent ? (

@@ -1,0 +1,69 @@
+# Builder e Objetos Imutáveis
+
+## Explicação do Padrão
+
+O Builder é um padrão criacional que separa o processo de construção de um objeto complexo da sua representação final. Desse modo, o mesmo processo passo a passo de construção pode produzir diferentes configurações e representações do objeto.
+
+O material fundamenta o padrão explicando a importância de Objetos Imutáveis (cuja instância não pode ser modificada após a criação, como `String` e `Integer` em Java), que previnem efeitos colaterais severos de concorrência e estados inválidos.
+
+## Por que usar o padrão?
+
+**Garantia de Imutabilidade**: Permite criar objetos complexos com atributos finais (`private final`) que são validados antes da instanciação real.
+
+**Eliminação de Construtores Telescópicos**: Evita o antipadrão de ter múltiplos construtores sobrecarregados misturando parâmetros opcionais e obrigatórios.
+
+**Legibilidade com Fluent Interfaces**: A construção do código torna-se extremamente limpa e legível através do encadeamento de métodos explicativos.
+
+**Isolamento da Lógica de Construção**: Retira da classe principal a responsabilidade de validar e montar suas partes constituintes.
+
+## Exemplo apresentado no slide
+
+O slide apresenta uma classe `Usuario` contendo muitos atributos, divididos entre obrigatórios e opcionais:
+
+Obrigatórios: `nome`, `sobrenome`.
+Opcionais: `idade`, `telefone`, `endereco`.
+
+O Problema: Criar um objeto imutável dessa classe exigiria um construtor gigante com todos os parâmetros. Se o cliente não quiser informar a `idade` ou o `telefone`, ele seria obrigado a passar valores como `null` ou `0` no construtor, deixando o código confuso, feio e propenso a erros de ordem de parâmetros.
+
+## Solução do problema apresentado no slide
+
+A solução é criar uma classe interna estática chamada `Builder`. Esse Builder possui métodos para receber cada atributo opcional de forma encadeada, retornando a si mesmo (`return this`). O construtor da classe principal `Usuario` torna-se privado e aceita apenas o `Builder` como parâmetro, extraindo os dados e garantindo a imutabilidade após a chamada do método finalizador `.build()`.
+
+```java
+public class Usuario {
+  private final String nome; // Obrigatório
+  private final String sobrenome; // Obrigatório
+  private final int idade; // Opcional
+
+  private Usuario(Builder builder) {
+    this.nome = builder.nome;
+    this.sobrenome = builder.sobrenome;
+    this.idade = builder.idade;
+  }
+
+  public static class Builder {
+    private final String nome;
+    private final String sobrenome;
+    private int idade = 0; // Padrão
+
+    public Builder(String nome, String sobrenome) {
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+    }
+
+    public Builder idade(int idade) {
+        this.idade = idade;
+        return this;
+    }
+
+    public Usuario build() {
+        return new Usuario(this);
+    }
+  }
+}
+
+// Uso prático (Fluent Interface)
+Usuario u = new Usuario.Builder("Ana", "Costa").idade(30).build();
+```
+
+Nota: O material cita que frameworks modernos como Project Lombok (via @Builder) e Immutables automatizam essa estrutura para poupar escrita de código.

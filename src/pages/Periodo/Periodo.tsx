@@ -13,13 +13,21 @@ export const Periodo = () => {
   }>>([]);
   const [carregando, setCarregando] = useState(true);
 
-  // Mapeamos dinamicamente os arquivos de configuração de cada matéria do projeto
+  // Mapeamento dinâmico os arquivos de configuração de cada matéria do projeto
   const todasConfigs = import.meta.glob('/src/contents/**/config.ts');
 
   // Lógica memorizada para normalizar o nome da pasta (ex: "1-periodo" -> "periodo01")
   const nomePastaReal = useMemo(() => {
     if (!periodo) return '';
-    const numero = periodo.split('-')[0];
+    
+    // Proteção: Remove o nome do repositório caso ele entre de penetra no parâmetro da URL
+    const stringLimpa = periodo.replace('Biblioteca_ADS', '').replace(/^\//, '');
+    
+    const numero = stringLimpa.split('-')[0];
+    
+    // Evita gerar caminhos inválidos se não encontrar um número
+    if (!numero || isNaN(Number(numero))) return '';
+    
     return `periodo${numero.padStart(2, '0')}`.toLowerCase();
   }, [periodo]);
 
@@ -70,7 +78,8 @@ export const Periodo = () => {
 
   const exibirTitulo = () => {
     if (!periodo) return 'Período';
-    const numero = periodo.split('-')[0];
+    const stringLimpa = periodo.replace('Biblioteca_ADS', '').replace(/^\//, '');
+    const numero = stringLimpa.split('-')[0];
     return `${numero}º Período`;
   };
 

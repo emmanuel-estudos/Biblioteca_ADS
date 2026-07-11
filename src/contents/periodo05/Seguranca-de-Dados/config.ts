@@ -2,7 +2,7 @@ export const config = {
     nome: "Segurança de Dados",
     periodo: "5º Período",
     corPrimaria: '#06b6d4',
-  corSecundaria: '#0369a1',
+		corSecundaria: '#0369a1',
     
 	// Mapeamento para arquivos da aba 'Assuntos' (Materia.tsx)
 	assuntos: {
@@ -15,11 +15,20 @@ export const config = {
 		"Topico-06--Funcoes-de-Hash-Criptograficas": "Tópico 06: Funções de Hash Criptográficas",
 		"Topico-07--ConfigurandoVMs": "Tópico 07: Configurando VMs",
 		"Topico-08--Criptografia": "Tópico 08: Fundamentos de Criptografia",
-		// Adicione os próximos arquivos conforme forem criados
 	},
 	// Mapeamento para aba de 'Atividades' (Materia.tsx)
 	atividades: {
-		"Atividade01": "Atividade 01",
-		"Atividade02": "Atividade 02: Mininet"
+		"atividade01": {
+			nome: "Atividade 01",
+			arquivos: {
+				"Teste": "Teste de arquivo"
+			}
+		},
+		"atividade02": {
+			nome: "Atividade 02: Mininet",
+			arquivos: {
+				"Roteiro": "Roteiro de Execução"
+			}
+		}
 	}
 };

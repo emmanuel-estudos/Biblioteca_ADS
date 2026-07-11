@@ -4,8 +4,17 @@ export const config = {
     corSecundaria: '#2c3e50',
     periodo: "2º Período",
 
-		// Mapeamento de Arquivos
+		// Mapeamento de arquivos da matéria (arquivo Materia.tsx)
 		assuntos: {
-			"Slide04--Conceitos-de-Hardware--1": "Slide 04: Conceitos de Hardware [1]"
+			"Slide04--Conceitos-de-Hardware--1": "Slide 04: Conceitos de Hardware [1]",
+			"Slide04--Resumo-Topicos": "Slide 04: Arquitetura de Barramentos e Interconexão de Componentes",
+			"Slide05--Resumo-Topicos": "Slide 05: Estrutura Interna da CPU e Técnicas de Entrada/Saída (E/S)",
+			"Slide06--Resumo-Topicos": "Slide 06: Mecanismos de Interrupções e Exceções de Hardware",
+			"Slide07--Resumo-Topicos": "Slide 07: Proteção do Núcleo do SO e Chamadas de Sistema (System Calls)",
+			"Slide08--Resumo-Topicos": "Slide 08: Modelos e Arquiteturas Estruturais de Sistemas Operacionais"
+		},
+		// Mapeamento de pastas da aba 'Atividade' da matéria (arquivo Materia.tsx)
+		atividades: {
+			
 		}
 };

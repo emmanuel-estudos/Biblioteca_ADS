@@ -1,0 +1,111 @@
+# Conceitos de Hardware - Parte 02
+
+## CPU (Central Processing Unit)
+
+- Cérebro do computador: busca e executa as instruções
+- Composta por:
+  - UC - Unidade de Controle
+  - ULA - Unidade Lógica e Aritmética
+  - Registradores
+
+## UC - Unidade de Controle
+
+- Função: coordena e controla as operações do processador
+- Busca instrução na memória principal
+- Decodifica as instruções e gera sinais de controle (operações, mover dados, desvio de fluxo)
+- Informa a sequência de execução das instruções
+- Atualiza registradores e estado da CPU
+- Contém todo o conjunto de instruções que o processador é capaz de executar.
+
+## ULA - Unidade Lógica e Aritmética
+
+- Realiza as operações lógicas (AND, OR, NOT) e aritméticas (adição, subtração, multiplicação e divisão)
+- Recebe as instruções da UC (Unidade de Controle)
+- Usa dos registradores para guardar e mover dados
+
+## Registradores
+
+- Pequenas memórias temporárias de alta velocidade
+- Existem vários registradores com funções específicas: EAX, EBX, ECX, EDX
+- Registradores mais importantes
+  - Contador de Programa: armazena qual a próxima instrução a ser executada
+  - Registrador de Instrução: armazena a instrução que está sendo executada no momento
+
+## Memória
+
+- Armazena instruções de programas em execução
+- ANTES acessada diretamente pela CPU
+- AGORA acessada pela Unidade de Gerenciamento de Memória (no processador)
+
+## MMU - Memory Management Unit
+
+- Se comunica com a CPU para receber o endereço de memória solicitado
+- Analisa e valida o endereço recebido
+- Realiza a conversão de endereço lógico para endereço físico
+- Executa a operação solicitada pela CPU (leitura ou escrita de dados na memória)
+- Mapeia áreas de memória que são utilizadas por cada aplicação.
+
+## Hierarquia de memórias
+
+1. Registradores da CPU
+2. Cache
+   1. Cache Nível 1
+   2. Cache Nível 2
+3. RAM - Área de Armazenamento Temporário
+   1. Memória Física
+   2. Memória Virtual
+4. Tipos de Dispositivos de Armazenamento - Área de Armazenamento Permanente
+   1. ROM/BIOS
+   2. Discos Removívies
+   3. Armazenamento Rede/Internet
+   4. Disco Rígido
+
+## CPU Multi-Core
+
+Em uma CPU Multi-Core, cada Core tem sua Unidade de Controle, sua ULA, cachê para guardar as instruções (registradores), cachê para guardar dados (registradores) e um cachê unificado.
+
+Em algum nível, elas precisam estar ancoradas em um momento armazenamento para que possam se comunicar e trabalharem em conjunto.
+
+## Periféricos
+
+- Dispositivos de Entrada e Saída
+- Responsáveis pela comunicação entre o mundo exterior e a máquina
+- Exemplos: mouse, impressoras, monitores, unidades de disco, etc.
+- São acessados por meio de **controladores**. O monitor é acessado pelo controlador de vídeo; o mouse e o teclado pelo controlador de USB, o acesso a internet pelo controlador de rede; e assim por diante
+- A CPU "vê" cada periférico pelo seu controlador
+- Recebem da BIOS uma faixa de endereço de portas de E/S
+- Os controladores de E/S se comunicam com a CPU por meio dos
+registradores específicos, utilizando uma das seguintes técnicas de
+comunicação:
+  - E/S Programada;
+  - E/S Dirigida por interrupção;
+  - DMA (Direct Memory Access) – Acesso Direto à Memória.
+
+## Periféricos – E/S PROGRAMADA
+
+- Os dados são trocados entre o processador e o módulo de E/S;
+- A CPU fica constantemente verificando o bit de estado de um registrador toda vez que quiser se comunicar com o dispositivo;
+- Quando esse bit está marcado, a interface está indicando que está pronta para se comunicar com a CPU;
+- Quando isso ocorre, os registradores da interface de E/S são lidos ou escritos, dependendo se a operação é de entrada ou de saída;
+- Quando o processador emite um comando ao módulo de E/S, ele deve esperar até que a operação de E/S termine.
+
+## Periféricos – E/S DIRIGIDA POR INTERRUPÇÃO
+
+- Quando a CPU deseja se comunicar com um dispositivo de E/S, este é avisado e a CPU volta para o seu fluxo normal de execução até que seja gerada uma interrupção por parte da interface de E/S;
+- Quando isso ocorre, os registradores da interface de E/S são lidos ou escritos, dependendo se a operação é de entrada ou de saída;
+- **Problema:** o grande número de interrupções que são gerados. Imaginem a quantidade de interrupções geradas ao digitar um texto e ver os caracteres sendo exibidos no monitor.
+
+## Periféricos – ACESSO DIRETO À MEMÓRIA
+
+- A técnica de DMA utiliza um chip específico que realiza a tarefa que a CPU fazia na técnica de E/S programada;
+- O DMA controla o acesso do dispositivos de E/S à memória sem intervenção da CPU;
+- Quando o processador deseja ler ou escrever um bloco de dados, ele envia um comando ao módulo de DMA com as seguintes informações:
+
+1. Tipo de operação (leitura/escrita);
+2. Número de bytes a transferir;
+3. Endereço do dispositivo de E/S;
+4. Endereço de memória.
+
+- Enquanto o controlador DMA está transferindo dados, o barramento fica ocupado;
+- Ao término, o dispositivo DMA gera uma interrupção na CPU e encerra;
+- A CPU consegue realizar pequenas interrupções na transferência de dados entre DMA e memória, porém, a prioridade do uso do barramento é sempre do controlador DMA, pois os dispositivos de E/S não permitem atraso sem que ocorram erros nos dados.

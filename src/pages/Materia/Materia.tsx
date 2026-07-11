@@ -1,35 +1,32 @@
 import { useState, useMemo, useEffect } from 'react';
-// Adicionado o 'useLocation' nos imports do react-router-dom
 import { useParams, Link, useLocation } from 'react-router-dom'; 
 import { ThemeProvider } from 'styled-components';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import * as S from './styles';
 import { TRADUCAO_NOMES } from '../../utils/traducoes';
 
+// Interface para suportar a estrutura com subobjetos nas atividades
 interface ConfigMateria {
   nome: string;
   corPrimaria: string;
   corSecundaria: string;
   periodo: string;
   assuntos?: Record<string, string>;
-  atividades?: Record<string, string>;
+  atividades?: Record<string, {
+    nome: string;
+    arquivos: Record<string, string>;
+  }>;
 }
 
 export const Materia = () => {
   const { periodo, materia } = useParams<{ periodo: string; materia: string }>();
-  const location = useLocation(); // Instancia o hook de localização para ler o state dinâmico
+  const location = useLocation(); 
   
-  // Captura o estado enviado pelo clique do Breadcrumb se ele existir
   const estadoNavegacao = location.state as { tab?: 'assuntos' | 'atividades' } | null;
 
-  const [tabAtiva, setTabAtiva] = useState<'assuntos' | 'atividades'>('assuntos');
-
-  // REQUISITO: Sincroniza a aba ativa caso o usuário venha de um clique do Breadcrumbs
-  useEffect(() => {
-    if (estadoNavegacao?.tab) {
-      setTabAtiva(estadoNavegacao.tab);
-    }
-  }, [estadoNavegacao]);
+  const [tabAtiva, setTabAtiva] = useState<'assuntos' | 'atividades'>(() => {
+    return estadoNavegacao?.tab || 'assuntos';
+  });
 
   const [configMateria, setConfigMateria] = useState<ConfigMateria>({
     nome: '',
@@ -77,31 +74,36 @@ export const Materia = () => {
   }, [nomePastaPeriodo, materia, todosArquivos, configMateria]);
 
   const listaAtividades = useMemo(() => {
-    const caminhos = Object.keys(todosArquivos);
-    const materiaLower = materia?.toLowerCase();
-    const periodoLower = nomePastaPeriodo.toLowerCase();
+  const caminhos = Object.keys(todosArquivos);
+  const materiaLower = materia?.toLowerCase();
+  const periodoLower = nomePastaPeriodo.toLowerCase();
 
-    return caminhos
-      .filter(path => path.toLowerCase().includes(`/${periodoLower}/${materiaLower}/atividades/`))
-      .map(path => {
-        const partes = path.split('/');
-        const idxAtividades = partes.findIndex(p => p.toLowerCase() === 'atividades');
-        const nomePasta = partes[idxAtividades + 1];
-        
-        const nomeCatalogado = configMateria.atividades?.[nomePasta];
-        const nomeExibicao = nomeCatalogado || nomePasta.replace(/[-_]/g, ' ');
+  return caminhos
+    .filter(path => path.toLowerCase().includes(`/${periodoLower}/${materiaLower}/atividades/`))
+    .map(path => {
+      const partes = path.split('/');
+      const idxAtividades = partes.findIndex(p => p.toLowerCase() === 'atividades');
+      const nomePasta = partes[idxAtividades + 1]; // ex: "atividade02"
+      
+      // Busca a chave correspondente no config ignorando maiúsculas/minúsculas
+      const chaveConfig = Object.keys(configMateria.atividades || {}).find(
+        key => key.toLowerCase() === nomePasta.toLowerCase()
+      );
+      
+      const dadosCatalogados = chaveConfig ? configMateria.atividades?.[chaveConfig] : null;
+      const nomeExibicao = dadosCatalogados?.nome || nomePasta.replace(/[-_]/g, ' ');
 
-        return { path, nomePasta, nomeExibicao };
-      })
-      .filter((value, index, self) => 
-        self.findIndex(v => v.nomePasta === value.nomePasta) === index
-      )
-      .sort((a, b) => a.nomeExibicao.localeCompare(b.nomeExibicao));
-  }, [nomePastaPeriodo, materia, todosArquivos, configMateria]);
+      // Mantemos o nome original da pasta para montar a URL física correta
+      return { path, nomePasta, nomeExibicao };
+    })
+    .filter((value, index, self) => 
+      self.findIndex(v => v.nomePasta === value.nomePasta) === index
+    )
+    .sort((a, b) => String(a.nomeExibicao).localeCompare(String(b.nomeExibicao)));
+}, [nomePastaPeriodo, materia, todosArquivos, configMateria]);
 
   return (
     <ThemeProvider theme={configMateria}>
-      {/* REQUISITO: Passamos a propriedade informando qual aba está renderizada na tela */}
       <Breadcrumbs abaAtiva={tabAtiva} />
       <S.PageWrapper>
         <S.Header>
@@ -124,17 +126,17 @@ export const Materia = () => {
           {tabAtiva === 'assuntos' ? (
             listaAssuntos.map(item => (
               <S.ListItem key={item.path}>
-                <Link to={`${window.location.pathname}/assuntos/${item.slug}`}>
-                  📄 {item.nomeExibicao}
+                <Link to={`/${periodo}/${materia}/assuntos/${item.slug}`}>
+                📄 {item.nomeExibicao}
                 </Link>
               </S.ListItem>
             ))
           ) : (
             listaAtividades.map(item => (
               <S.ListItem key={item.nomePasta}>
-                <Link to={`${window.location.pathname}/atividades/${item.nomePasta}`}>
-                  📁 {item.nomeExibicao}
-                </Link>
+                <Link to={`/${periodo}/${materia}/atividades/${item.nomePasta}`}>
+                📁 {item.nomeExibicao}
+              </Link>
               </S.ListItem>
             ))
           )}

@@ -1,0 +1,74 @@
+# Proteção do Núcleo do SO
+
+- Conceitos de Hardware - Parte 04
+
+Um dos papeis do SO é gerenciar os recursos do hardware, fornecendo recursos para as aplicações conforme for necessário.
+
+É papel do núcleo do SO é configurar e gerenciar periféricos.
+
+Os utilitários e aplicativos, se tivessem acesso direto aos periféricos, poderiam desestabilizar o sistema inteiro e não seria possível implementar mecanismos de segurança e controle de acesso aos recursos.
+
+Sendo assim, para assegurar a integridade do sistema, é essencial garantir que as aplicações não consigam acessar o hardware diretamente.
+
+Para permitir diferenciar os privilégios dos softwares, as CPU’s modernas contam com níveis de privilégios de execução, que são controlados por flags especiais.
+
+Os níveis básicos de privilégios são: Nível Núcleo e Nível Usuário.
+
+## Nível Núcleo
+
+- Também recebe o nome de: nível supervisor, sistema, monitor ou kernel space
+- Pode acessar todas as instruções, registradores, portas de entrada/saída e áreas da memória
+- Ao ser ligado, o processador entra em operação neste nível
+- O acesso de nível de núcleo é restrito ao kernel e aos drivers do sistema operacional, e é essencial para a operação do sistema
+
+## Nível Usuário (UserSpace)
+
+- Um subconjunto das instruções, registradores e portas de entrada/saída ficam disponíveis.
+- Caso o código tente executar uma instrução proibida ou acessar algo que não deveria, é gerada uma exceção.
+
+## Chamadas do Sistema
+
+O confinamento de cada aplicação em sua área de memória, imposto pelos mapeamentos de memória realizados pela MMU nos acessos em nível usuário, provê robustez e confiabilidade ao sistema, pois garante que uma aplicação não poderá interferir nas áreas de memória de outras aplicações ou do núcleo.]
+
+Tudo isso gera uma dúvida: como chamar, a partir de uma aplicação, as rotinas oferecidas pelo núcleo para o acesso ao hardware e suas abstrações?
+
+Esse problema pode ser resolvido utilizando-se o mecanismo de interrupção. As CPU’s implementam uma instrução especial que permite acionar o mecanismo de forma intencional.
+
+Se uma aplicação precisa realizar alguma instrução privilegiada, ele tem de executar uma instrução de armadilha denominada "**trap**", que altera do modo usuário para o modo kernel (núcleo).
+
+- Mecanismo também denominado interrupção de software;
+- As traps são a porta de entrada para o modo kernel;
+- São a interface entre os programas do usuário no _modo usuário_ e o Sistema Operacional no modo kernel.
+
+Através do mecanismo de ``interrupção de software (trap)`` é possível comutar a CPU para o nível privilegiado e proceder de forma similar ao tratamento de interrupção.
+
+A ativação de procedimentos de núcleo usando **interrupções de software** é denominada ``chamada de sistema`` (system call ou syscall).
+
+As chamadas diferem entre os SO, mas os conceitos relacionados às chamadas são similares independentemente do SO.
+
+## Áreas de Chamadas de Sistema
+
+As chamadas de sistema do SO pode ser dividido nas seguintes grandes áreas:
+
+- **Gestão de processos**: criar, carregar código, terminar, esperar, ler/mudar atributos;
+- **Gestão da memória**: alocar/liberar/modificar áreas de memória;
+- **Gestão de arquivos**: criar, remover, abrir, fechar, ler, escrever;
+- **Comunicação**: criar/destruir canais de comunicação, receber/enviar dados;
+- **Gestão de dispositivos**: ler/mudar configurações, ler/escrever dados;
+- **Gestão do sistema**: desligar/suspender/reiniciar o sistema.
+
+Normalmente as aplicações utilizam uma API (Application Programming Interface), uma interface que encapsula o acesso direto ao sistema.
+
+As interfaces das chamadas de sistema (wrappers) mais utilizadas são:
+
+- Win32 API para Windows;
+- POSIX API para maioria das versões do UNIX.
+
+## Gerenciamento de Processos
+
+| Chamada | Descrição |
+| :-----: | --------- |
+| pid = fork() | Crie um processo filho idêntico ao processo pai |
+| a | a |
+| a | a |
+| a | a |

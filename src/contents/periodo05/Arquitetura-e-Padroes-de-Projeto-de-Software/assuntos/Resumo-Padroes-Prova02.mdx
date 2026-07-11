@@ -1,0 +1,75 @@
+# 📝 Resumo de Padrões de Projeto Criacionais (GoF)
+
+## Padrão de Projeto: Prototype
+
+### 📋 O Problema Contextualizado (Exemplo do Slide)
+[cite_start]Imagine o desenvolvimento de um algoritmo que gera caminhos aleatórios em um **Labirinto** representado por uma matriz[cite: 1]. [cite_start]A lógica de caminhos e a dificuldade do labirinto já estão predefinidas internamente pelo algoritmo, mas a parte visual e estética precisa ser extremamente flexível e configurada apenas em **tempo de execução**[cite: 1]. 
+
+* [cite_start]**Exemplo prático:** Durante a execução, o jogador escolhe (ou o sistema decide) que o labirinto terá *Piso de Pedra* e *Paredes com Arbustos*[cite: 1]. [cite_start]Em outra rodada, pode ser definido que o labirinto usará *Parede de Pedra com 2,50m de altura* e *Piso de Areia*[cite: 1].
+* [cite_start]**O Grande Desafio:** Como esses detalhes estéticos específicos de `Parede` e `Piso` são definidos dinamicamente, como fazer para replicar essas exatas características por todos os milhares de blocos/células que compõem a matriz do labirinto de maneira eficiente? [cite: 1]
+
+### 💡 A Solução e Motivação
+[cite_start]A tomada de decisão lógica é considerar o primeiro objeto de parede ou piso configurado como um **modelo (protótipo)** a ser seguido[cite: 1]. [cite_start]Em vez de instanciar novas classes específicas repetidamente e reconfigurar seus atributos um a um, o sistema solicita um **clone** desse modelo pré-configurado para preencher os blocos da matriz[cite: 1].
+
+
+### 🛠️ Estrutura do Padrão
+* [cite_start]**Prototype:** Interface que declara o método de clonagem (geralmente `+clone(): Object`)[cite: 1].
+* [cite_start]**ConcretePrototype:** Classes que implementam a clonagem (ex: `ParedeDePedra`, `PisoDeAreia`), retornando uma cópia idêntica de si mesmas[cite: 1].
+* [cite_start]**Client:** Instancia apenas o primeiro objeto modelo (`obj1`) e gera os demais a partir dele duplicando-o: `obj2 = (ConcretePrototype) obj1.clone();`[cite: 1].
+
+### 🎯 Tomada de Decisão: Quando aplicar o Prototype?
+[cite_start]Você deve escolher o Prototype na sua prova se o cenário exigir[cite: 1]:
+1.  [cite_start]**Independência de criação:** O sistema precisa ser independente de como seus produtos são criados, compostos e representados[cite: 1].
+2.  [cite_start]**Especificação em Runtime:** As classes e instâncias exatas só são conhecidas ou configuradas em tempo de execução[cite: 1].
+3.  [cite_start]**Evitar Hierarquias de Fábricas Paralelas:** Quando você quer evitar criar uma classe `Factory` para cada tipo de produto, o que inflaria o projeto com classes desnecessárias[cite: 1].
+4.  [cite_start]**Custo de Instanciação Alto:** Quando é muito mais conveniente, rápido e barato copiar uma instância existente do que criar uma nova do zero através do operador `new`[cite: 1].
+
+---
+
+## Padrão de Projeto: Builder
+
+### 🔒 Fundamento Crítico: Objetos Imutáveis
+[cite_start]Antes de introduzir o Builder, o material detalha o conceito de **Objetos Imutáveis**: instâncias cujo estado (atributos) não pode ser modificado após sua criação[cite: 2].
+
+* [cite_start]**Exemplos em Java:** Classes nativas como `String` e Wrappers (`Integer`, `Long`, etc.)[cite: 2].
+* [cite_start]**O Perigo dos Mutáveis (Efeito Colateral):** Se você passa um objeto `Date d` para uma tarefa (`task1`) e logo em seguida altera o tempo desse mesmo objeto `d.setTime(...)`, a `task1` será afetada silenciosamente, gerando bugs graves de estado inválido[cite: 2].
+* [cite_start]**Vantagens da Imutabilidade:** Facilidade de manutenção, ausência de estados inválidos, segurança para concorrência (*Thread Safety*), uso seguro como chaves hash e facilidade de cache[cite: 2].
+
+### 📋 O Problema Contextualizado (Exemplo do Slide)
+[cite_start]Considere uma classe `Usuario` que possui uma grande quantidade de atributos, sendo alguns estritamente **obrigatórios** e vários outros **opcionais**[cite: 2]:
+* [cite_start]`nome` e `sobrenome` ➡️ **Obrigatórios** [cite: 2]
+* [cite_start]`idade`, `telefone` e `endereco` ➡️ **Opcionais** [cite: 2]
+
+[cite_start]**O Grande Desafio:** Como construir esse objeto mantendo-o **imutável** (com atributos `private final`), mas permitindo ignorar os atributos opcionais de forma limpa? [cite: 2] [cite_start]Se usarmos construtores normais, cairíamos no antipadrão de *construtores telescópicos* (vários construtores sobrecarregados combinando parâmetros), o que torna o código confuso e ilegível[cite: 2]. [cite_start]Se usarmos métodos *setters*, perderíamos a imutabilidade[cite: 2].
+
+### 💡 A Solução do Builder
+[cite_start]A decisão de arquitetura é **separar a construção do objeto complexo da sua representação final**[cite: 2]. [cite_start]Uma classe auxiliar (o *Builder*) coleta os dados passo a passo e, somente no final, valida e constrói o objeto real imutável[cite: 2].
+
+
+### 🎯 Tomada de Decisão: Consequências e Vantagens do Builder
+[cite_start]Você deve optar pelo Builder quando precisar de[cite: 2]:
+1.  [cite_start]**Imutabilidade Segura:** Permite construir objetos complexos cujos campos são finais (`final`), garantindo consistência total[cite: 2].
+2.  [cite_start]**Variação de Representação:** O mesmo processo de montagem pode gerar diferentes configurações do produto[cite: 2].
+3.  [cite_start]**Interface Fluida (Fluent Interface):** Proporciona uma representação altamente legível através do encadeamento de métodos[cite: 2].
+    * *Exemplo:* `new Usuario.Builder("João", "Silva").idade(25).build();`
+4.  [cite_start]**Isolamento de Código:** Separa as validações de criação e montagem da lógica de negócios principal da classe[cite: 2].
+
+### 🤖 Automação no Mercado Java
+[cite_start]Para evitar escrever o código repetitivo (*boilerplate*) do Builder manualmente, os slides apontam duas ferramentas automatizadas[cite: 2]:
+* [cite_start]**Project Lombok:** Através do uso da anotação `@Builder` no topo da classe[cite: 2].
+* [cite_start]**Immutables:** Biblioteca focada em gerar automaticamente tipos de dados imutáveis e seus respectivosBuilders[cite: 2].
+
+---
+
+## 📌 Tabela Comparativa de Tomada de Decisão para a Prova
+
+| Critério | Escolher **PROTOTYPE** se... | Escolher **BUILDER** se... |
+| :--- | :--- | :--- |
+| **Intenção Principal** | [cite_start]Duplicar/Clonar objetos configurados dinamicamente[cite: 1]. | [cite_start]Construir objetos complexos com campos opcionais passo a passo[cite: 2]. |
+| **Origem dos Dados** | [cite_start]Uma instância já existente que serve como molde básico[cite: 1]. | [cite_start]Dados brutos fornecidos de forma encadeada pelo cliente[cite: 2]. |
+| **Garante Imutabilidade?** | [cite_start]Não é o foco principal; lida com cópia de estado[cite: 1]. | [cite_start]**Sim.** É excelente para criar objetos imutáveis complexos de forma limpa[cite: 2]. |
+| **Palavra-chave de Prova** | [cite_start]*Clonagem, Tempo de Execução, Copiar Instância*[cite: 1]. * | [cite_start]*Fluent Interface, Construtor Telescópico, Imutabilidade*[cite: 2]. |
+
+O arquivo `.md` gerado contém exatamente este conteúdo estruturado para você revisar ou imprimir antes da prova. Boa sorte nos estudos! Se precisar revisar mais algum detalhe dos códigos, é só falar.
+
+```
