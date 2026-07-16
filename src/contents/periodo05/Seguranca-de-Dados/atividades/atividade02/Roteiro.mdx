@@ -6,15 +6,27 @@ Este guia tutorial apresenta o passo a passo para a configuração de uma rede d
 
 ---
 
-## Inicialização e Preparação do Ambiente (VM3)
+## Configurações Prévias e Observações
 
-O primeiro passo consiste em inicializar as três máquinas virtuais. Na VM3, que atuará como o nó central da infraestrutura de transporte (*Underlay*), precisamos elevar os privilégios para super-usuário e iniciar a interface gráfica para gerenciar os terminais de forma organizada.
+### Configurações Prévias
+
+No aplicativo do VirtualBox, vá nas configurações de rede das VMs Mininet1 e Mininet2 e verifique se **cada uma tem um adaptador de rede** com a opção `Host-Only`.
+
+A VM Mininet3 deve ter **dois** adapatador de rede com a opção `Host-Only`.
+
+### Observações
+
+Lembre-se que, quando for digitar os comandos dentro das VMs, o caracter `:` (dois pontos) não está em sua tecla habitual e sim na tecla do `ç`.
+
+---
+
+## Inicialização e Preparação do Ambiente (Mininet3)
+
+O primeiro passo consiste em inicializar as três máquinas virtuais. Na Mininet3, que atuará como o nó central da infraestrutura de transporte (*Underlay*), precisamos elevar os privilégios para super-usuário e iniciar a interface gráfica para gerenciar os terminais de forma organizada.
 
 <Terminal>
   <Abas>
-    <Aba>VM1</Aba>
-    <Aba>VM2</Aba>
-    <Aba active>VM3</Aba>
+    <Aba active>Mininet3</Aba>
   </Abas>
   <Code>
     <Comentario>Elevando privilégios para root</Comentario>
@@ -24,7 +36,9 @@ O primeiro passo consiste em inicializar as três máquinas virtuais. Na VM3, qu
   </Code>
 </Terminal>
 
-Com a interface gráfica iniciada na VM3, abra o `LXTerminal` e crie três abas utilizando o atalho `Ctrl + Shift + T`. Nomeie cada uma das abas como VM1, VM2 e VM3 para facilitar a identificação do fluxo de trabalho.
+Com a interface gráfica iniciada na Mininet3, abra o `LXTerminal` e crie três abas utilizando o atalho `Ctrl + Shift + T`. Nomeie cada uma das abas como VM1, VM2 e VM3 para facilitar a identificação do fluxo de trabalho.
+
+Daqui para frente não precisaremos mais mexer em nada relacionado as duas primeiras VMs (Mininet1 e Mininet2). Pode deixar elas abertas em segundo plano.
 
 ---
 
