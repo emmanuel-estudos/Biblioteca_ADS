@@ -1,5 +1,5 @@
 export const config = {
-		nome: "Extensão 01 - Práticas Curriculares em Sociedade 01",
+		nome: "GTIC - Gestão da Tecnologia da Informação e Comunicação",
 		periodo: "5º Período",
 		corPrimaria: '#06b6d4',
 		corSecundaria: '#0369a1',

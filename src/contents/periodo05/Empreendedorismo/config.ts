@@ -1,5 +1,5 @@
 export const config = {
-		nome: "Extensão 01 - Práticas Curriculares em Sociedade 01",
+		nome: "Empreendedorismo",
 		periodo: "5º Período",
 		corPrimaria: '#06b6d4',
 		corSecundaria: '#0369a1',
@@ -19,7 +19,7 @@ export const config = {
 		"atividade02": {
 			nome: "Atividade 02",
 			arquivos: {
-				"Teste02": "Test de arquivo 02"
+				"Teste02": "Teste de arquivo 02"
 			}
 		}
 	}

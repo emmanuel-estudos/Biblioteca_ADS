@@ -1,5 +1,5 @@
 export const config = {
-		nome: "Extensão 01 - Práticas Curriculares em Sociedade 01",
+		nome: "PW2 - Programação Para a Web 02",
 		periodo: "5º Período",
 		corPrimaria: '#06b6d4',
 		corSecundaria: '#0369a1',
