@@ -23,30 +23,28 @@ export const Container = styled.div`
 `;
 
 export const MateriaGrid = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem; /* Espaçamento seguro entre os cards */
-  width: 100%;
-  max-width: 615px; /* LIMITADOR: (3 colunas * 175px) + (2 gaps * 24px/1.5rem) = ~615px */
-  justify-content: center; /* Centraliza horizontalmente os cards de cada linha de forma independente */
-  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 350px 350px 350px;
+  gap: 2rem;
+  justify-content: center; /* Centraliza 1, 2 ou o 4º item sozinho */
+  align-content: center;
 `;
 
 export const MateriaCard = styled(Link)<{ $corPrimaria: string; $corSecundaria: string }>`
-  border-radius: 12px;
-  padding: 1.5rem 1rem;
+  border-radius: 16px;
+  padding: 3rem 2rem;
   text-align: center;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  min-height: 90px;
+  gap: 1rem;
+  transition: all 0.3s ease;
   
   /* Flex basis define o tamanho alvo do card. O max-width impede que ele estique sozinho */
-  flex: 1 1 175px; 
-  max-width: 200px; /* Margem de folga para preenchimento visual elegante */
+  flex: 0 1 350px; 
+  /* max-width: 200px; Margem de folga para preenchimento visual elegante */
   
   text-decoration: none;
-  transition: all 0.3s ease;
   box-sizing: border-box;
 
   background: #111111;
@@ -54,8 +52,8 @@ export const MateriaCard = styled(Link)<{ $corPrimaria: string; $corSecundaria: 
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.5);
 
   h2 {
-    color: #e2e8f0;
-    font-size: 1rem;
+    color: ${props => props.$corPrimaria};
+    font-size: 1.5rem;
     font-weight: 600;
     margin: 0;
     line-height: 1.3;
@@ -64,7 +62,7 @@ export const MateriaCard = styled(Link)<{ $corPrimaria: string; $corSecundaria: 
 
   &:hover {
     transform: translateY(-4px);
-    border-color: ${props => props.$corPrimaria};
+    border-color: ${props => props.$corSecundaria};
     box-shadow: 0 10px 15px -5px ${props => props.$corSecundaria}40;
 
     h2 {
