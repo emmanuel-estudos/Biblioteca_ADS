@@ -1,0 +1,40 @@
+# Demonstração Source NAT
+
+## Demonstração
+
+Usaremos 3 máquinas virtuais (VMs). Uma simulando a internet aberta, uma apenas em rede local e uma fazendo a ponte entre elas.
+
+## Configurações para a Prática
+
+VM1 = SEED 1.0 - Interface de Rede: Bridge - (internet) - IP: 10.3.150.146
+VM2 = Ubuntu24s - Duas Interfaces de Rede: Host-Only e Bridge - (rede local) - IP: 
+DockerGUI - Interface de Rede: Host-Only - (Gateway) - IP: 192.168.56.
+
+
+Entre em todas para pegar seus IPs.
+
+## Iniciando a Ubuntu24s
+
+Faça _login_ usando as credenciais **djr** (nome) e **654123** (senha).
+Coloque também em _SuperUsuário_ para ter todas as permissões, já que essa irá ser a VM principal que vamos treabalhar.
+
+Inicia a interface gráfica, abra o LXTerminal e crie 3 abas: **VM1_INTERNET** SEED, **VM2_GATEWAY** DockerGUI, **VM3_IP_LOCAL** Ubuntu24s. Faça `ssh` para conectar as VMs nessas abas.
+
+Desse momento em diante, falaremos apenas dessas abas dentro da _Ubuntu24s_ e não das VMs em si.
+
+## VM3_IP_LOCAL
+
+Faça `ssh` com o IP da [] 
+
+Se tentar dar ping com o IP da [], não vai dar certo.
+
+Mesmo colocando uma máscara, não dará certo.
+
+## VM2_GATEWAY
+
+Se tentarmos dar ping nessa aba com o IP, dará certo.
+
+## VM2_GATEWAY
+
+iptables -t nat -F (para apagar)
+iptables -t nat -L (para listar e ver se apagou)
