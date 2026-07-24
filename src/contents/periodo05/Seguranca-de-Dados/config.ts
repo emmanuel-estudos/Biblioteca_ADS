@@ -30,8 +30,14 @@ export const config = {
 				"Roteiro": "Roteiro de Execução"
 			}
 		},
+    "atividade-quiz": {
+      nome: "Quiz LGPD (pessoal)",
+      arquivos: {
+        "Quiz-LGPD": "Quiz LGPD"
+      }
+    },
     "atividade03": {
-      nome: "Atividade 03: Firewall com IPTABLES",
+      nome: "Atividade 04: Firewall com IPTABLES",
       arquivos: {
         "Contexto-Atividade": "Contexto da Atividade",
         "P_01--Configuracao-VMs": "Passo 01: Configuração das VMs",
