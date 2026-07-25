@@ -43,5 +43,10 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
+# Pastas Específicas
 Anotacoes/
+src/contents/periodo02/Sistemas-Operacionais-SO/atividades/Apresentacao/
+src/contents/periodo05/Seguranca-de-Dados/atividades/atividade-quiz/Quiz-LGPD.md
+
+# Arquivos Específicos
 rascunho.md

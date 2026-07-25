@@ -37,7 +37,7 @@ export const config = {
       }
     },
     "atividade03": {
-      nome: "Atividade 04: Firewall com IPTABLES",
+      nome: "Atividade 03: Firewall com IPTABLES",
       arquivos: {
         "Contexto-Atividade": "Contexto da Atividade",
         "P_01--Configuracao-VMs": "Passo 01: Configuração das VMs",
