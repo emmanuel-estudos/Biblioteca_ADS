@@ -1,0 +1,44 @@
+# Apresentação em Tópicos
+
+Este resumo em tópicos foi organizado para facilitar a memorização e a explicação dos conceitos principais do roteiro de apresentação sobre **Implementação e Escalonamento de Tarefas**.
+
+## Processos vs. Threads (A Base de Tudo)
+- **Processo:** É um programa em execução com **isolamento completo**. Possui sua própria área exclusiva na RAM (código, dados, pilha e heap). Se um processo falha, ele não derruba os outros.
+- **Thread:** É a menor unidade de trabalho dentro de um processo. **Compartilha a memória** do processo pai, mas possui seu próprio Contador de Programa (PC), registradores e pilha.
+- **Tarefa (Task):** Uma abstração ampla. Se ela for criada com memória compartilhada com que a criou = thread; Se ela for criada isolada e com recursos próprios = processo. No Linux, processos e threads são tratados uniformemente como "tarefas" através da estrutura `task_struct`.
+
+### Exemplo
+
+O **processo** é a sala de aula, com espaço exclusivo, recursos próprios e segurança. As **threads** são os alunos, compartilhando os mesmos recursos, têm seus materiais privados e cada um é responsável por uma parte menor da tarefa da sala (executadas ao mesmo tempo).
+
+Isso garante que o problema seja resolvido com mais eficiência, há mais risco de confusão se mais de uma aluno tentar usar um mesmo recurso ao mesmo tempo e se acontecer de um aluno ficar impossibilitado de continuar seu trabalho todos os outros também param.
+
+## Criação e Estados de Processos
+- **Mecânica UNIX (fork/exec):** O comando `fork()` cria um **clone exato** do processo pai. O comando `exec()` limpa a memória do filho e carrega um novo programa por cima.
+- **Copy-on-Write (CoW):** Técnica de otimização onde pai e filho compartilham a mesma memória física até que um deles tente escrever/modificar algo; só então a página é duplicada.
+- **Processos Especiais:**
+    - **Órfão:** O pai morre antes do filho (o sistema adota o filho).
+    - **Zumbi:** O filho terminou, mas o pai ainda não leu seu código de retorno; ocupa apenas uma linha na tabela de processos.
+
+## O Bloco de Controle de Processo (PCB)
+- **O "RG" do Processo:** É uma estrutura de dados armazenada na **memória protegida do Kernel** que contém todas as informações de um processo.
+- **O que contém:** Estado atual (Pronto, Rodando, Bloqueado), Contador de Programa, valores dos Registradores, limites de memória e lista de arquivos abertos.
+
+## Troca de Contexto (A Ilusão de Concorrência)
+- **Definição:** Procedimento de salvar o estado do processo atual no PCB e carregar o estado de um novo processo para a CPU.
+- **Custo (Overhead):** É uma operação cara porque, enquanto o SO troca os processos, nenhum trabalho útil para o usuário é feito. Além disso, limpa memórias cache (L1, L2, L3), o que torna a execução inicial do novo processo mais lenta.
+- **Vantagem das Threads:** Trocar de thread é **mais barato** que trocar de processo, pois elas compartilham o mesmo espaço de endereçamento e não exigem limpeza de caches de memória.
+
+## Escalonamento de Tarefas (Quem manda na CPU?)
+- **Tipos de Escalonamento:**
+    - **Não-Preemptivo:** O processo só sai da CPU quando termina ou se bloqueia voluntariamente.
+    - **Preemptivo:** O SO pode interromper o processo a qualquer momento (por tempo expirado ou prioridade).
+- **Algoritmos Principais:**
+    - **FIFO (First-Come, First-Served):** Simples fila de banco; sofre com o "Efeito Comboio" (tarefas curtas presas atrás de longas).
+    - **SJF (Shortest Job First):** O menor processo vai primeiro.
+    - **Round Robin (Alternância Circular):** Cada processo ganha uma fatia de tempo (**Quantum**). Se não terminar, volta para o fim da fila.
+- **Problema da Inanição (Starvation):** Quando processos de baixa prioridade nunca rodam. Resolve-se com o **Envelhecimento (Aging)**, aumentando a prioridade de quem espera há muito tempo.
+
+## Dicas para Explicar:
+- Use a analogia do **Chrome** para processos: cada aba é um processo; se uma aba trava, o navegador continua funcionando porque elas estão isoladas.
+- Explique a **Concorrência** como "fazer várias coisas ao mesmo tempo alternando rápido" e o **Paralelismo** como "fazer várias coisas no mesmo instante" (exige múltiplos núcleos).

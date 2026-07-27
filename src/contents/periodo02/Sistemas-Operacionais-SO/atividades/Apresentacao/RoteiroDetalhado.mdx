@@ -1,0 +1,178 @@
+# Implementação e Escalonamento de Tarefas
+
+Slide 01 para a apresentação da equipe e do tema
+
+## Tópicos abordados
+
+Conteúdo do slide 02
+
+1. Processos vs. Threads (e o conceito de Tarefas).
+2. Como os processos são criados.
+3. O Descritor de Processo (PCB).
+4. A Troca de Contexto (a mágica da ilusão de concorrência).
+5. Escalonamento: Quem manda na CPU?
+
+## Processos e Threads - Slide 03: O que é um processo?
+
+Um processo é um programa em execução que possui isolamento completo de recursos. Quando o Sistema Operacional (SO) cria um processo, ele aloca uma região exclusiva na memória RAM (espaço de endereçamento) que contém o código do programa, seus dados globais, a pilha (stack) e a área de alocação dinâmica (heap). Esse isolamento garante estabilidade: se um processo travar ou tentar acessar a memória de outro, o SO o encerra sumariamente (gerando o famoso erro de Segmentation Fault), protegendo o sistema.
+
+Por outro lado, uma Thread (linha de execução) é a menor unidade de trabalho que pode ser escalonada dentro de um processo. Em vez de criar um novo espaço de memória, múltiplas threads compartilham o espaço de memória do processo pai (código, dados e arquivos abertos). No entanto, cada thread possui seu próprio contador de programa (Program Counter), conjunto de registradores e pilha para que possam executar funções diferentes ao mesmo tempo.
+
+O termo Tarefa (Task) é uma abstração mais ampla. Em muitos sistemas operacionais, como o Linux (onde o kernel usa a estrutura task_struct para representar tudo), a distinção rígida entre processo e thread é suavizada, tratando ambos como fluxos de execução com diferentes níveis de compartilhamento de recursos.
+
+### Dúvidas Frequentes
+
+#### Se as threads compartilham a mesma memória, como elas não sobrescrevem as variáveis umas das outras por acidente?
+
+Esse é o maior desafio da programação multithread. Quando duas threads tentam ler e gravar na mesma variável ao mesmo tempo, ocorre uma Condição de Corrida (Race Condition). 
+
+Para evitar que os dados fiquem corrompidos, os desenvolvedores utilizam mecanismos de sincronização fornecidos pelo SO, como Mutexes (exclusão mútua) ou Semáforos, que trancam o acesso à variável para apenas uma thread por vez. 
+
+Além disso, cada thread possui sua própria pilha privada para variáveis locais de funções, o que garante que dados temporários não se misturem.
+
+#### Por que não usamos apenas Threads, já que elas consomem menos memória e são muito mais rápidas de criar?
+
+Simplesmente por uma questão de segurança e tolerância a falhas. Se uma única thread sofrer um erro grave (como uma divisão por zero não tratada), ela derrubará o processo inteiro e todas as outras threads associadas a ele. 
+
+Processos são usados quando precisamos de isolamento rígido. Por exemplo, navegadores modernos como o Google Chrome abrem cada aba como um processo separado para que um travamento em uma página web não derrube o navegador inteiro.
+
+## Processos e Threads - Slide 04: Criação de Processos
+
+Nos sistemas baseados em UNIX (como Linux e macOS), a criação de processos segue uma dinâmica muito particular de clonagem. Ela ocorre principalmente em duas etapas por meio das chamadas de sistema (System Calls) `fork()` e `exec()`.
+
+Quando um processo pai executa a função `fork()`, o sistema operacional cria uma cópia exata deste processo na memória. O novo processo, chamado de processo filho, herda o mesmo código, variáveis, arquivos abertos e até a posição exata da próxima instrução a ser executada. A única diferença imediata é o identificador do processo (PID). 
+
+Para que o filho execute uma tarefa diferente do pai, a chamada de sistema `exec()` é usada logo em seguida: ela limpa a memória do processo filho e carrega o código de um novo programa por cima. No Windows, esse processo é mais direto e ocorre em um único passo por meio da chamada da API `CreateProcess()`.
+
+```txt
+[Processo Pai] --(fork)--> [Processo Filho (clone)] ---
+--(exec)--> [Novo Código Rodando]
+```
+
+### Dúvidas Frequentes
+
+#### O que é "Copy-on-Write" (Cópia em Escrita) na criação de processos?
+
+Como o `fork()` cria um clone idêntico, copiar toda a memória do pai para o filho seria uma operação extremamente lenta e desperdiçaria muita RAM. Então, para otimizar isso, o SO usa a técnica de _Copy-on-Write (CoW)_.
+
+O pai e o filho compartilham fisicamente as mesmas páginas de memória na RAM como "apenas leitura". Somente se o pai ou o filho tentar modificar (escrever) algum dado, o SO duplica aquela página de memória específica para o processo que fez a alteração.
+
+#### O que são processos Órfãos e processos Zumbis?
+
+**Órfão**: Ocorre quando o processo pai termina sua execução antes do processo filho. Nesse caso, o processo inicial do sistema (geralmente o init ou systemd, com PID 1) adota o filho órfão para garantir que ele seja encerrado corretamente depois.
+
+**Zumbi**: Ocorre quando o filho termina sua execução (executa um exit), mas o pai ainda não leu o seu código de retorno (usando a chamada `wait()`). O processo zumbi não consome CPU nem memória RAM de dados, mas ainda ocupa uma linha na tabela de processos do sistema operacional. Se acumulados em excesso, podem impedir a criação de novos processos.
+
+## Processo e Threads - Slide 05: Threads e "Tarefas"
+
+Uma **Thread** (linha ou fluxo de execução) é a menor unidade de código que o escalonador do Sistema Operacional pode colocar para rodar na CPU. Enquanto um processo define a **divisão de recursos** (espaço de memória, arquivos e permissões), a thread define a **execução**. Um processo pode ser _single-threaded_ (possuir apenas uma linha de execução principal) ou _multi-threaded_ (possuir várias linhas de execução paralelas dentro do mesmo espaço de memória).
+
+Cada thread possui seu próprio contexto de execução privado:
+
+- Um **Contador de Programa (PC)** exclusivo indicando qual linha de código ela está executando.
+- Seu próprio conjunto de Registradores.
+- Uma **Pilha de Execução (Stack)** privada para guardar variáveis locais e endereços de retorno de funções.
+
+No entanto, todas as threads de um mesmo processo compartilham o código do programa, os dados globais, a memória alocada dinamicamente (heap) e os arquivos abertos.
+
+Além disso, as threads podem ser implementadas em dois níveis principais:
+
+- **Threads em Nível de Usuário (User-Level Threads)**: Gerenciadas por uma biblioteca no código do aplicativo, sem que o kernel do SO saiba que elas existem. São extremamente rápidas para criar e alternar, mas se uma thread bloquear (ex: esperando leitura de disco), o processo inteiro bloqueia.
+- **Threads em Nível de Kernel (Kernel-Level Threads)**: O próprio sistema operacional gerencia as threads. Se uma thread bloquear, o SO pode escalonar outra thread do mesmo processo para continuar rodando no outro núcleo da CPU.
+
+Já o termo Tarefa (Task) varia de acordo com o contexto do Sistema Operacional:
+
+- **Em Sistemas de Tempo Real (RTOS)**: "Tarefa" é o nome padrão dado a um bloco de código independente com prazo (_deadline_) rígido de execução.
+- **No Kernel do Linux**: O termo "Task" é a estrutura universal. O Linux não faz distinção rígida entre processos e threads no nível do kernel; ele trata tudo como tarefas (`task_struct`). A diferença é configurada no momento da criação: se a tarefa compartilha memória com a criadora, ela age como thread; se não compartilha, age como um processo isolado.
+
+### Dúvidas Frequentes
+
+#### Qual é a diferença exata entre Concorrência e Paralelismo no contexto de Threads?
+
+**Concorrência** é sobre a _estrutura_ do programa: é a capacidade do sistema de lidar com múltiplos fluxos de execução ao mesmo tempo, alternando rapidamente entre eles (via troca de contexto), mesmo que haja apenas um único núcleo de CPU. 
+
+**Paralelismo** é sobre a execução física: é a capacidade de rodar duas ou mais threads **exatamente no mesmo instante de tempo**, o que exige obrigatoriamente um processador com múltiplos núcleos (**multicore**).
+
+#### O que acontece se uma Thread individual chamar a função `exit()` do C/C++?
+
+A chamada de sistema `exit()` encerra o **processo inteiro**, derrubando imediatamente todas as outras threads que pertencem a ele! Para encerrar apenas a thread atual sem afetar as companheiras, o programador deve usar a função específica da biblioteca de threads (como `pthread_exit()` no padrão POSIX do Linux) ou simplesmente fazer a função principal da thread retornar (`return`).
+
+#### Como o Linux cria uma Thread internamente se ele só enxerga "Tasks"?
+
+O Linux utiliza a chamada de sistema `clone()`. Quando você cria um processo comum (como no `fork()`), o sistema chama `clone()` sem compartilhar memória. Quando você cria uma thread usando uma biblioteca como a pthread, o Linux chama a mesma `clone()`, mas passando flags especiais (como `CLONE_VM`, `CLONE_FS`, `CLONE_FILES`). Essas flags avisam ao kernel: "_crie uma nova `task_struct`, mas faça ela apontar para a mesma memória e arquivos da tarefa pai_".
+
+## Slide 06: O Bloco de Controle de Processo (PCB)
+
+Para gerenciar centenas de processos concorrentes, o núcleo (kernel) do sistema operacional precisa manter um registro detalhado de cada um deles. Esse registro é uma estrutura de dados na memória do kernel conhecida como Bloco de Controle de Processo (PCB - Process Control Block), ou simplesmente Descritor de Processo.
+
+O PCB funciona como o "documento de identidade" do processo. Nele, o SO armazena informações cruciais para a sobrevivência e gerenciamento do fluxo:
+
+- **Estado do processo**: Se ele está em execução (Running), pronto para executar (Ready) ou bloqueado esperando algum evento (Waiting/Blocked).
+- **Contador de Programa (PC)**: O endereço da próxima instrução que o processo deve executar quando voltar para a CPU.
+- **Registradores da CPU**: Cópia dos valores que estavam dentro dos registradores físicos do processador no momento em que o processo foi pausado.
+- **Informações de Gerenciamento de Memória**: Ponteiros para as tabelas de páginas que definem quais endereços de RAM pertencem a ele.
+- **Informações de Entrada/Saída**: Lista de arquivos abertos, conexões de rede ativas e dispositivos de hardware que ele está acessando.
+
+### Dúvidas Frequentes
+
+#### Onde o PCB fica armazenado fisicamente e por que os programas comuns não podem ler essa estrutura?
+
+O PCB fica armazenado estritamente no espaço de memória do Kernel (área protegida da RAM reservada ao sistema operacional). Aplicativos de usuário comum não podem ler ou modificar esses dados diretamente por motivos de segurança. 
+
+Se um programa pudesse alterar seu próprio PCB, ele poderia elevar sua própria prioridade de forma maliciosa ou acessar a memória reservada de outros programas.
+
+#### O PCB armazena o código de programação que escrevemos?
+
+Não. O PCB armazena apenas metadados (as configurações e o estado do processo) e ponteiros (endereços de memória) que indicam ao SO onde o código real do programa está carregado na memória RAM.
+
+## Slide 07: A Troca de Contexto
+
+A CPU de um computador só consegue executar uma única instrução por núcleo físico de cada vez. Para criar a sensação de que dezenas de aplicativos estão funcionando em paralelo (multitarefa), o sistema operacional realiza constantes **Trocas de Contexto**.
+
+A troca de contexto é o procedimento de salvar o estado atual do processo que está na CPU (para que ele possa continuar de onde parou mais tarde) e carregar o estado salvo de um novo processo para execução.
+
+O fluxo exato funciona assim:
+
+1. O Processo _A_ está rodando na CPU.
+2. Ocorre uma interrupção (por exemplo, o tempo de execução do processo expirou ou ele solicitou a leitura de um arquivo).
+3. O hardware transfere o controle para o SO.
+4. O SO salva o estado atual dos registradores da CPU e o contador de programa no PCB do Processo _A_.
+5. O algoritmo de escalonamento decide que o Processo _B_ deve rodar a seguir.
+6. O SO busca o PCB do Processo _B_ e copia as informações salvas de volta para os registradores físicos da CPU.
+7. O Processo _B_ começa (ou continua) a sua execução.
+
+### Dúvidas Frequentes
+
+#### Por que a troca de contexto é considerada uma operação cara ("overhead") para o sistema?
+
+Durante todo o tempo em que o sistema operacional está salvando o PCB de um processo e carregando o de outro, nenhum trabalho útil do usuário está sendo processado. Além disso, a troca de contexto invalida o cache interno do processador (L1, L2, L3) e a tabela de mapeamento de memória virtual (TLB - Translation Lookaside Buffer), fazendo com que o novo processo execute de forma mais lenta nos primeiros ciclos até que as memórias cache sejam preenchidas novamente.
+
+#### Qual a diferença no custo da troca de contexto entre processos e entre threads?
+
+A troca de contexto entre threads do mesmo processo é muito mais barata do que entre processos diferentes. Como as threads compartilham o mesmo espaço de memória, o SO não precisa alterar as tabelas de páginas de memória RAM nem limpar a cache TLB. Ele só precisa salvar e restaurar o estado dos registradores básicos e da pilha privada.
+
+## Escalonamento de Tarefas - Slide 08: O papel do Escalonador (Scheduler)
+
+O Escalonador é o módulo do SO encarregado de gerenciar as filas de processos e decidir qual deles terá o privilégio de usar o processador a cada instante. O principal objetivo do escalonador é maximizar o uso da CPU, reduzir o tempo de espera e garantir que o sistema responda rapidamente ao usuário.
+
+- Existem duas filosofias principais de escalonamento:
+- Não-Preemptivo: Quando um processo assume a CPU, ele fica lá até terminar sua execução ou voluntariamente bloquear-se para esperar por I/O. (Ex: FIFO e SJF clássico).
+- Preemptivo: O sistema operacional pode interromper um processo que está rodando a qualquer momento para dar a CPU a outro de maior prioridade ou porque o tempo limite do processo atual acabou. (Ex: Round Robin e Escalonamento por Prioridades moderno).
+
+### Principais Algoritmos
+
+- **FCFS / FIFO (First-Come, First-Served)**: Simples fila de banco. O primeiro a chegar é atendido. Sofre com o chamado Efeito Comboio (uma tarefa pequena travada atrás de uma tarefa imensa).
+- **SJF (Shortest Job First)**: Executa primeiro o processo que tem o menor tempo estimado de execução. Teve bom desempenho teórico de tempo médio de espera, mas é difícil prever o futuro (saber quanto tempo uma tarefa vai demorar antes de rodá-la).
+- **Round Robin (Alternância Circular)**: Desenvolvido especialmente para sistemas interativos. Cada processo recebe uma fatia de tempo contínua na CPU chamada Quantum (geralmente entre 10 e 100 milissegundos). Se o processo não terminar antes do fim do quantum, ele sofre preempção e volta para o fim da fila de prontos.
+
+### Dúvidas Frequentes
+
+#### O que é "Inanição" (Starvation) e como o sistema resolve isso?
+
+Inanição ocorre em algoritmos baseados em prioridade. Se processos de alta prioridade continuarem chegando sem parar, os processos de baixa prioridade ficarão eternamente no fim da fila e nunca executarão. Para resolver isso, os sistemas utilizam a técnica de Envelhecimento (Aging): o sistema operacional aumenta gradativamente a prioridade de um processo à medida que ele passa mais tempo esperando na fila de prontos, garantindo que eventualmente ele consiga rodar.
+
+#### O que acontece se o tamanho do Quantum no algoritmo Round Robin for mal configurado?
+
+**Se for muito grande**: O algoritmo perde sua característica interativa e começa a se comportar de forma idêntica ao FIFO (com o usuário percebendo travamentos na interface gráfica).
+
+**Se for muito pequeno**: O sistema passará a maior parte do tempo realizando trocas de contexto em vez de executar os programas reais, degradando absurdamente a performance da máquina.
