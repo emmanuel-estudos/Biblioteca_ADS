@@ -1,269 +1,337 @@
-# Atividade 02
+# Atividade 02 - Passo a Passo
 
-Guia Prático: Configuração de Redes Overlay (VXLAN e GRE) com Open vSwitch.
+## Informações Importantes
 
-Este guia tutorial apresenta o passo a passo para a configuração de uma rede de sobreposição (*Overlay*) utilizando os protocolos VXLAN e GRE sobre uma infraestrutura base (*Underlay*), simulada através de três Máquinas Virtuais (VMs). Este experimento é fundamental no contexto de Segurança de Dados para compreender o isolamento lógico de tráfego e o tunelamento em redes definidas por software (SDN).
+### Credenciais
 
----
+- UserName: mininet
+- Password: mininet
 
-## Configurações Prévias e Observações
+### VirtualBox
 
-### Configurações Prévias
+Vá nas configurações de rede das VMs Mininet1 e Mininet2 e verifique se **cada uma tem um adaptador de rede** com a opção `Host-Only`.
 
-No aplicativo do VirtualBox, vá nas configurações de rede das VMs Mininet1 e Mininet2 e verifique se **cada uma tem um adaptador de rede** com a opção `Host-Only`.
+A VM Mininet3 deve ter **dois** adaptadores de rede com a opção `Host-Only`.
 
-A VM Mininet3 deve ter **dois** adapatador de rede com a opção `Host-Only`.
+### Teclado
 
-### Observações
+O teclado dentro das VMs está em inglês. Alguns comandos usam o caractere `:` (dois pontos), mas caso ele não funcione, tente a tecla `ç` (cedilha).
 
-Lembre-se que, quando for digitar os comandos dentro das VMs, o caracter `:` (dois pontos) não está em sua tecla habitual e sim na tecla do `ç`.
+### Quebras de Linha nos Terminais
 
----
+Você irá perceber que existem "terminais" ao decorrer deste documento. Eles não são interativos, mas ajudam a ilustrar melhor em qual máquina/aba estamos trabalhando.
 
-## Inicialização e Preparação do Ambiente (Mininet3)
+As quebras de linha nos terminais são automáticas para melhor leitura, mas o comando nunca volta totalmente para a borda esquerda.
+Sempre que uma nova linha começa no terminal, ela irá aparecer junto com o prompt antes.
 
-O primeiro passo consiste em inicializar as três máquinas virtuais. Na Mininet3, que atuará como o nó central da infraestrutura de transporte (*Underlay*), precisamos elevar os privilégios para super-usuário e iniciar a interface gráfica para gerenciar os terminais de forma organizada.
+### Vídeo
 
-<Terminal>
-  <Abas>
-    <Aba active>Mininet3</Aba>
-  </Abas>
-  <Code>
-    <Comentario>Elevando privilégios para root</Comentario>
-    <Linha texto="usuario@vm3:~$">sudo su</Linha>
-    <Comentario>Iniciando a interface gráfica</Comentario>
-    <Linha texto="root@vm3:/home/usuario#">startx</Linha>
-  </Code>
-</Terminal>
+Se preferir, há um [vídeo](https://www.youtube.com/watch?v=wwffwrjwfl0) mostrando o passo a passo. Vou deixar a minutagem referenciada ao decorrer dos passos.
 
-Com a interface gráfica iniciada na Mininet3, abra o `LXTerminal` e crie três abas utilizando o atalho `Ctrl + Shift + T`. Nomeie cada uma das abas como VM1, VM2 e VM3 para facilitar a identificação do fluxo de trabalho.
+## Preparando Cenários
 
-Daqui para frente não precisaremos mais mexer em nada relacionado as duas primeiras VMs (Mininet1 e Mininet2). Pode deixar elas abertas em segundo plano.
+Inicie as 3 VMs e se transforme em _SuperUsuário_ em todas.
 
----
+Inicie a interface gráfica somente na Mininet3.
+Depois, abra o terminal por meio do caminho: _Iniciar_ --> _Accessories_ --> _LXTerminal_.
 
-## Configuração do Roteamento Underlay (VM1 e VM2)
+Estando dentro do _LXTerminal_, crie 3 abas (`Control + Shift + T`) e as nomeie de `VM1`, `VM2`, `VM3 - UNDERLAY`.
 
-Para que as redes isoladas consigam estabelecer túneis, a infraestrutura base precisa conseguir rotear os pacotes entre os nós. Na aba correspondente à VM1, faremos um acesso seguro via SSH para o nó correspondente na sub-rede `192.168.1.10`, seguido da elevação de privilégios e a adição de uma rota estática para a rede interna da VM2 através do gateway da VM3.
+Deste momento em diante, quando houver referência às VM1, VM2 ou VM3, estaremos falando sobre as abas presentes no terminal da Mininet3.
+
+Preparação finalizada.
+
+## VM1: Estabelecendo Conexão SSH - (05:45)
+
+Estabelecendo conexão com a Mininet1 (05:25) e depois adicionando a rota (07:25).
 
 <Terminal>
   <Abas>
     <Aba active>VM1</Aba>
     <Aba>VM2</Aba>
-    <Aba>VM3</Aba>
+    <Aba>VM3 - Underlay</Aba>
   </Abas>
   <Code>
-    <Comentario>Acessando a VM1 via SSH na rede local</Comentario>
-    <Linha texto="mininet@mininet-vm:~$">ssh mininet@192.168.1.10</Linha>
+    <Comentario>Estabelecendo Conexão</Comentario>
+    <Linha texto="root@mininet-vm:/home/mininet#">ssh mininet@192.168.1.10</Linha>
+    <Comentario>Senha</Comentario>
     <Linha texto="mininet@192.168.1.10's password:">mininet</Linha>
-    <Comentario>Virando super-usuário para aplicar configurações de rede</Comentario>
-    <Linha texto="mininet@vm1:~$">sudo su</Linha>
-    <Comentario>Adicionando rota para a rede da VM2 apontando para o gateway da VM3</Comentario>
-    <Linha texto="root@vm1:/home/mininet#">route add -net 192.168.2.0 netmask 255.255.255.0 gw 192.168.1.1</Linha>
+    <Comentario>Se transformando em SuperUsuário</Comentario>
+    <Linha texto="mininet@mininet-vm:~$"> sudo su</Linha>
+    <Comentario>Adicionando Rota</Comentario>
+    <Linha texto="root@mininet-vm:/home/mininet#"> route add -net 192.168.2.0 netmask 255.255.255.0 gw 192.168.1.1</Linha>
   </Code>
 </Terminal>
 
-De forma simétrica, faremos o mesmo procedimento na aba da VM2. Conectaremos via SSH no IP `192.168.2.20`, assumiremos o perfil de super-usuário e adicionaremos a rota de retorno para a sub-rede da VM1 (`192.168.1.0/24`) utilizando o respectivo gateway da infraestrutura de transporte.
+## VM2: Estabelecendo Conexão SSH - (06:25)
+
+Estabelecendo conexão com a Mininet2 (06:25) e depois adicionando a rota (08:30).
 
 <Terminal>
   <Abas>
     <Aba>VM1</Aba>
     <Aba active>VM2</Aba>
-    <Aba>VM3</Aba>
+    <Aba>VM3 - Underlay</Aba>
   </Abas>
   <Code>
-    <Comentario>Acessando a VM2 via SSH</Comentario>
-    <Linha texto="mininet@mininet-vm:~$">ssh mininet@192.168.2.20</Linha>
+    <Comentario>Estabelecendo Conexão</Comentario>
+    <Linha texto="root@mininet-vm:/home/mininet#">ssh mininet@192.168.2.20</Linha>
+    <Comentario>Senha</Comentario>
     <Linha texto="mininet@192.168.2.20's password:">mininet</Linha>
-    <Comentario>Elevando privilégios locais na VM2</Comentario>
-    <Linha texto="mininet@vm2:~$">sudo su</Linha>
-    <Comentario>Adicionando rota de retorno para a rede da VM1</Comentario>
-    <Linha texto="root@vm2:/home/mininet#">route add -net 192.168.1.0 netmask 255.255.255.0 gw 192.168.2.1</Linha>
+    <Comentario>Se transformando em SuperUsuário</Comentario>
+    <Linha texto="mininet@mininet-vm:~$"> sudo su</Linha>
+    <Comentario>Adicionando Rota</Comentario>
+    <Linha texto="root@mininet-vm:/home/mininet#"> route add -net 192.168.1.0 netmask 255.255.255.0 gw 192.168.2.1</Linha>
   </Code>
 </Terminal>
 
-Neste momento, se tentarmos realizar um teste de conectividade direta entre os hosts finais das duas pontas, o tráfego falhará. Isso ocorre porque o nó central (VM3) ainda não está autorizado pelo sistema operacional a atuar como um roteador de pacotes transitórios, resultando em perda total de dados. No entanto, o ping para o gateway local da infraestrutura deve responder perfeitamente.
+## Situação atual
+
+Da forma como está estruturado até agora, se tentarmos dar ping com `192.168.1.10` todos os pacotes serão perdidos (09:24).
+Mas, se tentarmos com o `192.168.1.1`, vai dar certo.
 
 <Terminal>
   <Abas>
-    <Aba active>VM1</Aba>
-    <Aba>VM2</Aba>
-    <Aba>VM3</Aba>
+    <Aba>VM1</Aba>
+    <Aba active>VM2</Aba>
+    <Aba>VM3 - Underlay</Aba>
   </Abas>
   <Code>
-    <Comentario>Testando comunicação direta (Vai falhar)</Comentario>
-    <Linha texto="root@vm1:/home/mininet#">ping -c 4 192.168.2.20</Linha>
-    <Resultado>100% packet loss</Resultado>
-    <Comentario>Testando comunicação com o gateway (Vai funcionar)</Comentario>
-    <Linha texto="root@vm1:/home/mininet#">ping -c 4 192.168.1.1</Linha>
-    <Resultado>4 packets transmitted, 4 received, 0% packet loss</Resultado>
+    <Comentario>PING com pacote perdido</Comentario>
+    <Linha texto="root@mininet-vm:/home/mininet#">ping 192.168.1.10</Linha>
+    <Resultado>X packets transmitted, 0 received, 100% packet loss</Resultado>
   </Code>
 </Terminal>
 
----
+## VM3 - Underlay: Trocando Variável Booleana
 
-## Ativação do Encaminhamento IP (IP Forwarding) na VM3
-
-Para corrigir a falha de comunicação identificada no teste anterior, devemos ir até a aba da VM3 (Underlay). Primeiramente, inspecionamos o estado do parâmetro de kernel para repasse de pacotes IPv4 que estará desativado (retornando `0`). Em seguida, escrevemos o valor `1` diretamente no sistema de arquivos virtual `/proc` para instruir o Linux a rotear pacotes entre as interfaces e validamos se a alteração foi aplicada com sucesso.
+Agora iremos trocar a variável booleana para que seja possível a comunicação entre a Mininet2 e a Mininet1 (10:42).
 
 <Terminal>
   <Abas>
     <Aba>VM1</Aba>
     <Aba>VM2</Aba>
-    <Aba active>VM3</Aba>
+    <Aba active>VM3 - Underlay</Aba>
   </Abas>
   <Code>
-    <Comentario>Verificando estado atual do encaminhamento IP</Comentario>
-    <Linha texto="root@vm3:/home/usuario#">cat /proc/sys/net/ipv4/ip_forward</Linha>
+    <Comentario>Verificando estado atual</Comentario>
+    <Linha texto="root@mininet-vm:/home/mininet#">cat /proc/sys/net/ipv4/ip_forward</Linha>
     <Resultado>0</Resultado>
-    <Comentario>Ativando o IP Forwarding dinamicamente</Comentario>
-    <Linha texto="root@vm3:/home/usuario#">echo 1 > /proc/sys/net/ipv4/ip_forward</Linha>
-    <Comentario>Confirmando que o parâmetro agora está ativo (1)</Comentario>
-    <Linha texto="root@vm3:/home/usuario#">cat /proc/sys/net/ipv4/ip_forward</Linha>
+    <Comentario>Trocando</Comentario>
+    <Linha texto="root@mininet-vm:/home/mininet#"> echo 1 > /proc/sys/net/ipv4/ip_forward</Linha>
+    <Comentario>Verificando troca</Comentario>
+    <Linha texto="root@mininet-vm:/home/mininet#">cat /proc/sys/net/ipv4/ip_forward</Linha>
     <Resultado>1</Resultado>
   </Code>
 </Terminal>
 
-Com o encaminhamento de pacotes ativado no núcleo da rede de transporte, podemos retornar às máquinas das pontas para validar o tráfego de interconexão. Executando o comando de ping a partir da VM1 em direção à VM2 (e vice-versa), os pacotes agora serão devidamente encaminhados através da VM3 com sucesso na transmissão.
+Com isso, se dermos ping para `192.168.2.20` na VM1, será possível receber os pacotes (12:20).
+Na VM2, o ping para `192.168.1.10` também funcionará.
+
+## VM1: Conferindo Arquivos
+
+Digite `ls` para verificar os arquivos e depois `cat` para ver o conteúdo de um arquivo em específico (13:16).
 
 <Terminal>
   <Abas>
     <Aba active>VM1</Aba>
     <Aba>VM2</Aba>
-    <Aba>VM3</Aba>
+    <Aba>VM3 - Underlay</Aba>
   </Abas>
   <Code>
-    <Comentario>Testando novamente o ping da VM1 para a VM2 após ativação na VM3</Comentario>
-    <Linha texto="root@vm1:/home/mininet#">ping -c 4 192.168.2.20</Linha>
-    <Resultado>4 packets transmitted, 4 received, 0% packet loss</Resultado>
+    <Comentario>Verificando se o arquivo existe</Comentario>
+    <Linha texto="root@mininet-vm:/home/mininet#">ls</Linha>
+    <Comentario>Abrindo arquivo</Comentario>
+    <Linha texto="root@mininet-vm:/home/mininet#"> cat flows1.txt</Linha>
+    <Resultado>Conteúdo de 14 linhas</Resultado>
   </Code>
 </Terminal>
 
----
+## VM1: Rodando o primeiro script de VXLan
 
-## Inicialização dos Cenários SDN e Criação do Túnel VXLAN
+### Tentativa 01
 
-Agora que temos a conectividade básica estabelecida na rede física (Underlay), iniciaremos a criação da rede virtual de sobreposição (*Overlay*). Na VM1, verificamos os arquivos locais usando o comando `ls` e inspecionamos as regras iniciais contidas no arquivo `flows1.txt`. Na VM2, listamos os arquivos e abrimos brevemente o script Python gerador da topologia para revisão antes de executá-lo.
-
-<Terminal>
-  <Abas>
-    <Aba>VM1</Aba>
-    <Aba active>VM2</Aba>
-    <Aba>VM3</Aba>
-  </Abas>
-  <Code>
-    <Comentario>Listando diretório e abrindo o script de topologia no editor de texto pico</Comentario>
-    <Linha texto="root@vm2:/home/mininet#">ls</Linha>
-    <Linha texto="root@vm2:/home/mininet#">pico VXLANexample2.py</Linha>
-    <Comentario>Use Ctrl + X para sair do editor de texto</Comentario>
-  </Code>
-</Terminal>
-
-Limpamos a tela do terminal da VM1 utilizando o atalho `Ctrl + L` para organizar o ambiente. Em seguida, iniciamos os scripts Python de simulação do Mininet em ambos os nós (`./VXLANexample1.py` na VM1 e `./VXLANexample2.py` na VM2) para instanciar os switches virtuais Open vSwitch locais que gerenciarão o tráfego encapsulado.
+Tentaremos rodar o primeiro script do VXLan em python (18:10).
 
 <Terminal>
   <Abas>
     <Aba active>VM1</Aba>
     <Aba>VM2</Aba>
-    <Aba>VM3</Aba>
+    <Aba>VM3 - Underlay</Aba>
   </Abas>
   <Code>
-    <Comentario>Executando o script de infraestrutura virtual na VM1</Comentario>
-    <Linha texto="root@vm1:/home/mininet#">./VXLANexample1.py</Linha>
+    <Linha texto="root@mininet-vm:/home/mininet#">./VXLANexample1.py</Linha>
+    <Linha texto="mininet>">Leia os comentários abaixo</Linha>
   </Code>
 </Terminal>
 
-Com os switches em execução, aplicamos as tabelas de fluxos OpenFlow a partir do arquivo texto e criamos a interface de túnel virtual utilizando o protocolo **VXLAN** no switch `s1` da VM1, definindo o IP remoto correspondente à VM2 e especificando mapeamento via chaves dinâmicas.
+Caso seja exibida uma mensagem, iniciando com "_\*\*\*Adding controller_", terminando com "_\*\*\* Starting CLI:_" e com uma mensagem de erro no meio: "_Error setting eth1 up: eth1: ERROR while getting interface flags: No such device_", não se preocupe.
+
+Deu errado mas vai dar certo.
+
+Digite **exit** para sair da execução do `./VXLANexample1.py` (18:38).
+
+### Resolvendo o problema: edição do arquivo
+
+Vamos modificar o conteúdo do arquivo `./VXLANexample1.py` para que o script funcione (18:41).
 
 <Terminal>
   <Abas>
     <Aba active>VM1</Aba>
     <Aba>VM2</Aba>
-    <Aba>VM3</Aba>
+    <Aba>VM3 - Underlay</Aba>
   </Abas>
   <Code>
-    <Comentario>Injetando os fluxos OpenFlow no switch s1</Comentario>
-    <Linha texto="root@vm1:/home/mininet#">sh ovs-ofctl add-flows s1 flows1.txt</Linha>
-    <Comentario>Criando o endpoint do túnel VXLAN apontando para a VM2</Comentario>
-    <Linha texto="root@vm1:/home/mininet#">sh ovs-vsctl add-port s1 vtep -- set interface vtep type=vxlan options:remote_ip=192.168.2.20 option:key=flow ofport_request=10</Linha>
+    <Comentario>Abrindo o editor</Comentario>
+    <Linha texto="root@mininet-vm:/home/mininet#">pico VXLANexample1.py</Linha>
+    <Resultado>Mensagem grande, começando com "#!/usr/bin/python" em vermelho</Resultado>
   </Code>
 </Terminal>
 
-Para fechar o enlace do túnel, executamos os comandos correspondentes no switch `s2` da VM2, associando seu respectivo arquivo de fluxos e apontando o endereço remoto do túnel de volta para o IP da VM1 (`192.168.1.10`).
+Procure a linha que possua mensagem que começa com `intfName='eth1'`.
+Troque para `intfName='eth0'`.
 
-<Terminal>
-  <Abas>
-    <Aba>VM1</Aba>
-    <Aba active>VM2</Aba>
-    <Aba>VM3</Aba>
-  </Abas>
-  <Code>
-    <Comentario>Injetando fluxos em s2 e fechando o túnel VXLAN apontando para a VM1</Comentario>
-    <Linha texto="root@vm2:/home/mininet#">sh ovs-ofctl add-flows s2 flows2.txt</Linha>
-    <Linha texto="root@vm2:/home/mininet#">sh ovs-vsctl add-port s2 vtep -- set interface vtep type=vxlan option:remote_ip=192.168.1.10 option:key=flow ofport_request=10</Linha>
-  </Code>
-</Terminal>
+Pressione `Ctrl + X` para sair do modo de edição, `Y` para confirmar a modificação e por último `Enter`.
 
-Para testar a infraestrutura lógica criada, disparamos um comando de ping de dentro do container ou namespace do host virtualizado `blue2` em direção ao endereço IP privado `10.0.0.1` pertencente à rede Overlay interna. O tráfego trafega encapsulado em pacotes UDP de forma transparente pela rede física. Lembre-se de registrar um print de comprovação desta etapa.
+### Tentativa 02
 
-<Terminal>
-  <Abas>
-    <Aba>VM1</Aba>
-    <Aba active>VM2</Aba>
-    <Aba>VM3</Aba>
-  </Abas>
-  <Code>
-    <Comentario>Testando conectividade de dados dentro da rede Overlay isolada VXLAN</Comentario>
-    <Linha texto="mininet@vm2:~$">blue2 ping 10.0.0.1</Linha>
-    <Resultado>64 bytes from 10.0.0.1: icmp_seq=1 ttl=64 time=1.42 ms</Resultado>
-  </Code>
-</Terminal>
-
----
-
-## Comparativo de Infraestrutura Overlay com Túnel GRE
-
-Após testar o VXLAN, encerramos a aplicação e as simulações nas instâncias virtuais das pontas para realizar uma análise comparativa utilizando outro protocolo clássico de tunelamento: o **GRE (Generic Routing Encapsulation)**. Na VM1, limpamos as configurações anteriores e reinjetamos as regras especificando o tipo do link como `gre`.
+Após a modificação, não deve aparecer nenhuma mensagem de erro ao rodar o script do VXLan (20:49).
 
 <Terminal>
   <Abas>
     <Aba active>VM1</Aba>
     <Aba>VM2</Aba>
-    <Aba>VM3</Aba>
+    <Aba>VM3 - Underlay</Aba>
   </Abas>
   <Code>
-    <Comentario>Recriando os fluxos e instanciando o túnel utilizando o protocolo GRE na VM1</Comentario>
-    <Linha texto="root@vm1:/home/mininet#">sh ovs-ofctl add-flows s1 flows1.txt</Linha>
-    <Linha texto="root@vm1:/home/mininet#">sh ovs-vsctl add-port s1 vtep -- set interface vtep type=gre options:remote_ip=192.168.2.20 option:key=flow ofport_request=10</Linha>
+    <Comentario>Tentativa 02</Comentario>
+    <Linha texto="root@mininet-vm:/home/mininet#">./VXLANexample1.py</Linha>
+    <Linha texto="mininet>">.</Linha>
   </Code>
 </Terminal>
 
-Finalizamos a configuração em espelho na VM2, limpando os resquícios do ambiente anterior, carregando a tabela de fluxos `flows2.txt` no switch virtual `s2` e alterando a interface VTEP local para operar também no modo `gre`.
+## VM2: Rodando o segundo script de VXLan
+
+Rodando o script VXLan também na VM2 (32:25).
 
 <Terminal>
   <Abas>
     <Aba>VM1</Aba>
     <Aba active>VM2</Aba>
-    <Aba>VM3</Aba>
+    <Aba>VM3 - Underlay</Aba>
   </Abas>
   <Code>
-    <Comentario>Configurando o endpoint do túnel do tipo GRE na VM2 direcionado para a VM1</Comentario>
-    <Linha texto="root@vm2:/home/mininet#">sh ovs-ofctl add-flows s2 flows2.txt</Linha>
-    <Linha texto="root@vm2:/home/mininet#">sh ovs-vsctl add-port s2 vtep -- set interface vtep type=gre option:remote_ip=192.168.1.10 option:key=flow ofport_request=10</Linha>
+    <Linha texto="root@mininet-vm:/home/mininet#">./VXLANexample2.py</Linha>
   </Code>
 </Terminal>
 
-Realizamos o teste final de conectividade utilizando o comando de ping a partir do host `blue2`. Note que o tráfego na sub-rede isolada `10.0.0.0` funcionará de forma muito semelhante ao cenário anterior, contudo, a diferença reside na arquitetura de segurança e cabeçalhos de pacotes: o GRE opera diretamente sobre a camada IP (protocolo IP 47), enquanto o VXLAN introduz encapsulamento baseado em Camada 2 sobre UDP. Capture um novo print para finalizar seu relatório de atividade.
+Caso aconteça algum erro, siga os passos do tópico anterior para resolver.
+
+## VM1: Comandos 'type=vxlan'
+
+Rodando comandos na VM1 para testar o VXLan (33:00).
+
+<Terminal>
+  <Abas>
+    <Aba active>VM1</Aba>
+    <Aba>VM2</Aba>
+    <Aba>VM3 - Underlay</Aba>
+  </Abas>
+  <Code>
+    <Linha texto="mininet>">sh ovs-ofctl add-flows s1 flows1.txt</Linha>
+    <Linha texto="mininet>">sh ovs-vsctl add-port s1 vtep -- set interface vtep type=vxlan option:remote_ip=192.168.2.20 option:key=flow ofport_request=10</Linha>
+  </Code>
+</Terminal>
+
+## VM2: Comandos 'type=vxlan'
+
+Rodando comandos na VM2 para testar o VXLan (40:17).
 
 <Terminal>
   <Abas>
     <Aba>VM1</Aba>
     <Aba active>VM2</Aba>
-    <Aba>VM3</Aba>
+    <Aba>VM3 - Underlay</Aba>
   </Abas>
   <Code>
-    <Comentario>Validando conectividade lógica através da rede Overlay baseada em GRE</Comentario>
-    <Linha texto="mininet@vm2:~$">blue2 ping 10.0.0.1</Linha>
-    <Resultado>64 bytes from 10.0.0.1: icmp_seq=1 ttl=64 time=1.28 ms</Resultado>
+    <Linha texto="mininet>">sh ovs-ofctl add-flows s2 flows2.txt</Linha>
+    <Linha texto="mininet>">sh ovs-vsctl add-port s2 vtep -- set interface vtep type=vxlan option:remote_ip=192.168.1.10 option:key=flow ofport_request=10</Linha>
   </Code>
 </Terminal>
+
+## VM2: Conseguindo VXLan
+
+Preste atenção nesse passo para conseguir metade da nota dessa atividade.
+
+Para provar que essa parte da atividade foi bem-sucedida (50%), você deve rodar o comando abaixo e tirar uma print pegando o comando `sh ovs-vsctl add-port s2 vtep -- set interface vtep type=vxlan option:remote_ip=192.168.1.10 option:key=flow ofport_request=10` (para mostrar que foi usando o tipo 'vxlan') e alguns PINGs que aparecerão.
+
+<Terminal>
+  <Abas>
+    <Aba>VM1</Aba>
+    <Aba active>VM2</Aba>
+    <Aba>VM3 - Underlay</Aba>
+  </Abas>
+  <Code>
+    <Linha texto="mininet>">blue2 ping 10.0.0.1</Linha>
+  </Code>
+</Terminal>
+
+É normal que o primeiro pacote do ping falhe ou demore alguns segundos enquanto o túnel é estabelecido.
+Os pacotes seguintes devem responder normalmente.
+
+## Conclusão da Primeira etapa
+
+Agora que a primeira etapa da atividade já foi feita, devemos sair do APP `mininet` (onde o prompt do terminal começa com '`mininet>`') nas duas VMs e rodar outras versões dos mesmos comandos.
+
+Para sair dos APPs, basta dar **exit**.
+
+## VM1: Comandos 'type=gre'
+
+Entramos novamente no APP `VXLANexample1.py` para depois rodarmos os comandos.
+
+<Terminal>
+  <Abas>
+    <Aba active>VM1</Aba>
+    <Aba>VM2</Aba>
+    <Aba>VM3 - Underlay</Aba>
+  </Abas>
+  <Code>
+    <Linha texto="root@mininet-vm:/home/mininet#">./VXLANexample1.py</Linha>
+    <Linha texto="mininet>">sh ovs-ofctl add-flows s1 flows1.txt</Linha>
+    <Linha texto="mininet>">sh ovs-vsctl add-port s1 vtep -- set interface vtep type=gre option:remote_ip=192.168.2.20 option:key=flow ofport_request=10</Linha>
+  </Code>
+</Terminal>
+
+## VM2: Comandos 'type=gre'
+
+Entramos novamente no APP `VXLANexample2.py` para depois rodarmos os comandos.
+
+<Terminal>
+  <Abas>
+    <Aba>VM1</Aba>
+    <Aba active>VM2</Aba>
+    <Aba>VM3 - Underlay</Aba>
+  </Abas>
+  <Code>
+    <Linha texto="root@mininet-vm:/home/mininet#">./VXLANexample2.py</Linha>
+    <Linha texto="mininet>">sh ovs-ofctl add-flows s2 flows2.txt</Linha>
+    <Linha texto="mininet>">sh ovs-vsctl add-port s2 vtep -- set interface vtep type=gre option:remote_ip=192.168.1.10 option:key=flow ofport_request=10</Linha>
+  </Code>
+</Terminal>
+
+## VM2: Conseguindo GRE
+
+<Terminal>
+  <Abas>
+    <Aba>VM1</Aba>
+    <Aba active>VM2</Aba>
+    <Aba>VM3 - Underlay</Aba>
+  </Abas>
+  <Code>
+    <Linha texto="mininet>">blue2 ping 10.0.0.1</Linha>
+  </Code>
+</Terminal>
+
+Tire print dessa parte, pegando o comando `sh ovs-vsctl add-port s2 vtep -- set interface vtep type=gre option:remote_ip=192.168.1.10 option:key=flow ofport_request=10` e os PINGs.
+
+Pronto, atividade feita :p

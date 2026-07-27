@@ -1,32 +1,43 @@
 {
-    "Terminal Customizado MDX": {
-        "prefix": "/terminal",
-        "body": [
-            "",
+	"Terminal Customizado MDX": {
+		"prefix": "/terminal",
+		"body": [
 			"<Terminal>",
-			"    <Abas>",
-			"        <Aba active>${1:Main.js}</Aba>",
-			"    </Abas>",
-		"        <Comentario>// ${2:Comando inicial}</Comentario>",
-		"        <Prompt>{\"\"}</Prompt> $3",
+			"  <Abas>",
+			"    <Aba>VM1</Aba>",
+      "    <Aba active>VM2</Aba>",
+      "    <Aba>VM3</Aba>",
+			"  </Abas>",
+			"  <Code>",
+			"    <Comentario>Comentário</Comentario>",
+			"    <Linha texto=\"\">Comando</Linha>",
+			"  </Code>",
 			"</Terminal>"
-        ],
-        "description": "Insere um bloco de terminal limpo e customizado no MDX."
-    },
+			],
+			"description": "Insere um bloco de terminal limpo e customizado no MDX."
+	},
 
-    "Comentário dentro do MDX_Terminal": {
-        "prefix": "/comentario_terminal",
-        "body": [
-            "<Comentario>$1</Comentario>",
-            "$2"
-        ],
-        "description": "Insere um comentádio, específico para a estrutura do Terminal_MDX"
-    },
-    "Comando dentro do MDX_Terminal": {
-        "prefix": "/comando_terminal",
-        "body": [
-            "<Prompt>{\"$2\"}</Prompt> ${1:Comando}"
-        ],
-        "description": "Insere um Comando, específico para a estrutura do Terminal_MDX"
-    }
+	"Comentário dentro do MDX_Terminal": {
+		"prefix": "/comentario_terminal",
+		"body": [
+			"<Comentario>$1</Comentario>"
+		],
+		"description": "Insere um comentádio, específico para a estrutura do Terminal_MDX"
+	},
+
+	"Comando dentro do MDX_Terminal": {
+		"prefix": "/linha_terminal",
+		"body": [
+			"<Linha texto=\"${2:Prompt}\"> ${1:Comando}</Linha>"
+		],
+		"description": "Insere um Comando, específico para a estrutura do Terminal_MDX"
+	},
+
+	"Resultado de um comando do MDX_Terminal": {
+		"prefix": "/resultado_terminal",
+		"body": [
+			"<Resultado>Resultado</Resultado>"
+		],
+		"description": "Insere o componente Resultado na estrutura do Terminal_MDX"
+	},
 }
