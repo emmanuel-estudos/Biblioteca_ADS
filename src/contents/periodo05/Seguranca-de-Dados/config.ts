@@ -27,8 +27,26 @@ export const config = {
 		"atividade02": {
 			nome: "Atividade 02: Mininet",
 			arquivos: {
-				"Roteiro": "Roteiro de Execução"
+				"RoteiroDetalhado": "Roteiro de Execução (com explicações)",
+				"Roteiro": "Roteiro (Passo a Passo)"
 			}
-		}
+		},
+    "atividade-quiz": {
+      nome: "Quiz LGPD (pessoal)",
+      arquivos: {
+        "Quiz-LGPD": "Quiz LGPD"
+      }
+    },
+    "atividade03": {
+      nome: "Atividade 03: Firewall com IPTABLES",
+      arquivos: {
+        "Contexto-Atividade": "Contexto da Atividade",
+        "P_01--Configuracao-VMs": "Passo 01: Configuração das VMs",
+        "P_02--Demonstracao-SNAT": "Passo 02: Demonstração Source Nat (SNAT)",
+        "P_03--Demonstracao-DNAT": "Passo 03: Demonstração Destination Nat (DNAT)",
+        "P_04--Demonstracao-Balanceamento": "Passo 04: Balanceamento de Cargas com IPTABLES",
+        "Demonstracoes-Firewall-IpTables": "Demonstrações de Firewall usando IpTables",
+      }
+    }
 	}
 };
