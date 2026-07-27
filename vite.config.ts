@@ -22,5 +22,13 @@ export default defineConfig({
     }, 
     react()
   ],
-	base: '/Biblioteca_ADS/'
+	base: '/Biblioteca_ADS/',
+	build: {
+    rollupOptions: {
+      // Impede que o Vite processe qualquer arquivo dentro dessa pasta específica
+      external: [
+        /src\/contents\/periodo02\/Sistemas-Operacionais-SO\/atividades\/Apresentacao\/.*/
+      ]
+    }
+  }
 })

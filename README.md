@@ -1,73 +1,25 @@
-# React + TypeScript + Vite
+# Configurações
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Os arquivos presentes na `main` devem ser aqueles em sua versão final. O desenvolvimento de arquivos deve acontecer na branch `develop`.
 
-Currently, two official plugins are available:
+## Transferência de Arquivos entre Branchs
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Para passar os arquivos e pastas da branch `develop` para a `main`, use o comando abaixo no terminal da `main`:
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git restore --source develop "caminho/para/arquivo01.mdx" "caminho/para/arquivo02.mdx"
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## GitHub Pages
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Já existe uma branch específica para o uso do GitHub Pages. Às vezes há arquivos em suas versões finais que não precisam estar "públicos".
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Para mandar os arquivos da branch `main` para a `gh-pages`, use o comando abaixo:
+
+```bash
+npm run deploy
 ```
+
+## Arquivos não devem ficar públicos
+
+Para cadastrar um arquivo ou uma pasta como "protegida" de ir para o GitHub Pages, vá no arquivo [ignorePaths.ts](./src/config/ignorePaths.ts) e coloque o caminho relativo.

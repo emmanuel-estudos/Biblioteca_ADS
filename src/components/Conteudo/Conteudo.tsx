@@ -4,6 +4,7 @@ import { MDXProvider } from '@mdx-js/react';
 import { ThemeProvider } from 'styled-components';
 
 import { MDX } from '../MDX';
+import { IGNORED_PATHS_IN_PROD } from '@/config/ignorePaths';
 import * as S from './styles';
 
 import { Breadcrumbs } from '../Breadcrumbs';
@@ -50,8 +51,21 @@ export const Conteudo = () => {
     atividades: {} as Record<string, { nome: string; arquivos: Record<string, string> }>,
   });
 
-  const todosArquivos = import.meta.glob('/src/contents/**/*.mdx');
+  const todosArquivosBrutos = import.meta.glob('/src/contents/**/*.mdx');
   const todasConfigs = import.meta.glob('/src/contents/**/config.ts');
+
+  const todosArquivos = Object.fromEntries(
+    Object.entries(todosArquivosBrutos).filter(([path]) => {
+      if (import.meta.env.PROD) {
+        // Verifica se o caminho do arquivo inclui ALGUM dos itens da lista de ignorados
+        const deveIgnorar = IGNORED_PATHS_IN_PROD.some((caminhoProibido) =>
+          path.includes(caminhoProibido)
+        );
+        return !deveIgnorar;
+      }
+      return true; // Em modo dev (npm run dev), carrega tudo
+    })
+  );
 
   useEffect(() => {
     const carregarTudo = async () => {
