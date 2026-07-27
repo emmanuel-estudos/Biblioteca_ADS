@@ -1,0 +1,88 @@
+import{n as e,r as t}from"./lib-CrvGBhFj.js";var n=t();function r(t){let r={a:`a`,code:`code`,em:`em`,h1:`h1`,h2:`h2`,h3:`h3`,li:`li`,p:`p`,strong:`strong`,ul:`ul`,...e(),...t.components},{Aba:i,Abas:o,Code:s,Comentario:c,Linha:l,Resultado:u,Terminal:d}=r;return i||a(`Aba`,!0),o||a(`Abas`,!0),s||a(`Code`,!0),c||a(`Comentario`,!0),l||a(`Linha`,!0),u||a(`Resultado`,!0),d||a(`Terminal`,!0),(0,n.jsxs)(n.Fragment,{children:[(0,n.jsx)(r.h1,{id:`atividade-02---passo-a-passo`,children:`Atividade 02 - Passo a Passo`}),`
+`,(0,n.jsx)(r.h2,{id:`informações-importantes`,children:`Informações Importantes`}),`
+`,(0,n.jsx)(r.h3,{id:`credenciais`,children:`Credenciais`}),`
+`,(0,n.jsxs)(r.ul,{children:[`
+`,(0,n.jsx)(r.li,{children:`UserName: mininet`}),`
+`,(0,n.jsx)(r.li,{children:`Password: mininet`}),`
+`]}),`
+`,(0,n.jsx)(r.h3,{id:`virtualbox`,children:`VirtualBox`}),`
+`,(0,n.jsxs)(r.p,{children:[`Vá nas configurações de rede das VMs Mininet1 e Mininet2 e verifique se `,(0,n.jsx)(r.strong,{children:`cada uma tem um adaptador de rede`}),` com a opção `,(0,n.jsx)(r.code,{children:`Host-Only`}),`.`]}),`
+`,(0,n.jsxs)(r.p,{children:[`A VM Mininet3 deve ter `,(0,n.jsx)(r.strong,{children:`dois`}),` adaptadores de rede com a opção `,(0,n.jsx)(r.code,{children:`Host-Only`}),`.`]}),`
+`,(0,n.jsx)(r.h3,{id:`teclado`,children:`Teclado`}),`
+`,(0,n.jsxs)(r.p,{children:[`O teclado dentro das VMs está em inglês. Alguns comandos usam o caractere `,(0,n.jsx)(r.code,{children:`:`}),` (dois pontos), mas caso ele não funcione, tente a tecla `,(0,n.jsx)(r.code,{children:`ç`}),` (cedilha).`]}),`
+`,(0,n.jsx)(r.h3,{id:`quebras-de-linha-nos-terminais`,children:`Quebras de Linha nos Terminais`}),`
+`,(0,n.jsx)(r.p,{children:`Você irá perceber que existem "terminais" ao decorrer deste documento. Eles não são interativos, mas ajudam a ilustrar melhor em qual máquina/aba estamos trabalhando.`}),`
+`,(0,n.jsx)(r.p,{children:`As quebras de linha nos terminais são automáticas para melhor leitura, mas o comando nunca volta totalmente para a borda esquerda.\r
+Sempre que uma nova linha começa no terminal, ela irá aparecer junto com o prompt antes.`}),`
+`,(0,n.jsx)(r.h3,{id:`vídeo`,children:`Vídeo`}),`
+`,(0,n.jsxs)(r.p,{children:[`Se preferir, há um `,(0,n.jsx)(r.a,{href:`https://www.youtube.com/watch?v=wwffwrjwfl0`,children:`vídeo`}),` mostrando o passo a passo. Vou deixar a minutagem referenciada ao decorrer dos passos.`]}),`
+`,(0,n.jsx)(r.h2,{id:`preparando-cenários`,children:`Preparando Cenários`}),`
+`,(0,n.jsxs)(r.p,{children:[`Inicie as 3 VMs e se transforme em `,(0,n.jsx)(r.em,{children:`SuperUsuário`}),` em todas.`]}),`
+`,(0,n.jsxs)(r.p,{children:[`Inicie a interface gráfica somente na Mininet3.\r
+Depois, abra o terminal por meio do caminho: `,(0,n.jsx)(r.em,{children:`Iniciar`}),` --> `,(0,n.jsx)(r.em,{children:`Accessories`}),` --> `,(0,n.jsx)(r.em,{children:`LXTerminal`}),`.`]}),`
+`,(0,n.jsxs)(r.p,{children:[`Estando dentro do `,(0,n.jsx)(r.em,{children:`LXTerminal`}),`, crie 3 abas (`,(0,n.jsx)(r.code,{children:`Control + Shift + T`}),`) e as nomeie de `,(0,n.jsx)(r.code,{children:`VM1`}),`, `,(0,n.jsx)(r.code,{children:`VM2`}),`, `,(0,n.jsx)(r.code,{children:`VM3 - UNDERLAY`}),`.`]}),`
+`,(0,n.jsx)(r.p,{children:`Deste momento em diante, quando houver referência às VM1, VM2 ou VM3, estaremos falando sobre as abas presentes no terminal da Mininet3.`}),`
+`,(0,n.jsx)(r.p,{children:`Preparação finalizada.`}),`
+`,(0,n.jsx)(r.h2,{id:`vm1-estabelecendo-conexão-ssh---0545`,children:`VM1: Estabelecendo Conexão SSH - (05:45)`}),`
+`,(0,n.jsx)(r.p,{children:`Estabelecendo conexão com a Mininet1 (05:25) e depois adicionando a rota (07:25).`}),`
+`,(0,n.jsxs)(d,{children:[(0,n.jsxs)(o,{children:[(0,n.jsx)(i,{active:!0,children:`VM1`}),(0,n.jsx)(i,{children:`VM2`}),(0,n.jsx)(i,{children:`VM3 - Underlay`})]}),(0,n.jsxs)(s,{children:[(0,n.jsx)(c,{children:`Estabelecendo Conexão`}),(0,n.jsx)(l,{texto:`root@mininet-vm:/home/mininet#`,children:`ssh mininet@192.168.1.10`}),(0,n.jsx)(c,{children:`Senha`}),(0,n.jsx)(l,{texto:`mininet@192.168.1.10's password:`,children:`mininet`}),(0,n.jsx)(c,{children:`Se transformando em SuperUsuário`}),(0,n.jsx)(l,{texto:`mininet@mininet-vm:~$`,children:` sudo su`}),(0,n.jsx)(c,{children:`Adicionando Rota`}),(0,n.jsx)(l,{texto:`root@mininet-vm:/home/mininet#`,children:` route add -net 192.168.2.0 netmask 255.255.255.0 gw 192.168.1.1`})]})]}),`
+`,(0,n.jsx)(r.h2,{id:`vm2-estabelecendo-conexão-ssh---0625`,children:`VM2: Estabelecendo Conexão SSH - (06:25)`}),`
+`,(0,n.jsx)(r.p,{children:`Estabelecendo conexão com a Mininet2 (06:25) e depois adicionando a rota (08:30).`}),`
+`,(0,n.jsxs)(d,{children:[(0,n.jsxs)(o,{children:[(0,n.jsx)(i,{children:`VM1`}),(0,n.jsx)(i,{active:!0,children:`VM2`}),(0,n.jsx)(i,{children:`VM3 - Underlay`})]}),(0,n.jsxs)(s,{children:[(0,n.jsx)(c,{children:`Estabelecendo Conexão`}),(0,n.jsx)(l,{texto:`root@mininet-vm:/home/mininet#`,children:`ssh mininet@192.168.2.20`}),(0,n.jsx)(c,{children:`Senha`}),(0,n.jsx)(l,{texto:`mininet@192.168.2.20's password:`,children:`mininet`}),(0,n.jsx)(c,{children:`Se transformando em SuperUsuário`}),(0,n.jsx)(l,{texto:`mininet@mininet-vm:~$`,children:` sudo su`}),(0,n.jsx)(c,{children:`Adicionando Rota`}),(0,n.jsx)(l,{texto:`root@mininet-vm:/home/mininet#`,children:` route add -net 192.168.1.0 netmask 255.255.255.0 gw 192.168.2.1`})]})]}),`
+`,(0,n.jsx)(r.h2,{id:`situação-atual`,children:`Situação atual`}),`
+`,(0,n.jsxs)(r.p,{children:[`Da forma como está estruturado até agora, se tentarmos dar ping com `,(0,n.jsx)(r.code,{children:`192.168.1.10`}),` todos os pacotes serão perdidos (09:24).\r
+Mas, se tentarmos com o `,(0,n.jsx)(r.code,{children:`192.168.1.1`}),`, vai dar certo.`]}),`
+`,(0,n.jsxs)(d,{children:[(0,n.jsxs)(o,{children:[(0,n.jsx)(i,{children:`VM1`}),(0,n.jsx)(i,{active:!0,children:`VM2`}),(0,n.jsx)(i,{children:`VM3 - Underlay`})]}),(0,n.jsxs)(s,{children:[(0,n.jsx)(c,{children:`PING com pacote perdido`}),(0,n.jsx)(l,{texto:`root@mininet-vm:/home/mininet#`,children:`ping 192.168.1.10`}),(0,n.jsx)(u,{children:`X packets transmitted, 0 received, 100% packet loss`})]})]}),`
+`,(0,n.jsx)(r.h2,{id:`vm3---underlay-trocando-variável-booleana`,children:`VM3 - Underlay: Trocando Variável Booleana`}),`
+`,(0,n.jsx)(r.p,{children:`Agora iremos trocar a variável booleana para que seja possível a comunicação entre a Mininet2 e a Mininet1 (10:42).`}),`
+`,(0,n.jsxs)(d,{children:[(0,n.jsxs)(o,{children:[(0,n.jsx)(i,{children:`VM1`}),(0,n.jsx)(i,{children:`VM2`}),(0,n.jsx)(i,{active:!0,children:`VM3 - Underlay`})]}),(0,n.jsxs)(s,{children:[(0,n.jsx)(c,{children:`Verificando estado atual`}),(0,n.jsx)(l,{texto:`root@mininet-vm:/home/mininet#`,children:`cat /proc/sys/net/ipv4/ip_forward`}),(0,n.jsx)(u,{children:`0`}),(0,n.jsx)(c,{children:`Trocando`}),(0,n.jsx)(l,{texto:`root@mininet-vm:/home/mininet#`,children:` echo 1 > /proc/sys/net/ipv4/ip_forward`}),(0,n.jsx)(c,{children:`Verificando troca`}),(0,n.jsx)(l,{texto:`root@mininet-vm:/home/mininet#`,children:`cat /proc/sys/net/ipv4/ip_forward`}),(0,n.jsx)(u,{children:`1`})]})]}),`
+`,(0,n.jsxs)(r.p,{children:[`Com isso, se dermos ping para `,(0,n.jsx)(r.code,{children:`192.168.2.20`}),` na VM1, será possível receber os pacotes (12:20).\r
+Na VM2, o ping para `,(0,n.jsx)(r.code,{children:`192.168.1.10`}),` também funcionará.`]}),`
+`,(0,n.jsx)(r.h2,{id:`vm1-conferindo-arquivos`,children:`VM1: Conferindo Arquivos`}),`
+`,(0,n.jsxs)(r.p,{children:[`Digite `,(0,n.jsx)(r.code,{children:`ls`}),` para verificar os arquivos e depois `,(0,n.jsx)(r.code,{children:`cat`}),` para ver o conteúdo de um arquivo em específico (13:16).`]}),`
+`,(0,n.jsxs)(d,{children:[(0,n.jsxs)(o,{children:[(0,n.jsx)(i,{active:!0,children:`VM1`}),(0,n.jsx)(i,{children:`VM2`}),(0,n.jsx)(i,{children:`VM3 - Underlay`})]}),(0,n.jsxs)(s,{children:[(0,n.jsx)(c,{children:`Verificando se o arquivo existe`}),(0,n.jsx)(l,{texto:`root@mininet-vm:/home/mininet#`,children:`ls`}),(0,n.jsx)(c,{children:`Abrindo arquivo`}),(0,n.jsx)(l,{texto:`root@mininet-vm:/home/mininet#`,children:` cat flows1.txt`}),(0,n.jsx)(u,{children:`Conteúdo de 14 linhas`})]})]}),`
+`,(0,n.jsx)(r.h2,{id:`vm1-rodando-o-primeiro-script-de-vxlan`,children:`VM1: Rodando o primeiro script de VXLan`}),`
+`,(0,n.jsx)(r.h3,{id:`tentativa-01`,children:`Tentativa 01`}),`
+`,(0,n.jsx)(r.p,{children:`Tentaremos rodar o primeiro script do VXLan em python (18:10).`}),`
+`,(0,n.jsxs)(d,{children:[(0,n.jsxs)(o,{children:[(0,n.jsx)(i,{active:!0,children:`VM1`}),(0,n.jsx)(i,{children:`VM2`}),(0,n.jsx)(i,{children:`VM3 - Underlay`})]}),(0,n.jsxs)(s,{children:[(0,n.jsx)(l,{texto:`root@mininet-vm:/home/mininet#`,children:`./VXLANexample1.py`}),(0,n.jsx)(l,{texto:`mininet>`,children:`Leia os comentários abaixo`})]})]}),`
+`,(0,n.jsxs)(r.p,{children:[`Caso seja exibida uma mensagem, iniciando com "`,(0,n.jsx)(r.em,{children:`***Adding controller`}),`", terminando com "`,(0,n.jsx)(r.em,{children:`*** Starting CLI:`}),`" e com uma mensagem de erro no meio: "`,(0,n.jsx)(r.em,{children:`Error setting eth1 up: eth1: ERROR while getting interface flags: No such device`}),`", não se preocupe.`]}),`
+`,(0,n.jsx)(r.p,{children:`Deu errado mas vai dar certo.`}),`
+`,(0,n.jsxs)(r.p,{children:[`Digite `,(0,n.jsx)(r.strong,{children:`exit`}),` para sair da execução do `,(0,n.jsx)(r.code,{children:`./VXLANexample1.py`}),` (18:38).`]}),`
+`,(0,n.jsx)(r.h3,{id:`resolvendo-o-problema-edição-do-arquivo`,children:`Resolvendo o problema: edição do arquivo`}),`
+`,(0,n.jsxs)(r.p,{children:[`Vamos modificar o conteúdo do arquivo `,(0,n.jsx)(r.code,{children:`./VXLANexample1.py`}),` para que o script funcione (18:41).`]}),`
+`,(0,n.jsxs)(d,{children:[(0,n.jsxs)(o,{children:[(0,n.jsx)(i,{active:!0,children:`VM1`}),(0,n.jsx)(i,{children:`VM2`}),(0,n.jsx)(i,{children:`VM3 - Underlay`})]}),(0,n.jsxs)(s,{children:[(0,n.jsx)(c,{children:`Abrindo o editor`}),(0,n.jsx)(l,{texto:`root@mininet-vm:/home/mininet#`,children:`pico VXLANexample1.py`}),(0,n.jsx)(u,{children:`Mensagem grande, começando com "#!/usr/bin/python" em vermelho`})]})]}),`
+`,(0,n.jsxs)(r.p,{children:[`Procure a linha que possua mensagem que começa com `,(0,n.jsx)(r.code,{children:`intfName='eth1'`}),`.\r
+Troque para `,(0,n.jsx)(r.code,{children:`intfName='eth0'`}),`.`]}),`
+`,(0,n.jsxs)(r.p,{children:[`Pressione `,(0,n.jsx)(r.code,{children:`Ctrl + X`}),` para sair do modo de edição, `,(0,n.jsx)(r.code,{children:`Y`}),` para confirmar a modificação e por último `,(0,n.jsx)(r.code,{children:`Enter`}),`.`]}),`
+`,(0,n.jsx)(r.h3,{id:`tentativa-02`,children:`Tentativa 02`}),`
+`,(0,n.jsx)(r.p,{children:`Após a modificação, não deve aparecer nenhuma mensagem de erro ao rodar o script do VXLan (20:49).`}),`
+`,(0,n.jsxs)(d,{children:[(0,n.jsxs)(o,{children:[(0,n.jsx)(i,{active:!0,children:`VM1`}),(0,n.jsx)(i,{children:`VM2`}),(0,n.jsx)(i,{children:`VM3 - Underlay`})]}),(0,n.jsxs)(s,{children:[(0,n.jsx)(c,{children:`Tentativa 02`}),(0,n.jsx)(l,{texto:`root@mininet-vm:/home/mininet#`,children:`./VXLANexample1.py`}),(0,n.jsx)(l,{texto:`mininet>`,children:`.`})]})]}),`
+`,(0,n.jsx)(r.h2,{id:`vm2-rodando-o-segundo-script-de-vxlan`,children:`VM2: Rodando o segundo script de VXLan`}),`
+`,(0,n.jsx)(r.p,{children:`Rodando o script VXLan também na VM2 (32:25).`}),`
+`,(0,n.jsxs)(d,{children:[(0,n.jsxs)(o,{children:[(0,n.jsx)(i,{children:`VM1`}),(0,n.jsx)(i,{active:!0,children:`VM2`}),(0,n.jsx)(i,{children:`VM3 - Underlay`})]}),(0,n.jsx)(s,{children:(0,n.jsx)(l,{texto:`root@mininet-vm:/home/mininet#`,children:`./VXLANexample2.py`})})]}),`
+`,(0,n.jsx)(r.p,{children:`Caso aconteça algum erro, siga os passos do tópico anterior para resolver.`}),`
+`,(0,n.jsx)(r.h2,{id:`vm1-comandos-typevxlan`,children:`VM1: Comandos 'type=vxlan'`}),`
+`,(0,n.jsx)(r.p,{children:`Rodando comandos na VM1 para testar o VXLan (33:00).`}),`
+`,(0,n.jsxs)(d,{children:[(0,n.jsxs)(o,{children:[(0,n.jsx)(i,{active:!0,children:`VM1`}),(0,n.jsx)(i,{children:`VM2`}),(0,n.jsx)(i,{children:`VM3 - Underlay`})]}),(0,n.jsxs)(s,{children:[(0,n.jsx)(l,{texto:`mininet>`,children:`sh ovs-ofctl add-flows s1 flows1.txt`}),(0,n.jsx)(l,{texto:`mininet>`,children:`sh ovs-vsctl add-port s1 vtep -- set interface vtep type=vxlan option:remote_ip=192.168.2.20 option:key=flow ofport_request=10`})]})]}),`
+`,(0,n.jsx)(r.h2,{id:`vm2-comandos-typevxlan`,children:`VM2: Comandos 'type=vxlan'`}),`
+`,(0,n.jsx)(r.p,{children:`Rodando comandos na VM2 para testar o VXLan (40:17).`}),`
+`,(0,n.jsxs)(d,{children:[(0,n.jsxs)(o,{children:[(0,n.jsx)(i,{children:`VM1`}),(0,n.jsx)(i,{active:!0,children:`VM2`}),(0,n.jsx)(i,{children:`VM3 - Underlay`})]}),(0,n.jsxs)(s,{children:[(0,n.jsx)(l,{texto:`mininet>`,children:`sh ovs-ofctl add-flows s2 flows2.txt`}),(0,n.jsx)(l,{texto:`mininet>`,children:`sh ovs-vsctl add-port s2 vtep -- set interface vtep type=vxlan option:remote_ip=192.168.1.10 option:key=flow ofport_request=10`})]})]}),`
+`,(0,n.jsx)(r.h2,{id:`vm2-conseguindo-vxlan`,children:`VM2: Conseguindo VXLan`}),`
+`,(0,n.jsx)(r.p,{children:`Preste atenção nesse passo para conseguir metade da nota dessa atividade.`}),`
+`,(0,n.jsxs)(r.p,{children:[`Para provar que essa parte da atividade foi bem-sucedida (50%), você deve rodar o comando abaixo e tirar uma print pegando o comando `,(0,n.jsx)(r.code,{children:`sh ovs-vsctl add-port s2 vtep -- set interface vtep type=vxlan option:remote_ip=192.168.1.10 option:key=flow ofport_request=10`}),` (para mostrar que foi usando o tipo 'vxlan') e alguns PINGs que aparecerão.`]}),`
+`,(0,n.jsxs)(d,{children:[(0,n.jsxs)(o,{children:[(0,n.jsx)(i,{children:`VM1`}),(0,n.jsx)(i,{active:!0,children:`VM2`}),(0,n.jsx)(i,{children:`VM3 - Underlay`})]}),(0,n.jsx)(s,{children:(0,n.jsx)(l,{texto:`mininet>`,children:`blue2 ping 10.0.0.1`})})]}),`
+`,(0,n.jsx)(r.p,{children:`É normal que o primeiro pacote do ping falhe ou demore alguns segundos enquanto o túnel é estabelecido.\r
+Os pacotes seguintes devem responder normalmente.`}),`
+`,(0,n.jsx)(r.h2,{id:`conclusão-da-primeira-etapa`,children:`Conclusão da Primeira etapa`}),`
+`,(0,n.jsxs)(r.p,{children:[`Agora que a primeira etapa da atividade já foi feita, devemos sair do APP `,(0,n.jsx)(r.code,{children:`mininet`}),` (onde o prompt do terminal começa com '`,(0,n.jsx)(r.code,{children:`mininet>`}),`') nas duas VMs e rodar outras versões dos mesmos comandos.`]}),`
+`,(0,n.jsxs)(r.p,{children:[`Para sair dos APPs, basta dar `,(0,n.jsx)(r.strong,{children:`exit`}),`.`]}),`
+`,(0,n.jsx)(r.h2,{id:`vm1-comandos-typegre`,children:`VM1: Comandos 'type=gre'`}),`
+`,(0,n.jsxs)(r.p,{children:[`Entramos novamente no APP `,(0,n.jsx)(r.code,{children:`VXLANexample1.py`}),` para depois rodarmos os comandos.`]}),`
+`,(0,n.jsxs)(d,{children:[(0,n.jsxs)(o,{children:[(0,n.jsx)(i,{active:!0,children:`VM1`}),(0,n.jsx)(i,{children:`VM2`}),(0,n.jsx)(i,{children:`VM3 - Underlay`})]}),(0,n.jsxs)(s,{children:[(0,n.jsx)(l,{texto:`root@mininet-vm:/home/mininet#`,children:`./VXLANexample1.py`}),(0,n.jsx)(l,{texto:`mininet>`,children:`sh ovs-ofctl add-flows s1 flows1.txt`}),(0,n.jsx)(l,{texto:`mininet>`,children:`sh ovs-vsctl add-port s1 vtep -- set interface vtep type=gre option:remote_ip=192.168.2.20 option:key=flow ofport_request=10`})]})]}),`
+`,(0,n.jsx)(r.h2,{id:`vm2-comandos-typegre`,children:`VM2: Comandos 'type=gre'`}),`
+`,(0,n.jsxs)(r.p,{children:[`Entramos novamente no APP `,(0,n.jsx)(r.code,{children:`VXLANexample2.py`}),` para depois rodarmos os comandos.`]}),`
+`,(0,n.jsxs)(d,{children:[(0,n.jsxs)(o,{children:[(0,n.jsx)(i,{children:`VM1`}),(0,n.jsx)(i,{active:!0,children:`VM2`}),(0,n.jsx)(i,{children:`VM3 - Underlay`})]}),(0,n.jsxs)(s,{children:[(0,n.jsx)(l,{texto:`root@mininet-vm:/home/mininet#`,children:`./VXLANexample2.py`}),(0,n.jsx)(l,{texto:`mininet>`,children:`sh ovs-ofctl add-flows s2 flows2.txt`}),(0,n.jsx)(l,{texto:`mininet>`,children:`sh ovs-vsctl add-port s2 vtep -- set interface vtep type=gre option:remote_ip=192.168.1.10 option:key=flow ofport_request=10`})]})]}),`
+`,(0,n.jsx)(r.h2,{id:`vm2-conseguindo-gre`,children:`VM2: Conseguindo GRE`}),`
+`,(0,n.jsxs)(d,{children:[(0,n.jsxs)(o,{children:[(0,n.jsx)(i,{children:`VM1`}),(0,n.jsx)(i,{active:!0,children:`VM2`}),(0,n.jsx)(i,{children:`VM3 - Underlay`})]}),(0,n.jsx)(s,{children:(0,n.jsx)(l,{texto:`mininet>`,children:`blue2 ping 10.0.0.1`})})]}),`
+`,(0,n.jsxs)(r.p,{children:[`Tire print dessa parte, pegando o comando `,(0,n.jsx)(r.code,{children:`sh ovs-vsctl add-port s2 vtep -- set interface vtep type=gre option:remote_ip=192.168.1.10 option:key=flow ofport_request=10`}),` e os PINGs.`]}),`
+`,(0,n.jsx)(r.p,{children:`Pronto, atividade feita :p`})]})}function i(t={}){let{wrapper:i}={...e(),...t.components};return i?(0,n.jsx)(i,{...t,children:(0,n.jsx)(r,{...t})}):r(t)}function a(e,t){throw Error(`Expected `+(t?`component`:`object`)+" `"+e+"` to be defined: you likely forgot to import, pass, or provide it.")}export{i as default};
