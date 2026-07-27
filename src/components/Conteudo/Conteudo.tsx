@@ -39,7 +39,7 @@ export const Conteudo = () => {
   }>();
 
   const [MDXComponent, setMDXComponent] = useState<ComponentType | null>(null);
-  const [tituloAula, setTituloAula] = useState<string>('');
+  const [, setTituloAula] = useState<string>('');
 
   // Atualizada a tipagem padrão do estado para aceitar objetos em atividades
   const [temaMateria, setTemaMateria] = useState({
