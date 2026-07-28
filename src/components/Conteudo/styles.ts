@@ -13,6 +13,8 @@ export const PageContainer = styled.main`
   gap: 4rem; /* Espaço seguro entre o Sumário flutuante e o Artigo */
   padding: 2rem;
   position: relative;
+
+	scroll-behavior: smooth;
   
   /* Substituímos o zoom por transform scale se você realmente quiser encolher a página,
     mas o ideal para não quebrar o layout é apenas ajustar as fontes. 
@@ -34,5 +36,9 @@ export const ArticleWrapper = styled.article`
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
   
   /* Garante que códigos muito longos dentro do MDX não quebrem o artigo para os lados */
-  overflow-x: auto; 
+  overflow-x: auto;
+
+	h1, h2, h3, h4, h5, h6 {
+    scroll-margin-top: 5rem; /* ~80px de distância do topo da tela ao ser focalizado */
+  }
 `;
