@@ -1,0 +1,68 @@
+# Conceitos de Hardware - Parte 03
+
+## Interrupções
+
+A comunicação entre o processador e os dispositivos se dá através do acesso às portas de E/S.
+
+Entretanto, muitas vezes um dispositivo precisa informar o processador rapidamente sobre um evento interno. Neste caso, o controlador tem duas alternativas:
+
+- Aguardar até que o processador o consulte, o que poderá ser demorado caso o processador esteja ocupado com outras tarefas (o que geralmente ocorre);
+- Notificar o processador, enviando a ele uma **requisição de interrupção (IRQ – Interrupt ReQuest)** através do barramento de controle.
+
+As interrupções visam melhorar a eficiência do processamento.
+
+---
+
+### Tipos de Interrupção
+
+As classes mais comuns de interrupções são:
+
+- **Programa:** gerada devido a uma condição de uma instrução. Exemplos: overflow aritmético, divisão por 0, referência fora do espaço de memória permitido para o usuário.
+- **Timer:** gerada por um timer dentro do processo. Permite ao sistema realize funções específicas regularmente.
+- **E/S:** gerada por um controlador de E/S para informar o término normal de uma operação ou sinalizar condição de erro.
+- **Falha de Hardware:** gerada por uma falha. Exemplos: falta de energia, erro de paridade de memória.
+
+Com as interrupções, o processador pode executar outras instruções enquanto uma operação de E/S está em andamento;
+
+---
+
+### Passo a Passo de uma Interrupção
+
+O controlador comunica à CPU a requisição de uma interrupção através do barramento de controle, enviando uma Requisição de interrupção, chamada de IRQ (Interrupt ReQuest);
+
+Ao receber a IRQ, os circuitos do processador suspendem seu fluxo de execução atual e desviam para um endereço predefinido, onde se encontra uma rotina de tratamento de interrupção (Interrupt Handler).
+
+Esta, por sua vez, executa as ações necessárias para atender o dispositivo que a gerou.
+
+A última instrução de uma rotina de interrupção é sempre a **RETURN FROM INTERRUPT**, que devolve o contexto da execução para a CPU, fazendo-a voltar para o ponto de onde foi interrompida, retomando o código que estava executando;
+
+Para conseguir voltar exatamente para o ponto onde estava, a CPU armazena o conteúdo do contador de programa, do registrador de instrução e do registrador de flags (PSW).
+
+Cada interrupção é identificada por um valor inteiro, geralmente de 8 bits, para que interrupções geradas por dispositivos diferentes sejam devidamente reconhecidas;
+
+Cada IRQ possui uma rotina de tratamento de interrupção própria, que é mapeada em uma tabela, chamada **Tabela Vetor de Interrupções (IVT – Interrupt Vector Table).**
+
+Cada entrada do vetor, aponta para o endereço inicial da rotina de tratamento da interrupção correspondente.
+
+Os computadores utilizam uma área da memória CMOS (ESCD – Extended System Configuration Data) para armazenar informações sobre o hardware. Durante a inicialização do computador e utilizando essas informações, o firmware (BIOS ou UEFI) carrega na memória RAM a IVT.
+
+---
+
+## Múltiplas Interrupções
+
+Duas técnicas podem ser utilizadas para lidar com múltiplas interrupções: interrupção desabilitada e interrupção por prioridade.
+
+- A **interrupção desabilitada** desativa as interrupções enquanto uma interrupção estiver sendo processada;
+- A **interrupção por prioridade** define prioridades para interrupções e permite que uma interrupção de maior prioridade faça com que um tratamento de interrupção com menor prioridade seja interrompido.
+
+## Exceções
+
+Alguns eventos gerados pela CPU podem ocasionar o desvio da execução, usando o mesmo mecanismo das interrupções.
+
+Os desvios de execução gerados pela CPU são chamados de EXCEÇÕES.
+
+Exemplos de eventos que geram exceções: Instruções ilegais, acesso a memória não autorizado, exceções de ponto flutuante, tentativa de divisão por zero, entre outros erros de software.
+
+Isso permite que o sistema operacional ou o programa lide com o erro de maneira apropriada. Exemplos:encerrando o programa, gerando uma mensagem de erro ou realizando alguma outra ação de recuperação.
+
+O programa do usuário não precisa conter qualquer código especial para acomodar as interrupções, o processador e o sistema operacional são responsáveis por suspender o programa do usuário e depois retomá-lo no mesmo ponto.

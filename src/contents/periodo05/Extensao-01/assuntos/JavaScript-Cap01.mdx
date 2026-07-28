@@ -1,0 +1,133 @@
+# A Sintaxe
+
+O Robô JavaScript é muito exigente!
+
+Imagine o JavaScript como um **assistente robótico** que irá fazer tudo o que você mandar, mas ele é muito literal. Se você falar uma palavra com uma letra errada ou esquecer um sinal, ele vai cruzar os braços e dizer: *"Erro de Sintaxe! Não entendi!"*.
+
+**Sintaxe** é apenas o nome chique para as **regras de escrita** da linguagem. Veja as principais regras:
+
+## Case Sensitive: maiúsculas de minúsculas
+
+Para o robô JS, uma palavra com letra maiúscula é completamente diferente de uma com letra minúscula.
+
+```js
+let banana = "Amarela";
+let Banana = "Fruta";
+```
+
+## Ponto e Vírgula
+
+Assim com em outras linguagens, o ponto e vírgula serve para dizer: "Terminei esta instrução, pode ir para a próxima!". É como o ponto final de uma frase escrita no caderno.
+
+Hoje em dia, o JS consegue entender seu código mesmo sem os `;`, mas usá-lo é considerado uma boa prática para evitar confusões na interpretação.
+
+## Comentários e Anotações
+
+Muitas vezes é necessário escrever anotações no meio do código, seja para você mesmo no futuro ou para outra pessoa que vá revisar seu código já pronto.
+
+Usamos `//` (barras duplas) para comentar uma linha em específico ou `/* */` para criar um bloco de comentário para melhor organização e maior detalhamento.
+
+```JS
+// Se eu colocar duas barras, o JS ignora tudo o que estiver nesta linha! É um comentário de uma linha.
+
+/* Se eu usar uma barra e um asterisco, 
+  eu posso escrever um comentário gigante,
+  com várias linhas!
+  O robô ignora tudo até encontrar o fechamento.
+*/
+```
+
+# Variáveis
+
+Imagine que você está de mudança e precisa organizar seus pertences. Há uma variedade enorme de coisas (brinquedos, roupas e livros, por exemplo) e para não perder nada você pega caixas vazias. Depois de guardar o que queria, coloca uma etiqueta informando o que há dentro de cada uma.
+
+Trazendo esse exemplo para o mundo da programação, as caixas são as variáveis (guardando informações na memória) e as etiquetas serão os nomes dados às variáveis.
+
+Especificamente no JavaScript, existem dois tipos de variáveis: `let` e `const`.
+
+## Let -- A caixa que aceita mudanças
+
+Variáveis do tipo `let` guardam informações que podem ser modificadas durante a execução do programa. Voltando para o exemplo da mudança, são caixas que podem ter seu conteúdo mudado antes que a mudança tenha terminado.
+
+Imagine uma situação onde você precisa guarda a informação de pontos em um jogo. Em todo jogo, os jogadores ou times começam com seus pontos zerados e vão subindo sua pontuação. Observe o exemplo abaixo:
+
+```JS
+// 1. Criamos a caixa e colocamos o valor 0 lá dentro
+let pontosDoJogo = 0; 
+
+// 2. O jogador fez um gol! Vamos mudar o que está dentro da caixa:
+pontosDoJogo = 1;
+
+// 3. Agora a nossa caixa "pontosDoJogo" vale 1!
+```
+
+Note que a palavra `let` foi usada em somente uma das vezes, **na criação da variável**. Para a modificação do valor que está guardado é necessário apenas chamar a variável já criada pelo seu nome.
+
+## Const -- A caixa que não aceita mudanças
+
+A palavra `const` vem de **constante**, ou seja, algo que não muda e passa exatamente a ideia desse tipo de variável. Indo para o exemplo da mudança, esse é o tipo de caixa que depois de fechada ninguém mais vai mudar ou retirar o que tem dentro.
+
+Caso você tente mudar o valor da variável depois de sua criação, o JavaScript vai acusar erro e vai pedir para que você arrume isso.
+
+Nesse tipo de variável, você irá guardar coisas que sempre serão as mesmas, como nomes de pessoas, datas de nascimento, etc.
+
+```JS
+// Criamos a caixa constante com o nome
+const meuNome = "Mariana";
+
+// Se você tentar fazer isso aqui embaixo, o robô vai reclamar:
+meuNome = "Pedro"; // ❌ ERRO! O JS não deixa você mudar uma constante.
+```
+
+## VAR -- Outra variável?
+
+Se você for atrás de tutoriais antigos, não será raro encontrar o uso da palavra `var` na criação de variáveis. Ela é como uma caixa velha, meio quebrada, que às vezes deixava as coisas sumirem ou causava bagunça no código.
+
+Uma dica e boas práticas? Esqueça o `var`! Use sempre `let` para coisas que mudam e `const` para coisas que não mudam.
+
+# Tipos de Dados
+
+Vamos conhecer os três tipos de objetos mais comuns que colocamos nas nossas caixas:
+
+## Textos (Strings)
+
+Tudo o que for texto deve ser colocado entre aspas (podem ser duplas "" ou simples ''). Isso serve para o robô não confundir o texto com um comando do código.
+
+```js
+const animalFavorito = "Cachorro"; // Isso é um texto!
+```
+
+## Números
+
+Números não precisam de aspas. Você escreve eles direto! Se usar ponto flutuante (números quebrados), usamos o ponto `.` e não a vírgula `,`.
+
+```JS
+let idade = 9;         // Número inteiro
+let precoDoDoce = 2.50; // No JS, usamos ponto para centavos!
+```
+
+## Booleanos
+
+É um tipo especial que só aceita duas opções: ou é verdadeiro (`true`), ou é falso (`false`). É como um interruptor de luz (aceso ou apagado).
+
+```JS
+let estaChovendo = false;  // Não, está um dia ensolarado!
+let temSobremesa = true;   // Sim, tem bolo de chocolate!
+```
+
+# Prática
+
+Que tal uma pequena prática? Copie o código abaixo, imagine que você está criando um personagem para um jogo de videogame e tente completar os dados nas caixas mágicas:
+
+```JS
+// Desafio: Complete os dados do seu herói ou heroína!
+
+const nomeDoHeroi = "Super Dev"; // O nome nunca muda (const)
+let nivel = 1;                   // O nível vai subir (let)
+let pontosDeVida = 100;          // A vida pode diminuir ou aumentar (let)
+const temSuperPoder = true;      // Sim ou Não? (Boolean)
+
+// Instruções para o robô mostrar no console o nosso herói:
+console.log("Herói criado com sucesso!");
+console.log(nomeDoHeroi);
+```

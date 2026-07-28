@@ -1,5 +1,5 @@
 export const config = {
-    nome: "Arquitetura e Padrões de Projeto de Software",
+    nome: "APPS - Arquitetura e Padrões de Projeto de Software",
     corPrimaria: '#3498db',
     corSecundaria: '#2c3e50',
     periodo: "5º Período",
@@ -11,6 +11,17 @@ export const config = {
 		},
 		// Mapeamento das pastas da aba 'Atividade' da matéria (arquivo Materia.tsx)
 		atividades: {
-			
-		}
+			"atividade01": {
+				nome: "Atividade 01",
+				arquivos: {
+					"Teste01": "Teste de arquivo 01"
+				}
+			},
+			"atividade02": {
+				nome: "Atividade 02",
+				arquivos: {
+					"Teste02": "Test de arquivo 02"
+				}
+			}
+	}
 };

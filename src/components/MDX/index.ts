@@ -1,6 +1,7 @@
 import { TituloH1 } from './TituloH1';
 import { TituloH2 } from './TituloH2';
 import { TituloH3 } from './TituloH3';
+import { TituloH4 } from './TituloH4';
 import { Paragraph } from './Paragrafo';
 import { Strong } from './Negrito';
 import { CodeBlock } from './CodeBlock';
@@ -20,6 +21,7 @@ export const MDX = {
   TituloH1,
   TituloH2,
   TituloH3,
+	TituloH4,
   Paragraph,
   Strong,
   CodeBlock,

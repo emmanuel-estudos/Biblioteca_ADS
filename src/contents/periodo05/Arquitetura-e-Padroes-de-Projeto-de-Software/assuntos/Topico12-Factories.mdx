@@ -1,0 +1,50 @@
+# Factory Method e Abstract Factory
+
+## Explicação dos Padrões
+Ambos os padrões lidam com o encapsulamento da criação de objetos, mas operam em níveis de complexidade diferentes:
+
+**Factory Method**: Define uma interface ou método abstrato para criar um objeto, mas deixa as subclasses decidirem qual classe concreta instanciar. Ele adia a instanciação para as subclasses.
+
+**Abstract Factory**: Fornece uma interface para criar famílias de objetos relacionados ou dependentes sem especificar suas classes concretas.
+
+## Por que usar os padrões?
+
+**Isolamento de Classes Concretas**: O cliente interage apenas com interfaces, sem conhecer as implementações exatas das classes que está instanciando.
+
+**Facilidade de Manutenção e Substituição**: Se uma nova classe concreta surgir, o código do cliente não muda; altera-se apenas a fábrica.
+
+**Consistência entre Produtos (Abstract Factory)**: Garante que um conjunto de produtos projetados para trabalhar juntos seja utilizado corretamente (ex: botões e barras de rolagem de um mesmo tema visual).
+
+## Exemplo apresentado no slide
+
+O material apresenta o problema de um framework de aplicações que manipula múltiplos documentos para o usuário. Duas abstrações-chave são as classes abstratas Application e Document.
+
+Para criar um programa específico de desenho, criam-se as subclasses DrawApplication e DrawDocument. Para um editor de texto, usam-se TextApplication e TextDocument.
+
+O Problema: A classe abstrata mãe Application é responsável por gerenciar e coordenar as ações dos documentos (Salvar, Abrir), mas ela não sabe qual classe concreta de documento precisará instanciar em tempo de execução (se será um DrawDocument ou TextDocument).
+
+## Solução do problema apresentado no slide
+A solução aplicada é o Factory Method. A classe abstrata Application declara um método abstrato para criação (ex: abstract Document createDocument()).
+
+As ações gerais como abrir ou salvar chamam esse método internamente. Quem decide e implementa o objeto real são as subclasses: DrawApplication vai estender Application e implementar o método retornando new DrawDocument(). O acoplamento rígido é desfeito.
+
+```java
+// Estrutura conceitual da solução
+public abstract class Application {
+  // O Factory Method
+  public abstract Document createDocument();
+
+  public void novoDocumento() {
+    // A aplicação mãe usa o método sem saber qual documento concreto virá
+    Document doc = createDocument();
+    doc.abrir();
+  }
+}
+
+public class DrawApplication extends Application {
+  @Override
+  public Document createDocument() {
+    return new DrawDocument(); // Subclasse decide o tipo concreto
+  }
+}
+```

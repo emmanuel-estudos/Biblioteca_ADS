@@ -89,6 +89,20 @@
   "[mdx]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.tabSize": 2,
-    "editor.insertSpaces": true
+    "editor.insertSpaces": true,
+    "editor.semanticHighlighting.enabled": false
+  },
+
+    // Mudança nas cores de títulos
+      "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      { "scope": ["markup.heading.atx.1.mdx", "heading.atx.1.mdx"], "settings": { "foreground": "#AE81FF" } }, // H1: Roxo original
+      { "scope": ["markup.heading.atx.2.mdx", "heading.atx.2.mdx"], "settings": { "foreground": "#B992FF" } }, // H2
+      { "scope": ["markup.heading.atx.3.mdx", "heading.atx.3.mdx"], "settings": { "foreground": "#C5A3FF" } }, // H3
+      { "scope": ["markup.heading.atx.4.mdx", "heading.atx.4.mdx"], "settings": { "foreground": "#D0B5FF" } }, // H4
+      { "scope": ["markup.heading.atx.5.mdx", "heading.atx.5.mdx"], "settings": { "foreground": "#DCC6FF" } }, // H5
+      { "scope": ["markup.heading.atx.6.mdx", "heading.atx.6.mdx"], "settings": { "foreground": "#E8D8FF" } }  // H6: Lilás Pastel
+    ]
   }
+
 }

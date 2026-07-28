@@ -42,7 +42,7 @@ export const Home = () => {
 
   return (
     <s.Container>
-      <s.Title>Portal de Estudos de ADS</s.Title>
+      <s.Title>Biblioteca ADS</s.Title>
       
       <s.Grid>
         {periodosAutomaticos.map((p) => (
