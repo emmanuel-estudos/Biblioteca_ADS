@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import * as s from './styles';
+import { UltimaAtualizacao } from '../../components';
 
 export const Home = () => {
   // 1. Fazemos a varredura de todos os arquivos dentro de contents
@@ -53,6 +54,8 @@ export const Home = () => {
           </s.CardLink>
         ))}
       </s.Grid>
+
+      <UltimaAtualizacao />
 
       {periodosAutomaticos.length === 0 && (
         <p style={{ textAlign: 'center', color: '#64748b', marginTop: '2rem' }}>
