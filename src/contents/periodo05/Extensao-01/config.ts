@@ -10,16 +10,43 @@ export const config = {
 	},
 	// Mapeamento para aba de 'Atividades' (Materia.tsx)
 	atividades: {
-		"atividade01": {
-			nome: "Atividade 01",
+		"Gestao-de-Pessoas": {
+			nome: "|Curso| Gestão de pessoas [Hackathon] [Game Jam] – Will",
 			arquivos: {
 				"Teste01": "Teste de arquivo 01"
 			}
 		},
-		"atividade02": {
-			nome: "Atividade 02",
+		"Frontend": {
+			nome: "|Curso| Frontend [Hackathon]",
 			arquivos: {
-				"Teste02": "Test de arquivo 02"
+				"Teste01": "Test de arquivo 01"
+			}
+		},
+		"Algoritmo-e-Logica-de-Programacao": {
+			nome: "|Curso| Introdução a algoritmos e lógica de programação [Hackathon] [Game Jam] – Emanuel",
+			arquivos: {
+				"Teste01": "Test de arquivo 01"
+			}
+		},
+		"JavaScript": {
+			nome: "|Curso| Javascript [Hackathon] – Emmanuel",
+			arquivos: {
+				"Curso-JavaScript": "Informações Introdutórias sobre o Curso",
+				"JavaScript-Cap01": "Fundamentos do JavaScript - Capítulo 01: Sintaxes Básicas e Variáveis",
+				"JavaScript-Cap02": "Fundamentos do JavaScript - Capítulo 02: ",
+				"JavaScript-Cap03": "Fundamentos do JavaScript - Capítulo 03: ",
+				"JavaScript-Cap04": "Fundamentos do JavaScript - Capítulo 04: ",
+				"JavaScript-Cap05": "Fundamentos do JavaScript - Capítulo 05: ",
+				"JavaScript-Cap06": "Fundamentos do JavaScript - Capítulo 06: ",
+				"JavaScript-Cap07": "JavaScript para Frontend - Capítulo 07: ",
+				"JavaScript-Cap08": "JavaScript para Frontend - Capítulo 08: ",
+				"JavaScript-Cap09": "JavaScript para Frontend - Capítulo 09: ",
+				"JavaScript-Cap10": "JavaScript para Frontend - Capítulo 10: ",
+				"JavaScript-Cap11": "JavaScript para Backend - Capítulo 11: ",
+				"JavaScript-Cap12": "JavaScript para Backend - Capítulo 12: ",
+				"JavaScript-Cap13": "JavaScript para Backend - Capítulo 13: ",
+				"JavaScript-Cap14": "JavaScript para Backend - Capítulo 14: ",
+				"JavaScript-Cap15": "JavaScript para Backend - Capítulo 15: ",
 			}
 		}
 	}
