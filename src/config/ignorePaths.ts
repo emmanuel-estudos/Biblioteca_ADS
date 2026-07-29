@@ -4,6 +4,10 @@
  */
 export const IGNORED_PATHS_IN_PROD: string[] = [
   'Sistemas-Operacionais-SO/atividades/Apresentacao',
+	'Seguranca-de-Dados/atividades/atividade-quiz',
+	'Seguranca-de-Dados/atividades/atividade03',
+	'Arquitetura-e-Padroes-de-Projeto-de-Software/atividades/Prova02',
+	'Extensao-01/assuntos/JavaScript',
   // Adicione novos caminhos aqui facilmente quando precisar:
-  // 'Estrutura-de-Dados/atividades/Rascunho',
+  // 'materia/atividades/PastaDaAtividade',
 ];
