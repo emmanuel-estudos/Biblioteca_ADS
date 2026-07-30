@@ -7,6 +7,7 @@ export const TerminalRow = styled.div`
   width: 100%;
   margin: 0;
   padding: 0;
+	margin-bottom: 20px;
 `;
 
 export const PromptText = styled.span`

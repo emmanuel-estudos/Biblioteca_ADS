@@ -206,6 +206,7 @@ Após a modificação, não deve aparecer nenhuma mensagem de erro ao rodar o sc
   <Code>
     <Comentario>Tentativa 02</Comentario>
     <Linha texto="root@mininet-vm:/home/mininet#">./VXLANexample1.py</Linha>
+    <Comentario>Se estiver como está abaixo, significa que deu certo</Comentario>
     <Linha texto="mininet>">.</Linha>
   </Code>
 </Terminal>
@@ -222,10 +223,53 @@ Rodando o script VXLan também na VM2 (32:25).
   </Abas>
   <Code>
     <Linha texto="root@mininet-vm:/home/mininet#">./VXLANexample2.py</Linha>
+    <Comentario>Se estiver como está abaixo, significa que deu certo</Comentario>
+    <Linha texto="mininet>">.</Linha>
   </Code>
 </Terminal>
 
-Caso aconteça algum erro, siga os passos do tópico anterior para resolver.
+Caso apareça alguma mensagem de erro, siga os passos do tópico anterior para resolver.
+
+Caso ocorra de travar e a(s) VM(s) ficar(em) sem responder, veja o tópico a seguir para resolver o problema.
+Caso nada dê errado, pule o tópico a seguir.
+
+## Possível Erro: 'etc/network/interfaces'
+
+Caso ocorra de travar após a execução scripts `VXLANexample1.py` e `VXLANexample2.py`, esse tópico busca apresentar uma solução para o problema.
+
+Temos que ir na Mininet1 e Mininet2 e trocar suas interfaces. Digite o comando a seguir para abrir o arquivo. Existem duas linhas configuradas com `eth0` e que devem ser substituidas para `eth1`.
+
+<Terminal>
+  <Abas>
+    <Aba active>Mininet1</Aba>
+    <Aba>Mininet2</Aba>
+    <Aba>Mininet3</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Comando para abrir o arquivo</Comentario>
+    <Linha texto="root@mininet-vm:/home/mininet#">/etc/network/interfaces</Linha>
+    <Comentario>Troque as duas tinhas de 'eth0' para 'eth1'. Pressione `Ctrl + X` para sair do modo de edição, `Y` para confirmar a modificação e por último `Enter`.</Comentario>
+    <Comentario>Reinicinado a VM completa</Comentario>
+    <Linha texto="root@mininet-vm:/home/mininet#">reboot</Linha>
+  </Code>
+</Terminal>
+
+<Terminal>
+  <Abas>
+    <Aba>Mininet1</Aba>
+    <Aba active>Mininet2</Aba>
+    <Aba>Mininet3</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Comando para abrir o arquivo</Comentario>
+    <Linha texto="root@mininet-vm:/home/mininet#">/etc/network/interfaces</Linha>
+    <Comentario>Troque as duas tinhas de 'eth0' para 'eth1'. Pressione `Ctrl + X` para sair do modo de edição, `Y` para confirmar a modificação e por último `Enter`.</Comentario>
+    <Comentario>Reinicinado a VM completa</Comentario>
+    <Linha texto="root@mininet-vm:/home/mininet#">reboot</Linha>
+  </Code>
+</Terminal>
+
+Ao dar _reboot_ nas VMs, é necessário começar o processo todo de novo na Mininet3: abrir suas respectivas abas, se transformar em _SuperUsuário_, fazer o processo de `ssh` e rodar os scripts _Python_.
 
 ## VM1: Comandos 'type=vxlan'
 
