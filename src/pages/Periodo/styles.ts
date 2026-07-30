@@ -30,6 +30,14 @@ export const MateriaGrid = styled.div`
   align-content: center;
 `;
 
+export const Sigla = styled.span<{ $corSecundaria: string }>`
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: ${props => props.$corSecundaria};
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+`;
+
 export const MateriaCard = styled(Link)<{ $corPrimaria: string; $corSecundaria: string }>`
   border-radius: 16px;
   padding: 3rem 2rem;
@@ -37,6 +45,7 @@ export const MateriaCard = styled(Link)<{ $corPrimaria: string; $corSecundaria: 
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
   transition: all 0.3s ease;
   

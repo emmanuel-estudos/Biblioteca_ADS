@@ -4,7 +4,7 @@ import { MDXProvider } from '@mdx-js/react';
 import { ThemeProvider } from 'styled-components';
 
 import { MDX } from '../MDX';
-import { IGNORED_PATHS_IN_PROD } from '@/config/ignorePaths';
+import { IGNORED_PATHS_IN_PROD } from '../../config/ignorePaths';
 import * as S from './styles';
 
 import { Breadcrumbs } from '../Breadcrumbs';

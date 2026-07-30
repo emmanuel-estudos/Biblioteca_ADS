@@ -1,8 +1,9 @@
 export const config = {
-		nome: "GTIC - Gestão da Tecnologia da Informação e Comunicação",
-		periodo: "5º Período",
-		corPrimaria: '#06b6d4',
-		corSecundaria: '#0369a1',
+	sigla: "GTIC",
+	nome: "Gestão da Tecnologia da Informação e Comunicação",
+	periodo: "5º Período",
+	corPrimaria: '#06b6d4',
+	corSecundaria: '#0369a1',
 		
 	// Mapeamento para arquivos da aba 'Assuntos' (Materia.tsx)
 	assuntos: {

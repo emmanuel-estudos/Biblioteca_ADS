@@ -1,13 +1,15 @@
 export const config = {
-		nome: "Empreendedorismo",
-		periodo: "5º Período",
-		corPrimaria: '#06b6d4',
-		corSecundaria: '#0369a1',
+	sigla: "",
+	nome: "Empreendedorismo",
+	periodo: "5º Período",
+	corPrimaria: '#06b6d4',
+	corSecundaria: '#0369a1',
 		
 	// Mapeamento para arquivos da aba 'Assuntos' (Materia.tsx)
 	assuntos: {
 		"Teste": "Teste de Arquivo",
 	},
+	
 	// Mapeamento para aba de 'Atividades' (Materia.tsx)
 	atividades: {
 		"atividade01": {

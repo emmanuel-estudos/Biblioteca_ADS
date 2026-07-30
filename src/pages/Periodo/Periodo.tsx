@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import { Breadcrumbs } from '../../components/Breadcrumbs';
+import { Breadcrumbs } from '../../components';
 import * as S from './styles';
 
 export const Periodo = () => {
@@ -8,6 +8,7 @@ export const Periodo = () => {
   const [materias, setMaterias] = useState<Array<{
     id: string;
     nome: string;
+    sigla?: string;
     corPrimaria: string;
     corSecundaria: string;
   }>>([]);
@@ -50,12 +51,13 @@ export const Periodo = () => {
           const slugMateria = partes[idxPeriodo + 1]; // ex: "materia01"
 
           const modConfig = (await todasConfigs[path]()) as {
-            config: { nome: string; corPrimaria: string; corSecundaria: string }
+            config: { nome: string; sigla?: string; corPrimaria: string; corSecundaria: string }
           };
 
           return {
             id: slugMateria,
             nome: modConfig.config.nome,
+            sigla: modConfig.config.sigla,
             corPrimaria: modConfig.config.corPrimaria || '#3498db',
             corSecundaria: modConfig.config.corSecundaria || '#2c3e50'
           };
@@ -97,6 +99,7 @@ export const Periodo = () => {
               $corPrimaria={m.corPrimaria}
               $corSecundaria={m.corSecundaria}
             >
+              {m.sigla && <S.Sigla $corSecundaria={m.corSecundaria}>{m.sigla}</S.Sigla>}
               <h2>{m.nome}</h2>
             </S.MateriaCard>
           ))}
@@ -105,7 +108,6 @@ export const Periodo = () => {
         {!carregando && materias.length === 0 && (
           <div style={{ textAlign: 'center', marginTop: '2rem', color: '#64748b' }}>
             <p>Nenhuma matéria encontrada para o {exibirTitulo()}.</p>
-            <small>Caminho verificado: src/contents/{nomePastaReal}/</small>
           </div>
         )}
       </S.Container>
