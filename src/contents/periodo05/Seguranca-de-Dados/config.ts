@@ -41,6 +41,7 @@ export const config = {
     "atividade03": {
       nome: "Atividade 03: Firewall com IPTABLES",
       arquivos: {
+        "Roteiro": "Roteiro",
         "Contexto-Atividade": "Contexto da Atividade",
         "P_01--Configuracao-VMs": "Passo 01: Configuração das VMs",
         "P_02--Demonstracao-SNAT": "Passo 02: Demonstração Source Nat (SNAT)",
