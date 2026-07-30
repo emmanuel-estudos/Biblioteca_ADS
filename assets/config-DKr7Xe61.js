@@ -1,0 +1,1 @@
+var e={sigla:`GTIC`,nome:`Gestão da Tecnologia da Informação e Comunicação`,periodo:`5º Período`,corPrimaria:`#06b6d4`,corSecundaria:`#0369a1`,assuntos:{Teste:`Teste de Arquivo`},atividades:{atividade01:{nome:`Atividade 01`,arquivos:{Teste01:`Teste de arquivo 01`}},atividade02:{nome:`Atividade 02`,arquivos:{Teste02:`Test de arquivo 02`}}}};export{e as config};
