@@ -1,9 +1,0 @@
-import{n as e,r as t}from"./lib-CrvGBhFj.js";var n=t();function r(t){let r={code:`code`,em:`em`,h1:`h1`,h2:`h2`,p:`p`,strong:`strong`,...e(),...t.components};return(0,n.jsxs)(n.Fragment,{children:[(0,n.jsx)(r.h1,{id:`configurações-inciais`,children:`Configurações Inciais`}),`
-`,(0,n.jsx)(r.h2,{id:`erro-na-incialização`,children:`Erro na Incialização`}),`
-`,(0,n.jsx)(r.p,{children:`Provavelmente, ao iniciar as VMs pela primeira vez, ocorrerá um erro de configuração. Não se preocupe, é normal.`}),`
-`,(0,n.jsx)(r.p,{children:`Feche a janela de erro e as VMs irão fechar automaticamente.`}),`
-`,(0,n.jsxs)(r.p,{children:[`No VirtualBox, entre nas configurações de cada VM e aperte `,(0,n.jsx)(r.strong,{children:`OK`}),`. Depois disso, pode iniciá-las normalmente.`]}),`
-`,(0,n.jsx)(r.h2,{id:`ubuntu24s`,children:`Ubuntu24s`}),`
-`,(0,n.jsxs)(r.p,{children:[`Faça `,(0,n.jsx)(r.em,{children:`login`}),` usando as credenciais `,(0,n.jsx)(r.strong,{children:`djr`}),` (nome) e `,(0,n.jsx)(r.strong,{children:`654123`}),` (senha).\r
-Coloque também em `,(0,n.jsx)(r.em,{children:`SuperUsuário`}),` para ter todas as permissões, já que essa irá ser a VM principal que vamos treabalhar.`]}),`
-`,(0,n.jsxs)(r.p,{children:[`Inicia a interface gráfica, abra o LXTerminal e crie 3 abas: `,(0,n.jsx)(r.strong,{children:`VM1_INTERNET`}),` SEED, `,(0,n.jsx)(r.strong,{children:`VM2_GATEWAY`}),` DockerGUI, `,(0,n.jsx)(r.strong,{children:`VM3_IP_LOCAL`}),` Ubuntu24s. Faça `,(0,n.jsx)(r.code,{children:`ssh`}),` para conectar as VMs nessas abas.`]})]})}function i(t={}){let{wrapper:i}={...e(),...t.components};return i?(0,n.jsx)(i,{...t,children:(0,n.jsx)(r,{...t})}):r(t)}export{i as default};
