@@ -1,0 +1,24 @@
+# Atividade 03 - Parte 02
+
+## VM2_GATEWAY
+
+Limpando as configurações definidas na etapa anterior.
+
+- iptables -t nat -F
+- iptables -t nat -A PREROUTING -p tcp --dport 2000 -j DNAT --to-destination 192.168.56.102:22 (IP_U26s)
+
+Pegue o IP
+
+- ifconfig
+- eth0: 10.3.150.68
+
+## VM1_INTERNET
+
+- ssh -p 2000 ads@10.3.150.68
+
+- yes
+- senha 654123
+
+## Print
+
+Tire print na VM1_INTERNET depois de fazer o tópico anterior.

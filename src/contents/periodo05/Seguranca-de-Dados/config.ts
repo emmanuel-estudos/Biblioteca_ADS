@@ -41,12 +41,10 @@ export const config = {
     "atividade03": {
       nome: "Atividade 03: Firewall com IPTABLES",
       arquivos: {
-        "Contexto-Atividade": "Contexto da Atividade",
-        "P_01--Configuracao-VMs": "Passo 01: Configuração das VMs",
-        "P_02--Demonstracao-SNAT": "Passo 02: Demonstração Source Nat (SNAT)",
-        "P_03--Demonstracao-DNAT": "Passo 03: Demonstração Destination Nat (DNAT)",
-        "P_04--Demonstracao-Balanceamento": "Passo 04: Balanceamento de Cargas com IPTABLES",
-        "Demonstracoes-Firewall-IpTables": "Demonstrações de Firewall usando IpTables",
+        "Configuracoes_Iniciais": "Configurações Iniciais",
+				"Roteiro-Parte01": "Roteiro - Parte 01",
+				"Roteiro-Parte02": "Roteiro - Parte 02",
+				"Roteiro-Parte03": "Roteiro - Parte 03",
       }
     }
 	}

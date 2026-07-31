@@ -3,11 +3,20 @@
  * durante o build de produção (deploy para o GitHub Pages).
  */
 export const IGNORED_PATHS_IN_PROD: string[] = [
+	// P2 - Sistemas Operacionais
   'Sistemas-Operacionais-SO/atividades/Apresentacao/',
-	'Seguranca-de-Dados/atividades/atividade-quiz',
-	'Seguranca-de-Dados/atividades/atividade03/',
+
+	// P5 - Padrões de Projeto
 	'Arquitetura-e-Padroes-de-Projeto-de-Software/atividades/Prova02',
-	'Extensao-01/assuntos/JavaScript',
+
+	// P5 - Segurança de Dados
+	'Seguranca-de-Dados/atividades/atividade-quiz',
+	'Seguranca-de-Dados/atividades/atividade03/segurança de redes - atividade 03 - parte 01.png',
+	'Seguranca-de-Dados/atividades/atividade03/segurança de redes - atividade 03 - parte 02.png',
+	
+	// P5 - Extensão 01
+	'Extensao-01/assuntos/JavaScript/',
+
   // Adicione novos caminhos aqui facilmente quando precisar:
   	// 'materia/atividades/PastaDaAtividade/',
 		// 'materia/atividades/PastaDaAtividade/arquivo.extensao'

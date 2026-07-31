@@ -1,0 +1,29 @@
+# Atividade 03 - Configurações Iniciais
+
+## Configurações de Rede no VirtualBox
+
+Antes de iniciar as VMs, verifique se suas Interfaces de Rede estão configuradas dessa forma:
+
+- SEED = interface em bridge
+- DockerGUI = 1 interface bridge e 1 interface host-Only
+- U26s = interface host-Only - verifique se o nome está com **VirtualBox Host-Only Ethernet Adapter** 
+
+## SEED1
+
+Descubra o IP com o comando `ifconfig`.
+
+inet addr: 10.3.150.90
+
+A partir desse momento, quando houver referência para as VMs, serão referentes às abas.
+
+## DockerGUI
+
+Logue na máquina com as credenciais de `djr` como nome e `654123` como senha.
+
+Se transforme em _SuperUsuário_, coloque a senha novamente e inicie a interface gráfica com `startx`.
+
+Abra o _LXTerminal_ seguindo o caminho: _Menu_ --> _Acessórios_ --> _LXTerminal_.
+
+Crie 3 abas com o comando `Ctrl + Shift + T` e renomei elas para `VM1_INTERNET`, `VM2_GATEWAY`, `VM3_LOCAL_INTERNET`.
+
+A ordem do número das VMs não importa. O importante é saber qual se refere a Internet, Gateway e Internet Local.
