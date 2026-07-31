@@ -1,0 +1,39 @@
+# Atividade 03 - Parte 03
+
+## Criação da quarta aba: VM4_LOCAL_INTERNET_2
+
+Se conecte via `ssh` com a outra VM3_LOCAL_INTERNET.
+
+- ssh ads@192.168.56.102
+- 654123
+
+## VM3_LOCAL_INTERNET
+
+- nc -lk 9001
+
+## VM4_LOCAL_INTERNET_2
+
+- nc -lk 9002
+
+## VM2_GATEWAY
+
+- iptables -t nat -F
+- iptables -t nat -A PREROUTING -p tcp --dport 8000 -m statistic --mode random --probability .50 -j DNAT --to-destination 192.168.56.102:9001
+- iptables -t nat -A PREROUTING -p tcp --dport 8000 -m statistic --mode random --probability .50 -j DNAT --to-destination 192.168.56.102:9002 (mesmo comando, só trocando a porta)
+
+## VM3_LOCAL_INTERNET 
+
+Saindo do `ssh`.
+
+- Ctrl + D
+
+Rodando `echo`.
+
+- echo "Hello 1" | nc 10.3.150.90 8000
+- echo "Hello 2" | nc 10.3.150.90 8000
+
+Repita essa sequência mais 5 vezes.
+
+## Prints
+
+Tire print das 4 abas, provando que você enviou os `echo's` e que eles chegaram na `VM4_LOCAL_INTERNET_2` e `VM3_LOCAL_INTERNET`.

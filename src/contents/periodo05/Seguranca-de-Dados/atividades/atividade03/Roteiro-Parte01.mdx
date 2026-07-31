@@ -1,0 +1,48 @@
+# Atividade 03 - Parte 01
+
+## VM2_GATEWAY
+
+Ative o `eth1`.
+
+- dhclient eth1
+
+## VM3_LOCAL_INTERNET
+
+Faça a conexão `ssh` com a **U26s**.
+
+- ssh ads@192.168.56.102
+
+- senha: 654123
+
+## VM1_INTERNET
+
+Faça comexão `ssh` com a **SEED**
+
+- ssh seed@10.3.150.90
+
+- senha: dees
+
+## VM2_GATEWAY
+
+Adicione `MASQUERADE`.
+
+- iptables -t nat -A POSTROUTING -j MASQUERADE
+
+## VM3_LOCAL_INTERNET
+
+Crie a conexão com a VM1_INTERNET.
+
+- sudo su
+- 654123
+- route add -net 10.3.150.0 netmask 255.255.255.0 gw 192.168.56.104 (eth0 da VM2_GATEWAY)
+
+Ative o `telnet`.
+
+- telnet 10.3.150.90 (IP_SEED)
+
+- VM Login: seed
+- senha: dees
+
+## Print
+
+Tire print da VM3_LOCAL_INTERNET quado tiver logado no `telnet`.

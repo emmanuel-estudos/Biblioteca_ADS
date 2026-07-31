@@ -41,8 +41,7 @@ export const config = {
     "atividade03": {
       nome: "Atividade 03: Firewall com IPTABLES",
       arquivos: {
-        "Contexto-Atividade": "Contexto da Atividade",
-        "Roteiro-Configuracoes_Iniciais": "Configurações Iniciais",
+        "Roteiro-Configuracoes_Iniciais": "Roteiro - Configurações Iniciais",
         "Roteiro-Parte01": "Roteiro - Parte 01: Source Nat (SNAT)",
         "Roteiro-Parte02": "Roteiro - Parte 02: Destination Nat (DNAT)",
         "Roteiro-Parte03": "Roteiro - Parte 03: Balanceamento de Cargas com IPTABLES",
