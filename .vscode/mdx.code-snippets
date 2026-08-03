@@ -28,7 +28,7 @@
 	"Comando dentro do MDX_Terminal": {
 		"prefix": "/linha_terminal",
 		"body": [
-			"<Linha texto=\"${2:Prompt}\"> ${1:Comando}</Linha>"
+			"<Linha texto=\"\">${1:Comando}</Linha>"
 		],
 		"description": "Insere um Comando, específico para a estrutura do Terminal_MDX"
 	},

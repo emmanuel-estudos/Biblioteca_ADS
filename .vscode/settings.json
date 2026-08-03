@@ -1,12 +1,51 @@
 {
-  // Configurações Específicas para JSON
+  // ========== Configurações Específicas para JSON ==========
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.tabSize": 2,
     "editor.insertSpaces": true
   },
 
-  // Configurações GLOBAIS
+  // ========== Configurações para o Code Spell Checker ==========
+    // Línguas
+  "cSpell.language": "pt-BR,en",
+    // Tipos de arquivos para verificação
+  "cSpell.enabledFileTypes": {
+    "markdown": true,
+    "mdx": true,
+    "typescript": true,
+    "typescriptreact": true,
+    "plaintext": true
+  },
+
+    // ========== Override de configurações específicas por linguagem ==========
+    "cSpell.languageSettings": [
+      {
+        // Aplica apenas para arquivos TypeScript / React (.ts e .tsx)
+        "languageId": "typescript,typescriptreact",
+        // Instruição para verificar apenas o que estiver em Strings e Comentários
+        "includeRegExpList": [
+          "CStyleComment",      // Comentários // e /* */
+          "Strings"             // Textos entre " ", ' ' e ` `
+        ]
+      }
+    ],
+
+    // ========== Palavras Personalizadas ==========
+    "cSpell.words": [
+      // Segurança de Dados - P5
+      "PREROUTING",
+      "dport",
+      "DNAT",
+      "adsads"
+    ],
+
+    "cSpell.ignoreRegExpList": [
+      "<Comentario\\b[^>]*>", // Ignora a tag de abertura <Comentario ...>
+      "</Comentario>"        // Ignora a tag de fechamento </Comentario>
+    ],
+
+  // ========== Configurações GLOBAIS ==========
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
@@ -51,7 +90,7 @@
     "other": "on"
   },
 
-  // Configurações de Equivalência de Linguagens
+  // ========== Configurações de Equivalência de Linguagens ==========
   "emmet.includeLanguages": {
     "*.mdx": "typescriptreact"
   },
@@ -60,7 +99,7 @@
   //   "*.mdx": "typescriptreact"
   // },
 
-  // Configurações Específicas para MARKDOWN
+  // ========== Configurações Específicas para MARKDOWN ==========
   "[markdown]": {
     "editor.quickSuggestions": {
       "other": "on",
@@ -71,21 +110,21 @@
   },
 
   
-  // Configurações Específicas para TYPESCRIPT - REACT
+  // ========== Configurações Específicas para TYPESCRIPT - REACT ==========
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.tabSize": 2,
     "editor.insertSpaces": true
   },
 
-  // Configurações Específicas para JAVASCRIPT - REACT
+  // ========== Configurações Específicas para JAVASCRIPT - REACT ==========
   "[javascriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.tabSize": 2,
     "editor.insertSpaces": true
   },
 
-  // Configurações Específicas para MDX
+  // ========== Configurações Específicas para MDX ==========
   "[mdx]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.tabSize": 2,
