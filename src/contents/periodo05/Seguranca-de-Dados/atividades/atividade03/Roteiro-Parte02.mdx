@@ -2,23 +2,67 @@
 
 ## VM2_GATEWAY
 
-Limpando as configurações definidas na etapa anterior.
+Limpando as configurações definidas na etapa anterior e colocando novas regras. (12:45 - video_02)
 
-- iptables -t nat -F
-- iptables -t nat -A PREROUTING -p tcp --dport 2000 -j DNAT --to-destination 192.168.56.102:22 (IP_U26s)
+<Terminal>
+  <Abas>
+    <Aba>VM1_INTERNET</Aba>
+    <Aba active>VM2_GATEWAY</Aba>
+    <Aba>VM3_LOCAL</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Limpando regras da primeira parte da atividade</Comentario>
+    <Linha texto="root@dut:/home/djr#">iptables -t nat -F</Linha>
+    <Comentario>Adicionando novas regras</Comentario>
+    <Linha texto="root@dut:/home/djr#">iptables -t nat -A PREROUTING -p tcp --dport 2000 -j DNAT --to-destination 192.168.56.102:22 (IP_U26s)</Linha>
+    <Comentario>Verificando IP</Comentario>
+    <Linha texto="root@dut:/home/djr#">ifconfig</Linha>
+    <Resultado>'eth0' (exemplo: `10.3.150.68`)</Resultado>
+  </Code>
+</Terminal>
 
 Pegue o IP
 
 - ifconfig
 - eth0: 10.3.150.68
 
+## VM3_LOCAL
+
+<Terminal>
+  <Abas>
+    <Aba>VM1_INTERNET</Aba>
+    <Aba>VM2_GATEWAY</Aba>
+    <Aba active>VM3_LOCAL</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Saindo do 'telnet'</Comentario>
+    <Linha texto="[data]seed@VM~$">logout</Linha>
+    <Comentario>Verificando IP</Comentario>
+    <Linha texto="root@u26s:/home/ads#">ifconfig</Linha>
+  </Code>
+</Terminal>
+
 ## VM1_INTERNET
 
-- ssh -p 2000 ads@10.3.150.68
+(21:18 - video_02)
 
-- yes
-- senha 654123
+<Terminal>
+  <Abas>
+    <Aba active>VM1_INTERNET</Aba>
+    <Aba>VM2_GATEWAY</Aba>
+    <Aba>VM3_LOCAL</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Estabelecendo segunda conexão</Comentario>
+    <Linha texto="[data]seed@VM:~$">ssh -p 2000 ads@10.3.150.68 (IP_VM2_GATEWAY)</Linha>
+    <Comentario>Confirmando conexão</Comentario>
+    <Linha texto="Are you sure you want to continue connecting (yes/no)?">yes</Linha>
+    <Comentario>Senha</Comentario>
+    <Linha texto="ads@10.3.150.68's password:">654123</Linha>
+    <Resultado>Mensagem gigante terminando com '`cwd=/home/adsads@u26s:~$`'</Resultado>
+  </Code>
+</Terminal>
 
 ## Print
 
-Tire print na VM1_INTERNET depois de fazer o tópico anterior.
+Tire print na VM1_INTERNET depois de fazer o tópico anterior, fazendo `ssh` dentro da **SEED**. (22:15 - video_02)

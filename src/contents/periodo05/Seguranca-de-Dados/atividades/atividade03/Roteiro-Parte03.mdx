@@ -1,39 +1,100 @@
 # Atividade 03 - Parte 03
 
-## Criação da quarta aba: VM4_LOCAL_INTERNET_2
+## VM4_LOCAL_INTERNET_2: Nova aba
 
-Se conecte via `ssh` com a outra VM3_LOCAL_INTERNET.
+Crie uma nova aba para estabelecer uma nova conexão. (23:26 -- video_02)
 
-- ssh ads@192.168.56.102
-- 654123
+<Terminal>
+  <Abas>
+    <Aba>VM1_INTERNET</Aba>
+    <Aba>VM2_GATEWAY</Aba>
+    <Aba>VM3_LOCAL</Aba>
+    <Aba active>VM4_LOCAL_2</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Estabelecendo conexão</Comentario>
+    <Linha texto="root@dut:/home/djr#">ssh ads@192.168.56.102 (IP_u26s)</Linha>
+    <Comentario>Senha</Comentario>
+    <Linha texto="ads@192.168.56.102's password:">654123</Linha>
+  </Code>
+</Terminal>
 
 ## VM3_LOCAL_INTERNET
 
-- nc -lk 9001
+Adicionando NatCat. (23:45)
+
+<Terminal>
+  <Abas>
+    <Aba>VM1_INTERNET</Aba>
+    <Aba>VM2_GATEWAY</Aba>
+    <Aba active>VM3_LOCAL</Aba>
+    <Aba>VM4_LOCAL_2</Aba>
+  </Abas>
+  <Code>
+    <Linha texto="root@u26s:/home/ads#">nc -lk 9001</Linha>
+  </Code>
+</Terminal>
 
 ## VM4_LOCAL_INTERNET_2
 
-- nc -lk 9002
+Adicionando NatCat. (24:15)
+
+<Terminal>
+  <Abas>
+    <Aba>VM1_INTERNET</Aba>
+    <Aba>VM2_GATEWAY</Aba>
+    <Aba active>VM3_LOCAL</Aba>
+    <Aba>VM4_LOCAL_2</Aba>
+  </Abas>
+  <Code>
+    <Linha texto="adsads@u26s:~$">nc -lk 9002</Linha>
+  </Code>
+</Terminal>
 
 ## VM2_GATEWAY
 
-- iptables -t nat -F
-- iptables -t nat -A PREROUTING -p tcp --dport 8000 -m statistic --mode random --probability .50 -j DNAT --to-destination 192.168.56.102:9001
-- iptables -t nat -A PREROUTING -p tcp --dport 8000 -m statistic --mode random --probability .50 -j DNAT --to-destination 192.168.56.102:9002 (mesmo comando, só trocando a porta)
+Limpando as configurações anteriores do **iptables**. (32:02)
 
-## VM3_LOCAL_INTERNET 
+<Terminal>
+  <Abas>
+    <Aba>VM1_INTERNET</Aba>
+    <Aba active>VM2_GATEWAY</Aba>
+    <Aba>VM3_LOCAL</Aba>
+    <Aba>VM4_LOCAL_2</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Limpando regras</Comentario>
+    <Linha texto="root@dut:/home/djr#">iptables -t nat -F</Linha>
+    <Comentario>Adicionando Regra 01: porta 9001</Comentario>
+    <Linha texto="root@dut:/home/djr#">iptables -t nat -A PREROUTING -p tcp --dport 8000 -m statistic --mode random --probability .50 -j DNAT --to-destination 192.168.56.102:9001</Linha>
+    <Comentario>Adicionando Regra 02: porta 9002</Comentario>
+    <Linha texto="root@dut:/home/djr#">iptables -t nat -A PREROUTING -p tcp --dport 8000 -m statistic --mode random --probability .50 -j DNAT --to-destination 192.168.56.102:9002</Linha>
+    <Comentario>Confira o IP 'eth0' dessa Aba</Comentario>
+    <Linha texto="root@dut:/home/djr#">ifconfig</Linha>
+  </Code>
+</Terminal>
 
-Saindo do `ssh`.
+## VM1_INTERNET 
 
-- Ctrl + D
+Estando em uma conexão `ssh` com a máquina **SEED**, vamos rodando `echo`. (39:30)
 
-Rodando `echo`.
-
-- echo "Hello 1" | nc 10.3.150.90 8000
-- echo "Hello 2" | nc 10.3.150.90 8000
+<Terminal>
+  <Abas>
+    <Aba>VM1_INTERNET</Aba>
+    <Aba active>VM2_GATEWAY</Aba>
+    <Aba>VM3_LOCAL</Aba>
+    <Aba>VM4_LOCAL_2</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Mandando o 'echo 01' </Comentario>
+    <Linha texto="[data]seed@VM:~$">echo "Hello 1" | nc 10.3.150.90 8000</Linha>
+    <Comentario>Mandando o 'echo 02' </Comentario>
+    <Linha texto="[data]seed@VM:~$">echo "Hello 2" | nc 10.3.150.90 8000</Linha>
+  </Code>
+</Terminal>
 
 Repita essa sequência mais 5 vezes.
 
 ## Prints
 
-Tire print das 4 abas, provando que você enviou os `echo's` e que eles chegaram na `VM4_LOCAL_INTERNET_2` e `VM3_LOCAL_INTERNET`.
+Tire print das 4 abas, provando que você configurou o `iptables` na `VM2_GATEWAY`, enviou os `echo's` na `VM1_INTERNET` e que eles chegaram na `VM4_LOCAL_INTERNET_2` e `VM3_LOCAL_INTERNET`.

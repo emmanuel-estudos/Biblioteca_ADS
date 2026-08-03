@@ -2,47 +2,119 @@
 
 ## VM2_GATEWAY
 
-Ative o `eth1`.
+Confira se o `eth1` está ativado.
 
-- dhclient eth1
+<Terminal>
+  <Abas>
+    <Aba>VM1_INTERNET</Aba>
+    <Aba active>VM2_GATEWAY</Aba>
+    <Aba>VM3_LOCAL</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Verificando IPs</Comentario>
+    <Linha texto="root@dut:/home/djr#">ifconfig</Linha>
+  </Code>
+</Terminal>
 
-## VM3_LOCAL_INTERNET
+Se não for possível localizar o `eth1`, temos que ativá-lo.
 
-Faça a conexão `ssh` com a **U26s**.
-
-- ssh ads@192.168.56.102
-
-- senha: 654123
+<Terminal>
+  <Abas>
+    <Aba>VM1_INTERNET</Aba>
+    <Aba active>VM2_GATEWAY</Aba>
+    <Aba>VM3_LOCAL</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Ativando</Comentario>
+    <Linha texto="root@dut:/home/djr#">dhclient eth1</Linha>
+  </Code>
+</Terminal>
 
 ## VM1_INTERNET
 
-Faça comexão `ssh` com a **SEED**
+Estabeleça conexão `ssh` com a máquina _SEED 1.0_. (05:25)
 
-- ssh seed@10.3.150.90
-
-- senha: dees
-
-## VM2_GATEWAY
-
-Adicione `MASQUERADE`.
-
-- iptables -t nat -A POSTROUTING -j MASQUERADE
+<Terminal>
+  <Abas>
+    <Aba active>VM1_INTERNET</Aba>
+    <Aba>VM2_GATEWAY</Aba>
+    <Aba>VM3_LOCAL</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Estabelecendo conexão</Comentario>
+    <Linha texto="root@dut:/home/djr#">ssh seed@10.3.150.90</Linha>
+    <Comentario>Confirmando conexão</Comentario>
+    <Linha texto="Are you sure you want to continue connecting (yes/no) ?">yes</Linha>
+    <Comentario>Senha</Comentario>
+    <Linha texto="seed@10.3.150.x90's password:">dees</Linha>
+    <Linha texto="[data]seed@VM:~$">.</Linha>
+  </Code>
+</Terminal>
 
 ## VM3_LOCAL_INTERNET
 
-Crie a conexão com a VM1_INTERNET.
+Estabeleça conexão `ssh` com a máquina _U26s_. (06:00)
 
-- sudo su
-- 654123
-- route add -net 10.3.150.0 netmask 255.255.255.0 gw 192.168.56.104 (eth0 da VM2_GATEWAY)
+<Terminal>
+  <Abas>
+    <Aba>VM1_INTERNET</Aba>
+    <Aba>VM2_GATEWAY</Aba>
+    <Aba active>VM3_LOCAL</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Conexão</Comentario>
+    <Linha texto="root@dut:/home/djr#">ssh ads@192.168.56.102</Linha>
+    <Comentario>Confirmando conexão</Comentario>
+    <Linha texto="Are you sure you want to continue connecting (yes/no) ?">yes</Linha>
+    <Comentario>Senha</Comentario>
+    <Linha texto="ads@192.168.56.102's password:">654123</Linha>
+    <Linha texto="adsads@u26s:~$">.</Linha>
+  </Code>
+</Terminal>
 
-Ative o `telnet`.
+## VM2_GATEWAY
 
-- telnet 10.3.150.90 (IP_SEED)
+Adicione `MASQUERADE`. (09:58)
 
-- VM Login: seed
-- senha: dees
+<Terminal>
+  <Abas>
+    <Aba>VM1_INTERNET</Aba>
+    <Aba active>VM2_GATEWAY</Aba>
+    <Aba>VM3_LOCAL</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Comentário</Comentario>
+    <Linha texto="root@dut:/home/djr#">iptables -t nat -A POSTROUTING -j MASQUERADE</Linha>
+  </Code>
+</Terminal>
+
+## VM3_LOCAL_INTERNET
+
+Crie a conexão com a VM1_INTERNET. É usado o IP da VM _U26s_. (08:30 - video_02)
+
+Esta parte está na minutagem _11:45_ do primeiro vídeo e logo no início do segundo.
+
+Se o comando bugar, de forma que ao escrever a segunda linha sobreescreva a linha anterior, não se preocupe, é apenas visualmente. Ao terminar de digitar o comando e apertar `setinha para cima` é possível ver o comando digitado de forma completa.
+
+<Terminal>
+  <Abas>
+    <Aba>VM1_INTERNET</Aba>
+    <Aba>VM2_GATEWAY</Aba>
+    <Aba active>VM3_LOCAL</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Estabelecendo rota</Comentario>
+    <Linha texto="root@u26s:/home/ads#">route add -net 10.3.150.0 netmask 255.255.255.0 gw 192.168.56.104</Linha>
+    <Comentario>Ativando TELNET</Comentario>
+    <Resultado>SIOCADDRT: File exists</Resultado>
+    <Linha texto="root@u26s:/home/ads#">telnet 10.3.150.90 (IP_SEED)</Linha>
+    <Comentario>Logando</Comentario>
+    <Linha texto="VM login">seed</Linha>
+    <Linha texto="Password:">dees</Linha>
+    <Linha texto="[data]seed@VM:~$">FIM DO PRIMEIRO PASSO DA ATIVIDADE_03</Linha>
+  </Code>
+</Terminal>
 
 ## Print
 
-Tire print da VM3_LOCAL_INTERNET quado tiver logado no `telnet`.
+Tire print da VM3_LOCAL_INTERNET quado tiver logado no `telnet`, onde o terminal fica com o **[data]seed@VM:~$**. (11:45 - video_02)

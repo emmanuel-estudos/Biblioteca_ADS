@@ -1,4 +1,4 @@
-# Atividade 03 - Configurações Iniciais
+# Atv 03 - Configurações Iniciais
 
 ## Configurações de Rede no VirtualBox
 
@@ -6,24 +6,76 @@ Antes de iniciar as VMs, verifique se suas Interfaces de Rede estão configurada
 
 - SEED = interface em bridge
 - DockerGUI = 1 interface bridge e 1 interface host-Only
-- U26s = interface host-Only - verifique se o nome está com **VirtualBox Host-Only Ethernet Adapter** 
+- U26s = interface host-Only - verifique se o nome está com **VirtualBox Host-Only Ethernet Adapter**
+
+## U26s
+
+Faça login.
+
+<Terminal>
+  <Abas>
+    <Aba active>U26s</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Entrando</Comentario>
+    <Linha texto="u26s login">ads</Linha>
+    <Linha texto="Password:"> 654123</Linha>
+    <Comentario>Verificando IP</Comentario>
+    <Linha texto="ads@u26s:~$">ifconfig</Linha>
+  </Code>
+</Terminal>
+
+Anote o IP referente ao `enp0s3`. Exemplo: `192.168.56.102`.
 
 ## SEED1
 
-Descubra o IP com o comando `ifconfig`.
+Procure na barra lateral, localizada na esquerda, o quarto item. Este é o terminal dessa máquina.
 
-inet addr: 10.3.150.90
+Ao abrir, descubra o IP. O terminal pode abrir todo em branco ou aparecendo uma mensagem contendo a data de hoje, assim como está abaixo.
 
-A partir desse momento, quando houver referência para as VMs, serão referentes às abas.
+<Terminal>
+  <Abas>
+    <Aba active>SEED 1.0</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Descobrindo IP</Comentario>
+    <Linha texto="[data]seed@VM:^$">ifconfig</Linha>
+  </Code>
+</Terminal>
+
+Pegue o IP referente ao **enp0s3**. Exemplo: `10.3.150.81`.
 
 ## DockerGUI
 
-Logue na máquina com as credenciais de `djr` como nome e `654123` como senha.
+Faça login, se transforme em _SuperUsuário_ e inicie a interface gráfica.
 
-Se transforme em _SuperUsuário_, coloque a senha novamente e inicie a interface gráfica com `startx`.
+<Terminal>
+  <Abas>
+    <Aba active>DockerGUI</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Login normal</Comentario>
+    <Linha texto="dut login">djr</Linha>
+    <Linha texto="Password:">654123</Linha>
+    <Comentario>Se transformando em _SuperUsuário_</Comentario>
+    <Linha texto="djr@dut:~$">sudo su</Linha>
+    <Linha texto="[sudo] password for djr:">654123</Linha>
+    <Comentario>Iniciando a interface gráfica</Comentario>
+    <Linha texto="root@dut:/home/djr#">startx</Linha>
+  </Code>
+</Terminal>
 
 Abra o _LXTerminal_ seguindo o caminho: _Menu_ --> _Acessórios_ --> _LXTerminal_.
 
 Crie 3 abas com o comando `Ctrl + Shift + T` e renomei elas para `VM1_INTERNET`, `VM2_GATEWAY`, `VM3_LOCAL_INTERNET`.
 
-A ordem do número das VMs não importa. O importante é saber qual se refere a Internet, Gateway e Internet Local.
+Os números das VMs não importa. O importante é saber qual se refere a Internet, Gateway e Internet Local.
+
+## Vídeos
+
+- Vídeo 01: [clique aqui](https://youtu.be/vkYRBAmntVY?si=CUy5WNBKBtuGHhOv)
+- Vídeo 02: [clique aqui](https://youtu.be/K0V3CXuxUmk?si=O2IQGWT-1O49FKMP)
+
+## VMs
+
+Essas são as [VMs](https://drive.google.com/drive/folders/1cb_9Lz1Inz56wgGWNtxEQnBqh0595op3) necessárias para a atividade.

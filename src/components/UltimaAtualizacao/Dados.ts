@@ -5,11 +5,13 @@ export interface UltimaAtualizacaoData {
 }
 
 export const ultimaAtualizacaoInfo: UltimaAtualizacaoData = {
-  mensagem: "DOCS (Segurança de Dados): Roteiro para a Atividade02",
+  mensagem: "DOCS (Segurança de Dados): Roteiro para a Atividade03",
   descricao: `
-		- Passo a passo da atividade\n
-		- Contém vídeo de apoio de terceiros, mas não abarca tudo\n
-		* Adição do tópico "Possível Erro: '/etc/network/interfaces'": trata o travamento da aba após a execução do script VXLAN.
+		- Passo a passo da atividade.\n
+		- Contém um arquivo somente para as configurações iniciais.\n
+		- A atividade possui 3 passos e cada um está em um arquivo.\n
+		* Adição dos "terminais" para a ilustração de comandos.\n
+		* Link para os vídeos e as VMs necessárias para realizar a atividade.
 	`,
-  dataHora: "2026-07-30T16:20:00-03:00",
+  // dataHora: "2026-07-31T16:30:00-03:00",
 };

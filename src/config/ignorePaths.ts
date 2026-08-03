@@ -11,8 +11,8 @@ export const IGNORED_PATHS_IN_PROD: string[] = [
 
 	// P5 - Segurança de Dados
 	'Seguranca-de-Dados/atividades/atividade-quiz',
-	'Seguranca-de-Dados/atividades/atividade03/segurança de redes - atividade 03 - parte 01.png',
-	'Seguranca-de-Dados/atividades/atividade03/segurança de redes - atividade 03 - parte 02.png',
+	'Seguranca-de-Dados/atividades/atividade03/segurança_de_redes-atividade_03-parte_01.png',
+	'Seguranca-de-Dados/atividades/atividade03/segurança_de_redes-atividade_03-parte_02.png',
 	
 	// P5 - Extensão 01
 	'Extensao-01/assuntos/JavaScript/',
