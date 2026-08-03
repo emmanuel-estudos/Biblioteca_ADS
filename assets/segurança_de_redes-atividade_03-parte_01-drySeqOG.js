@@ -1,0 +1,1 @@
+var e=`/Biblioteca_ADS/assets/seguran%C3%A7a_de_redes-atividade_03-parte_01-D7Uiz5_p.png`;export{e as default};

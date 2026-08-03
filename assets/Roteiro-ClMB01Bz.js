@@ -1,4 +1,4 @@
-import{n as e,r as t}from"./lib-CrvGBhFj.js";var n=t();function r(t){let r={a:`a`,code:`code`,em:`em`,h1:`h1`,h2:`h2`,h3:`h3`,li:`li`,p:`p`,strong:`strong`,ul:`ul`,...e(),...t.components},{Aba:i,Abas:o,Code:s,Comentario:c,Linha:l,Resultado:u,Terminal:d}=r;return i||a(`Aba`,!0),o||a(`Abas`,!0),s||a(`Code`,!0),c||a(`Comentario`,!0),l||a(`Linha`,!0),u||a(`Resultado`,!0),d||a(`Terminal`,!0),(0,n.jsxs)(n.Fragment,{children:[(0,n.jsx)(r.h1,{id:`atividade-02---passo-a-passo`,children:`Atividade 02 - Passo a Passo`}),`
+import{n as e,r as t}from"./lib-CrvGBhFj.js";var n=t();function r(t){let r={a:`a`,code:`code`,em:`em`,h1:`h1`,h2:`h2`,h3:`h3`,li:`li`,p:`p`,strong:`strong`,ul:`ul`,...e(),...t.components},{Aba:i,Abas:o,Code:s,Comentario:c,Linha:l,Resultado:u,Terminal:d}=r;return i||a(`Aba`,!0),o||a(`Abas`,!0),s||a(`Code`,!0),c||a(`Comentario`,!0),l||a(`Linha`,!0),u||a(`Resultado`,!0),d||a(`Terminal`,!0),(0,n.jsxs)(n.Fragment,{children:[(0,n.jsx)(r.h1,{id:`atividade-02---roteiro`,children:`Atividade 02 - Roteiro`}),`
 `,(0,n.jsx)(r.h2,{id:`informações-importantes`,children:`Informações Importantes`}),`
 `,(0,n.jsx)(r.h3,{id:`credenciais`,children:`Credenciais`}),`
 `,(0,n.jsxs)(r.ul,{children:[`
@@ -16,6 +16,7 @@ import{n as e,r as t}from"./lib-CrvGBhFj.js";var n=t();function r(t){let r={a:`a
 Sempre que uma nova linha começa no terminal, ela irá aparecer junto com o prompt antes.`}),`
 `,(0,n.jsx)(r.h3,{id:`vídeo`,children:`Vídeo`}),`
 `,(0,n.jsxs)(r.p,{children:[`Se preferir, há um `,(0,n.jsx)(r.a,{href:`https://www.youtube.com/watch?v=wwffwrjwfl0`,children:`vídeo`}),` mostrando o passo a passo. Vou deixar a minutagem referenciada ao decorrer dos passos.`]}),`
+`,(0,n.jsx)(r.h3,{id:`vms`,children:`VMs`}),`
 `,(0,n.jsx)(r.h2,{id:`preparando-cenários`,children:`Preparando Cenários`}),`
 `,(0,n.jsxs)(r.p,{children:[`Inicie as 3 VMs e se transforme em `,(0,n.jsx)(r.em,{children:`SuperUsuário`}),` em todas.`]}),`
 `,(0,n.jsxs)(r.p,{children:[`Inicie a interface gráfica somente na Mininet3.\r
