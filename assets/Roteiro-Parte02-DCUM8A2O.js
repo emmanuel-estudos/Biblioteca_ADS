@@ -1,12 +1,7 @@
-import{n as e,r as t}from"./lib-CrvGBhFj.js";var n=t();function r(t){let r={code:`code`,h1:`h1`,h2:`h2`,li:`li`,p:`p`,strong:`strong`,ul:`ul`,...e(),...t.components},{Aba:i,Abas:o,Code:s,Comentario:c,Linha:l,Resultado:u,Terminal:d}=r;return i||a(`Aba`,!0),o||a(`Abas`,!0),s||a(`Code`,!0),c||a(`Comentario`,!0),l||a(`Linha`,!0),u||a(`Resultado`,!0),d||a(`Terminal`,!0),(0,n.jsxs)(n.Fragment,{children:[(0,n.jsx)(r.h1,{id:`atividade-03---parte-02`,children:`Atividade 03 - Parte 02`}),`
+import{n as e,r as t}from"./lib-CrvGBhFj.js";var n=t();function r(t){let r={code:`code`,h1:`h1`,h2:`h2`,p:`p`,strong:`strong`,...e(),...t.components},{Aba:i,Abas:o,Code:s,Comentario:c,Linha:l,Resultado:u,Terminal:d}=r;return i||a(`Aba`,!0),o||a(`Abas`,!0),s||a(`Code`,!0),c||a(`Comentario`,!0),l||a(`Linha`,!0),u||a(`Resultado`,!0),d||a(`Terminal`,!0),(0,n.jsxs)(n.Fragment,{children:[(0,n.jsx)(r.h1,{id:`atividade-03---parte-02`,children:`Atividade 03 - Parte 02`}),`
 `,(0,n.jsx)(r.h2,{id:`vm2_gateway`,children:`VM2_GATEWAY`}),`
 `,(0,n.jsx)(r.p,{children:`Limpando as configurações definidas na etapa anterior e colocando novas regras. (12:45 - video_02)`}),`
 `,(0,n.jsxs)(d,{children:[(0,n.jsxs)(o,{children:[(0,n.jsx)(i,{children:`VM1_INTERNET`}),(0,n.jsx)(i,{active:!0,children:`VM2_GATEWAY`}),(0,n.jsx)(i,{children:`VM3_LOCAL`})]}),(0,n.jsxs)(s,{children:[(0,n.jsx)(c,{children:`Limpando regras da primeira parte da atividade`}),(0,n.jsx)(l,{texto:`root@dut:/home/djr#`,children:`iptables -t nat -F`}),(0,n.jsx)(c,{children:`Adicionando novas regras`}),(0,n.jsx)(l,{texto:`root@dut:/home/djr#`,children:`iptables -t nat -A PREROUTING -p tcp --dport 2000 -j DNAT --to-destination 192.168.56.102:22 (IP_U26s)`}),(0,n.jsx)(c,{children:`Verificando IP`}),(0,n.jsx)(l,{texto:`root@dut:/home/djr#`,children:`ifconfig`}),(0,n.jsxs)(u,{children:[`'eth0' (exemplo: `,(0,n.jsx)(r.code,{children:`10.3.150.68`}),`)`]})]})]}),`
-`,(0,n.jsx)(r.p,{children:`Pegue o IP`}),`
-`,(0,n.jsxs)(r.ul,{children:[`
-`,(0,n.jsx)(r.li,{children:`ifconfig`}),`
-`,(0,n.jsx)(r.li,{children:`eth0: 10.3.150.68`}),`
-`]}),`
 `,(0,n.jsx)(r.h2,{id:`vm3_local`,children:`VM3_LOCAL`}),`
 `,(0,n.jsxs)(d,{children:[(0,n.jsxs)(o,{children:[(0,n.jsx)(i,{children:`VM1_INTERNET`}),(0,n.jsx)(i,{children:`VM2_GATEWAY`}),(0,n.jsx)(i,{active:!0,children:`VM3_LOCAL`})]}),(0,n.jsxs)(s,{children:[(0,n.jsx)(c,{children:`Saindo do 'telnet'`}),(0,n.jsx)(l,{texto:`[data]seed@VM~$`,children:`logout`}),(0,n.jsx)(c,{children:`Verificando IP`}),(0,n.jsx)(l,{texto:`root@u26s:/home/ads#`,children:`ifconfig`})]})]}),`
 `,(0,n.jsx)(r.h2,{id:`vm1_internet`,children:`VM1_INTERNET`}),`

@@ -10,7 +10,7 @@ import{n as e,r as t}from"./lib-CrvGBhFj.js";var n=t();function r(t){let r={a:`a
 `,(0,n.jsx)(r.p,{children:`Faça login.`}),`
 `,(0,n.jsxs)(u,{children:[(0,n.jsx)(o,{children:(0,n.jsx)(i,{active:!0,children:`U26s`})}),(0,n.jsxs)(s,{children:[(0,n.jsx)(c,{children:`Entrando`}),(0,n.jsx)(l,{texto:`u26s login`,children:`ads`}),(0,n.jsx)(l,{texto:`Password:`,children:` 654123`}),(0,n.jsx)(c,{children:`Verificando IP`}),(0,n.jsx)(l,{texto:`ads@u26s:~$`,children:`ifconfig`})]})]}),`
 `,(0,n.jsxs)(r.p,{children:[`Anote o IP referente ao `,(0,n.jsx)(r.code,{children:`enp0s3`}),`. Exemplo: `,(0,n.jsx)(r.code,{children:`192.168.56.102`}),`.`]}),`
-`,(0,n.jsx)(r.h2,{id:`seed1`,children:`SEED1`}),`
+`,(0,n.jsx)(r.h2,{id:`seed10`,children:`SEED1.0`}),`
 `,(0,n.jsx)(r.p,{children:`Procure na barra lateral, localizada na esquerda, o quarto item. Este é o terminal dessa máquina.`}),`
 `,(0,n.jsx)(r.p,{children:`Ao abrir, descubra o IP. O terminal pode abrir todo em branco ou aparecendo uma mensagem contendo a data de hoje, assim como está abaixo.`}),`
 `,(0,n.jsxs)(u,{children:[(0,n.jsx)(o,{children:(0,n.jsx)(i,{active:!0,children:`SEED 1.0`})}),(0,n.jsxs)(s,{children:[(0,n.jsx)(c,{children:`Descobrindo IP`}),(0,n.jsx)(l,{texto:`[data]seed@VM:^$`,children:`ifconfig`})]})]}),`
