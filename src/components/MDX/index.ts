@@ -10,14 +10,17 @@ import { TabsContainer } from './ContainerAbasTerminal';
 import { Imagem } from './Imagem'
 import { ItemListaNaoOrdenada } from './ItemListaNaoOrdenada';
 import { LinhaTerminal } from './LinhaTerminal';
+import { Link } from './Link';
 import { ListaNaoOrdenada } from './ListaNaoOrdenada';
 import { AbaTerminal } from './AbaTerminal';
 import { CodeArea } from './CodeArea';
 import { Comment } from './Comentario';
 import { Resultado } from './Resultado';
+import { Table } from './Tabela';
 
 
 export const MDX = {
+	Table,
   TituloH1,
   TituloH2,
   TituloH3,
@@ -32,6 +35,7 @@ export const MDX = {
   Comment,
   Resultado,
 	LinhaTerminal,
+	Link,
 	ItemListaNaoOrdenada,
 	ListaNaoOrdenada,
 	Imagem

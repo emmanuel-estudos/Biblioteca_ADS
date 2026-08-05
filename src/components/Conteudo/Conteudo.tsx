@@ -11,6 +11,8 @@ import { Breadcrumbs } from '../Breadcrumbs';
 import { TableOfContents } from '../TableOfContents';
 
 const components = {
+  a: MDX.Link,
+  table: MDX.Table,
   h1: MDX.TituloH1,
   h2: MDX.TituloH2,
   h3: MDX.TituloH3,
