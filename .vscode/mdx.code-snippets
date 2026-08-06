@@ -4,9 +4,9 @@
 		"body": [
 			"<Terminal>",
 			"  <Abas>",
-			"    <Aba>VM1</Aba>",
-      "    <Aba active>VM2</Aba>",
-      "    <Aba>VM3</Aba>",
+			"    <Aba active>VM1</Aba>",
+			"    <Aba>VM2</Aba>",
+			"    <Aba>VM3</Aba>",
 			"  </Abas>",
 			"  <Code>",
 			"    <Comentario>Comentário</Comentario>",
@@ -40,4 +40,22 @@
 		],
 		"description": "Insere o componente Resultado na estrutura do Terminal_MDX"
 	},
+
+	"Tabela": {
+		"prefix": "/tabela",
+		"body": [
+			"| Item | Valor |",
+			"| ---- | ----- |",
+			"| item1 | valor1 |"
+		],
+		"description": "Insere a estrutura inicial de uma tabela para arquivos MDX."
+	},
+
+	"Linha para Tabela": {
+		"prefix": "/tabela_linha",
+		"body": [
+			"| itemX | valorX |"
+		],
+		"description": "Insere uma linha na estrutura de uma tabela já existente."
+	}
 }

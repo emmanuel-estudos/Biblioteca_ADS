@@ -1,0 +1,97 @@
+# Preparação
+
+A atividade foi executada em uma máquina virtual `Ubuntu Server 22.04`, com um contêiner Docker chamado atividade1.
+O Windows acessa a VM por uma rede Host-Only do VirtualBox.
+
+## Valores Usados
+
+| Item | Valor |
+| ---- | ----- |
+| IP da VM na rede Host-Only | 192.168.56.101 |
+| IP do Windows nessa rede | 192.168.56.1 |
+| Usuário da VM | ads |
+| Contêiner Docker | atividade1 |
+| Domínio principal | www.seunome.com.br |
+| Subdomínios | `site1.seunome.com.br` e `site2.seunome.com.br` |
+
+## Verificando a Rede da VM
+
+<Terminal>
+  <Abas>
+    <Aba active>Ubuntu 26s</Aba>
+  </Abas>
+  <Code>
+    <Linha texto="">ip -br a</Linha>
+  </Code>
+</Terminal>
+
+A interface **Host-Only** deve exibir o endereço `192.168.56.101/24`. Caso a interface `enp0s8` apareça como **DOWN**, ative-a:
+
+<Terminal>
+  <Abas>
+    <Aba active>Ubuntu 26s</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Ativando a interface</Comentario>
+    <Linha texto="">ip link set enp0s8 up</Linha>
+    <Linha texto="">dhclient enp0s8</Linha>
+    <Linha texto="">ip -br a</Linha>
+  </Code>
+</Terminal>
+
+## Teste para Windows
+
+Abra o **PowerShell** e execute `ping 192.168.56.101`.
+
+Uma primeira perda de pacote pode acontecer enquanto a interface acorda; o importante é receber respostas em seguida.
+
+## Corrigir incompatibilidade da API do Docker
+
+Se aparecer a mensagem "**client version 1.52 is too new; maximum supported API version is 1.41**", ajuste a variável antes de usar o Docker:
+
+<Terminal>
+  <Abas>
+    <Aba active>Ubuntu 26s</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Trocando versão do Docker</Comentario>
+    <Linha texto="">export DOCKER_API_VERSION=1.41</Linha>
+    <Linha texto="">docker ps</Linha>
+    <Comentario>Para manter a alteração permanente no usuário atual</Comentario>
+    <Linha texto="">echo 'export DOCKER_API_VERSION=1.41' >> ~/.bashrc</Linha>
+  </Code>
+</Terminal>
+
+## Entrando no Container
+
+<Terminal>
+  <Abas>
+    <Aba active>Ubuntu 26s</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Start no container</Comentario>
+    <Linha texto="">docker start atividade1</Linha>
+    <Comentario>Executando</Comentario>
+    <Linha texto="">docker exec -it atividade1 bash</Linha>
+    <Linha texto="root@atividade1:/#">Este é o prompt esperado</Linha>
+  </Code>
+</Terminal>
+
+## Estalando Ferramentas
+
+Execute apenas se os pacotes ainda não estiverem instalados:
+
+<Terminal>
+  <Abas>
+    <Aba active>Ubuntu 26s</Aba>
+  </Abas>
+  <Code>
+    <Linha texto="root@atividade1:/#">apt update</Linha>
+    <Linha texto="root@atividade1:/#">apt install -y apache2 nginx openssl curl iproute2</Linha>
+  </Code>
+</Terminal>
+
+### Regra a ser seguida
+
+Apache e Nginx não podem ocupar as portas 80 e 443 ao mesmo tempo.
+Antes de iniciar um, pare o outro.

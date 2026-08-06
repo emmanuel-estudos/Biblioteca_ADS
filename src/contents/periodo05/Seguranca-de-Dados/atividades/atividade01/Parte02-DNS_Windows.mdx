@@ -1,0 +1,53 @@
+# DNS no Windows
+
+Os domínios desta atividade são locais.
+Em vez de publicar registros DNS reais, o Windows resolve os nomes por meio do arquivo hosts.
+
+## Editando Arquivos Hosts
+
+Abra o Bloco de Notas como administrador e abra o arquivo:
+
+<Terminal>
+  <Abas>
+    <Aba active>Bloco de Notas</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Caminho para o arquivo</Comentario>
+    <Linha texto="">C:\Windows\System32\drivers\etc\hosts</Linha>
+  </Code>
+</Terminal>
+
+Adicione estas linhas ao final:
+
+<Terminal>
+  <Abas>
+    <Aba active>Ubuntu 26s</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Linhas para adicionar</Comentario>
+    <Linha texto="">192.168.56.101 www.seunome.com.br</Linha>
+    <Linha texto="">192.168.56.101 site1.seunome.com.br</Linha>
+    <Linha texto="">192.168.56.101 site2.seunome.com.br</Linha>
+  </Code>
+</Terminal>
+
+### Atenção
+
+O arquivo precisa continuar se chamando hosts, sem a extensão `.txt`.
+**Não salve** em Documentos nem na Área de Trabalho.
+
+## Limpando Cachê e Testando
+
+<Terminal>
+  <Abas>
+    <Aba active>Ubuntu 26s</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Teste</Comentario>
+    <Linha texto="root@atividade1:/#">ipconfig /flushdns</Linha>
+    <Linha texto="root@atividade1:/#">ping www.seunome.com.br</Linha>
+    <Linha texto="root@atividade1:/#">ping site1.seunome.com.br</Linha>
+    <Linha texto="root@atividade1:/#">ping site2.seunome.com.br</Linha>
+    <Resultado>'192.168.56.101' para os três</Resultado>
+  </Code>
+</Terminal>

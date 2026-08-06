@@ -13,18 +13,13 @@ Limpando as configurações definidas na etapa anterior e colocando novas regras
   <Code>
     <Comentario>Limpando regras da primeira parte da atividade</Comentario>
     <Linha texto="root@dut:/home/djr#">iptables -t nat -F</Linha>
-    <Comentario>Adicionando novas regras</Comentario>
-    <Linha texto="root@dut:/home/djr#">iptables -t nat -A PREROUTING -p tcp --dport 2000 -j DNAT --to-destination 192.168.56.102:22 (IP_U26s)</Linha>
+    <Comentario>Adicionando novas regras. Depois do IP_U26s usado abaixo, coloque ':22'</Comentario>
+    <Linha texto="root@dut:/home/djr#">iptables -t nat -A PREROUTING -p tcp --dport 2000 -j DNAT --to-destination (IP_U26s):22</Linha>
     <Comentario>Verificando IP</Comentario>
     <Linha texto="root@dut:/home/djr#">ifconfig</Linha>
-    <Resultado>'eth0' (exemplo: `10.3.150.68`)</Resultado>
+    <Resultado>O 'eth1' deve ter o mesmo IP da 'U26s'</Resultado>
   </Code>
 </Terminal>
-
-Pegue o IP
-
-- ifconfig
-- eth0: 10.3.150.68
 
 ## VM3_LOCAL
 
@@ -37,7 +32,8 @@ Pegue o IP
   <Code>
     <Comentario>Saindo do 'telnet'</Comentario>
     <Linha texto="[data]seed@VM~$">logout</Linha>
-    <Comentario>Verificando IP</Comentario>
+    <Resultado>Connection closed by foreign host.</Resultado>
+    <Comentario>Verificando se continua com o IP_U26s</Comentario>
     <Linha texto="root@u26s:/home/ads#">ifconfig</Linha>
   </Code>
 </Terminal>
@@ -54,7 +50,7 @@ Pegue o IP
   </Abas>
   <Code>
     <Comentario>Estabelecendo segunda conexão</Comentario>
-    <Linha texto="[data]seed@VM:~$">ssh -p 2000 ads@10.3.150.68 (IP_VM2_GATEWAY)</Linha>
+    <Linha texto="[data]seed@VM:~$">ssh -p 2000 ads@(IP_VM2_GATEWAY_eth1)</Linha>
     <Comentario>Confirmando conexão</Comentario>
     <Linha texto="Are you sure you want to continue connecting (yes/no)?">yes</Linha>
     <Comentario>Senha</Comentario>

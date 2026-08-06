@@ -37,12 +37,15 @@
       "PREROUTING",
       "dport",
       "DNAT",
-      "adsads"
+      "adsads",
+      "nginx",
+      "keyout"
     ],
 
     "cSpell.ignoreRegExpList": [
       "<Comentario\\b[^>]*>", // Ignora a tag de abertura <Comentario ...>
-      "</Comentario>"        // Ignora a tag de fechamento </Comentario>
+      "</Comentario>",        // Ignora a tag de fechamento </Comentario>
+      ".seunome."
     ],
 
   // ========== Configurações GLOBAIS ==========

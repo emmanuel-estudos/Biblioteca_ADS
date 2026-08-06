@@ -42,12 +42,12 @@ Estabeleça conexão `ssh` com a máquina _SEED 1.0_. (05:25)
   </Abas>
   <Code>
     <Comentario>Estabelecendo conexão</Comentario>
-    <Linha texto="root@dut:/home/djr#">ssh seed@10.3.150.90</Linha>
+    <Linha texto="root@dut:/home/djr#">ssh seed@(IP_SEED)</Linha>
     <Comentario>Confirmando conexão</Comentario>
     <Linha texto="Are you sure you want to continue connecting (yes/no) ?">yes</Linha>
     <Comentario>Senha</Comentario>
     <Linha texto="seed@10.3.150.x90's password:">dees</Linha>
-    <Linha texto="[data]seed@VM:~$">.</Linha>
+    <Linha texto="[data]seed@VM:~$">=== Este é o prompt que deve aparecer ===</Linha>
   </Code>
 </Terminal>
 
@@ -68,7 +68,7 @@ Estabeleça conexão `ssh` com a máquina _U26s_. (06:00)
     <Linha texto="Are you sure you want to continue connecting (yes/no) ?">yes</Linha>
     <Comentario>Senha</Comentario>
     <Linha texto="ads@192.168.56.102's password:">654123</Linha>
-    <Linha texto="adsads@u26s:~$">.</Linha>
+    <Linha texto="adsads@u26s:~$">=== Este é o prompt que deve aparecer ===</Linha>
   </Code>
 </Terminal>
 
@@ -83,7 +83,6 @@ Adicione `MASQUERADE`. (09:58)
     <Aba>VM3_LOCAL</Aba>
   </Abas>
   <Code>
-    <Comentario>Comentário</Comentario>
     <Linha texto="root@dut:/home/djr#">iptables -t nat -A POSTROUTING -j MASQUERADE</Linha>
   </Code>
 </Terminal>
@@ -103,11 +102,13 @@ Se o comando bugar, de forma que ao escrever a segunda linha sobreescreva a linh
     <Aba active>VM3_LOCAL</Aba>
   </Abas>
   <Code>
-    <Comentario>Estabelecendo rota</Comentario>
-    <Linha texto="root@u26s:/home/ads#">route add -net 10.3.150.0 netmask 255.255.255.0 gw 192.168.56.104</Linha>
-    <Comentario>Ativando TELNET</Comentario>
-    <Resultado>SIOCADDRT: File exists</Resultado>
-    <Linha texto="root@u26s:/home/ads#">telnet 10.3.150.90 (IP_SEED)</Linha>
+    <Comentario>Se transformando em _SuperUsuário_</Comentario>
+    <Linha texto="adsdas@u26s:~$">sudo su</Linha>
+    <Linha texto="[sudo: authenticate]">654123</Linha>
+    <Comentario>O IP_SEED usado abaixo deve ter o último número depois do ponto final substituído por '0'</Comentario>
+    <Linha texto="root@u26s:/home/ads#">route add -net (IP_SEED) netmask 255.255.255.0 gw (IP_DockerGUI_eth1)</Linha>
+    <Comentario>Estabelecendo rota. Ativando TELNET</Comentario>
+    <Linha texto="root@u26s:/home/ads#">telnet (IP_SEED)</Linha>
     <Comentario>Logando</Comentario>
     <Linha texto="VM login">seed</Linha>
     <Linha texto="Password:">dees</Linha>

@@ -13,9 +13,13 @@ Crie uma nova aba para estabelecer uma nova conexão. (23:26 -- video_02)
   </Abas>
   <Code>
     <Comentario>Estabelecendo conexão</Comentario>
-    <Linha texto="root@dut:/home/djr#">ssh ads@192.168.56.102 (IP_u26s)</Linha>
+    <Linha texto="root@dut:/home/djr#">ssh ads@(IP_u26s)</Linha>
     <Comentario>Senha</Comentario>
     <Linha texto="ads@192.168.56.102's password:">654123</Linha>
+    <Comentario>Se transformando em _SuperUsuário_</Comentario>
+    <Linha texto="adsads@u26s:~$">sudo su</Linha>
+    <Linha texto="[sudo: authenticate] Password:">654123</Linha>
+    <Linha texto="root@u26s:/home/ads#">=== Este é o prompt esperado</Linha>
   </Code>
 </Terminal>
 
@@ -43,8 +47,8 @@ Adicionando NatCat. (24:15)
   <Abas>
     <Aba>VM1_INTERNET</Aba>
     <Aba>VM2_GATEWAY</Aba>
-    <Aba active>VM3_LOCAL</Aba>
-    <Aba>VM4_LOCAL_2</Aba>
+    <Aba>VM3_LOCAL</Aba>
+    <Aba active>VM4_LOCAL_2</Aba>
   </Abas>
   <Code>
     <Linha texto="adsads@u26s:~$">nc -lk 9002</Linha>
@@ -74,22 +78,25 @@ Limpando as configurações anteriores do **iptables**. (32:02)
   </Code>
 </Terminal>
 
-## VM1_INTERNET 
+## VM1_INTERNET
 
 Estando em uma conexão `ssh` com a máquina **SEED**, vamos rodando `echo`. (39:30)
 
 <Terminal>
   <Abas>
-    <Aba>VM1_INTERNET</Aba>
-    <Aba active>VM2_GATEWAY</Aba>
+    <Aba active>VM1_INTERNET</Aba>
+    <Aba>VM2_GATEWAY</Aba>
     <Aba>VM3_LOCAL</Aba>
     <Aba>VM4_LOCAL_2</Aba>
   </Abas>
   <Code>
+    <Comentario>Voltando para a conexão com a SEED</Comentario>
+    <Linha texto="adsads@u26s:~$">exit</Linha>
+    <Resultado>Connection to IP_DockerGui closed.</Resultado>
     <Comentario>Mandando o 'echo 01' </Comentario>
-    <Linha texto="[data]seed@VM:~$">echo "Hello 1" | nc 10.3.150.90 8000</Linha>
+    <Linha texto="[data]seed@VM:~$">echo "Hello 1" | nc (IP_DockerGUI_eth1)</Linha>
     <Comentario>Mandando o 'echo 02' </Comentario>
-    <Linha texto="[data]seed@VM:~$">echo "Hello 2" | nc 10.3.150.90 8000</Linha>
+    <Linha texto="[data]seed@VM:~$">echo "Hello 2" | nc (IP_DockerGUI_eth1)</Linha>
   </Code>
 </Terminal>
 
