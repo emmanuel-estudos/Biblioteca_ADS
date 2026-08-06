@@ -57,9 +57,9 @@ Estabelecendo conexão com a Mininet1 (05:25) e depois adicionando a rota (07:25
   </Abas>
   <Code>
     <Comentario>Estabelecendo Conexão</Comentario>
-    <Linha texto="root@mininet-vm:/home/mininet#">ssh mininet@192.168.1.10</Linha>
+    <Linha texto="root@mininet-vm:/home/mininet#">ssh mininet@(IP_Mininet1)</Linha>
     <Comentario>Senha</Comentario>
-    <Linha texto="mininet@192.168.1.10's password:">mininet</Linha>
+    <Linha texto="mininet@(IP_Mininet1)'s password:">mininet</Linha>
     <Comentario>Se transformando em SuperUsuário</Comentario>
     <Linha texto="mininet@mininet-vm:~$"> sudo su</Linha>
     <Comentario>Adicionando Rota</Comentario>
@@ -79,9 +79,9 @@ Estabelecendo conexão com a Mininet2 (06:25) e depois adicionando a rota (08:30
   </Abas>
   <Code>
     <Comentario>Estabelecendo Conexão</Comentario>
-    <Linha texto="root@mininet-vm:/home/mininet#">ssh mininet@192.168.2.20</Linha>
+    <Linha texto="root@mininet-vm:/home/mininet#">ssh mininet@(IP_Mininet2)</Linha>
     <Comentario>Senha</Comentario>
-    <Linha texto="mininet@192.168.2.20's password:">mininet</Linha>
+    <Linha texto="mininet@(IP_Mininet2)'s password:">mininet</Linha>
     <Comentario>Se transformando em SuperUsuário</Comentario>
     <Linha texto="mininet@mininet-vm:~$"> sudo su</Linha>
     <Comentario>Adicionando Rota</Comentario>
@@ -91,7 +91,7 @@ Estabelecendo conexão com a Mininet2 (06:25) e depois adicionando a rota (08:30
 
 ## Situação atual
 
-Da forma como está estruturado até agora, se tentarmos dar ping com `192.168.1.10` todos os pacotes serão perdidos (09:24).
+Da forma como está estruturado até agora, se tentarmos dar ping com `(IP_Mininet1)` todos os pacotes serão perdidos (09:24).
 Mas, se tentarmos com o `192.168.1.1`, vai dar certo.
 
 <Terminal>
@@ -102,7 +102,7 @@ Mas, se tentarmos com o `192.168.1.1`, vai dar certo.
   </Abas>
   <Code>
     <Comentario>PING com pacote perdido</Comentario>
-    <Linha texto="root@mininet-vm:/home/mininet#">ping 192.168.1.10</Linha>
+    <Linha texto="root@mininet-vm:/home/mininet#">ping (IP_Mininet1)</Linha>
     <Resultado>X packets transmitted, 0 received, 100% packet loss</Resultado>
   </Code>
 </Terminal>
@@ -129,8 +129,8 @@ Agora iremos trocar a variável booleana para que seja possível a comunicação
   </Code>
 </Terminal>
 
-Com isso, se dermos ping para `192.168.2.20` na VM1, será possível receber os pacotes (12:20).
-Na VM2, o ping para `192.168.1.10` também funcionará.
+Com isso, se dermos ping para `(IP_Mininet2)` na VM1, será possível receber os pacotes (12:20).
+Na VM2, o ping para `(IP_Mininet1)` também funcionará.
 
 ## VM1: Conferindo Arquivos
 
@@ -287,7 +287,7 @@ Rodando comandos na VM1 para testar o VXLan (33:00).
   </Abas>
   <Code>
     <Linha texto="mininet>">sh ovs-ofctl add-flows s1 flows1.txt</Linha>
-    <Linha texto="mininet>">sh ovs-vsctl add-port s1 vtep -- set interface vtep type=vxlan option:remote_ip=192.168.2.20 option:key=flow ofport_request=10</Linha>
+    <Linha texto="mininet>">sh ovs-vsctl add-port s1 vtep -- set interface vtep type=vxlan option:remote_ip=(IP_Mininet2) option:key=flow ofport_request=10</Linha>
   </Code>
 </Terminal>
 
@@ -303,7 +303,7 @@ Rodando comandos na VM2 para testar o VXLan (40:17).
   </Abas>
   <Code>
     <Linha texto="mininet>">sh ovs-ofctl add-flows s2 flows2.txt</Linha>
-    <Linha texto="mininet>">sh ovs-vsctl add-port s2 vtep -- set interface vtep type=vxlan option:remote_ip=192.168.1.10 option:key=flow ofport_request=10</Linha>
+    <Linha texto="mininet>">sh ovs-vsctl add-port s2 vtep -- set interface vtep type=vxlan option:remote_ip=(IP_Mininet1) option:key=flow ofport_request=10</Linha>
   </Code>
 </Terminal>
 
@@ -311,7 +311,7 @@ Rodando comandos na VM2 para testar o VXLan (40:17).
 
 Preste atenção nesse passo para conseguir metade da nota dessa atividade.
 
-Para provar que essa parte da atividade foi bem-sucedida (50%), você deve rodar o comando abaixo e tirar uma print pegando o comando `sh ovs-vsctl add-port s2 vtep -- set interface vtep type=vxlan option:remote_ip=192.168.1.10 option:key=flow ofport_request=10` (para mostrar que foi usando o tipo 'vxlan') e alguns PINGs que aparecerão.
+Para provar que essa parte da atividade foi bem-sucedida (50%), você deve rodar o comando abaixo e tirar uma print pegando o comando `sh ovs-vsctl add-port s2 vtep -- set interface vtep type=vxlan option:remote_ip=(IP_Mininet1) option:key=flow ofport_request=10` (para mostrar que foi usando o tipo 'vxlan') e alguns PINGs que aparecerão.
 
 <Terminal>
   <Abas>
@@ -346,7 +346,7 @@ Entramos novamente no APP `VXLANexample1.py` para depois rodarmos os comandos.
   <Code>
     <Linha texto="root@mininet-vm:/home/mininet#">./VXLANexample1.py</Linha>
     <Linha texto="mininet>">sh ovs-ofctl add-flows s1 flows1.txt</Linha>
-    <Linha texto="mininet>">sh ovs-vsctl add-port s1 vtep -- set interface vtep type=gre option:remote_ip=192.168.2.20 option:key=flow ofport_request=10</Linha>
+    <Linha texto="mininet>">sh ovs-vsctl add-port s1 vtep -- set interface vtep type=gre option:remote_ip=(IP_Mininet2) option:key=flow ofport_request=10</Linha>
   </Code>
 </Terminal>
 
@@ -363,7 +363,7 @@ Entramos novamente no APP `VXLANexample2.py` para depois rodarmos os comandos.
   <Code>
     <Linha texto="root@mininet-vm:/home/mininet#">./VXLANexample2.py</Linha>
     <Linha texto="mininet>">sh ovs-ofctl add-flows s2 flows2.txt</Linha>
-    <Linha texto="mininet>">sh ovs-vsctl add-port s2 vtep -- set interface vtep type=gre option:remote_ip=192.168.1.10 option:key=flow ofport_request=10</Linha>
+    <Linha texto="mininet>">sh ovs-vsctl add-port s2 vtep -- set interface vtep type=gre option:remote_ip=(IP_Mininet1) option:key=flow ofport_request=10</Linha>
   </Code>
 </Terminal>
 
@@ -380,6 +380,6 @@ Entramos novamente no APP `VXLANexample2.py` para depois rodarmos os comandos.
   </Code>
 </Terminal>
 
-Tire print dessa parte, pegando o comando `sh ovs-vsctl add-port s2 vtep -- set interface vtep type=gre option:remote_ip=192.168.1.10 option:key=flow ofport_request=10` e os PINGs.
+Tire print dessa parte, pegando o comando `sh ovs-vsctl add-port s2 vtep -- set interface vtep type=gre option:remote_ip=(IP_Mininet1) option:key=flow ofport_request=10` e os PINGs.
 
 Pronto, atividade feita :p
