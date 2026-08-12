@@ -1,0 +1,1 @@
+var e=`/Biblioteca_ADS/assets/zLista%20de%20Exerc%C3%ADcios%20programa%C3%A7%C3%A3o-Je9bLreC.pdf`;export{e as default};

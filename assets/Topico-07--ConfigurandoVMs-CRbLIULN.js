@@ -47,7 +47,7 @@ import{n as e,r as t}from"./lib-CrvGBhFj.js";var n=t();function r(t){let r={a:`a
 `,(0,n.jsx)(c,{children:``}),` apt install apache2 `,(0,n.jsx)(s,{children:`// Instalando o apache2`})]})]}),`
 `,(0,n.jsx)(r.p,{children:`'apt list --upgradeable'. Baixe o docker usando 'apt install docker.io' e 'docker pull ubuntu' 'docker ps -a' 'docker run -it ubuntu' 'o ID no Docker são os 2 primeiros caracteres' 'exit' 'docker start 'ID'' 'docker attach 'ID''. instalando attach2: 'apt update' e 'apt install apache2'`}),`
 `,(0,n.jsx)(r.p,{children:`awdawda`}),`
-`,(0,n.jsx)(r.pre,{children:(0,n.jsx)(r.code,{className:`language-bash`,children:`npm install
+`,(0,n.jsx)(r.pre,{children:(0,n.jsx)(r.code,{className:`hljs language-bash`,children:`npm install
 `})}),`
 `,(0,n.jsx)(r.h1,{id:`mover-certificados-digitais-para-uma-pasta`,children:`Mover Certificados Digitais para uma pasta`}),`
 `,(0,n.jsx)(r.p,{children:`Esses certificados podem ser usados para a atividade 01, sem a necessidade de recriá-los. Para fazer isso, siga o passo a passo abaixo:`}),`

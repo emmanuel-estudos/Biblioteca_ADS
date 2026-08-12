@@ -1,4 +1,4 @@
-import{n as e,r as t}from"./lib-CrvGBhFj.js";var n=t();function r(t){let r={code:`code`,h1:`h1`,h2:`h2`,p:`p`,pre:`pre`,strong:`strong`,...e(),...t.components};return(0,n.jsxs)(n.Fragment,{children:[(0,n.jsx)(r.h1,{id:`factory-method-e-abstract-factory`,children:`Factory Method e Abstract Factory`}),`
+import{n as e,r as t}from"./lib-CrvGBhFj.js";var n=t();function r(t){let r={code:`code`,h1:`h1`,h2:`h2`,p:`p`,pre:`pre`,span:`span`,strong:`strong`,...e(),...t.components};return(0,n.jsxs)(n.Fragment,{children:[(0,n.jsx)(r.h1,{id:`factory-method-e-abstract-factory`,children:`Factory Method e Abstract Factory`}),`
 `,(0,n.jsx)(r.h2,{id:`explicação-dos-padrões`,children:`Explicação dos Padrões`}),`
 `,(0,n.jsx)(r.p,{children:`Ambos os padrões lidam com o encapsulamento da criação de objetos, mas operam em níveis de complexidade diferentes:`}),`
 `,(0,n.jsxs)(r.p,{children:[(0,n.jsx)(r.strong,{children:`Factory Method`}),`: Define uma interface ou método abstrato para criar um objeto, mas deixa as subclasses decidirem qual classe concreta instanciar. Ele adia a instanciação para as subclasses.`]}),`
@@ -14,22 +14,22 @@ import{n as e,r as t}from"./lib-CrvGBhFj.js";var n=t();function r(t){let r={code
 `,(0,n.jsx)(r.h2,{id:`solução-do-problema-apresentado-no-slide`,children:`Solução do problema apresentado no slide`}),`
 `,(0,n.jsx)(r.p,{children:`A solução aplicada é o Factory Method. A classe abstrata Application declara um método abstrato para criação (ex: abstract Document createDocument()).`}),`
 `,(0,n.jsx)(r.p,{children:`As ações gerais como abrir ou salvar chamam esse método internamente. Quem decide e implementa o objeto real são as subclasses: DrawApplication vai estender Application e implementar o método retornando new DrawDocument(). O acoplamento rígido é desfeito.`}),`
-`,(0,n.jsx)(r.pre,{children:(0,n.jsx)(r.code,{className:`language-java`,children:`// Estrutura conceitual da solução\r
-public abstract class Application {\r
-  // O Factory Method\r
-  public abstract Document createDocument();\r
+`,(0,n.jsx)(r.pre,{children:(0,n.jsxs)(r.code,{className:`hljs language-java`,children:[(0,n.jsx)(r.span,{className:`hljs-comment`,children:`// Estrutura conceitual da solução`}),`\r
+`,(0,n.jsx)(r.span,{className:`hljs-keyword`,children:`public`}),` `,(0,n.jsx)(r.span,{className:`hljs-keyword`,children:`abstract`}),` `,(0,n.jsx)(r.span,{className:`hljs-keyword`,children:`class`}),` `,(0,n.jsx)(r.span,{className:`hljs-title class_`,children:`Application`}),` {\r
+  `,(0,n.jsx)(r.span,{className:`hljs-comment`,children:`// O Factory Method`}),`\r
+  `,(0,n.jsx)(r.span,{className:`hljs-keyword`,children:`public`}),` `,(0,n.jsx)(r.span,{className:`hljs-keyword`,children:`abstract`}),` Document `,(0,n.jsx)(r.span,{className:`hljs-title function_`,children:`createDocument`}),(0,n.jsx)(r.span,{className:`hljs-params`,children:`()`}),`;\r
 \r
-  public void novoDocumento() {\r
-    // A aplicação mãe usa o método sem saber qual documento concreto virá\r
-    Document doc = createDocument();\r
+  `,(0,n.jsx)(r.span,{className:`hljs-keyword`,children:`public`}),` `,(0,n.jsx)(r.span,{className:`hljs-keyword`,children:`void`}),` `,(0,n.jsx)(r.span,{className:`hljs-title function_`,children:`novoDocumento`}),(0,n.jsx)(r.span,{className:`hljs-params`,children:`()`}),` {\r
+    `,(0,n.jsx)(r.span,{className:`hljs-comment`,children:`// A aplicação mãe usa o método sem saber qual documento concreto virá`}),`\r
+    `,(0,n.jsx)(r.span,{className:`hljs-type`,children:`Document`}),` `,(0,n.jsx)(r.span,{className:`hljs-variable`,children:`doc`}),` `,(0,n.jsx)(r.span,{className:`hljs-operator`,children:`=`}),` createDocument();\r
     doc.abrir();\r
   }\r
 }\r
 \r
-public class DrawApplication extends Application {\r
-  @Override\r
-  public Document createDocument() {\r
-    return new DrawDocument(); // Subclasse decide o tipo concreto\r
+`,(0,n.jsx)(r.span,{className:`hljs-keyword`,children:`public`}),` `,(0,n.jsx)(r.span,{className:`hljs-keyword`,children:`class`}),` `,(0,n.jsx)(r.span,{className:`hljs-title class_`,children:`DrawApplication`}),` `,(0,n.jsx)(r.span,{className:`hljs-keyword`,children:`extends`}),` `,(0,n.jsx)(r.span,{className:`hljs-title class_`,children:`Application`}),` {\r
+  `,(0,n.jsx)(r.span,{className:`hljs-meta`,children:`@Override`}),`\r
+  `,(0,n.jsx)(r.span,{className:`hljs-keyword`,children:`public`}),` Document `,(0,n.jsx)(r.span,{className:`hljs-title function_`,children:`createDocument`}),(0,n.jsx)(r.span,{className:`hljs-params`,children:`()`}),` {\r
+    `,(0,n.jsx)(r.span,{className:`hljs-keyword`,children:`return`}),` `,(0,n.jsx)(r.span,{className:`hljs-keyword`,children:`new`}),` `,(0,n.jsx)(r.span,{className:`hljs-title class_`,children:`DrawDocument`}),`(); `,(0,n.jsx)(r.span,{className:`hljs-comment`,children:`// Subclasse decide o tipo concreto`}),`\r
   }\r
 }
-`})})]})}function i(t={}){let{wrapper:i}={...e(),...t.components};return i?(0,n.jsx)(i,{...t,children:(0,n.jsx)(r,{...t})}):r(t)}export{i as default};
+`]})})]})}function i(t={}){let{wrapper:i}={...e(),...t.components};return i?(0,n.jsx)(i,{...t,children:(0,n.jsx)(r,{...t})}):r(t)}export{i as default};

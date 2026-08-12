@@ -7,7 +7,7 @@ Cada domínio terá página e certificado exclusivos.`]}),`
 `,(0,n.jsxs)(l,{children:[(0,n.jsx)(o,{children:(0,n.jsx)(i,{active:!0,children:`Ubuntu 26s`})}),(0,n.jsxs)(s,{children:[(0,n.jsx)(c,{texto:``,children:`openssl req -x509 -nodes -newkey rsa:2048 -days 365 -keyout /etc/ssl/seunome/site1.key -out /etc/ssl/seunome/site1.crt -subj "/C=BR/ST=Paraiba/L=Cajazeiras/O=IFPB/OU=ADS/CN=site1.seunome.com.br" -addext "subjectAltName=DNS:site1.seunome.com.br"`}),(0,n.jsx)(c,{texto:``,children:`openssl req -x509 -nodes -newkey rsa:2048 -days 365 -keyout /etc/ssl/seunome/site2.key -out /etc/ssl/seunome/site2.crt -subj "/C=BR/ST=Paraiba/L=Cajazeiras/O=IFPB/OU=ADS/CN=site2.seunome.com.br" -addext "subjectAltName=DNS:site2.seunome.com.br" chmod 600 /etc/ssl/seunome/site1.key /etc/ssl/seunome/site2.key`})]})]}),`
 `,(0,n.jsx)(r.h2,{id:`criando-o-arquivo-múltiplos`,children:`Criando o Arquivo Múltiplos`}),`
 `,(0,n.jsxs)(l,{children:[(0,n.jsx)(o,{children:(0,n.jsx)(i,{active:!0,children:`Ubuntu 26s`})}),(0,n.jsx)(s,{children:(0,n.jsx)(c,{texto:``,children:`nano /etc/nginx/sites-available/multiplos`})})]}),`
-`,(0,n.jsx)(r.pre,{children:(0,n.jsx)(r.code,{className:`language-html`,children:`server {\r
+`,(0,n.jsx)(r.pre,{children:(0,n.jsx)(r.code,{className:`hljs language-html`,children:`server {\r
     listen 80;\r
     listen [::]:80;\r
     server_name site1.seunome.com.br;\r

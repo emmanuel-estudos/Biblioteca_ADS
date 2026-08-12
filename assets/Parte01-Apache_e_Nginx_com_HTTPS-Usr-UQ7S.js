@@ -1,0 +1,4 @@
+import{n as e,r as t}from"./lib-CrvGBhFj.js";var n=t();function r(t){let r={a:`a`,code:`code`,h1:`h1`,p:`p`,strong:`strong`,...e(),...t.components};return(0,n.jsxs)(n.Fragment,{children:[(0,n.jsx)(r.h1,{id:`parte-01`,children:`Parte 01`}),`
+`,(0,n.jsx)(r.p,{children:`O nome desse tópico é "Apache e Nginx com HTTPS autoassinado, domínio único".`}),`
+`,(0,n.jsxs)(r.p,{children:[`Cada servidor publica uma página `,(0,n.jsx)(r.strong,{children:`diferente`}),` em `,(0,n.jsx)(r.a,{href:`https://www.matheus.com.br`,children:`https://www.matheus.com.br`}),`  com HTTP/2 e redirecionamento de HTTP para\r
+HTTPS. Os prints devem exibir `,(0,n.jsx)(r.strong,{children:`data`}),` e `,(0,n.jsx)(r.strong,{children:`hora`}),` — por isso as páginas incluem `,(0,n.jsx)(r.code,{children:`$(date)`}),` no conteúdo.`]})]})}function i(t={}){let{wrapper:i}={...e(),...t.components};return i?(0,n.jsx)(i,{...t,children:(0,n.jsx)(r,{...t})}):r(t)}export{i as default};

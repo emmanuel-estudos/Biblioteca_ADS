@@ -25,7 +25,7 @@ import{n as e,r as t}from"./lib-CrvGBhFj.js";var n=t();function r(t){let r={code
 `,(0,n.jsxs)(r.p,{children:[`Nos sistemas baseados em UNIX (como Linux e macOS), a criação de processos segue uma dinâmica muito particular de clonagem. Ela ocorre principalmente em duas etapas por meio das chamadas de sistema (System Calls) `,(0,n.jsx)(r.code,{children:`fork()`}),` e `,(0,n.jsx)(r.code,{children:`exec()`}),`.`]}),`
 `,(0,n.jsxs)(r.p,{children:[`Quando um processo pai executa a função `,(0,n.jsx)(r.code,{children:`fork()`}),`, o sistema operacional cria uma cópia exata deste processo na memória. O novo processo, chamado de processo filho, herda o mesmo código, variáveis, arquivos abertos e até a posição exata da próxima instrução a ser executada. A única diferença imediata é o identificador do processo (PID).`]}),`
 `,(0,n.jsxs)(r.p,{children:[`Para que o filho execute uma tarefa diferente do pai, a chamada de sistema `,(0,n.jsx)(r.code,{children:`exec()`}),` é usada logo em seguida: ela limpa a memória do processo filho e carrega o código de um novo programa por cima. No Windows, esse processo é mais direto e ocorre em um único passo por meio da chamada da API `,(0,n.jsx)(r.code,{children:`CreateProcess()`}),`.`]}),`
-`,(0,n.jsx)(r.pre,{children:(0,n.jsx)(r.code,{className:`language-txt`,children:`[Processo Pai] --(fork)--> [Processo Filho (clone)] ---\r
+`,(0,n.jsx)(r.pre,{children:(0,n.jsx)(r.code,{className:`hljs language-txt`,children:`[Processo Pai] --(fork)--> [Processo Filho (clone)] ---\r
 --(exec)--> [Novo Código Rodando]
 `})}),`
 `,(0,n.jsx)(r.h3,{id:`dúvidas-frequentes-1`,children:`Dúvidas Frequentes`}),`

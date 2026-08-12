@@ -2,7 +2,7 @@ import{n as e,r as t}from"./lib-CrvGBhFj.js";var n=t();function r(t){let r={code
 `,(0,n.jsx)(r.p,{children:`escrevendo qualquer coisa`}),`
 `,(0,n.jsx)(r.p,{children:`teste 2`}),`
 `,(0,n.jsx)(r.p,{children:`teste de parágrafo grande para testar o recuo da primeira palavra para a direita. tem que escrever mais coisa para fazer o teste`}),`
-`,(0,n.jsx)(r.pre,{children:(0,n.jsx)(r.code,{className:`language-bash`,children:`npm install alguma-coisa
+`,(0,n.jsx)(r.pre,{children:(0,n.jsx)(r.code,{className:`hljs language-bash`,children:`npm install alguma-coisa
 `})}),`
 `,(0,n.jsx)(r.h2,{id:`teste-de-título-2`,children:`teste de título 2`}),`
 `,(0,n.jsx)(r.p,{children:`parágrafo aleatório. lalalalalalalala la lalal alalala lalalalalalala lal alalalala lalala lalalalal alalalalalalalalal alalalalalalal alalalalalala lalalal alalalal alalala lalala lalala`}),`
