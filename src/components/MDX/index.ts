@@ -4,7 +4,7 @@ import { TituloH3 } from './TituloH3';
 import { TituloH4 } from './TituloH4';
 import { Paragraph } from './Paragrafo';
 import { Strong } from './Negrito';
-import { CodeBlock } from './CodeBlock';
+import { CodeInline, CodePre } from './CodeBlock';
 import { Box } from './Terminal';
 import { TabsContainer } from './ContainerAbasTerminal';
 import { Imagem } from './Imagem'
@@ -27,7 +27,8 @@ export const MDX = {
 	TituloH4,
   Paragraph,
   Strong,
-  CodeBlock,
+  CodeInline,
+	CodePre,
   Box,
   TabsContainer,
   AbaTerminal,

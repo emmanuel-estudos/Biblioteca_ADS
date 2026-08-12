@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import mdx from '@mdx-js/rollup'
 import remarkGfm from 'remark-gfm'
 import rehypeSlug from 'rehype-slug'
+import rehypeHighlight from 'rehype-highlight'
 
 export default defineConfig({
   plugins: [
@@ -13,10 +14,10 @@ export default defineConfig({
         providerImportSource: '@mdx-js/react',
         // Adiciona suporte a tabelas e listas de tarefas do GitHub
         remarkPlugins: [remarkGfm],
-        // Aqui você adicionaria outros plugins de rehype se quisesse
+        // Aqui você adicionaria outros plugins de rehype
         rehypePlugins: [
-          // Adiciona IDs automaticamente aos títulos
-          rehypeSlug,
+          rehypeSlug, // Adiciona IDs automaticamente aos títulos
+					rehypeHighlight // Destaque de sintaxe para blocos de código
         ],
       })
     }, 

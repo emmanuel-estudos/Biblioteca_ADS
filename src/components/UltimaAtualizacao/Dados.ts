@@ -5,10 +5,13 @@ export interface UltimaAtualizacaoData {
 }
 
 export const ultimaAtualizacaoInfo: UltimaAtualizacaoData = {
-  mensagem: "DOCS (Segurança de Dados): Roteiros das Atividades 02 e 03",
+  mensagem: "FEAT(ui): adiciona identificador de linguagem aos blocos de codigo mdx",
   descricao: `
-		- Correção de alguns pontos no roteiro da Atividade03.\n
-		- Troca de números de IPs específicos para o nome do local a que ele se refere.
+		- Atualiza o CodeBlock.tsx com suporte a tipagens exportadas e extração dinâmica da linguagem via className\n
+		- Adiciona etiquetas estilizadas no topo esquerdo e rodape direito do PreBlock\n
+		- Aplica fallback "CODIGO GENERICO" caso a linguagem nao seja especificada\n
+		-	Configura posicionamento relativo para manter as etiquetas presas ao container do bloco.\n
+		- Configura o rehype-highlight no Vite para identificar palavras reservadas do codigo
 	`,
-  // dataHora: "2026-07-31T16:30:00-03:00",
+  dataHora: "2026-08-12T14:36:00-03:00",
 };
