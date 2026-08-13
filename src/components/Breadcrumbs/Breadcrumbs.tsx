@@ -1,80 +1,125 @@
-import { Link, useLocation } from 'react-router-dom';
-import * as s from './styles';
+import { Link, useLocation, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import * as S from './styles';
 import { TRADUCAO_NOMES } from '../../utils/traducoes';
 
-interface BreadcrumbsProps {
-  aulaAtual?: string;
-  abaAtiva?: 'assuntos' | 'atividades'; // Propriedade para saber qual aba está aberta na Matéria
+interface AtividadeItem {
+  nome?: string;
+  [key: string]: unknown;
 }
 
-export const Breadcrumbs = ({ aulaAtual, abaAtiva }: BreadcrumbsProps) => {
+interface ConfigMateria {
+  config: {
+    assuntos?: Record<string, string>;
+    atividades?: Record<string, string | AtividadeItem>;
+    [key: string]: unknown;
+  };
+}
+
+// Subpastas intermediárias que devem redirecionar para a página principal da matéria
+const SUBPASTAS_INTERMEDIARIAS = ['assuntos', 'atividades'];
+
+export const Breadcrumbs = () => {
   const location = useLocation();
-  const pathnames = location.pathname.split('/').filter((x) => x);
+  const params = useParams();
 
-  const formatarLabel = (texto: string) => {
-    if (texto.includes('-periodo')) {
-      const numero = texto.split('-')[0];
-      return `${numero}º Período`;
-    }
+  const pathnames = location.pathname.split('/').filter(Boolean);
+  const materiaParam = params.materia || '';
 
-    if (TRADUCAO_NOMES[texto]) return TRADUCAO_NOMES[texto];
+  const [dicionarioMateria, setDicionarioMateria] = useState<Record<string, string>>({});
 
-    return texto
-      .replace(/-/g, ' ')
-      .replace(/([a-zA-Z])(\d)/g, '$1 $2')
-      .replace(/\b\w/g, (l) => l.toUpperCase());
+  useEffect(() => {
+    const carregarConfigMateria = async () => {
+      if (!materiaParam) {
+        setDicionarioMateria({});
+        return;
+      }
+
+      try {
+        const todasConfigs = import.meta.glob('/src/contents/**/config.ts');
+        const materiaLower = materiaParam.toLowerCase();
+
+        const caminhoConfig = Object.keys(todasConfigs).find((path) =>
+          path.toLowerCase().includes(`/${materiaLower}/config.ts`)
+        );
+
+        if (caminhoConfig) {
+          const modConfig = (await todasConfigs[caminhoConfig]()) as ConfigMateria;
+          const config = modConfig.config;
+
+          const mapaCompleto: Record<string, string> = {
+            ...(config.assuntos || {}),
+          };
+
+          if (config.atividades) {
+            Object.entries(config.atividades).forEach(([key, val]: [string, string | AtividadeItem]) => {
+              if (typeof val === 'string') {
+                mapaCompleto[key] = val;
+              } else if (val && typeof val === 'object' && val.nome) {
+                mapaCompleto[key] = val.nome;
+              }
+            });
+          }
+
+          setDicionarioMateria(mapaCompleto);
+        } else {
+          setDicionarioMateria({});
+        }
+      } catch (error) {
+        console.error('Erro ao carregar configurações no Breadcrumbs:', error);
+        setDicionarioMateria({});
+      }
+    };
+
+    carregarConfigMateria();
+  }, [materiaParam]);
+
+  if (pathnames.length === 0) return null;
+
+  const obterNomeExibicao = (value: string): string => {
+    const slugLower = value.toLowerCase();
+
+    if (dicionarioMateria[slugLower]) return dicionarioMateria[slugLower];
+    if (dicionarioMateria[value]) return dicionarioMateria[value];
+
+    if (TRADUCAO_NOMES[slugLower]) return TRADUCAO_NOMES[slugLower];
+    if (TRADUCAO_NOMES[value]) return TRADUCAO_NOMES[value];
+
+    const textoFormatado = value.replace(/[-_]/g, ' ');
+    return textoFormatado.charAt(0).toUpperCase() + textoFormatado.slice(1);
   };
 
-  // 1. Mapeia os caminhos reais da URL
-  const items = pathnames.map((value, index) => {
-    const isFolderLevel = value === 'assuntos' || value === 'atividades';
-    
-    // Se for 'assuntos' ou 'atividades', corta a URL para apontar de volta para a matéria
-    const to = isFolderLevel 
-      ? `/${pathnames.slice(0, index).join('/')}` 
-      : `/${pathnames.slice(0, index + 1).join('/')}`;
-
-    return {
-      value,
-      to,
-      isFolderLevel,
-    };
-  });
-
-  // REQUISITO: Se estivermos na página raiz da matéria (ex: /5-periodo/seguranca-de-dados)
-  // e houver uma aba ativa informada, injetamos ela virtualmente como o último item (texto estático)
-  if (pathnames.length === 2 && abaAtiva) {
-    items.push({
-      value: abaAtiva,
-      to: location.pathname, // Aponta para ela mesma
-      isFolderLevel: false,
-    });
-  }
-
   return (
-    <s.Nav>
-      <Link to="/">Home</Link>
-      {items.map((item, index) => {
-        const last = index === items.length - 1;
-        const labelFinal = (last && aulaAtual) ? aulaAtual : formatarLabel(item.value);
+    <S.Container aria-label="breadcrumb">
+      <S.Item>
+        <Link to="/">Início</Link>
+      </S.Item>
+
+      {pathnames.map((value, index) => {
+        const isLast = index === pathnames.length - 1;
+        const nomeExibicao = obterNomeExibicao(value);
+        const slugLower = value.toLowerCase();
+
+        // Determina o destino correto do clique
+        let targetUrl = `/${pathnames.slice(0, index + 1).join('/')}`;
+
+        // Se o item for 'assuntos' ou 'atividades', redireciona para /:periodo/:materia (índice 0 e 1 do caminho)
+        if (SUBPASTAS_INTERMEDIARIAS.includes(slugLower)) {
+          targetUrl = `/${pathnames.slice(0, 2).join('/')}`;
+        }
 
         return (
-          <div key={`${item.to}-${index}-${item.value}`} style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-            <span>/</span>
-            {last ? (
-              <strong className="current">{labelFinal}</strong>
+          <S.Item key={`${targetUrl}-${index}`}>
+            <S.Separator>/</S.Separator>
+
+            {isLast ? (
+              <span className="current">{nomeExibicao}</span>
             ) : (
-              // REQUISITO: Passamos a propriedade state informando qual aba o destino deve abrir
-              <Link 
-                to={item.to} 
-                state={item.isFolderLevel ? { tab: item.value } : undefined}
-              >
-                {labelFinal}
-              </Link>
+              <Link to={targetUrl}>{nomeExibicao}</Link>
             )}
-          </div>
+          </S.Item>
         );
       })}
-    </s.Nav>
+    </S.Container>
   );
 };
