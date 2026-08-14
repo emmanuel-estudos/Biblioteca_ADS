@@ -14,6 +14,7 @@ export const Breadcrumbs = () => {
 
   const [traducoesCustom, setTraducoesCustom] = useState<Record<string, string>>({});
   const [corPrimaria, setCorPrimaria] = useState<string | undefined>(undefined);
+  const [corSecundaria, setCorSecundaria] = useState<string | undefined>(undefined);
 
   const pathnames = location.pathname.split('/').filter((x) => x);
 
@@ -24,6 +25,7 @@ export const Breadcrumbs = () => {
       if (!materia) {
         setTraducoesCustom({});
         setCorPrimaria(undefined);
+        setCorSecundaria(undefined);
         return;
       }
 
@@ -38,6 +40,7 @@ export const Breadcrumbs = () => {
         const modConfig = (await todasConfigs[caminhoConfig]()) as {
           config: {
             corPrimaria?: string;
+            corSecundaria?: string;
             atividades?: Record<string, { nome: string; arquivos?: Record<string, string> }>;
             assuntos?: Record<string, string>;
           };
@@ -46,12 +49,7 @@ export const Breadcrumbs = () => {
         const configData = modConfig.config;
         const novasTraducoes: Record<string, string> = {};
 
-        // 1. Obtém a cor primária da matéria
-        if (configData.corPrimaria) {
-          setCorPrimaria(configData.corPrimaria);
-        }
-
-        // 2. ROTA DE ATIVIDADES
+        // ROTA DE ATIVIDADES
         if (atividade && configData.atividades) {
           const chaveAtividade = Object.keys(configData.atividades).find(
             (k) => k.toLowerCase() === atividade.toLowerCase()
@@ -72,7 +70,7 @@ export const Breadcrumbs = () => {
             }
           }
         } 
-        // 3. ROTA DE ASSUNTOS
+        // ROTA DE ASSUNTOS
         else if (slug && configData.assuntos) {
           const chaveAssunto = Object.keys(configData.assuntos).find(
             (k) => k.toLowerCase() === slug.toLowerCase()
@@ -84,6 +82,8 @@ export const Breadcrumbs = () => {
         }
 
         if (!cancelado) {
+          setCorPrimaria(configData.corPrimaria);
+          setCorSecundaria(configData.corSecundaria);
           setTraducoesCustom(novasTraducoes);
         }
       }
@@ -110,9 +110,7 @@ export const Breadcrumbs = () => {
     return value.replace(/-/g, ' ');
   };
 
-  // Função para resolver o destino de cada link do Breadcrumbs
   const obterDestino = (index: number, value: string) => {
-    // Se clicar em 'atividades' ou 'assuntos', redireciona para a página da matéria!
     if ((value === 'atividades' || value === 'assuntos') && periodo && materia) {
       return `/${periodo}/${materia}`;
     }
@@ -120,10 +118,15 @@ export const Breadcrumbs = () => {
     return `/${pathnames.slice(0, index + 1).join('/')}`;
   };
 
+  // Encontra o índice de onde a matéria começa no caminho (ex: index 1 para /1-periodo/Algoritmos)
+  const indiceMateria = materia 
+    ? pathnames.findIndex(p => p.toLowerCase() === materia.toLowerCase()) 
+    : -1;
+
   return (
     <S.BreadcrumbsContainer aria-label="breadcrumb">
       <S.BreadcrumbsList>
-        <S.BreadcrumbsItem $corPrimaria={corPrimaria}>
+        <S.BreadcrumbsItem>
           <Link to="/">Início</Link>
         </S.BreadcrumbsItem>
 
@@ -132,11 +135,25 @@ export const Breadcrumbs = () => {
           const isLast = index === pathnames.length - 1;
           const nomeFormatado = formatarNome(value);
 
+          // É considerado "dentro da matéria" se o item atual for a matéria ou estiver depois dela
+          const isDentroDaMateria = indiceMateria !== -1 && index >= indiceMateria;
+
           return (
-            <S.BreadcrumbsItem key={to + index} $isLast={isLast} $corPrimaria={corPrimaria}>
-              <S.Separator>/</S.Separator>
+            <S.BreadcrumbsItem 
+              key={to + index} 
+              $isLast={isLast} 
+              $corPrimaria={corPrimaria}
+              $isDentroDaMateria={isDentroDaMateria}
+            >
+              <S.Separator 
+                $corSecundaria={corSecundaria} 
+                $isDentroDaMateria={isDentroDaMateria}
+              >
+                /
+              </S.Separator>
+
               {isLast ? (
-                <span>{nomeFormatado}</span>
+                <span className="item-nome">{nomeFormatado}</span>
               ) : (
                 <Link to={to}>{nomeFormatado}</Link>
               )}

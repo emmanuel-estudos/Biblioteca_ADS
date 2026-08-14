@@ -9,6 +9,7 @@ import * as S from './styles';
 
 import { Breadcrumbs } from '../Breadcrumbs';
 import { TableOfContents } from '../TableOfContents';
+import { ListaWrapper } from '../MDX/Questao/styles';
 
 const components = {
   a: MDX.Link,
@@ -32,6 +33,8 @@ const components = {
   Comentario: MDX.Comment,
   Resultado: MDX.Resultado,
   Linha: MDX.LinhaTerminal,
+  Questao: MDX.Questao,
+  QuestaoLink: MDX.QuestaoLink
 };
 
 export const Conteudo = () => {
@@ -95,9 +98,34 @@ export const Conteudo = () => {
           
           // Rota de busca corrigida para navegar por dentro de atividades[atividade].arquivos[slug]
           if (atividade) {
-            nomeAmigavel = configData.atividades?.[atividade]?.arquivos?.[slug] || nomeAmigavel;
+            // 1. Busca a atividade ignorando maiúsculas/minúsculas (ex: 'Lista01' vs 'lista01')
+            const chaveAtividade = Object.keys(configData.atividades || {}).find(
+              (key) => key.toLowerCase() === atividade.toLowerCase()
+            );
+
+            const atividadeEncontrada = chaveAtividade 
+              ? configData.atividades[chaveAtividade] 
+              : null;
+
+            if (atividadeEncontrada?.arquivos) {
+              // 2. Busca o arquivo dentro da atividade ignorando maiúsculas/minúsculas (ex: 'q001' vs 'Q001')
+              const chaveArquivo = Object.keys(atividadeEncontrada.arquivos).find(
+                (key) => key.toLowerCase() === slug.toLowerCase()
+              );
+
+              if (chaveArquivo) {
+                nomeAmigavel = atividadeEncontrada.arquivos[chaveArquivo];
+              }
+            }
           } else if (configData.assuntos) {
-            nomeAmigavel = configData.assuntos[slug] || nomeAmigavel;
+            // Mantém a busca de assuntos (também com busca segura e insensível a maiúsculas)
+            const chaveAssunto = Object.keys(configData.assuntos).find(
+              (key) => key.toLowerCase() === slug.toLowerCase()
+            );
+
+            if (chaveAssunto) {
+              nomeAmigavel = configData.assuntos[chaveAssunto];
+            }
           }
 
           setTituloAula(nomeAmigavel);
@@ -149,7 +177,9 @@ export const Conteudo = () => {
             <TableOfContents />
             <S.ArticleWrapper>
               <MDXProvider components={components}>
-                <MDXComponent />
+                <ListaWrapper>
+                  <MDXComponent />
+                </ListaWrapper>
               </MDXProvider>
             </S.ArticleWrapper>
           </>

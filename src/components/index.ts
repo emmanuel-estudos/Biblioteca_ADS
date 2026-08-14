@@ -4,5 +4,7 @@ export * from './Gabarito';
 export * from './MDX/Link';
 export * from './MDX/LinhaTerminal';
 export * from './MDX';
+export * from './MDX/Questao';
+export * from './MDX/QuestaoLink';
 export * from './TableOfContents';
 export * from './UltimaAtualizacao';

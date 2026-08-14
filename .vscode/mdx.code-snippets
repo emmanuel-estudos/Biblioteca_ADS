@@ -57,5 +57,14 @@
 			"| itemX | valorX |"
 		],
 		"description": "Insere uma linha na estrutura de uma tabela já existente."
+	},
+
+	"Questão para Lista de Programação": {
+		"prefix": "/questao",
+		"body": [
+			"<Questao slug=\"q\" linguagem=\"c\">",
+			"  Conteúdo",
+      "</Questao>"
+		]
 	}
 }
