@@ -7,7 +7,9 @@ export const IGNORED_PATHS_IN_PROD: string[] = [
   'Sistemas-Operacionais-SO/atividades/Apresentacao/',
 
 	// P5 - Padrões de Projeto
+	'Arquitetura-e-Padroes-de-Projeto-de-Software/atividades/Prova01',
 	'Arquitetura-e-Padroes-de-Projeto-de-Software/atividades/Prova02',
+	'Arquitetura-e-Padroes-de-Projeto-de-Software/atividades/Prova03',
 
 	// P5 - Segurança de Dados
 	'Seguranca-de-Dados/atividades/atividade-quiz',

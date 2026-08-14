@@ -3,123 +3,147 @@ import { useEffect, useState } from 'react';
 import * as S from './styles';
 import { TRADUCAO_NOMES } from '../../utils/traducoes';
 
-interface AtividadeItem {
-  nome?: string;
-  [key: string]: unknown;
-}
-
-interface ConfigMateria {
-  config: {
-    assuntos?: Record<string, string>;
-    atividades?: Record<string, string | AtividadeItem>;
-    [key: string]: unknown;
-  };
-}
-
-// Subpastas intermediárias que devem redirecionar para a página principal da matéria
-const SUBPASTAS_INTERMEDIARIAS = ['assuntos', 'atividades'];
-
 export const Breadcrumbs = () => {
   const location = useLocation();
-  const params = useParams();
+  const { periodo, materia, atividade, slug } = useParams<{
+    periodo?: string;
+    materia?: string;
+    atividade?: string;
+    slug?: string;
+  }>();
 
-  const pathnames = location.pathname.split('/').filter(Boolean);
-  const materiaParam = params.materia || '';
+  const [traducoesCustom, setTraducoesCustom] = useState<Record<string, string>>({});
+  const [corPrimaria, setCorPrimaria] = useState<string | undefined>(undefined);
 
-  const [dicionarioMateria, setDicionarioMateria] = useState<Record<string, string>>({});
+  const pathnames = location.pathname.split('/').filter((x) => x);
 
   useEffect(() => {
-    const carregarConfigMateria = async () => {
-      if (!materiaParam) {
-        setDicionarioMateria({});
+    let cancelado = false;
+
+    const carregarConfig = async () => {
+      if (!materia) {
+        setTraducoesCustom({});
+        setCorPrimaria(undefined);
         return;
       }
 
-      try {
-        const todasConfigs = import.meta.glob('/src/contents/**/config.ts');
-        const materiaLower = materiaParam.toLowerCase();
+      const todasConfigs = import.meta.glob('/src/contents/**/config.ts');
+      const materiaLower = materia.toLowerCase();
 
-        const caminhoConfig = Object.keys(todasConfigs).find((path) =>
-          path.toLowerCase().includes(`/${materiaLower}/config.ts`)
-        );
+      const caminhoConfig = Object.keys(todasConfigs).find((path) =>
+        path.toLowerCase().includes(`/${materiaLower}/config.ts`)
+      );
 
-        if (caminhoConfig) {
-          const modConfig = (await todasConfigs[caminhoConfig]()) as ConfigMateria;
-          const config = modConfig.config;
-
-          const mapaCompleto: Record<string, string> = {
-            ...(config.assuntos || {}),
+      if (caminhoConfig) {
+        const modConfig = (await todasConfigs[caminhoConfig]()) as {
+          config: {
+            corPrimaria?: string;
+            atividades?: Record<string, { nome: string; arquivos?: Record<string, string> }>;
+            assuntos?: Record<string, string>;
           };
+        };
 
-          if (config.atividades) {
-            Object.entries(config.atividades).forEach(([key, val]: [string, string | AtividadeItem]) => {
-              if (typeof val === 'string') {
-                mapaCompleto[key] = val;
-              } else if (val && typeof val === 'object' && val.nome) {
-                mapaCompleto[key] = val.nome;
-              }
-            });
-          }
+        const configData = modConfig.config;
+        const novasTraducoes: Record<string, string> = {};
 
-          setDicionarioMateria(mapaCompleto);
-        } else {
-          setDicionarioMateria({});
+        // 1. Obtém a cor primária da matéria
+        if (configData.corPrimaria) {
+          setCorPrimaria(configData.corPrimaria);
         }
-      } catch (error) {
-        console.error('Erro ao carregar configurações no Breadcrumbs:', error);
-        setDicionarioMateria({});
+
+        // 2. ROTA DE ATIVIDADES
+        if (atividade && configData.atividades) {
+          const chaveAtividade = Object.keys(configData.atividades).find(
+            (k) => k.toLowerCase() === atividade.toLowerCase()
+          );
+
+          if (chaveAtividade) {
+            const atividadeObj = configData.atividades[chaveAtividade];
+            novasTraducoes[atividade.toLowerCase()] = atividadeObj.nome;
+
+            if (slug && atividadeObj.arquivos) {
+              const chaveArquivo = Object.keys(atividadeObj.arquivos).find(
+                (k) => k.toLowerCase() === slug.toLowerCase()
+              );
+
+              if (chaveArquivo) {
+                novasTraducoes[slug.toLowerCase()] = atividadeObj.arquivos[chaveArquivo];
+              }
+            }
+          }
+        } 
+        // 3. ROTA DE ASSUNTOS
+        else if (slug && configData.assuntos) {
+          const chaveAssunto = Object.keys(configData.assuntos).find(
+            (k) => k.toLowerCase() === slug.toLowerCase()
+          );
+
+          if (chaveAssunto) {
+            novasTraducoes[slug.toLowerCase()] = configData.assuntos[chaveAssunto];
+          }
+        }
+
+        if (!cancelado) {
+          setTraducoesCustom(novasTraducoes);
+        }
       }
     };
 
-    carregarConfigMateria();
-  }, [materiaParam]);
+    carregarConfig();
 
-  if (pathnames.length === 0) return null;
+    return () => {
+      cancelado = true;
+    };
+  }, [materia, atividade, slug, location.pathname]);
 
-  const obterNomeExibicao = (value: string): string => {
-    const slugLower = value.toLowerCase();
+  const formatarNome = (value: string) => {
+    const valLower = value.toLowerCase();
 
-    if (dicionarioMateria[slugLower]) return dicionarioMateria[slugLower];
-    if (dicionarioMateria[value]) return dicionarioMateria[value];
+    if (traducoesCustom[valLower]) {
+      return traducoesCustom[valLower];
+    }
 
-    if (TRADUCAO_NOMES[slugLower]) return TRADUCAO_NOMES[slugLower];
-    if (TRADUCAO_NOMES[value]) return TRADUCAO_NOMES[value];
+    if (TRADUCAO_NOMES[value]) {
+      return TRADUCAO_NOMES[value];
+    }
 
-    const textoFormatado = value.replace(/[-_]/g, ' ');
-    return textoFormatado.charAt(0).toUpperCase() + textoFormatado.slice(1);
+    return value.replace(/-/g, ' ');
+  };
+
+  // Função para resolver o destino de cada link do Breadcrumbs
+  const obterDestino = (index: number, value: string) => {
+    // Se clicar em 'atividades' ou 'assuntos', redireciona para a página da matéria!
+    if ((value === 'atividades' || value === 'assuntos') && periodo && materia) {
+      return `/${periodo}/${materia}`;
+    }
+
+    return `/${pathnames.slice(0, index + 1).join('/')}`;
   };
 
   return (
-    <S.Container aria-label="breadcrumb">
-      <S.Item>
-        <Link to="/">Início</Link>
-      </S.Item>
+    <S.BreadcrumbsContainer aria-label="breadcrumb">
+      <S.BreadcrumbsList>
+        <S.BreadcrumbsItem $corPrimaria={corPrimaria}>
+          <Link to="/">Início</Link>
+        </S.BreadcrumbsItem>
 
-      {pathnames.map((value, index) => {
-        const isLast = index === pathnames.length - 1;
-        const nomeExibicao = obterNomeExibicao(value);
-        const slugLower = value.toLowerCase();
+        {pathnames.map((value, index) => {
+          const to = obterDestino(index, value);
+          const isLast = index === pathnames.length - 1;
+          const nomeFormatado = formatarNome(value);
 
-        // Determina o destino correto do clique
-        let targetUrl = `/${pathnames.slice(0, index + 1).join('/')}`;
-
-        // Se o item for 'assuntos' ou 'atividades', redireciona para /:periodo/:materia (índice 0 e 1 do caminho)
-        if (SUBPASTAS_INTERMEDIARIAS.includes(slugLower)) {
-          targetUrl = `/${pathnames.slice(0, 2).join('/')}`;
-        }
-
-        return (
-          <S.Item key={`${targetUrl}-${index}`}>
-            <S.Separator>/</S.Separator>
-
-            {isLast ? (
-              <span className="current">{nomeExibicao}</span>
-            ) : (
-              <Link to={targetUrl}>{nomeExibicao}</Link>
-            )}
-          </S.Item>
-        );
-      })}
-    </S.Container>
+          return (
+            <S.BreadcrumbsItem key={to + index} $isLast={isLast} $corPrimaria={corPrimaria}>
+              <S.Separator>/</S.Separator>
+              {isLast ? (
+                <span>{nomeFormatado}</span>
+              ) : (
+                <Link to={to}>{nomeFormatado}</Link>
+              )}
+            </S.BreadcrumbsItem>
+          );
+        })}
+      </S.BreadcrumbsList>
+    </S.BreadcrumbsContainer>
   );
 };
