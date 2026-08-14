@@ -10,12 +10,14 @@ export const QuestaoContainer = styled.div`
   margin: 1.5rem 0;
   background-color: #171717;
   color: #ffffff;
+
+  scroll-margin-top: 5rem;
 `;
 
-export const QuestaoHeader = styled.div<{ $corPrimaria?: string }>`
+export const QuestaoHeader = styled.div`
   font-weight: 700;
-  /* Utiliza a corPrimaria da matéria ou #22d3ee como padrão */
-  color: ${props => props.$corPrimaria || '#22d3ee'}; 
+  /* Lê a corPrimaria do ThemeProvider fornecido pelo Conteudo.tsx */
+  color: ${props => props.theme?.corPrimaria || '#22d3ee'}; 
   font-size: 1.125rem;
   margin-bottom: 0.5rem;
   transition: color 0.3s ease;

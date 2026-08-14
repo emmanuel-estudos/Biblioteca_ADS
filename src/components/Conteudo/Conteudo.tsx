@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState, ComponentType } from 'react';
 import { MDXProvider } from '@mdx-js/react';
 import { ThemeProvider } from 'styled-components';
@@ -34,8 +34,24 @@ const components = {
   Resultado: MDX.Resultado,
   Linha: MDX.LinhaTerminal,
   Questao: MDX.Questao,
-  QuestaoLink: MDX.QuestaoLink
+  QuestaoLink: MDX.QuestaoLink,
 };
+
+// Declarados FORA do componente para não recriar referências a cada renderização
+const todosArquivosBrutos = import.meta.glob('/src/contents/**/*.mdx');
+const todasConfigs = import.meta.glob('/src/contents/**/config.ts');
+
+const todosArquivos = Object.fromEntries(
+  Object.entries(todosArquivosBrutos).filter(([path]) => {
+    if (import.meta.env.PROD) {
+      const deveIgnorar = IGNORED_PATHS_IN_PROD.some((caminhoProibido) =>
+        path.includes(caminhoProibido)
+      );
+      return !deveIgnorar;
+    }
+    return true;
+  })
+);
 
 export const Conteudo = () => {
   const { periodo, materia, atividade, slug } = useParams<{
@@ -45,10 +61,12 @@ export const Conteudo = () => {
     slug: string;
   }>();
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [MDXComponent, setMDXComponent] = useState<ComponentType | null>(null);
   const [, setTituloAula] = useState<string>('');
 
-  // Atualizada a tipagem padrão do estado para aceitar objetos em atividades
   const [temaMateria, setTemaMateria] = useState({
     nome: '',
     corPrimaria: '#2c3e50',
@@ -58,29 +76,44 @@ export const Conteudo = () => {
     atividades: {} as Record<string, { nome: string; arquivos: Record<string, string> }>,
   });
 
-  const todosArquivosBrutos = import.meta.glob('/src/contents/**/*.mdx');
-  const todasConfigs = import.meta.glob('/src/contents/**/config.ts');
+  const isArquivoResolucao = Boolean(atividade && slug && slug.toLowerCase() !== 'lista');
+  const questaoId = slug && isArquivoResolucao ? slug.split('-')[0] : undefined;
 
-  const todosArquivos = Object.fromEntries(
-    Object.entries(todosArquivosBrutos).filter(([path]) => {
-      if (import.meta.env.PROD) {
-        // Verifica se o caminho do arquivo inclui ALGUM dos itens da lista de ignorados
-        const deveIgnorar = IGNORED_PATHS_IN_PROD.some((caminhoProibido) =>
-          path.includes(caminhoProibido)
-        );
-        return !deveIgnorar;
-      }
-      return true; // Em modo dev (npm run dev), carrega tudo
-    })
-  );
+  // Botão de Voltar: Usa navigate normal sem alterar a estrutura da URL
+  const handleVoltarParaLista = () => {
+    if (!periodo || !materia || !atividade) return;
+
+    const rotaLista = `/${periodo}/${materia}/atividades/${atividade}/Lista`;
+
+    navigate(rotaLista, {
+      state: { scrollTargetId: questaoId },
+    });
+  };
+
+  // Efeito de rolagem até a questão assim que a Lista é carregada
+  useEffect(() => {
+    const stateTarget = (location.state as { scrollTargetId?: string })?.scrollTargetId;
+
+    if (stateTarget && MDXComponent && slug?.toLowerCase() === 'lista') {
+      const timer = setTimeout(() => {
+        const elemento = document.getElementById(stateTarget);
+        if (elemento) {
+          elemento.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+
+      return () => clearTimeout(timer);
+    }
+  }, [location.state, MDXComponent, slug]);
 
   useEffect(() => {
+    let cancelado = false;
+
     const carregarTudo = async () => {
       const numero = periodo?.split('-')[0] || '';
       const pastaPeriodo = `periodo${numero.padStart(2, '0')}`;
       const materiaLower = materia?.toLowerCase();
 
-      // 1. Carregar Configuração da Matéria
       const caminhoConfig = Object.keys(todasConfigs).find((path) =>
         path.toLowerCase().includes(`/${materiaLower}/config.ts`),
       );
@@ -89,26 +122,25 @@ export const Conteudo = () => {
         const modConfig = (await todasConfigs[caminhoConfig]()) as {
           config: typeof temaMateria;
         };
+
+        if (cancelado) return;
+
         const configData = modConfig.config;
         setTemaMateria(configData);
 
-        // 2. Definir o título amigável com fallback inteligente
         if (slug) {
-          let nomeAmigavel = slug.replace(/[-_]/g, ' '); // Fallback padrão
-          
-          // Rota de busca corrigida para navegar por dentro de atividades[atividade].arquivos[slug]
+          let nomeAmigavel = slug.replace(/[-_]/g, ' ');
+
           if (atividade) {
-            // 1. Busca a atividade ignorando maiúsculas/minúsculas (ex: 'Lista01' vs 'lista01')
             const chaveAtividade = Object.keys(configData.atividades || {}).find(
               (key) => key.toLowerCase() === atividade.toLowerCase()
             );
 
-            const atividadeEncontrada = chaveAtividade 
-              ? configData.atividades[chaveAtividade] 
+            const atividadeEncontrada = chaveAtividade
+              ? configData.atividades[chaveAtividade]
               : null;
 
             if (atividadeEncontrada?.arquivos) {
-              // 2. Busca o arquivo dentro da atividade ignorando maiúsculas/minúsculas (ex: 'q001' vs 'Q001')
               const chaveArquivo = Object.keys(atividadeEncontrada.arquivos).find(
                 (key) => key.toLowerCase() === slug.toLowerCase()
               );
@@ -118,7 +150,6 @@ export const Conteudo = () => {
               }
             }
           } else if (configData.assuntos) {
-            // Mantém a busca de assuntos (também com busca segura e insensível a maiúsculas)
             const chaveAssunto = Object.keys(configData.assuntos).find(
               (key) => key.toLowerCase() === slug.toLowerCase()
             );
@@ -133,16 +164,15 @@ export const Conteudo = () => {
         }
       }
 
-      // 3. Carregar o Arquivo MDX com Filtro Dinâmico de Escopo
       const caminhosMDX = Object.keys(todosArquivos);
       const caminhoReal = caminhosMDX.find((path) => {
         const pathLower = path.toLowerCase();
         const nomeArquivo = path.split('/').pop()?.replace('.mdx', '').toLowerCase();
 
-        const pertenceAMateria = 
-          pathLower.includes(`/${pastaPeriodo}/`) && 
+        const pertenceAMateria =
+          pathLower.includes(`/${pastaPeriodo}/`) &&
           pathLower.includes(`/${materiaLower}/`);
-        
+
         const nomeIdentico = nomeArquivo === slug?.toLowerCase();
 
         if (!pertenceAMateria || !nomeIdentico) return false;
@@ -158,14 +188,22 @@ export const Conteudo = () => {
         const modulo = (await todosArquivos[caminhoReal]()) as {
           default: ComponentType;
         };
-        setMDXComponent(() => modulo.default);
+        if (!cancelado) {
+          setMDXComponent(() => modulo.default);
+        }
       } else {
-        setMDXComponent(null);
+        if (!cancelado) {
+          setMDXComponent(null);
+        }
       }
     };
 
     carregarTudo();
-  }, [periodo, materia, atividade, slug, todosArquivos, todasConfigs]);
+
+    return () => {
+      cancelado = true;
+    };
+  }, [periodo, materia, atividade, slug]);
 
   return (
     <ThemeProvider theme={temaMateria}>
@@ -176,6 +214,12 @@ export const Conteudo = () => {
           <>
             <TableOfContents />
             <S.ArticleWrapper>
+              {isArquivoResolucao && (
+                <S.BotaoVoltarContainer onClick={handleVoltarParaLista}>
+                  <span>&larr;</span> Voltar para a Questão na Lista
+                </S.BotaoVoltarContainer>
+              )}
+
               <MDXProvider components={components}>
                 <ListaWrapper>
                   <MDXComponent />
@@ -192,3 +236,5 @@ export const Conteudo = () => {
     </ThemeProvider>
   );
 };
+
+export default Conteudo;

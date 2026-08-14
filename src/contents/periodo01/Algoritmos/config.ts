@@ -23,7 +23,10 @@ export const config = {
 			nome: "Lista 01",
 			arquivos: {
 				"Lista": "Lista Completa (279 questões)",
-				"q001": "Questão 001"
+				// Questão 001
+				"q001-c": "Questão 001 - Linguagem C",
+				// Questão 002
+				"q002-c": "Questão 002 - Linguagem C"
 			}
 		}
 	}

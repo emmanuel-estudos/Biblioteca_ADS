@@ -8,3 +8,4 @@ export * from './MDX/Questao';
 export * from './MDX/QuestaoLink';
 export * from './TableOfContents';
 export * from './UltimaAtualizacao';
+export * from './MDX/VoltarQuestao'

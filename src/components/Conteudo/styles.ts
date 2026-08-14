@@ -42,3 +42,24 @@ export const ArticleWrapper = styled.article`
     scroll-margin-top: 5rem; /* ~80px de distância do topo da tela ao ser focalizado */
   }
 `;
+
+export const BotaoVoltarContainer = styled.button`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  color: ${props => props.theme.corPrimaria || '#38bdf8'};
+  border: 1px solid ${props => props.theme.corPrimaria || '#38bdf8'};
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: ${props => props.theme.corPrimaria || '#38bdf8'};
+    color: #111111;
+  }
+`;

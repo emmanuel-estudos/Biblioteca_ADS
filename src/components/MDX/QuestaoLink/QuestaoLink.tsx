@@ -14,8 +14,8 @@ export const QuestaoLink: React.FC<QuestaoLinkProps> = ({
   label = 'Resolução em',
 }) => {
   const { periodo, materia, atividade } = useParams();
-  const keyLang = linguagem ? linguagem.toLowerCase() : '';
 
+  const keyLang = linguagem ? linguagem.toLowerCase() : '';
   const destino = `/${periodo}/${materia}/atividades/${atividade}/${slug}`;
 
   return (
