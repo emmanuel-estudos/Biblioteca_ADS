@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import * as S from './styles';
+import { ORDEM_LINGUAGENS } from '../QuestaoLink/styles';
 
 export interface QuestaoProps {
   children: React.ReactNode;
@@ -45,22 +46,60 @@ export const Questao: React.FC<QuestaoProps> = ({
     };
   }, [materia]);
 
+  // Função para ordenar os links de resolução conforme a ordem oficial do curso
+  const renderizarLinksOrdenados = () => {
+    if (!linksResolucao) return null;
+
+    // Converte os elementos React recebidos em um Array
+    const linksArray = React.Children.toArray(linksResolucao);
+
+    // Desembrulha Fragmentos (<>...</>) caso tenham sido passados
+    const elementosDesembrulhados: React.ReactNode[] = [];
+    linksArray.forEach((child) => {
+      if (React.isValidElement(child) && child.type === React.Fragment) {
+        elementosDesembrulhados.push(
+          ...React.Children.toArray((child.props as { children?: React.ReactNode }).children)
+        );
+      } else {
+        elementosDesembrulhados.push(child);
+      }
+    });
+
+    // Ordena os elementos de acordo com a prioridade em ORDEM_LINGUAGENS
+    const ordenados = elementosDesembrulhados.sort((a, b) => {
+      if (React.isValidElement(a) && React.isValidElement(b)) {
+        const langA = (a.props as { linguagem?: string })?.linguagem?.toLowerCase() || '';
+        const langB = (b.props as { linguagem?: string })?.linguagem?.toLowerCase() || '';
+
+        const idxA = ORDEM_LINGUAGENS.indexOf(langA);
+        const idxB = ORDEM_LINGUAGENS.indexOf(langB);
+
+        const posA = idxA !== -1 ? idxA : 999;
+        const posB = idxB !== -1 ? idxB : 999;
+
+        return posA - posB;
+      }
+      return 0;
+    });
+
+    return ordenados;
+  };
+
+  const linksOrdenados = renderizarLinksOrdenados();
+
   return (
     <S.QuestaoContainer>
-      {/* O título "Questão 01" agora usa a corPrimaria do config.ts da matéria */}
       <S.QuestaoHeader $corPrimaria={corPrimaria} />
       
       <S.QuestaoDivider />
 
-      {/* Conteúdo do MDX */}
       <S.QuestaoConteudo>
         {children}
       </S.QuestaoConteudo>
 
-      {/* Renderiza os links de resolução se houver */}
-      {linksResolucao && (
+      {linksOrdenados && linksOrdenados.length > 0 && (
         <S.QuestaoFooter>
-          {linksResolucao}
+          {linksOrdenados}
         </S.QuestaoFooter>
       )}
     </S.QuestaoContainer>

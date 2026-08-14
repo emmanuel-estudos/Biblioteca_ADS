@@ -16,6 +16,16 @@ import { Link } from 'react-router-dom';
 	},
 ========================================================================== */
 
+// Ordem de Exibição dos componentes de Redirecionamento
+export const ORDEM_LINGUAGENS: string[] = [
+  'c',
+  'c++',
+  'python', 'py',
+  'java',
+  'js',
+  'ts',
+];
+
 export interface CorLinguagem {
   cor: string;
   bg: string;
