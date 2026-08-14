@@ -16,15 +16,14 @@ export const QuestaoLink: React.FC<QuestaoLinkProps> = ({
   const { periodo, materia, atividade } = useParams();
   const keyLang = linguagem ? linguagem.toLowerCase() : '';
 
-  // Inclui '/atividades/' para bater exatamente com a rota registrada no App.tsx
   const destino = `/${periodo}/${materia}/atividades/${atividade}/${slug}`;
 
   return (
-    <S.LinkContainer to={destino}>
-      <S.StatusDot />
+    <S.LinkContainer to={destino} $linguagem={linguagem}>
+      <S.StatusDot $linguagem={linguagem} />
       <span>{label}</span>
       {keyLang && <span style={{ textTransform: 'capitalize' }}>{keyLang}</span>}
-      <S.Seta>&rarr;</S.Seta>
+      <S.Seta $linguagem={linguagem}>&rarr;</S.Seta>
     </S.LinkContainer>
   );
 };
