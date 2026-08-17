@@ -79,6 +79,21 @@ export const Conteudo = () => {
   const isArquivoResolucao = Boolean(atividade && slug && slug.toLowerCase() !== 'lista');
   const questaoId = slug && isArquivoResolucao ? slug.split('-')[0] : undefined;
 
+  // Verifica se a atividade atual realmente possui um arquivo MDX de Lista
+  const temListaNaAtividade = Boolean(
+    atividade &&
+      Object.keys(todosArquivos).some((path) => {
+        const pathLower = path.toLowerCase();
+        return (
+          pathLower.includes(`/atividades/${atividade.toLowerCase()}/`) &&
+          pathLower.endsWith('/lista.mdx')
+        );
+      })
+  );
+
+  // Define se o retorno deve ser direcionado para a Lista ou para o comportamento padrão
+  const deveVoltarParaLista = isArquivoResolucao && temListaNaAtividade;
+
   // Botão de Voltar: Usa navigate normal sem alterar a estrutura da URL
   const handleVoltarParaLista = () => {
     if (!periodo || !materia || !atividade) return;
@@ -212,14 +227,10 @@ export const Conteudo = () => {
       <S.PageContainer>
         {MDXComponent ? (
           <>
-            <TableOfContents />
+            <TableOfContents 
+              onVoltar={deveVoltarParaLista ? handleVoltarParaLista : undefined} 
+            />
             <S.ArticleWrapper>
-              {isArquivoResolucao && (
-                <S.BotaoVoltarContainer onClick={handleVoltarParaLista}>
-                  <span>&larr;</span> Voltar
-                </S.BotaoVoltarContainer>
-              )}
-
               <MDXProvider components={components}>
                 <ListaWrapper>
                   <MDXComponent />

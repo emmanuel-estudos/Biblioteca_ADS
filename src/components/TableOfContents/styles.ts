@@ -103,3 +103,26 @@ export const TocLink = styled.a<{ $level: number }>`
     color: ${props => props.theme.corSecundaria};
   }
 `;
+
+export const BotaoVoltarContainer = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  background-color: transparent;
+  color: ${props => props.theme.corPrimaria || '#38bdf8'};
+  border: 1px solid ${props => props.theme.corPrimaria || '#38bdf8'};
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: ${props => props.theme.corPrimaria || '#38bdf8'};
+    color: #111111;
+  }
+`;

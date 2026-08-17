@@ -1,9 +1,17 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import * as S from './styles';
 
-export const TableOfContents = () => {
+export interface TableOfContentsProps {
+  isArquivoResolucao?: boolean;
+  onVoltar?: () => void;
+}
+
+export const TableOfContents: React.FC<TableOfContentsProps> = ({
+  onVoltar,
+}) => {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const [headings, setHeadings] = useState<{ id: string; text: string; level: number }[]>([]);
   const [isOpen, setIsOpen] = useState(true);
 
@@ -22,6 +30,15 @@ export const TableOfContents = () => {
     const timer = setTimeout(parseHeadings, 150);
     return () => clearTimeout(timer);
   }, [slug]);
+
+  const handleVoltar = () => {
+    if (onVoltar) {
+      onVoltar();
+    } else {
+      // Volta para a tela anterior no histórico de navegação do usuário
+      navigate(-1);
+    }
+  };
   
   if (headings.length === 0) return null;
   
@@ -32,6 +49,10 @@ export const TableOfContents = () => {
       </S.ToggleButton>
       
       <S.TocWrapper $isOpen={isOpen}>
+        <S.BotaoVoltarContainer onClick={handleVoltar}>
+          <span>&larr;</span> Voltar
+        </S.BotaoVoltarContainer>
+
         <S.TocTitle>Tópicos</S.TocTitle>
         <S.TocList>
           {headings.map((h) => (

@@ -62,9 +62,25 @@
 	"Questão para Lista de Programação": {
 		"prefix": "/questao",
 		"body": [
-			"<Questao slug=\"q\" linguagem=\"c\">",
-			"  Conteúdo",
-      "</Questao>"
-		]
+			"<Questao",
+			"  id=\"${2:id}\"",
+			"  linksResolucao={",
+			"    <>",
+			"      <QuestaoLink slug=\"${3:arquivo resposta}\" linguagem=\"${4:linguagem abreviada}\" />",
+			"    </>",
+			"  }",
+			">",
+			" ${1:Enunciado}",
+			"</Questao>",
+		],
+		"description": "Insere a estrutura para uma questão de uma lista."
+	},
+
+	"Link para Resposta de Questão": {
+		"prefix": "/link_questao",
+		"body": [
+			"<QuestaoLink slug=\"${1:arquivo resposta}\" linguagem=\"${2:linguagem abreviada}\" />"
+		],
+		"description": "Insere o link para a resposta de uma questão de uma lista."
 	}
 }
