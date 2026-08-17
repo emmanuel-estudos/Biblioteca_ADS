@@ -3,22 +3,22 @@ import * as s from './styles';
 import { UltimaAtualizacao } from '../../components';
 
 export const Home = () => {
-  // 1. Fazemos a varredura de todos os arquivos dentro de contents
-  const todosArquivos = import.meta.glob('/src/contents/**/*');
+  // 1. Varre apenas arquivos .mdx, .ts e .tsx dentro de contents, ignorando .c, .pdf, .exe, etc.
+  const todosArquivos = import.meta.glob('/src/contents/**/*.{mdx,ts,tsx}');
 
   const periodosAutomaticos = useMemo(() => {
     const caminhos = Object.keys(todosArquivos);
     const pastasDetectadas = new Set<string>();
 
-    caminhos.forEach(path => {
+    caminhos.forEach((path) => {
       // O caminho costuma ser: /src/contents/periodo01/materia/...
       const partes = path.split('/');
-      
+
       // Localizamos a parte que vem logo após 'contents'
       const idxContents = partes.indexOf('contents');
       if (idxContents !== -1 && partes[idxContents + 1]) {
         const pastaPeriodo = partes[idxContents + 1];
-        
+
         // Verificamos se segue o padrão "periodoXX"
         if (pastaPeriodo.startsWith('periodo')) {
           pastasDetectadas.add(pastaPeriodo);
@@ -29,13 +29,13 @@ export const Home = () => {
     // 2. Convertemos as pastas em objetos com ID e Nome, e ordenamos
     return Array.from(pastasDetectadas)
       .sort() // Garante que apareça periodo01, periodo02, etc.
-      .map(pasta => {
+      .map((pasta) => {
         // Extrai os números (ex: "periodo02" -> 2)
         const numero = parseInt(pasta.replace('periodo', ''), 10);
-        
+
         return {
           id: `${numero}-periodo`, // Mantém o padrão de URL: 2-periodo
-          nome: `${numero}º Período` // Mantém o padrão visual: 2º Período
+          nome: `${numero}º Período`, // Mantém o padrão visual: 2º Período
         };
       });
   }, [todosArquivos]);
@@ -43,7 +43,7 @@ export const Home = () => {
   return (
     <s.Container>
       <s.Title>Biblioteca ADS</s.Title>
-      
+
       <s.Grid>
         {periodosAutomaticos.map((p) => (
           <s.CardLink key={p.id} to={`/${p.id}`}>
