@@ -5,7 +5,7 @@ export const BotaoVoltar = styled.button<{ $corPrimaria?: string }>`
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.25rem;
   background-color: #0f172a; /* neutral-900 / slate-900 */
   border: 1px solid #1e293b;
   border-radius: 0.375rem;

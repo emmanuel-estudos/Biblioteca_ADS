@@ -216,7 +216,7 @@ export const Conteudo = () => {
             <S.ArticleWrapper>
               {isArquivoResolucao && (
                 <S.BotaoVoltarContainer onClick={handleVoltarParaLista}>
-                  <span>&larr;</span> Voltar para a Questão na Lista
+                  <span>&larr;</span> Voltar
                 </S.BotaoVoltarContainer>
               )}
 

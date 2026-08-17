@@ -13,7 +13,7 @@ export interface VoltarQuestaoProps {
 
 export const VoltarQuestao: React.FC<VoltarQuestaoProps> = ({
   questaoId,
-  label = 'Voltar para a Questão na Lista',
+  label = 'Voltar',
 }) => {
   const { periodo, materia, atividade } = useParams();
   const navigate = useNavigate();

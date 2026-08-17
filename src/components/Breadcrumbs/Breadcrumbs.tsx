@@ -3,7 +3,11 @@ import { useEffect, useState } from 'react';
 import * as S from './styles';
 import { TRADUCAO_NOMES } from '../../utils/traducoes';
 
-export const Breadcrumbs = () => {
+export interface BreadcrumbsProps {
+  abaAtiva?: 'atividades' | 'assuntos';
+}
+
+export const Breadcrumbs: React.FC<BreadcrumbsProps> = () => {
   const location = useLocation();
   const { periodo, materia, atividade, slug } = useParams<{
     periodo?: string;

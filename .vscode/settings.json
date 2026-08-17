@@ -45,7 +45,10 @@
     "cSpell.ignoreRegExpList": [
       "<Comentario\\b[^>]*>", // Ignora a tag de abertura <Comentario ...>
       "</Comentario>",        // Ignora a tag de fechamento </Comentario>
-      ".seunome."
+      ".seunome.",
+      "<Questao\\b[^>]*>",
+      "</Questao>",
+      "<QuestaoLink\\b[^>]*>"
     ],
 
   // ========== Configurações GLOBAIS ==========

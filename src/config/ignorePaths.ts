@@ -3,6 +3,15 @@
  * durante o build de produção (deploy para o GitHub Pages).
  */
 export const IGNORED_PATHS_IN_PROD: string[] = [
+	// P1 - Algoritmos e Lógica de Programação
+	'Algoritmos/assuntos/02-DesviosCondicionais.mdx',
+	'Algoritmos/assuntos/03-Comandos-Repeticao.mdx',
+	'Algoritmos/assuntos/04-Vetores_e_Matrizes.mdx',
+	'Algoritmos/assuntos/04-Vetores_e_Matrizes.mdx',
+	'Algoritmos/assuntos/06-Recursividade.mdx',
+	'Algoritmos/assuntos/07-Ponteiros.mdx',
+	'Algoritmos/assuntos/zLista de Exercícios programação.pdf',
+
 	// P2 - Sistemas Operacionais
   'Sistemas-Operacionais-SO/atividades/Apresentacao/',
 
