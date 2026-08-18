@@ -26,7 +26,11 @@ export const config = {
 				// Questão 001
 				"q001-c": "Questão 001 - Linguagem C",
 				// Questão 002
-				"q002-c": "Questão 002 - Linguagem C"
+				"q002-c": "Questão 002 - Linguagem C",
+				// Questão 003
+				"q003-c": "Questão 003 - Linguagem C",
+				// Questão 003
+				"q004-c": "Questão 004 - Linguagem C"
 			}
 		}
 	}

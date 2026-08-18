@@ -91,10 +91,10 @@ export const Conteudo = () => {
       })
   );
 
-  // Define se o retorno deve ser direcionado para a Lista ou para o comportamento padrão
+  // Define se o retorno deve ser direcionado para a Lista
   const deveVoltarParaLista = isArquivoResolucao && temListaNaAtividade;
 
-  // Botão de Voltar: Usa navigate normal sem alterar a estrutura da URL
+  // 1. Redireciona do arquivo de resolução para a Lista correspondente
   const handleVoltarParaLista = () => {
     if (!periodo || !materia || !atividade) return;
 
@@ -103,6 +103,19 @@ export const Conteudo = () => {
     navigate(rotaLista, {
       state: { scrollTargetId: questaoId },
     });
+  };
+
+  // 2. Redireciona da Lista (ou assunto geral) para a página/aba anterior de atividades
+  const handleVoltarGeral = () => {
+    if (!periodo || !materia) return;
+
+    if (atividade) {
+      // Como veio de uma atividade, volta explicitamente apontando a aba 'atividades'
+      navigate(`/${periodo}/${materia}?aba=atividades`);
+    } else {
+      // Se veio de um 'assunto', basta voltar para a matéria (ela já abrirá a aba 'assuntos' por padrão)
+      navigate(`/${periodo}/${materia}`);
+    }
   };
 
   // Efeito de rolagem até a questão assim que a Lista é carregada
@@ -115,6 +128,10 @@ export const Conteudo = () => {
         if (elemento) {
           elemento.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+
+        // LIMPA O STATE do histórico do navegador após fazer o scroll
+        // Impede que a Lista "lembre" que veio de uma questão em futuros cliques de voltar
+        window.history.replaceState({}, document.title);
       }, 100);
 
       return () => clearTimeout(timer);
@@ -228,7 +245,7 @@ export const Conteudo = () => {
         {MDXComponent ? (
           <>
             <TableOfContents 
-              onVoltar={deveVoltarParaLista ? handleVoltarParaLista : undefined} 
+              onVoltar={deveVoltarParaLista ? handleVoltarParaLista : handleVoltarGeral} 
             />
             <S.ArticleWrapper>
               <MDXProvider components={components}>
