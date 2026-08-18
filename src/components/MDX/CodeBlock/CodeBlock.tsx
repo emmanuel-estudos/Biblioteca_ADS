@@ -1,6 +1,10 @@
 import React, { useState, useRef } from 'react';
 import * as S from './styles';
 
+// Importando Imagens
+import checkIcon from '../../../assets/icons/check.svg';
+import copyIcon from '../../../assets/icons/copy.svg';
+
 // Interface para Código Inline (uma crase: `código`)
 export interface CodeProps extends React.HTMLAttributes<HTMLElement> {
   children?: React.ReactNode;
@@ -52,7 +56,7 @@ export const CodePre: React.FC<PreProps> = ({ children, ...props }) => {
       <S.CopyButton onClick={handleCopy} aria-label={copiado ? 'Código copiado' : 'Copiar código'}>
         {!iconError ? (
           <img
-            src={copiado ? '../../../../public/icons/check.svg' : '../../../../public/icons/copy.svg'}
+            src={copiado ? checkIcon : copyIcon}
             alt={copiado ? 'Copiado' : 'Copiar'}
             onError={() => setIconError(true)}
           />

@@ -31,4 +31,8 @@ export const IGNORED_PATHS_IN_PROD: string[] = [
   // Adicione novos caminhos aqui facilmente quando precisar:
   	// 'materia/atividades/PastaDaAtividade/',
 		// 'materia/atividades/PastaDaAtividade/arquivo.extensao'
+
+	// Arquivos de Configuração
+	'contexto-projeto.md',
+	'gerar-contexto.js'
 ];
