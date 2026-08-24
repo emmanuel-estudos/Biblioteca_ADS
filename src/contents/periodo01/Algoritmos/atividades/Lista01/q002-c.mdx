@@ -1,9 +1,67 @@
-# Questão 02
+# Questão 002
 
-teste de texto comum
+## Enunciado
 
-`teste de texto inline-code`
+Escreva um programa que leia o valor do lado de um quadrado e calcule a sua área e o seu perímetro.
 
-```c
-int numero = 1;
+## Resolução
+
+```C
+#include <stdio.h>
+
+void main() {
+	// declarando variáveis
+	int num1, num2, num3, peso1, peso2, peso3;
+	float media;
+
+	// pedindo dados
+		// primeiro número
+		printf("Informe o primeiro numero e seu respectivo peso: ");
+		scanf("%d%d", &num1, &peso1);
+
+		// segundo número
+		printf("Informe o segundo numero e seu respectivo peso: ");
+		scanf("%d%d", &num2, &peso2);
+
+		// terceiro número
+		printf("Informe o terceiro numero e seu respectivo peso: ");
+		scanf("%d%d", &num3, &peso3);
+
+	// cálculo
+	media = (float) (num1 * peso1 + num2 * peso2 + num3 * peso3) / (peso1 + peso2 + peso3);
+
+	// informando resultado
+	printf("A media ponderada dos numeros informados e seus respectivos pesos eh %.2f.", media);
+}
 ```
+
+## Explicações
+
+### Declaração de Variáveis
+
+Uma boa prática é declarar as variáveis que serão usadas logo no início do código.
+
+Isso obriga você a pensar um pouco mais na estruturação da lógica, pensando primeiramente no que será necessário no código antes de começar a escrevê-lo propriamente.
+
+.
+
+### Pedindo Dados
+
+Pedimos que o usuário informe os dados por meio da mensagem do `printf`.
+
+Os dados informados são guardados em suas respectivas variáveis através do `scanf`. O primeiro parâmetro (**"PRIMEIRO_PARÂMETRO"**) informa que o `scanf` receberá três variáveis do tipo `TIPO`, podendo serem separadas por espaço ou **Enter**, já que o `scanf` ignora espaços em branco. Os **operadores de endereço (&)** indicam as variáveis em que os valores devem ser guardados.
+
+.
+
+### Cálculo
+
+Agora que já declaramos as variáveis que usaremos, já coletamos os dados necessários e já os guardamos em suas variáveis, podemos calcular a média e fazer com que o programa cumpra seu propósito.
+
+.
+
+### Informando resultado
+
+Com o cálculo já realizado, o que nos resta é informar ao usuário o resultado.
+
+Utilizamos novamente o `printf` para exibir uma mensagem ao usuário. Dentro da mensagem há um **especificador de formato**, usado para exibir o valor de uma variável.
+
