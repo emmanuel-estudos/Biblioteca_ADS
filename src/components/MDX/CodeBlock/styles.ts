@@ -54,6 +54,11 @@ export const PreBlock = styled.pre`
   line-height: 1.6;
   tab-size: 2; -moz-tab-size: 2;
 
+	/* Quebra automática de linha (Word Wrap) estilo VS Code */
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+
   code {
     background-color: transparent;
     padding: 0;
@@ -64,7 +69,7 @@ export const PreBlock = styled.pre`
   }
 
   /* ========================================================= */
-  /* PALETA MONOKAI EXACT MATCH (C / C++)                      */
+  /* PALETA MONOKAI                                            */
   /* ========================================================= */
 
   /* Diretivas (#include, #define) */
@@ -78,7 +83,7 @@ export const PreBlock = styled.pre`
 
   /* Cabeçalho dentro de #include (<stdio.h>) */
   .hljs-meta .hljs-string {
-    color: #e6db74; /* Amarelo Monokai */
+    color: #e6db74;
   }
 
   /* Tipos primitivos e palavras reservadas (void, int, float, return) */
@@ -137,15 +142,15 @@ export const PreBlock = styled.pre`
     color: #f92672; /* Rosa / Vermelho Magenta */
   }
 
-  /* Símbolos e Pontuação geral */
+  /* Símbolos e Pontuação geral (incluindo ';', ',', etc.) */
   .hljs-punctuation,
   .token.punctuation {
-    color: #d8a228; /* Amarelo Queimado */
+    color: #ffffff; /* Cor branca para a pontuação */
   }
 
   /* Comentários (// declarando variáveis) */
   .hljs-comment {
-    color: #fd971f; /* Laranja Monokai */
+    color: #fd971f;
     font-style: italic;
   }
 
