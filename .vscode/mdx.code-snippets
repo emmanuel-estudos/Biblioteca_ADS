@@ -64,6 +64,7 @@
 		"body": [
 			"<Questao",
 			"  id=\"${2:id}\"",
+			"  titulo=\"\"",
 			"  linksResolucao={",
 			"    <>",
 			"      <QuestaoLink slug=\"${3:arquivo resposta}\" linguagem=\"${4:linguagem abreviada}\" />",
@@ -82,5 +83,55 @@
 			"<QuestaoLink slug=\"${1:arquivo resposta}\" linguagem=\"${2:linguagem abreviada}\" />"
 		],
 		"description": "Insere o link para a resposta de uma questão de uma lista."
+	},
+
+	"Estrutura do Arquivo de Resolução de Questão": {
+		"prefix": "/resposta_arquivo_questao",
+		"body": [
+			"# Questão [número]",
+      "",
+      "## Enunciado",
+			"",
+      "Enunciado",
+      "",
+      "## Resolução",
+      "",
+      "```C",
+      "",
+      "```",
+      "",
+      "## Explicações",
+      "",
+      "### Declaração de Variáveis",
+			"",
+			"Uma boa prática é declarar as variáveis que serão usadas logo no início do código.",
+      "",
+      "Isso obriga você a pensar um pouco mais na estruturação da lógica, pensando primeiramente no que será necessário no código antes de começar a escrevê-lo propriamente.",
+      "",
+      "[INSERIR AQUI]",
+      "",
+      "### Pedindo Dados",
+			"",
+			"Pedimos que o usuário informe os dados por meio da mensagem do `printf`.",
+      "",
+      "Os dados informados são guardados em suas respectivas variáveis através do `scanf`. O primeiro parâmetro (**\"PRIMEIRO_PARÂMETRO\"**) informa que o `scanf` receberá três variáveis do tipo `TIPO`, podendo serem separadas por espaço ou **Enter**, já que o `scanf` ignora espaços em branco. Os **operadores de endereço (&)** indicam as variáveis em que os valores devem ser guardados.",
+      "",
+      "[INSERIR AQUI]",
+      "",
+      "### Cálculo",
+			"",
+			"Agora que já declaramos as variáveis que usaremos, já coletamos os dados necessários e já os guardamos em suas variáveis, podemos calcular a média e fazer com que o programa cumpra seu propósito.",
+      "",
+      "[INSERIR AQUI]",
+      "",
+      "### Informando resultado",
+			"",
+			"Com o cálculo já realizado, o que nos resta é informar ao usuário o resultado.",
+      "",
+      "Utilizamos novamente o `printf` para exibir uma mensagem ao usuário. Dentro da mensagem há um **especificador de formato**, usado para exibir o valor de uma variável.",
+      "",
+			"[INSERIR AQUI]"
+		],
+		"description": "Insere a estrutura padronizada para o arquivo de resolução de questão."
 	}
 }

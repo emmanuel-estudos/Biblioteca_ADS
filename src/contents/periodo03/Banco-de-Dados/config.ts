@@ -1,0 +1,36 @@
+export const config = {
+	sigla: "BdD I",
+	nome: "Banco de Dados",
+	periodo: "3º Período",
+	corPrimaria: '#6366f1',
+	corSecundaria: '#4338ca',
+
+	// Mapeamento de arquivos da matéria (arquivo Materia.tsx)
+	assuntos: {
+		"01-Conceitos_Basicos_e_Terminologias": "Conceitos básicos e terminologias de bancos de dados",
+	},
+
+	// Mapeamento das pastas da aba 'Atividade' da matéria (arquivo Materia.tsx)
+	atividades: {
+		"Lista01-Exercicios_Slides": {
+			nome: "Lista 01: Exercícios dos Slides",
+			arquivos: {
+				// Arquivos de Configuração
+					"script-criacao_e_povoamento": "Script | Criação e Povoamento de Tabelas",
+
+				// Questões
+					"q001-sql": "Questão 001"
+			},
+		},
+		"Lista02-Exercicios_DER": {
+			nome: "Lista 02: Exercícios DER",
+			arquivos: {
+				"Lista": "Lista Completa",
+				"q001-clinica_medica": "Questão 001 - Clínica Médica",
+				"q002-empresa": "Questão 002 - Empresa",
+				"q003-biblioteca": "Questão 003 - Biblioteca",
+				"q004-hotel": "Questão 004 - Hotel"
+			}
+		},
+	}
+};
