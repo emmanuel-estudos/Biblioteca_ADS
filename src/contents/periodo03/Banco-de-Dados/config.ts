@@ -29,7 +29,20 @@ export const config = {
 				"q001-clinica_medica": "Questão 001 - Clínica Médica",
 				"q002-empresa": "Questão 002 - Empresa",
 				"q003-biblioteca": "Questão 003 - Biblioteca",
-				"q004-hotel": "Questão 004 - Hotel"
+				"q004-hotel": "Questão 004 - Hotel",
+        "q005-rede_social": "Questão 005 - Rede Social",
+        "q006-supermercado": "Questão 006 - Supermercado",
+        "q007-camara_dos_deputados": "Questão 007 - Câmara dos Deputados",
+        "q008-servico_de_microBlog": "Questão 008 - Serviço de MicroBlog",
+        "q009-campeonatos_de_futebol": "Questão 009 - Campeonato de Futebol",
+        "q010-controle_de_projetos_academicos": "Questão 010 - Controle de Projetos Academicos",
+        "q011-controle_de_artigos_cientificos": "Questão 011 - Controle de Artigo Científico",
+        "q012-empresa_aerea": "Questão 012 - Empresa Aérea",
+        "q013-servico_de_streaming_de_video": "Questão 013 - Serviço de Streming de Vídeo",
+        "q014-restaurante": "Questão 014 - Restaurante",
+        "q015-sistema_de_streaming_de_audio": "Questão 015 - Sistema de Streming de Áudio",
+        "q016-academia": "Questão 016 - Academia",
+        "q017-pet_shop": "Questão 017 - Pet Shop",
 			}
 		},
 	}
