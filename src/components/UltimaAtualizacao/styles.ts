@@ -70,8 +70,9 @@ export const Descricao = styled.p`
   color: #a1a1aa;
   font-size: 0.84375rem;
   font-weight: 400;
-  line-height: 0.8;
+  line-height: 1;
   white-space: pre-line;
+	word-break: break-word;
 `;
 
 export const DataContainer = styled.div`

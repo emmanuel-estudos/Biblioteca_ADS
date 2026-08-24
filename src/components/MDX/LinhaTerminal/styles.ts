@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const TerminalRow = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
   margin: 0;
   padding: 0;

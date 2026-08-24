@@ -11,6 +11,8 @@
     "codegyan.auto-closing-tags",
     "formulahendry.auto-complete-tag",
     "usernamehw.errorlens",
-    "IBM.output-colorizer"
+    "IBM.output-colorizer",
+    "alexcvzz.vscode-sqlite",
+    "qwtel.sqlite-viewer"
   ]
 }

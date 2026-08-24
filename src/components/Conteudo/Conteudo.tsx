@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState, ComponentType } from 'react';
 import { MDXProvider } from '@mdx-js/react';
 import { ThemeProvider } from 'styled-components';
@@ -9,15 +9,19 @@ import * as S from './styles';
 
 import { Breadcrumbs } from '../Breadcrumbs';
 import { TableOfContents } from '../TableOfContents';
+import { ListaWrapper } from '../MDX/Questao/styles';
 
 const components = {
+  a: MDX.Link,
+  table: MDX.Table,
   h1: MDX.TituloH1,
   h2: MDX.TituloH2,
   h3: MDX.TituloH3,
   h4: MDX.TituloH4,
   p: MDX.Paragraph,
   strong: MDX.Strong,
-  code: MDX.CodeBlock,
+  code: MDX.CodeInline,
+  pre: MDX.CodePre,
   ol: MDX.ListaNaoOrdenada,
   ul: MDX.ListaNaoOrdenada,
   li: MDX.ItemListaNaoOrdenada,
@@ -29,7 +33,24 @@ const components = {
   Comentario: MDX.Comment,
   Resultado: MDX.Resultado,
   Linha: MDX.LinhaTerminal,
+  Questao: MDX.Questao,
+  QuestaoLink: MDX.QuestaoLink,
 };
+
+const todosArquivosBrutos = import.meta.glob('/src/contents/**/*.mdx');
+const todasConfigs = import.meta.glob('/src/contents/**/config.ts');
+
+const todosArquivos = Object.fromEntries(
+  Object.entries(todosArquivosBrutos).filter(([path]) => {
+    if (import.meta.env.PROD) {
+      const deveIgnorar = IGNORED_PATHS_IN_PROD.some((caminhoProibido) =>
+        path.includes(caminhoProibido)
+      );
+      return !deveIgnorar;
+    }
+    return true;
+  })
+);
 
 export const Conteudo = () => {
   const { periodo, materia, atividade, slug } = useParams<{
@@ -39,10 +60,12 @@ export const Conteudo = () => {
     slug: string;
   }>();
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [MDXComponent, setMDXComponent] = useState<ComponentType | null>(null);
   const [, setTituloAula] = useState<string>('');
 
-  // Atualizada a tipagem padrão do estado para aceitar objetos em atividades
   const [temaMateria, setTemaMateria] = useState({
     nome: '',
     corPrimaria: '#2c3e50',
@@ -52,29 +75,68 @@ export const Conteudo = () => {
     atividades: {} as Record<string, { nome: string; arquivos: Record<string, string> }>,
   });
 
-  const todosArquivosBrutos = import.meta.glob('/src/contents/**/*.mdx');
-  const todasConfigs = import.meta.glob('/src/contents/**/config.ts');
+  const isArquivoResolucao = Boolean(atividade && slug && slug.toLowerCase() !== 'lista');
+  
+  const searchParams = new URLSearchParams(location.search);
+  const questaoId = searchParams.get('from') || (slug && isArquivoResolucao ? slug.split('-')[0] : undefined);
 
-  const todosArquivos = Object.fromEntries(
-    Object.entries(todosArquivosBrutos).filter(([path]) => {
-      if (import.meta.env.PROD) {
-        // Verifica se o caminho do arquivo inclui ALGUM dos itens da lista de ignorados
-        const deveIgnorar = IGNORED_PATHS_IN_PROD.some((caminhoProibido) =>
-          path.includes(caminhoProibido)
+  const temListaNaAtividade = Boolean(
+    atividade &&
+      Object.keys(todosArquivos).some((path) => {
+        const pathLower = path.toLowerCase();
+        return (
+          pathLower.includes(`/atividades/${atividade.toLowerCase()}/`) &&
+          pathLower.endsWith('/lista.mdx')
         );
-        return !deveIgnorar;
-      }
-      return true; // Em modo dev (npm run dev), carrega tudo
-    })
+      })
   );
 
+  const deveVoltarParaLista = isArquivoResolucao && temListaNaAtividade;
+
+  const handleVoltarParaLista = () => {
+    if (!periodo || !materia || !atividade) return;
+
+    const rotaLista = `/${periodo}/${materia}/atividades/${atividade}/Lista`;
+
+    navigate(questaoId ? `${rotaLista}#${questaoId}` : rotaLista, {
+      state: { scrollTargetId: questaoId },
+    });
+  };
+
+  const handleVoltarGeral = () => {
+    if (!periodo || !materia) return;
+
+    if (atividade) {
+      navigate(`/${periodo}/${materia}?aba=atividades`);
+    } else {
+      navigate(`/${periodo}/${materia}`);
+    }
+  };
+
+  // Efeito de rolagem imediata assim que o MDXComponent é renderizado
   useEffect(() => {
+    const stateTarget = (location.state as { scrollTargetId?: string })?.scrollTargetId;
+    const hashTarget = location.hash ? location.hash.replace('#', '') : undefined;
+    const targetId = hashTarget || stateTarget;
+
+    if (targetId && MDXComponent && slug?.toLowerCase() === 'lista') {
+      const elemento = document.getElementById(targetId);
+      if (elemento) {
+        elemento.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state, location.hash, MDXComponent, slug]);
+
+  useEffect(() => {
+    let cancelado = false;
+
     const carregarTudo = async () => {
       const numero = periodo?.split('-')[0] || '';
       const pastaPeriodo = `periodo${numero.padStart(2, '0')}`;
       const materiaLower = materia?.toLowerCase();
 
-      // 1. Carregar Configuração da Matéria
       const caminhoConfig = Object.keys(todasConfigs).find((path) =>
         path.toLowerCase().includes(`/${materiaLower}/config.ts`),
       );
@@ -83,18 +145,41 @@ export const Conteudo = () => {
         const modConfig = (await todasConfigs[caminhoConfig]()) as {
           config: typeof temaMateria;
         };
+
+        if (cancelado) return;
+
         const configData = modConfig.config;
         setTemaMateria(configData);
 
-        // 2. Definir o título amigável com fallback inteligente
         if (slug) {
-          let nomeAmigavel = slug.replace(/[-_]/g, ' '); // Fallback padrão
-          
-          // Rota de busca corrigida para navegar por dentro de atividades[atividade].arquivos[slug]
+          let nomeAmigavel = slug.replace(/[-_]/g, ' ');
+
           if (atividade) {
-            nomeAmigavel = configData.atividades?.[atividade]?.arquivos?.[slug] || nomeAmigavel;
+            const chaveAtividade = Object.keys(configData.atividades || {}).find(
+              (key) => key.toLowerCase() === atividade.toLowerCase()
+            );
+
+            const atividadeEncontrada = chaveAtividade
+              ? configData.atividades[chaveAtividade]
+              : null;
+
+            if (atividadeEncontrada?.arquivos) {
+              const chaveArquivo = Object.keys(atividadeEncontrada.arquivos).find(
+                (key) => key.toLowerCase() === slug.toLowerCase()
+              );
+
+              if (chaveArquivo) {
+                nomeAmigavel = atividadeEncontrada.arquivos[chaveArquivo];
+              }
+            }
           } else if (configData.assuntos) {
-            nomeAmigavel = configData.assuntos[slug] || nomeAmigavel;
+            const chaveAssunto = Object.keys(configData.assuntos).find(
+              (key) => key.toLowerCase() === slug.toLowerCase()
+            );
+
+            if (chaveAssunto) {
+              nomeAmigavel = configData.assuntos[chaveAssunto];
+            }
           }
 
           setTituloAula(nomeAmigavel);
@@ -102,16 +187,15 @@ export const Conteudo = () => {
         }
       }
 
-      // 3. Carregar o Arquivo MDX com Filtro Dinâmico de Escopo
       const caminhosMDX = Object.keys(todosArquivos);
       const caminhoReal = caminhosMDX.find((path) => {
         const pathLower = path.toLowerCase();
         const nomeArquivo = path.split('/').pop()?.replace('.mdx', '').toLowerCase();
 
-        const pertenceAMateria = 
-          pathLower.includes(`/${pastaPeriodo}/`) && 
+        const pertenceAMateria =
+          pathLower.includes(`/${pastaPeriodo}/`) &&
           pathLower.includes(`/${materiaLower}/`);
-        
+
         const nomeIdentico = nomeArquivo === slug?.toLowerCase();
 
         if (!pertenceAMateria || !nomeIdentico) return false;
@@ -127,14 +211,22 @@ export const Conteudo = () => {
         const modulo = (await todosArquivos[caminhoReal]()) as {
           default: ComponentType;
         };
-        setMDXComponent(() => modulo.default);
+        if (!cancelado) {
+          setMDXComponent(() => modulo.default);
+        }
       } else {
-        setMDXComponent(null);
+        if (!cancelado) {
+          setMDXComponent(null);
+        }
       }
     };
 
     carregarTudo();
-  }, [periodo, materia, atividade, slug, todosArquivos, todasConfigs]);
+
+    return () => {
+      cancelado = true;
+    };
+  }, [periodo, materia, atividade, slug]);
 
   return (
     <ThemeProvider theme={temaMateria}>
@@ -143,10 +235,15 @@ export const Conteudo = () => {
       <S.PageContainer>
         {MDXComponent ? (
           <>
-            <TableOfContents />
+            <TableOfContents
+              key={location.pathname}
+              onVoltar={deveVoltarParaLista ? handleVoltarParaLista : handleVoltarGeral} 
+            />
             <S.ArticleWrapper>
               <MDXProvider components={components}>
-                <MDXComponent />
+                <ListaWrapper>
+                  <MDXComponent />
+                </ListaWrapper>
               </MDXProvider>
             </S.ArticleWrapper>
           </>
@@ -159,3 +256,5 @@ export const Conteudo = () => {
     </ThemeProvider>
   );
 };
+
+export default Conteudo;

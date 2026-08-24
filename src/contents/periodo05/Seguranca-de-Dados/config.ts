@@ -20,9 +20,13 @@ export const config = {
 	// Mapeamento para aba de 'Atividades' (Materia.tsx)
 	atividades: {
 		"atividade01": {
-			nome: "Atividade 01",
+			nome: "Atividade 01: Servidores Web Seguros",
 			arquivos: {
-				"Teste": "Teste de arquivo"
+				"Configuracoes-Iniciais": "Configurações Iniciais",
+				"Parte01-Apache_e_Nginx_com_HTTPS": "Parte 01: Apache e Nginx com HTTPS Autoassinado - Domínio Único",
+				"Parte02-DNS_Windows": "Parte 02: Configurando o DNS no Windows",
+				"Parte03-Apache_Dominio_Unico": "Parte 03: Apache com Domínio Único, HTTPS e HTTPS/2",
+				"Parte04-Nginx_Dominio_Unico": "Parte 04: Nginx com Domínio Único, HTTPS e HTTPS/2"
 			}
 		},
 		"atividade02": {

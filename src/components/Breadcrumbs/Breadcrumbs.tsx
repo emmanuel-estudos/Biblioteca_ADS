@@ -1,80 +1,170 @@
-import { Link, useLocation } from 'react-router-dom';
-import * as s from './styles';
+import { Link, useLocation, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import * as S from './styles';
 import { TRADUCAO_NOMES } from '../../utils/traducoes';
 
-interface BreadcrumbsProps {
-  aulaAtual?: string;
-  abaAtiva?: 'assuntos' | 'atividades'; // Propriedade para saber qual aba está aberta na Matéria
+export interface BreadcrumbsProps {
+  abaAtiva?: 'atividades' | 'assuntos';
 }
 
-export const Breadcrumbs = ({ aulaAtual, abaAtiva }: BreadcrumbsProps) => {
+export const Breadcrumbs: React.FC<BreadcrumbsProps> = () => {
   const location = useLocation();
+  const { periodo, materia, atividade, slug } = useParams<{
+    periodo?: string;
+    materia?: string;
+    atividade?: string;
+    slug?: string;
+  }>();
+
+  const [traducoesCustom, setTraducoesCustom] = useState<Record<string, string>>({});
+  const [corPrimaria, setCorPrimaria] = useState<string | undefined>(undefined);
+  const [corSecundaria, setCorSecundaria] = useState<string | undefined>(undefined);
+
   const pathnames = location.pathname.split('/').filter((x) => x);
 
-  const formatarLabel = (texto: string) => {
-    if (texto.includes('-periodo')) {
-      const numero = texto.split('-')[0];
-      return `${numero}º Período`;
+  useEffect(() => {
+    let cancelado = false;
+
+    const carregarConfig = async () => {
+      if (!materia) {
+        setTraducoesCustom({});
+        setCorPrimaria(undefined);
+        setCorSecundaria(undefined);
+        return;
+      }
+
+      const todasConfigs = import.meta.glob('/src/contents/**/config.ts');
+      const materiaLower = materia.toLowerCase();
+
+      const caminhoConfig = Object.keys(todasConfigs).find((path) =>
+        path.toLowerCase().includes(`/${materiaLower}/config.ts`)
+      );
+
+      if (caminhoConfig) {
+        const modConfig = (await todasConfigs[caminhoConfig]()) as {
+          config: {
+            corPrimaria?: string;
+            corSecundaria?: string;
+            atividades?: Record<string, { nome: string; arquivos?: Record<string, string> }>;
+            assuntos?: Record<string, string>;
+          };
+        };
+
+        const configData = modConfig.config;
+        const novasTraducoes: Record<string, string> = {};
+
+        // ROTA DE ATIVIDADES
+        if (atividade && configData.atividades) {
+          const chaveAtividade = Object.keys(configData.atividades).find(
+            (k) => k.toLowerCase() === atividade.toLowerCase()
+          );
+
+          if (chaveAtividade) {
+            const atividadeObj = configData.atividades[chaveAtividade];
+            novasTraducoes[atividade.toLowerCase()] = atividadeObj.nome;
+
+            if (slug && atividadeObj.arquivos) {
+              const chaveArquivo = Object.keys(atividadeObj.arquivos).find(
+                (k) => k.toLowerCase() === slug.toLowerCase()
+              );
+
+              if (chaveArquivo) {
+                novasTraducoes[slug.toLowerCase()] = atividadeObj.arquivos[chaveArquivo];
+              }
+            }
+          }
+        } 
+        // ROTA DE ASSUNTOS
+        else if (slug && configData.assuntos) {
+          const chaveAssunto = Object.keys(configData.assuntos).find(
+            (k) => k.toLowerCase() === slug.toLowerCase()
+          );
+
+          if (chaveAssunto) {
+            novasTraducoes[slug.toLowerCase()] = configData.assuntos[chaveAssunto];
+          }
+        }
+
+        if (!cancelado) {
+          setCorPrimaria(configData.corPrimaria);
+          setCorSecundaria(configData.corSecundaria);
+          setTraducoesCustom(novasTraducoes);
+        }
+      }
+    };
+
+    carregarConfig();
+
+    return () => {
+      cancelado = true;
+    };
+  }, [materia, atividade, slug, location.pathname]);
+
+  const formatarNome = (value: string) => {
+    const valLower = value.toLowerCase();
+
+    if (traducoesCustom[valLower]) {
+      return traducoesCustom[valLower];
     }
 
-    if (TRADUCAO_NOMES[texto]) return TRADUCAO_NOMES[texto];
+    if (TRADUCAO_NOMES[value]) {
+      return TRADUCAO_NOMES[value];
+    }
 
-    return texto
-      .replace(/-/g, ' ')
-      .replace(/([a-zA-Z])(\d)/g, '$1 $2')
-      .replace(/\b\w/g, (l) => l.toUpperCase());
+    return value.replace(/-/g, ' ');
   };
 
-  // 1. Mapeia os caminhos reais da URL
-  const items = pathnames.map((value, index) => {
-    const isFolderLevel = value === 'assuntos' || value === 'atividades';
-    
-    // Se for 'assuntos' ou 'atividades', corta a URL para apontar de volta para a matéria
-    const to = isFolderLevel 
-      ? `/${pathnames.slice(0, index).join('/')}` 
-      : `/${pathnames.slice(0, index + 1).join('/')}`;
+  const obterDestino = (index: number, value: string) => {
+    if ((value === 'atividades' || value === 'assuntos') && periodo && materia) {
+      return `/${periodo}/${materia}`;
+    }
 
-    return {
-      value,
-      to,
-      isFolderLevel,
-    };
-  });
+    return `/${pathnames.slice(0, index + 1).join('/')}`;
+  };
 
-  // REQUISITO: Se estivermos na página raiz da matéria (ex: /5-periodo/seguranca-de-dados)
-  // e houver uma aba ativa informada, injetamos ela virtualmente como o último item (texto estático)
-  if (pathnames.length === 2 && abaAtiva) {
-    items.push({
-      value: abaAtiva,
-      to: location.pathname, // Aponta para ela mesma
-      isFolderLevel: false,
-    });
-  }
+  // Encontra o índice de onde a matéria começa no caminho (ex: index 1 para /1-periodo/Algoritmos)
+  const indiceMateria = materia 
+    ? pathnames.findIndex(p => p.toLowerCase() === materia.toLowerCase()) 
+    : -1;
 
   return (
-    <s.Nav>
-      <Link to="/">Home</Link>
-      {items.map((item, index) => {
-        const last = index === items.length - 1;
-        const labelFinal = (last && aulaAtual) ? aulaAtual : formatarLabel(item.value);
+    <S.BreadcrumbsContainer aria-label="breadcrumb">
+      <S.BreadcrumbsList>
+        <S.BreadcrumbsItem>
+          <Link to="/">Início</Link>
+        </S.BreadcrumbsItem>
 
-        return (
-          <div key={`${item.to}-${index}-${item.value}`} style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-            <span>/</span>
-            {last ? (
-              <strong className="current">{labelFinal}</strong>
-            ) : (
-              // REQUISITO: Passamos a propriedade state informando qual aba o destino deve abrir
-              <Link 
-                to={item.to} 
-                state={item.isFolderLevel ? { tab: item.value } : undefined}
+        {pathnames.map((value, index) => {
+          const to = obterDestino(index, value);
+          const isLast = index === pathnames.length - 1;
+          const nomeFormatado = formatarNome(value);
+
+          // É considerado "dentro da matéria" se o item atual for a matéria ou estiver depois dela
+          const isDentroDaMateria = indiceMateria !== -1 && index >= indiceMateria;
+
+          return (
+            <S.BreadcrumbsItem 
+              key={to + index} 
+              $isLast={isLast} 
+              $corPrimaria={corPrimaria}
+              $isDentroDaMateria={isDentroDaMateria}
+            >
+              <S.Separator 
+                $corSecundaria={corSecundaria} 
+                $isDentroDaMateria={isDentroDaMateria}
               >
-                {labelFinal}
-              </Link>
-            )}
-          </div>
-        );
-      })}
-    </s.Nav>
+                /
+              </S.Separator>
+
+              {isLast ? (
+                <span className="item-nome">{nomeFormatado}</span>
+              ) : (
+                <Link to={to}>{nomeFormatado}</Link>
+              )}
+            </S.BreadcrumbsItem>
+          );
+        })}
+      </S.BreadcrumbsList>
+    </S.BreadcrumbsContainer>
   );
 };

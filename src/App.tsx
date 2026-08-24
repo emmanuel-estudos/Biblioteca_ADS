@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Home, Periodo, Materia, Atividades } from './pages';
 import { Conteudo } from './components';
+import 'highlight.js/styles/vs2015.css';
 
 function App() {
   return (

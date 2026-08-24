@@ -1,0 +1,113 @@
+# Configurações Iniciais
+
+## VirtualBox
+
+Importe a ISO da Server Image Ubuntu 26.
+
+Nas configurações de rede, coloque o primeiro adaptador como NAT e o segundo como Host-Only.
+
+Inicie a Ubuntu26s.
+
+## Verificando 'enp0s8'
+
+Se transforme em _SuperUsuário_ para evitar problemas futuros com permissões.
+
+Verifique a existência do IP referente ao **enp0s8** usando o comando abaixo.
+
+<Terminal>
+  <Abas>
+    <Aba active>Ubuntu26s</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Comentário</Comentario>
+    <Linha texto="root@ubuntu26s:/home/ads#">ip -br a</Linha>
+  </Code>
+</Terminal>
+
+## IP 'enp0s8' com status 'down'
+
+Se o estado referente ao **enp0s8** estiver como `down`, rode o comando abaixo para mudar seu estado para `up`.
+
+<Terminal>
+  <Abas>
+    <Aba active>Ubuntu26s</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Comentário</Comentario>
+    <Linha texto="root@ubuntu26s:/home/ads#">ip link set enp0s8 upo</Linha>
+  </Code>
+</Terminal>
+
+## Criando Container para a Atividade
+
+Baixe o **Docker** caso não tenha instalado.
+
+<Terminal>
+  <Abas>
+    <Aba active>Ubuntu26s</Aba>
+  </Abas>
+  <Code>
+    <Linha texto="root@ubuntu26s:/home/ads#">apt install docker.io</Linha>
+  </Code>
+</Terminal>
+
+Com o **Docker** ja instalado, rode o comando abaixo.
+
+<Terminal>
+  <Abas>
+    <Aba active>Ubuntu26s</Aba>
+  </Abas>
+  <Code>
+    <Linha texto="root@ubuntu26s:/home/ads#">docker run -dit --name atividade1 -p 80:80 -p 443:443 ubuntu bash</Linha>
+    <Linha texto="root@ubuntu26s:/home/ads#">docker exec -it atividade1 bash</Linha>
+    <Linha texto="root@[código_container]:/#">=== Esse é o prompt esperado</Linha>
+  </Code>
+</Terminal>
+
+## Instalando Ferramentas
+
+Estando dentro do container, rode os comandos a seguir:
+
+<Terminal>
+  <Abas>
+    <Aba active>Ubuntu26s</Aba>
+  </Abas>
+  <Code>
+    <Linha texto="root@[código_container]:/#">apt update</Linha>
+    <Linha texto="root@[código_container]:/#">apt install -y apache2 nginx openssl curl iproute2 nano</Linha>
+  </Code>
+</Terminal>
+
+## DNS Local no Windows
+
+Abra o **Bloco de Notas** como `administrador` e siga o caminho de _Arquivo_ --> _Abrir o_ --> [cole o caminho 'C:\Windows\System32\drivers\etc\\' no caminho do arquivo] --> Enter.
+
+Abra o arquivo **host** dentro da pasta `etc` e adicione as linhas a seguir.
+
+<Terminal>
+  <Abas>
+    <Aba active>Bloco de Notas</Aba>
+  </Abas>
+  <Code>
+    <Linha texto="">(IP_enp0s8) www.seu_nome.com.br</Linha>
+    <Linha texto="">(IP_enp0s8) www.seu_nome.com</Linha>
+    <Linha texto="">(IP_enp0s8) www.seu_nome.br</Linha>
+  </Code>
+</Terminal>
+
+Salve o arquivo.
+
+## Terminal do PC
+
+<Terminal>
+  <Abas>
+    <Aba active>Powershell</Aba>
+  </Abas>
+  <Code>
+    <Comentario>Comentário</Comentario>
+    <Linha texto="C:\Users\User">ipconfig /flushdns</Linha>
+    <Linha texto="C:\Users\User">ping www.seu_nome.com.br</Linha>
+  </Code>
+</Terminal>
+
+192.168.56.108

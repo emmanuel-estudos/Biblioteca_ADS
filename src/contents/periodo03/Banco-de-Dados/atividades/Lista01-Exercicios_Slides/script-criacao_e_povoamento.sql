@@ -1,0 +1,87 @@
+-- Remove tabelas se elas já existirem (evita erro na 1ª execução)
+DROP TABLE IF EXISTS TrabalhaProjeto;
+DROP TABLE IF EXISTS Dependente;
+DROP TABLE IF EXISTS Projeto;
+DROP TABLE IF EXISTS Departamento;
+DROP TABLE IF EXISTS Empregado;
+
+-- Habilita o suporte a Chaves Estrangeiras no SQLite
+PRAGMA foreign_keys = ON;
+
+-- Tabela Departamento criada antes para a Foreign Key funcionar
+CREATE TABLE Departamento (
+    CodDepartamento INT PRIMARY KEY,
+    Nome VARCHAR(20) NOT NULL UNIQUE,
+    Gerente VARCHAR(10)
+);
+
+-- Tabela Empregado (CodDepartamento já embutido diretamente)
+CREATE TABLE Empregado (
+    Matricula VARCHAR(10) PRIMARY KEY,
+    Nome VARCHAR(30) NOT NULL,
+    Salario REAL CHECK (Salario > 0),
+    Supervisor VARCHAR(10),
+    CodDepartamento INT,
+    FOREIGN KEY (Supervisor) REFERENCES Empregado(Matricula),
+    FOREIGN KEY (CodDepartamento) REFERENCES Departamento(CodDepartamento)
+);
+
+CREATE TABLE Projeto (
+    CodProjeto INT PRIMARY KEY,
+    Nome VARCHAR(30) NOT NULL UNIQUE,
+    CodDepartamento INT NOT NULL,
+    FOREIGN KEY (CodDepartamento) REFERENCES Departamento(CodDepartamento)
+);
+
+CREATE TABLE Dependente (
+    Empregado VARCHAR(10),
+    NomeDep VARCHAR(30),
+    Parentesco VARCHAR(10) NOT NULL,
+    PRIMARY KEY (Empregado, NomeDep),
+    FOREIGN KEY (Empregado) REFERENCES Empregado(Matricula)
+);
+
+CREATE TABLE TrabalhaProjeto (
+    Empregado VARCHAR(10),
+    CodProjeto INT,
+    NumHoras SMALLINT,
+    PRIMARY KEY (Empregado, CodProjeto),
+    FOREIGN KEY (Empregado) REFERENCES Empregado(Matricula),
+    FOREIGN KEY (CodProjeto) REFERENCES Projeto(CodProjeto)
+);
+
+-- Povoamento: Departamentos
+INSERT INTO Departamento VALUES (1, 'Financeiro', NULL);
+INSERT INTO Departamento VALUES (2, 'Vendas', NULL);
+
+-- Povoamento: Empregados
+INSERT INTO Empregado VALUES ('1111-3', 'Carlos', 4500, NULL, 2);
+INSERT INTO Empregado VALUES ('1111-4', 'Joaquim', 4500, NULL, 1);
+INSERT INTO Empregado VALUES ('1111-1', 'João', 2500, '1111-4', 1);
+INSERT INTO Empregado VALUES ('1111-2', 'Maria', 2500, '1111-3', 2);
+INSERT INTO Empregado VALUES ('1111-5', 'Ana', 3000, '1111-4', 1);
+INSERT INTO Empregado VALUES ('1111-6', 'Patrícia', 2500, '1111-3', 2);
+INSERT INTO Empregado VALUES ('1111-7', 'Sérgio', 1000, '1111-3', 2);
+
+-- Atualização dos Gerentes
+UPDATE Departamento SET Gerente = '1111-4' WHERE CodDepartamento = 1;
+UPDATE Departamento SET Gerente = '1111-3' WHERE CodDepartamento = 2;
+
+-- Povoamento: Projetos
+INSERT INTO Projeto VALUES (1, 'Venda Fácil', 1);
+INSERT INTO Projeto VALUES (2, 'Max Lucro', 2);
+INSERT INTO Projeto VALUES (3, 'Cliente Feliz', 2);
+
+-- Povoamento: Dependentes
+INSERT INTO Dependente VALUES ('1111-2', 'Marcos', 'Filho');
+INSERT INTO Dependente VALUES ('1111-2', 'Luís', 'Filho');
+INSERT INTO Dependente VALUES ('1111-3', 'Ana', 'Cônjuge');
+INSERT INTO Dependente VALUES ('1111-3', 'Felipe', 'Filho');
+
+-- Povoamento: TrabalhaProjeto
+INSERT INTO TrabalhaProjeto VALUES ('1111-1', 2, 12);
+INSERT INTO TrabalhaProjeto VALUES ('1111-1', 3, 12);
+INSERT INTO TrabalhaProjeto VALUES ('1111-2', 1, 12);
+INSERT INTO TrabalhaProjeto VALUES ('1111-2', 2, 12);
+INSERT INTO TrabalhaProjeto VALUES ('1111-4', 2, 12);
+INSERT INTO TrabalhaProjeto VALUES ('1111-4', 3, 12);

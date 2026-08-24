@@ -15,7 +15,7 @@ export const TocContainer = styled.div<TocProps>`
 `;
 
 export const ToggleButton = styled.button`
-  background: ${props => props.theme.corPrimaria};
+  background: ${props => props.theme.corPrimaria || '#38bdf8'};
   color: white;
   border: none;
   width: 30px;
@@ -31,13 +31,13 @@ export const ToggleButton = styled.button`
   z-index: 101;
 
   &:hover {
-    background: ${props => props.theme.corSecundaria};
+    background: ${props => props.theme.corSecundaria || '#0284c7'};
   }
 `;
 
 export const TocWrapper = styled.nav<TocProps>`
   background: #121212;
-  border: 1px solid #333;
+  border: 1px solid #262626;
   border-radius: 8px;
   padding: 1.5rem;
   margin-left: 10px;
@@ -51,6 +51,37 @@ export const TocWrapper = styled.nav<TocProps>`
   opacity: ${props => (props.$isOpen ? 1 : 0)};
   transform: ${props => (props.$isOpen ? 'translateX(0)' : 'translateX(-20px)')};
   pointer-events: ${props => (props.$isOpen ? 'all' : 'none')};
+
+  /* ==========================================================================
+     CUSTOM SCROLLBAR (Chrome, Safari, Edge, Firefox)
+     ========================================================================== */
+
+  /* Largura da barra de rolagem */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  /* Trilho (fundo) da barra */
+  &::-webkit-scrollbar-track {
+    background: #171717;
+    border-radius: 0 8px 8px 0;
+  }
+
+  /* Indicador de rolagem (Thumb) com a cor primária */
+  &::-webkit-scrollbar-thumb {
+    background: ${props => props.theme.corPrimaria || '#38bdf8'};
+    border-radius: 4px;
+    transition: background 0.2s ease;
+  }
+
+  /* Hover do indicador com a cor secundária */
+  &::-webkit-scrollbar-thumb:hover {
+    background: ${props => props.theme.corSecundaria || '#0284c7'};
+  }
+
+  /* Suporte nativo para Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: ${props => `${props.theme.corPrimaria || '#38bdf8'} #171717`};
 `;
 
 export const TocTitle = styled.p`
@@ -73,33 +104,52 @@ export const TocLink = styled.a<{ $level: number }>`
   text-decoration: none;
   font-size: 0.85rem;
   transition: all 0.2s ease-in-out;
-  width: fit-content; /* Garante que o sublinhado do H1 ocupe apenas o tamanho do texto */
+  width: fit-content;
 
-  // 1. Definição de Cores e Pesos baseado no nível do título
   color: ${props => (props.$level === 1 ? '#ffffff' : '#888888')};
   font-weight: ${props => (props.$level === 1 ? '600' : '400')};
 
-  // 2. Hierarquia de Recuo (H1 encostado na esquerda, H2 um pouco pra frente, H3 mais recuado)
   padding-left: ${props => {
     if (props.$level === 3) return '1.25rem';
     if (props.$level === 2) return '0.6rem';
-    return '0'; // Para o H1
+    return '0';
   }};
 
-  // 3. Estilização exclusiva para os títulos principais (H1)
   ${props => props.$level === 1 && `
-    border-bottom: 2px solid ${props.theme.corSecundaria};
+    border-bottom: 2px solid ${props.theme.corSecundaria || '#38bdf8'};
     padding-bottom: 0.15rem;
     margin-top: 0.4rem;
     margin-bottom: 0.15rem;
   `}
 
-  /* Remove o espaçamento do topo se o primeiro item da lista for um H1 */
   &:first-child {
     margin-top: 0;
   }
 
   &:hover {
-    color: ${props => props.theme.corSecundaria};
+    color: ${props => props.theme.corSecundaria || '#38bdf8'};
+  }
+`;
+
+export const BotaoVoltarContainer = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  background-color: transparent;
+  color: ${props => props.theme.corPrimaria || '#38bdf8'};
+  border: 1px solid ${props => props.theme.corPrimaria || '#38bdf8'};
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: ${props => props.theme.corPrimaria || '#38bdf8'};
+    color: #111111;
   }
 `;

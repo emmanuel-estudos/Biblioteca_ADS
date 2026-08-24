@@ -1,0 +1,81 @@
+# Nginx Múltiplos Domínios
+
+Nesta etapa o mesmo Nginx atenderá dois nomes diferentes por **SNI**: `site1.seunome.com.br` e `site2.seunome.com.br`. 
+Cada domínio terá página e certificado exclusivos.
+
+## Criando Páginas
+
+<Terminal>
+  <Abas>
+    <Aba active>Ubuntu 26s</Aba>
+  </Abas>
+  <Code>
+    <Linha texto="">mkdir -p /var/www/site1 /var/www/site2</Linha>
+    <Linha texto="">{`echo "<h1>Site 1 - Nginx</h1><p>Dominio: site1.seunome.com.br</p><p>Certificado exclusivo do Site 1</p><p>Data: $(date)</p>" > /var/www/site1/index.html`}</Linha>
+    <Linha texto="">{`echo "<h1>Site 2 - Nginx</h1><p>Dominio: site2.seunome.com.br</p><p>Certificado exclusivo do Site 2</p><p>Data: $(date)</p>" > /var/www/site2/index.html`}</Linha>
+  </Code>
+</Terminal>
+
+## Gerando Certificados Separados
+
+<Terminal>
+  <Abas>
+    <Aba active>Ubuntu 26s</Aba>
+  </Abas>
+  <Code>
+    <Linha texto="">{`openssl req -x509 -nodes -newkey rsa:2048 -days 365 -keyout /etc/ssl/seunome/site1.key -out /etc/ssl/seunome/site1.crt -subj "/C=BR/ST=Paraiba/L=Cajazeiras/O=IFPB/OU=ADS/CN=site1.seunome.com.br" -addext "subjectAltName=DNS:site1.seunome.com.br"`}</Linha>
+    <Linha texto="">{`openssl req -x509 -nodes -newkey rsa:2048 -days 365 -keyout /etc/ssl/seunome/site2.key -out /etc/ssl/seunome/site2.crt -subj "/C=BR/ST=Paraiba/L=Cajazeiras/O=IFPB/OU=ADS/CN=site2.seunome.com.br" -addext "subjectAltName=DNS:site2.seunome.com.br" chmod 600 /etc/ssl/seunome/site1.key /etc/ssl/seunome/site2.key`}</Linha>
+  </Code>
+</Terminal>
+
+## Criando o Arquivo Múltiplos
+
+<Terminal>
+  <Abas>
+    <Aba active>Ubuntu 26s</Aba>
+  </Abas>
+  <Code>
+    <Linha texto="">nano /etc/nginx/sites-available/multiplos</Linha>
+  </Code>
+</Terminal>
+
+```html
+server {
+    listen 80;
+    listen [::]:80;
+    server_name site1.seunome.com.br;
+    return 301 https://site1.seunome.com.br$request_uri;
+}
+server {
+    listen 80;
+    listen [::]:80;
+    server_name site2.seunome.com.br;
+    return 301 https://site2.seunome.com.br$request_uri;
+}
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name site1.seunome.com.br;
+
+    root /var/www/site1;
+    index index.html;
+    ssl_certificate /etc/ssl/seunome/site1.crt;
+    ssl_certificate_key /etc/ssl/seunome/site1.key;
+
+    location / { try_files $uri $uri/ =404; }
+}
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name site2.seunome.com.br;
+
+    root /var/www/site2;
+    index index.html;
+    ssl_certificate /etc/ssl/seunome/site2.crt;
+    ssl_certificate_key /etc/ssl/seunome/site2.key;
+
+    location / { try_files $uri $uri/ =404; }
+}
+```
+
+## Ativando - Validando - Testando

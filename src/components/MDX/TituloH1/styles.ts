@@ -16,7 +16,7 @@ export const H1 = styled.h1`
   /* Bordas e Espaçamento */
   border-bottom: 4px solid ${props => props.theme.corSecundaria}; /* Destaque na base */
   padding: 1rem;
-  margin: 2rem 0;
+  margin: 0.01rem 0 2rem 0;
   border-radius: 0.5rem;
 
   /* Centralização */

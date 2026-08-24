@@ -1,12 +1,57 @@
 {
-  // Configurações Específicas para JSON
+  // ========== Configurações Específicas para JSON ==========
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.tabSize": 2,
     "editor.insertSpaces": true
   },
 
-  // Configurações GLOBAIS
+  // ========== Configurações para o Code Spell Checker ==========
+  // Línguas
+  "cSpell.language": "pt-BR,en",
+  // Tipos de arquivos para verificação
+  "cSpell.enabledFileTypes": {
+    "markdown": true,
+    "mdx": true,
+    "typescript": true,
+    "typescriptreact": true,
+    "plaintext": true
+  },
+
+  // ========== Override de configurações específicas por linguagem ==========
+  "cSpell.languageSettings": [
+    {
+      // Aplica apenas para arquivos TypeScript / React (.ts e .tsx)
+      "languageId": "typescript,typescriptreact",
+      // Instruição para verificar apenas o que estiver em Strings e Comentários
+      "includeRegExpList": [
+        "CStyleComment", // Comentários // e /* */
+        "Strings" // Textos entre " ", ' ' e ` `
+      ]
+    }
+  ],
+
+  // ========== Palavras Personalizadas ==========
+  "cSpell.words": [
+    // Segurança de Dados - P5
+    "PREROUTING",
+    "dport",
+    "DNAT",
+    "adsads",
+    "nginx",
+    "keyout"
+  ],
+
+  "cSpell.ignoreRegExpList": [
+    "<Comentario\\b[^>]*>", // Ignora a tag de abertura <Comentario ...>
+    "</Comentario>", // Ignora a tag de fechamento </Comentario>
+    ".seunome.",
+    "<Questao\\b[^>]*>",
+    "</Questao>",
+    "<QuestaoLink\\b[^>]*>"
+  ],
+
+  // ========== Configurações GLOBAIS ==========
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
@@ -14,44 +59,44 @@
   "editor.detectIndentation": false,
   "editor.wordWrap": "on",
 
-    // Configurações para Linhas Verticais e Horizontais para cada Bloco de Código
-    "editor.bracketPairColorization.enabled": true,
-    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
-    "editor.guides.bracketPairs": "active",
-    "editor.guides.bracketPairsHorizontal": true,
-    "editor.guides.highlightActiveBracketPair": true,
-    "editor.guides.indentation": true,
-    "editor.renderLineHighlight": "none", // tira o destaque da linha em que o cursor está
+  // Configurações para Linhas Verticais e Horizontais para cada Bloco de Código
+  "editor.bracketPairColorization.enabled": true,
+  "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.guides.bracketPairsHorizontal": true,
+  "editor.guides.highlightActiveBracketPair": true,
+  "editor.guides.indentation": true,
+  "editor.renderLineHighlight": "none", // tira o destaque da linha em que o cursor está
 
-    // Customização de Cores (Transparência Segura de Fallback)
-    "workbench.colorCustomizations": {
-      "editorBracketPairGuide.activeBackground1": "#ab7efdcc", // Roxo elétrico: Mantém a identidade principal do tema, criando uma linha de destaque perfeitamente integrada ao fundo.
-      "editorBracketPairGuide.activeBackground2": "#ffd866cc", // Amarelo Monokai: O clássico amarelo do Monokai. Excelente contraste com o roxo, ideal para a segunda camada de indentação.
-      "editorBracketPairGuide.activeBackground3": "#78e2e2cc", // Ciano Pastel: Um tom azul-esverdeado refrescante que quebra os tons quentes sem agredir a visão.
-      "editorBracketPairGuide.activeBackground4": "#ff6188cc", // Rosa Choque: Cor vibrante tradicional do Monokai para funções. Fica linda sobre o fundo roxo e indica níveis profundos.
-      "editorBracketPairGuide.activeBackground5": "#a9dc76cc", // Verde Oliva Suave: Um verde equilibrado que ajuda a rastrear blocos longos sem cansar os olhos em sessões longas.
-      "editorBracketPairGuide.activeBackground6": "#fc9867cc", // Laranja Tangerina: Tom quente que ajuda a fechar o ciclo de repetição (6º nível) com excelente legibilidade.
+  // Customização de Cores (Transparência Segura de Fallback)
+  "workbench.colorCustomizations": {
+    "editorBracketPairGuide.activeBackground1": "#ab7efdcc", // Roxo elétrico: Mantém a identidade principal do tema, criando uma linha de destaque perfeitamente integrada ao fundo.
+    "editorBracketPairGuide.activeBackground2": "#ffd866cc", // Amarelo Monokai: O clássico amarelo do Monokai. Excelente contraste com o roxo, ideal para a segunda camada de indentação.
+    "editorBracketPairGuide.activeBackground3": "#78e2e2cc", // Ciano Pastel: Um tom azul-esverdeado refrescante que quebra os tons quentes sem agredir a visão.
+    "editorBracketPairGuide.activeBackground4": "#ff6188cc", // Rosa Choque: Cor vibrante tradicional do Monokai para funções. Fica linda sobre o fundo roxo e indica níveis profundos.
+    "editorBracketPairGuide.activeBackground5": "#a9dc76cc", // Verde Oliva Suave: Um verde equilibrado que ajuda a rastrear blocos longos sem cansar os olhos em sessões longas.
+    "editorBracketPairGuide.activeBackground6": "#fc9867cc", // Laranja Tangerina: Tom quente que ajuda a fechar o ciclo de repetição (6º nível) com excelente legibilidade.
 
-      "editorBracketPairGuide.background1": "#ffffff15",
-      "editorBracketPairGuide.background2": "#ffffff15",
-      "editorBracketPairGuide.background3": "#ffffff15",
-      "editorBracketPairGuide.background4": "#ffffff15",
-      "editorBracketPairGuide.background5": "#ffffff15",
-      "editorBracketPairGuide.background6": "#ffffff15",
+    "editorBracketPairGuide.background1": "#ffffff15",
+    "editorBracketPairGuide.background2": "#ffffff15",
+    "editorBracketPairGuide.background3": "#ffffff15",
+    "editorBracketPairGuide.background4": "#ffffff15",
+    "editorBracketPairGuide.background5": "#ffffff15",
+    "editorBracketPairGuide.background6": "#ffffff15",
 
-      // Configurações para a Linha em que o cursor está
-        // Forçando ela a ficar transparente
-      "editor.lineHighlightBorder": "#00000000",
-      "editor.lineHighlightBackground": "#00000000",
-      "editorLineNumber.activeForeground": "#ab7efdff", // destaca a linha em que o cursor está
-      "editorLineNumber.foreground": "#5c5466aa", // deixa as demais linhas mais apagadas
-    },
+    // Configurações para a Linha em que o cursor está
+    // Forçando ela a ficar transparente
+    "editor.lineHighlightBorder": "#00000000",
+    "editor.lineHighlightBackground": "#00000000",
+    "editorLineNumber.activeForeground": "#ab7efdff", // destaca a linha em que o cursor está
+    "editorLineNumber.foreground": "#5c5466aa" // deixa as demais linhas mais apagadas
+  },
 
   "editor.quickSuggestions": {
     "other": "on"
   },
 
-  // Configurações de Equivalência de Linguagens
+  // ========== Configurações de Equivalência de Linguagens ==========
   "emmet.includeLanguages": {
     "*.mdx": "typescriptreact"
   },
@@ -60,7 +105,7 @@
   //   "*.mdx": "typescriptreact"
   // },
 
-  // Configurações Específicas para MARKDOWN
+  // ========== Configurações Específicas para MARKDOWN ==========
   "[markdown]": {
     "editor.quickSuggestions": {
       "other": "on",
@@ -70,22 +115,21 @@
     "editor.snippetSuggestions": "top" // Joga os seus snippets para o topo da lista de sugestões
   },
 
-  
-  // Configurações Específicas para TYPESCRIPT - REACT
+  // ========== Configurações Específicas para TYPESCRIPT - REACT ==========
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.tabSize": 2,
     "editor.insertSpaces": true
   },
 
-  // Configurações Específicas para JAVASCRIPT - REACT
+  // ========== Configurações Específicas para JAVASCRIPT - REACT ==========
   "[javascriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.tabSize": 2,
     "editor.insertSpaces": true
   },
 
-  // Configurações Específicas para MDX
+  // ========== Configurações Específicas para MDX ==========
   "[mdx]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.tabSize": 2,
@@ -93,16 +137,36 @@
     "editor.semanticHighlighting.enabled": false
   },
 
-    // Mudança nas cores de títulos
-      "editor.tokenColorCustomizations": {
+  // Mudança nas cores de títulos
+  "editor.tokenColorCustomizations": {
     "textMateRules": [
-      { "scope": ["markup.heading.atx.1.mdx", "heading.atx.1.mdx"], "settings": { "foreground": "#AE81FF" } }, // H1: Roxo original
-      { "scope": ["markup.heading.atx.2.mdx", "heading.atx.2.mdx"], "settings": { "foreground": "#B992FF" } }, // H2
-      { "scope": ["markup.heading.atx.3.mdx", "heading.atx.3.mdx"], "settings": { "foreground": "#C5A3FF" } }, // H3
-      { "scope": ["markup.heading.atx.4.mdx", "heading.atx.4.mdx"], "settings": { "foreground": "#D0B5FF" } }, // H4
-      { "scope": ["markup.heading.atx.5.mdx", "heading.atx.5.mdx"], "settings": { "foreground": "#DCC6FF" } }, // H5
-      { "scope": ["markup.heading.atx.6.mdx", "heading.atx.6.mdx"], "settings": { "foreground": "#E8D8FF" } }  // H6: Lilás Pastel
+      {
+        "scope": ["markup.heading.atx.1.mdx", "heading.atx.1.mdx"],
+        "settings": { "foreground": "#AE81FF" }
+      }, // H1: Roxo original
+      {
+        "scope": ["markup.heading.atx.2.mdx", "heading.atx.2.mdx"],
+        "settings": { "foreground": "#B992FF" }
+      }, // H2
+      {
+        "scope": ["markup.heading.atx.3.mdx", "heading.atx.3.mdx"],
+        "settings": { "foreground": "#C5A3FF" }
+      }, // H3
+      {
+        "scope": ["markup.heading.atx.4.mdx", "heading.atx.4.mdx"],
+        "settings": { "foreground": "#D0B5FF" }
+      }, // H4
+      {
+        "scope": ["markup.heading.atx.5.mdx", "heading.atx.5.mdx"],
+        "settings": { "foreground": "#DCC6FF" }
+      }, // H5
+      {
+        "scope": ["markup.heading.atx.6.mdx", "heading.atx.6.mdx"],
+        "settings": { "foreground": "#E8D8FF" }
+      } // H6: Lilás Pastel
     ]
+  },
+  "[c]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools"
   }
-
 }

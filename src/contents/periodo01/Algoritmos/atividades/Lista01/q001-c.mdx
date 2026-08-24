@@ -1,0 +1,62 @@
+# Questão 001
+
+## Enunciado
+
+Escreva um programa que leia três números inteiros e calcule a sua média aritmética.
+
+## Resolução
+
+```c
+#include <stdio.h>
+
+void main() {
+
+	// declarando variáveis
+	int num1, num2, num3;
+	float media;
+
+	// pedindo dados
+	printf("Informe os tres numeros: ");
+	scanf("%d%d%d", &num1, &num2, &num3);
+
+	// calculando
+	media = (float)(num1 + num2 + num3) / 3;
+
+	// informando resultado
+	printf("A media aritmetica dos dados informados eh %.2f \n", media);
+}
+```
+
+## Explicações
+
+### Declaração de Variáveis
+
+Uma boa prática é declarar as variáveis que serão usadas logo no início do código.
+
+Isso obriga você a pensar um pouco mais na estruturação da lógica, pensando primeiramente no que será necessário no código antes de começar a escrevê-lo propriamente.
+
+São declaradas três variáveis do tipo `int`, uma para cada número que será informado. Logo abaixo, é declarada uma variável do tipo `float` para guardar o resultado da média que será calculada.
+
+### Pedindo Dados
+
+Pedimos que o usuário informe os dados por meio da mensagem do `printf`.
+
+Os dados informados são guardados em suas respectivas variáveis através do `scanf`. O primeiro parâmetro (**"%d%d%d"**) informa que o `scanf` receberá três variáveis do tipo `int`, podendo serem separadas por espaço ou **Enter**, já que o `scanf` ignora espaços em branco. Os **operadores de endereço (&)** indicam as variáveis em que os valores devem ser guardados.
+
+### Cálculo
+
+Agora que já declaramos as variáveis que usaremos, já coletamos os dados necessários e já os guardamos em suas variáveis, podemos calcular a média e fazer com que o programa cumpra seu propósito.
+
+A linha responsável informa que o valor da variável **média** deve ser igual a soma das variáveis dos **números** dividida por **3**.
+
+O uso o `(float)` faz com que o resultado da soma dos **números** seja tratado temporariamente como **ponto flutuante**. A linguagem converte o **divisor** para `float` por debaixo dos panos também para que os dados após a vírgula não sejam perdidos.
+
+Ao dividir um `float` por um `int`, a linguagem C converte o **3** em **3.0** automaticamente, executando uma divisão decimal exata. A estrutura de parênteses `(float)(num1 + num2 + num3)` é obrigatória. Se os parênteses envolvendo os **números** não forem usados, o `cast/conversão` afetará apenas o `num1`, e a divisão `num3 / 3` continuará sendo feita de forma inteira por causa da precedência dos operadores.
+
+### Informando Resultado ao Usuário
+
+Com o cálculo já realizado, o que nos resta é informar ao usuário o resultado.
+
+Utilizamos novamente o `printf` para exibir uma mensagem ao usuário. Dentro da mensagem há um **especificador de formato**, usado para exibir o valor de uma variável. 
+
+O valor da **média** é limitado a duas casas decimais pelo `.2` e é informado que o valor da variável é um `float` através do `f`. Após o fechamento das aspas duplas, deve ser informada a variável que será exibida.
