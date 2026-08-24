@@ -37,7 +37,6 @@ const components = {
   QuestaoLink: MDX.QuestaoLink,
 };
 
-// Declarados FORA do componente para não recriar referências a cada renderização
 const todosArquivosBrutos = import.meta.glob('/src/contents/**/*.mdx');
 const todasConfigs = import.meta.glob('/src/contents/**/config.ts');
 
@@ -77,9 +76,10 @@ export const Conteudo = () => {
   });
 
   const isArquivoResolucao = Boolean(atividade && slug && slug.toLowerCase() !== 'lista');
-  const questaoId = slug && isArquivoResolucao ? slug.split('-')[0] : undefined;
+  
+  const searchParams = new URLSearchParams(location.search);
+  const questaoId = searchParams.get('from') || (slug && isArquivoResolucao ? slug.split('-')[0] : undefined);
 
-  // Verifica se a atividade atual realmente possui um arquivo MDX de Lista
   const temListaNaAtividade = Boolean(
     atividade &&
       Object.keys(todosArquivos).some((path) => {
@@ -91,52 +91,43 @@ export const Conteudo = () => {
       })
   );
 
-  // Define se o retorno deve ser direcionado para a Lista
   const deveVoltarParaLista = isArquivoResolucao && temListaNaAtividade;
 
-  // 1. Redireciona do arquivo de resolução para a Lista correspondente
   const handleVoltarParaLista = () => {
     if (!periodo || !materia || !atividade) return;
 
     const rotaLista = `/${periodo}/${materia}/atividades/${atividade}/Lista`;
 
-    navigate(rotaLista, {
+    navigate(questaoId ? `${rotaLista}#${questaoId}` : rotaLista, {
       state: { scrollTargetId: questaoId },
     });
   };
 
-  // 2. Redireciona da Lista (ou assunto geral) para a página/aba anterior de atividades
   const handleVoltarGeral = () => {
     if (!periodo || !materia) return;
 
     if (atividade) {
-      // Como veio de uma atividade, volta explicitamente apontando a aba 'atividades'
       navigate(`/${periodo}/${materia}?aba=atividades`);
     } else {
-      // Se veio de um 'assunto', basta voltar para a matéria (ela já abrirá a aba 'assuntos' por padrão)
       navigate(`/${periodo}/${materia}`);
     }
   };
 
-  // Efeito de rolagem até a questão assim que a Lista é carregada
+  // Efeito de rolagem imediata assim que o MDXComponent é renderizado
   useEffect(() => {
     const stateTarget = (location.state as { scrollTargetId?: string })?.scrollTargetId;
+    const hashTarget = location.hash ? location.hash.replace('#', '') : undefined;
+    const targetId = hashTarget || stateTarget;
 
-    if (stateTarget && MDXComponent && slug?.toLowerCase() === 'lista') {
-      const timer = setTimeout(() => {
-        const elemento = document.getElementById(stateTarget);
-        if (elemento) {
-          elemento.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+    if (targetId && MDXComponent && slug?.toLowerCase() === 'lista') {
+      const elemento = document.getElementById(targetId);
+      if (elemento) {
+        elemento.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
 
-        // LIMPA O STATE do histórico do navegador após fazer o scroll
-        // Impede que a Lista "lembre" que veio de uma questão em futuros cliques de voltar
-        window.history.replaceState({}, document.title);
-      }, 100);
-
-      return () => clearTimeout(timer);
+      window.history.replaceState({}, document.title);
     }
-  }, [location.state, MDXComponent, slug]);
+  }, [location.state, location.hash, MDXComponent, slug]);
 
   useEffect(() => {
     let cancelado = false;
@@ -244,7 +235,8 @@ export const Conteudo = () => {
       <S.PageContainer>
         {MDXComponent ? (
           <>
-            <TableOfContents 
+            <TableOfContents
+              key={location.pathname}
               onVoltar={deveVoltarParaLista ? handleVoltarParaLista : handleVoltarGeral} 
             />
             <S.ArticleWrapper>

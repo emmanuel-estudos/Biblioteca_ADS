@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 
 export const QuestaoContainer = styled.div`
-  /* Incrementa o contador para cada componente Questao renderizado */
-  counter-increment: questao-counter;
-  
   border: 1px solid #262626;
   border-radius: 0.5rem;
   padding: 1.25rem;
@@ -14,18 +11,18 @@ export const QuestaoContainer = styled.div`
   scroll-margin-top: 5rem;
 `;
 
-export const QuestaoHeader = styled.div`
+// Alterado para styled.h2 e ajustado o reset de margens de h2
+export const QuestaoHeader = styled.h2`
   font-weight: 700;
-  /* Lê a corPrimaria do ThemeProvider fornecido pelo Conteudo.tsx */
   color: ${props => props.theme?.corPrimaria || '#22d3ee'}; 
   font-size: 1.125rem;
-  margin-bottom: 0.5rem;
+  margin: 0 0 0.5rem 0;
+  padding: 0;
+  border: none;
+  background: transparent;
   transition: color 0.3s ease;
 
-  /* Injeta automaticamente "Questão 01", "Questão 02", etc. */
-  &::before {
-    content: "Questão " counter(questao-counter, decimal-leading-zero);
-  }
+  /* &::before foi removido para eliminar a duplicação e usar texto real do DOM */
 `;
 
 export const QuestaoDivider = styled.hr`

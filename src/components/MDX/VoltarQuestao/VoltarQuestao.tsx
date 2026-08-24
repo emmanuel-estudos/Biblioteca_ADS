@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import * as S from './styles';
 
 export interface VoltarQuestaoProps {
-  /**
-   * ID da questão na lista para a qual o usuário deve voltar.
-   * Exemplo: "q001" direciona para .../Lista#q001
-   */
   questaoId?: string;
   label?: string;
 }
@@ -16,10 +12,13 @@ export const VoltarQuestao: React.FC<VoltarQuestaoProps> = ({
   label = 'Voltar',
 }) => {
   const { periodo, materia, atividade } = useParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [corPrimaria, setCorPrimaria] = useState<string | undefined>(undefined);
 
-  // Busca a corPrimaria da matéria para manter a identidade visual
+  // Se questaoId não for passado via prop, busca da Query String (?from=q002)
+  const targetId = questaoId || searchParams.get('from') || '';
+
   useEffect(() => {
     let cancelado = false;
 
@@ -53,19 +52,9 @@ export const VoltarQuestao: React.FC<VoltarQuestaoProps> = ({
 
   const handleVoltar = () => {
     const rotaLista = `/${periodo}/${materia}/atividades/${atividade}/Lista`;
-    const destinoComHash = questaoId ? `${rotaLista}#${questaoId}` : rotaLista;
+    const destinoComHash = targetId ? `${rotaLista}#${targetId}` : rotaLista;
 
     navigate(destinoComHash);
-
-    // Se estivermos navegando com hash, força a rolagem suave até o elemento
-    if (questaoId) {
-      setTimeout(() => {
-        const elemento = document.getElementById(questaoId);
-        if (elemento) {
-          elemento.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
-    }
   };
 
   return (

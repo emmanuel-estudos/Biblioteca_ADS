@@ -14,13 +14,38 @@ export const PageContainer = styled.main`
   padding: 2rem;
   position: relative;
 
-	scroll-behavior: smooth;
-  
-  /* Substituímos o zoom por transform scale se você realmente quiser encolher a página,
-    mas o ideal para não quebrar o layout é apenas ajustar as fontes. 
-    Se não for estritamente obrigatório, remova a linha abaixo.
-  */
-  /* transform: scale(1); */
+  scroll-behavior: smooth;
+	overflow-x: hidden;
+
+  /* ==========================================================================
+     CUSTOM SCROLLBAR VERTICAL DA PÁGINA
+     ========================================================================== */
+
+  /* Largura da barra de rolagem vertical */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  /* Trilho (fundo) combinando com o fundo da página #09090b */
+  &::-webkit-scrollbar-track {
+    background: #09090b;
+  }
+
+  /* Indicador de rolagem com a cor primária dinâmica ou azul default */
+  &::-webkit-scrollbar-thumb {
+    background: ${props => props.theme.corPrimaria || '#38bdf8'};
+    border-radius: 4px;
+    transition: background 0.2s ease;
+  }
+
+  /* Hover do indicador com a cor secundária dinâmica */
+  &::-webkit-scrollbar-thumb:hover {
+    background: ${props => props.theme.corSecundaria || '#0284c7'};
+  }
+
+  /* Suporte nativo para Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: ${props => `${props.theme.corPrimaria || '#38bdf8'} #09090b`};
 `;
 
 // Conteúdo dos Arquivos Renderizados
@@ -34,11 +59,36 @@ export const ArticleWrapper = styled.article`
   border-radius: 16px;
   padding: 3rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-  
-  /* Garante que códigos muito longos dentro do MDX não quebrem o artigo para os lados */
-  overflow-x: auto;
 
-	h1, h2, h3, h4, h5, h6 {
+	overflow-x: hidden;
+
+  h1, h2, h3, h4, h5, h6 {
     scroll-margin-top: 5rem; /* ~80px de distância do topo da tela ao ser focalizado */
   }
+
+  /* ==========================================================================
+     CUSTOM SCROLLBAR VERTICAL DO ARTIGO
+     ========================================================================== */
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #171717;
+    border-radius: 0 8px 8px 0;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${props => props.theme.corPrimaria || '#38bdf8'};
+    border-radius: 3px;
+    transition: background 0.2s ease;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: ${props => props.theme.corSecundaria || '#0284c7'};
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: ${props => `${props.theme.corPrimaria || '#38bdf8'} #171717`};
 `;
