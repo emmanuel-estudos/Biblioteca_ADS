@@ -12,7 +12,7 @@ export const QuestaoContainer = styled.div`
 `;
 
 // Alterado para styled.h2 e ajustado o reset de margens de h2
-export const QuestaoHeader = styled.h2`
+export const QuestaoHeader = styled.h3`
   font-weight: 700;
   color: ${props => props.theme?.corPrimaria || '#22d3ee'}; 
   font-size: 1.125rem;
