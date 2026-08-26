@@ -11,10 +11,12 @@ import { CodeInline, CodePre } from './CodeBlock';
 import { Box } from './Terminal';
 import { TabsContainer } from './ContainerAbasTerminal';
 import { Imagem } from './Imagem';
+import { ItemLista } from './ItemLista';
 import { ItemListaNaoOrdenada } from './ItemListaNaoOrdenada';
 import { LinhaTerminal } from './LinhaTerminal';
 import { Link } from './Link';
 import { ListaNaoOrdenada } from './ListaNaoOrdenada';
+import { ListaOrdenada } from './ListaOrdenada';
 import { AbaTerminal } from './AbaTerminal';
 import { CodeArea } from './CodeArea';
 import { Comment } from './Comentario';
@@ -44,5 +46,7 @@ export const MDX = {
   Link,
   ItemListaNaoOrdenada,
   ListaNaoOrdenada,
+	ListaOrdenada,
   Imagem,
+	ItemLista
 };

@@ -22,9 +22,9 @@ const components = {
   strong: MDX.Strong,
   code: MDX.CodeInline,
   pre: MDX.CodePre,
-  ol: MDX.ListaNaoOrdenada,
-  ul: MDX.ListaNaoOrdenada,
-  li: MDX.ItemListaNaoOrdenada,
+  ol: MDX.ListaOrdenada,      // Mapeado para ListaOrdenada
+  ul: MDX.ListaNaoOrdenada,   // Mapeado para ListaNaoOrdenada
+  li: MDX.ItemLista,          // Componente genérico para os itens
   img: MDX.Imagem,
   Terminal: MDX.Box,
   Abas: MDX.TabsContainer,
