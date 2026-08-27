@@ -33,6 +33,9 @@
 
   // ========== Palavras Personalizadas ==========
   "cSpell.words": [
+    // Banco de Dados I - P3
+    "SGBD",
+
     // Segurança de Dados - P5
     "PREROUTING",
     "dport",

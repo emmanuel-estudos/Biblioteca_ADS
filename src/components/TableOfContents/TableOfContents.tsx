@@ -26,28 +26,45 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
         });
       setHeadings(elements);
     };
-    
-    const timer = setTimeout(parseHeadings, 150);
-    return () => clearTimeout(timer);
+
+    // Garante a leitura dos títulos no frame de renderização seguinte
+    const handle = requestAnimationFrame(() => {
+      parseHeadings();
+    });
+
+    // Observa mutações dentro da tag <article> caso o MDX insira elementos assincronamente
+    const articleEl = document.querySelector('article');
+    let observer: MutationObserver | null = null;
+
+    if (articleEl) {
+      observer = new MutationObserver(() => {
+        parseHeadings();
+      });
+      observer.observe(articleEl, { childList: true, subtree: true });
+    }
+
+    return () => {
+      cancelAnimationFrame(handle);
+      if (observer) observer.disconnect();
+    };
   }, [slug]);
 
   const handleVoltar = () => {
     if (onVoltar) {
       onVoltar();
     } else {
-      // Volta para a tela anterior no histórico de navegação do usuário
       navigate(-1);
     }
   };
-  
+
   if (headings.length === 0) return null;
-  
+
   return (
     <S.TocContainer $isOpen={isOpen}>
       <S.ToggleButton onClick={() => setIsOpen(!isOpen)}>
-        {isOpen ? '‹' : '☰'} 
+        {isOpen ? '‹' : '☰'}
       </S.ToggleButton>
-      
+
       <S.TocWrapper $isOpen={isOpen}>
         <S.BotaoVoltarContainer onClick={handleVoltar}>
           <span>&larr;</span> Voltar
@@ -56,9 +73,9 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({
         <S.TocTitle>Tópicos</S.TocTitle>
         <S.TocList>
           {headings.map((h) => (
-            <S.TocLink 
-              key={h.id} 
-              href={`#${h.id}`} 
+            <S.TocLink
+              key={h.id}
+              href={`#${h.id}`}
               $level={h.level}
               onClick={(e) => {
                 e.preventDefault();

@@ -7,7 +7,7 @@ export const config = {
 
 	// Mapeamento de arquivos da matéria (arquivo Materia.tsx)
 	assuntos: {
-		"01-Conceitos_Basicos_e_Terminologias": "Conceitos básicos e terminologias de bancos de dados",
+		"01-Conceitos_Basicos_e_Terminologias": "Conceitos Básicos e Terminologias",
 	},
 
 	// Mapeamento das pastas da aba 'Atividade' da matéria (arquivo Materia.tsx)

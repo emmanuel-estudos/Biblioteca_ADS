@@ -1,5 +1,5 @@
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { useEffect, useState, ComponentType } from 'react';
+import { useEffect, useState, ComponentType, startTransition } from 'react';
 import { MDXProvider } from '@mdx-js/react';
 import { ThemeProvider } from 'styled-components';
 
@@ -22,9 +22,9 @@ const components = {
   strong: MDX.Strong,
   code: MDX.CodeInline,
   pre: MDX.CodePre,
-  ol: MDX.ListaOrdenada,      // Mapeado para ListaOrdenada
-  ul: MDX.ListaNaoOrdenada,   // Mapeado para ListaNaoOrdenada
-  li: MDX.ItemLista,          // Componente genérico para os itens
+  ol: MDX.ListaOrdenada,
+  ul: MDX.ListaNaoOrdenada,
+  li: MDX.ItemLista,
   img: MDX.Imagem,
   Terminal: MDX.Box,
   Abas: MDX.TabsContainer,
@@ -131,6 +131,11 @@ export const Conteudo = () => {
 
   useEffect(() => {
     let cancelado = false;
+
+    // Limpa o conteúdo anterior para desmontar o sumário e exibir o loader enquanto baixa o novo chunk no GitHub Pages
+    startTransition(() => {
+      setMDXComponent(null);
+    });
 
     const carregarTudo = async () => {
       const numero = periodo?.split('-')[0] || '';

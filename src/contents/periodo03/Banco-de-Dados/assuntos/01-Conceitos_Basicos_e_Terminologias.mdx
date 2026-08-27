@@ -12,15 +12,109 @@ Diariamente, realizamos tarefas que envolvem alguma interação com bancos de da
 
 Muitos sistemas atuais envolvem o uso de um banco de dados.
 
-## teste de listas
+Para entendermos os fundamentos da tecnologia de banco de dados, precisamos compreender primeiro alguns de seus conceitos básicos.
 
-1. teste
-2. de
-3. lista
-  1. item subordinado
-4. ordenada
+## Conceitos Básicos
 
-- teste
-- de
-- lista
-- não ordenada
+### O que é um banco de dados?
+
+#### Definição genérica
+
+É uma coleção de dados relacionados e armazenados em algum dispositivo.
+
+Podemos definir melhor um banco de dados com base em suas características.
+
+#### Características
+
+Um banco de dados representa algum aspecto do mundo real. Também chamado de minimundo ou universo de discurso. Mudanças no minimundo precisam ser refletidas para o banco de dados.
+
+Um banco de dados é uma coleção de dados logicamente coerente. Os dados desta coleção possuem um significado inerente.
+
+Um banco de dados é projetado, construído e populado com dados para uma finalidade específica, tendo grupo definido de usuários interessados em seu conteúdo.
+
+Os bancos de dados atuais normalmente precisam gerenciar uma grande quantidade de dados. Isto requer o uso do computador para dar o suporte a esta tarefa.
+
+Antigamente, os bancos de dados das aplicações eram implementados como um conjunto de arquivos. O programador tinha que implementar todas as rotinas responsáveis pelo gerenciamento dos dados.
+
+#### Algumas desvantagens dos sistemas de arquivos
+
+A estrutura dos dados era toda definida dentro da aplicação: **usando recursos como records, structs, etc**.
+
+Era muito complicado implementar mudanças na estrutura dos dados. O programador perdia muito tempo para implementar rotinas de acesso aos dados.
+
+Várias versões dos mesmos dados em arquivos diferentes: **desperdício de espaço e problemas de consistência**.
+
+O programador tinha que se preocupar com a implementação de muitos softwares complexos: **controle de transações, tolerância a falhas, estruturas de indexação, otimização de consultas, etc**.
+
+#### Solução
+
+Para resolver estas limitações, foram desenvolvidos os sistemas gerenciadores de bancos de dados (SGBD).
+
+Um SGBD é uma coleção de programas que permite a criação e o gerenciamento de bancos de dados.
+
+Exemplos de SGDBs
+
+- MySQL;
+- PostgreSQL;
+- MongoDB;
+- Microsoft SQL Server;
+- Oracle;
+- IBM DB2;
+
+## Vantagens do uso de SGBDs
+
+### SGBDs têm natureza autodescritiva
+
+Um catálogo é fornecido contendo uma série de metadados acerca da estrutura do banco de dados e suas restrições.
+
+**Exemplos de metadados**: as tabelas, as colunas de cada tabela com os seus respectivos tipos, os índices, os procedimentos armazenados, as restrições de integridade, etc.
+
+### Isolamento entre a aplicação e o banco de dados
+
+Todas as tarefas relativas ao gerenciamento dos dados ficam na responsabilidade do SGBD: **o programador pode concentrar os seus esforços no desenvolvimento da aplicação**.
+
+Menor acoplamento entre a aplicação e os dados: **mudanças na estrutura e organização dos dados tem menos impacto na aplicação e vice-versa**.
+
+Maior facilidade para o compartilhamento dos dados: **a estrutura oferecida pelo SGBD pode ser reusada por várias aplicações**.
+
+### Melhor abstração dos dados
+
+Todos os detalhes de armazenamento, indexação e recuperação dos dados ficam na responsabilidade do SGBD. O programador só precisa conhecer informações de alto nível sobre a organização dos dados.
+
+### Suporte a múltiplas visões dos dados
+
+SGBDs oferecem suporte para a definição de múltiplas visões dos dados.
+
+Visões podem ser usadas para controlar quais dados poderão ser acessados por cada grupo de usuário: **e como estes dados serão visualizados**.
+
+### Controle de concorrência
+
+O SGBD gerencia o acesso concorrente quando múltiplos usuários tentam atualizar o banco de dados ao mesmo tempo: **garantindo que o banco de dados permanecerá correto após a execução de todas as atualizações**.
+
+Estas aplicações são chamadas de OLTP (On-line Transaction Processing).
+
+### Verificação de restrições de integridade
+
+O SGBD é responsável por checar as restrições de integridade do banco de dados antes da realização de cada operação.
+
+**Exemplos**: o uso de valores nulos, restrições de unicidade, restrições de chave, referências, etc.
+
+### Controle de redundância
+
+SGBDs permitem que as visões de diferentes grupos de usuários sejam armazenadas em um único local.
+
+Isso reduz a necessidade de redundância dos dados, evitando desperdício de espaço e problemas de consistência.
+
+### Controle de acesso aos dados
+
+SGBDs oferecem ferramentas que nos permitem especificar os usuários que podem acessar o banco: **além de quais recursos eles podem acessar e quais operações eles podem realizar**.
+
+É responsabilidade do SGBD realizar o controle de autenticação e autorização.
+
+### Armazenamento persistente de objetos
+
+SGBDs orientados a objetos realizam o armazenamento e a recuperação de objetos no banco de dados: **fazendo a conversão de objeto para registro e vice-versa. Isto reduz problemas de impedância**.
+
+### Otimização de consultas
+
+O SGBD oferece ferramentas que otimizam o plano de execução de consultas para minimizar o tempo de resposta: **além de índices que aceleram o tempo de resposta das consultas**. Estas ferramentas permitem a resolução de consultas de forma mais eficiente.
