@@ -4,13 +4,28 @@ export interface UltimaAtualizacaoData {
   dataHora?: string;
 }
 
+// Preencha aqui a data e a hora separadamente:
+const dataPtBr = "30/08/2026"; // DD/MM/YYYY
+const hora = "04:00";          // HH:mm ou HH:mm:ss
+const fusoHorario = "-03:00";  // Fuso de Brasília
+
+// Função auxiliar para converter PT-BR + Hora em ISO 8601
+const criarDataHoraISO = (data: string, horaStr: string, fuso: string = "-03:00") => {
+  const [dia, mes, ano] = data.split('/');
+  const horaComSegundos = horaStr.length === 5 ? `${horaStr}:00` : horaStr;
+
+  return `${ano}-${mes.padStart(2, '0')}-${dia.padStart(2, '0')}T${horaComSegundos}${fuso}`;
+};
+
+// Montagem do objeto final exportado
 export const ultimaAtualizacaoInfo: UltimaAtualizacaoData = {
-  mensagem: "FEAT(router/mdx/Questao/Voltar): Sumário Lateral, Listas Ordenadas e Não Ordenadas, Títulos de Questões",
+  mensagem: "DOCS: adição das matérias do 6º período",
   descricao: `
-		- Sumário Lateral: Faz com que, a cada mudança de arquivo, o sumário seja montado novamente. Evita que ele fique desssincronizado com o arquivo atual.\n
-		- Listas: estilização específica para listas Ordenadas e Não Ordenadas, seguindo as cores Primárias e Secundárias definidas para cada matéria.\n
-		- Questão: possibilita que questões tenham um título no lugar de apenas numeração.\n
-		- Voltar: botão de voltar dentro do Sumário lateral, para voltar ao nível anterior do arquivo ou para a lista de origem da questão.
-	`,
-  dataHora: "2026-08-27T13:50:00-03:00",
+    - (DAC) Desenvolvimento de Aplicações Corporativas.\n
+    - (IHC) Interação Humano-Computador.\n
+    - (Extensão 02) Práticas Curriculares em Sociedade 02.\n
+    - (PDM) Programação para Dispositivos Móveis.\n
+    - (SD) Sistemas Distribuídos.
+  `,
+  dataHora: criarDataHoraISO(dataPtBr, hora, fusoHorario),
 };
