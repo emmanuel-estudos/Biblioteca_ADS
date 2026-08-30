@@ -254,7 +254,7 @@ export const Conteudo = () => {
           </>
         ) : (
           <p style={{ color: '#64748b', textAlign: 'center', marginTop: '4rem' }}>
-            Carregando conteúdo ou arquivo .mdx não encontrado...
+            Carregando conteúdo ou arquivo .mdx não encontrado... Pressione `F5` para ter certeza.
           </p>
         )}
       </S.PageContainer>
