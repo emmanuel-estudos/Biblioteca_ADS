@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import * as S from '../Materia/styles'; 
+import { TRADUCAO_NOMES } from '../../utils/traducoes';
 
 interface ConfigMateria {
   nome: string;
@@ -46,6 +47,8 @@ export const Atividades = () => {
     carregarConfig();
   }, [materia, todasConfigs]);
 
+  const nomeMateriaExibicao = configMateria.nome || (materia ? (TRADUCAO_NOMES[materia] || materia.replace(/[-_]/g, ' ')) : '');
+
   // Encontra a chave exata dentro do config ignorando maiúsculas/minúsculas
   const chaveAtividadeConfig = useMemo(() => {
     if (!atividade || !configMateria.atividades) return null;
@@ -53,6 +56,13 @@ export const Atividades = () => {
       key => key.toLowerCase() === atividade.toLowerCase()
     );
   }, [atividade, configMateria]);
+
+  // Busca a propriedade '.nome' definida em config.ts ou formata o nome da pasta
+  const tituloAtividade = useMemo(() => {
+    if (!atividade) return '';
+    const dadosAtividade = chaveAtividadeConfig ? configMateria.atividades?.[chaveAtividadeConfig] : null;
+    return dadosAtividade?.nome || atividade.replace(/[-_]/g, ' ');
+  }, [atividade, configMateria, chaveAtividadeConfig]);
 
   const arquivosDaAtividade = useMemo(() => {
     const caminhos = Object.keys(todosArquivos);
@@ -67,7 +77,6 @@ export const Atividades = () => {
       .map(path => {
         const slugReal = path.split('/').pop()?.replace(/\.(mdx|pdf|txt)$/, '') || '';
         
-        // Usa a chave flexível para buscar os arquivos catalogados no config.ts
         const dadosAtividade = chaveAtividadeConfig ? configMateria.atividades?.[chaveAtividadeConfig] : null;
         const nomeAmigavel = dadosAtividade?.arquivos?.[slugReal] || slugReal.replace(/[-_]/g, ' ');
 
@@ -76,13 +85,6 @@ export const Atividades = () => {
       .sort((a, b) => a.nomeExibicao.localeCompare(b.nomeExibicao));
   }, [nomePastaPeriodo, materia, atividade, todosArquivos, configMateria, chaveAtividadeConfig]);
 
-  // Busca a propriedade '.nome' usando a chave flexível
-  const tituloAtividade = useMemo(() => {
-    if (!atividade) return '';
-    const dadosAtividade = chaveAtividadeConfig ? configMateria.atividades?.[chaveAtividadeConfig] : null;
-    return dadosAtividade?.nome || atividade.replace(/[-_]/g, ' ');
-  }, [atividade, configMateria, chaveAtividadeConfig]);
-
   return (
     <ThemeProvider theme={configMateria}>
       <Breadcrumbs />
@@ -90,14 +92,13 @@ export const Atividades = () => {
         <S.Header>
           <h1>{tituloAtividade}</h1>
           <p style={{ color: '#64748b', marginTop: '0.5rem' }}>
-            Arquivos referentes à atividade de {configMateria.nome || materia}
+            Arquivos referentes a "{tituloAtividade}" de {nomeMateriaExibicao}.
           </p>
         </S.Header>
 
         <S.ContentList>
           {arquivosDaAtividade.map(arquivo => (
             <S.ListItem key={arquivo.path}>
-              {/* Monta uma rota limpa e relativa usando useParams */}
               <Link to={`/${periodo}/${materia}/atividades/${atividade}/${arquivo.slug}`}>
                 📄 {arquivo.nomeExibicao}
               </Link>
@@ -107,7 +108,7 @@ export const Atividades = () => {
 
         {arquivosDaAtividade.length === 0 && (
           <p style={{ textAlign: 'center', color: '#64748b', marginTop: '2rem' }}>
-            Nenhum arquivo encontrado dentro desta pasta de atividade.
+            Nenhum arquivo encontrado em "{tituloAtividade}"...
           </p>
         )}
       </S.PageWrapper>

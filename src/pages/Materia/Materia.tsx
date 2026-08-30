@@ -5,7 +5,6 @@ import { Breadcrumbs } from '../../components/Breadcrumbs';
 import * as S from './styles';
 import { TRADUCAO_NOMES } from '../../utils/traducoes';
 
-// Interface para suportar a estrutura com subobjetos nas atividades
 interface ConfigMateria {
   nome: string;
   corPrimaria: string;
@@ -25,26 +24,15 @@ export const Materia = () => {
   
   const estadoNavegacao = location.state as { tab?: 'assuntos' | 'atividades' } | null;
 
-  // Lógica para determinar a aba inicial: Query Param > Location State > Padrão ('assuntos')
-  const paramAba = searchParams.get('aba') as 'assuntos' | 'atividades' | null;
+  // Deriva a aba ativa diretamente dos parâmetros de URL ou estado de navegação (sem useState/useEffect)
+  const paramAba = searchParams.get('aba');
+  const tabAtiva: 'assuntos' | 'atividades' =
+    paramAba === 'assuntos' || paramAba === 'atividades'
+      ? paramAba
+      : estadoNavegacao?.tab || 'assuntos';
 
-  const [tabAtiva, setTabAtiva] = useState<'assuntos' | 'atividades'>(() => {
-    if (paramAba === 'assuntos' || paramAba === 'atividades') {
-      return paramAba;
-    }
-    return estadoNavegacao?.tab || 'assuntos';
-  });
-
-  // Mantém o estado local em sincronia se o parâmetro de busca (?aba=) na URL mudar
-  useEffect(() => {
-    if (paramAba === 'assuntos' || paramAba === 'atividades') {
-      setTabAtiva(paramAba);
-    }
-  }, [paramAba]);
-
-  // Função para mudar de aba atualizando a URL com Query Parameter
+  // Atualiza a URL com o Query Parameter correspondente ao clicar na aba
   const handleTrocaTab = (novaTab: 'assuntos' | 'atividades') => {
-    setTabAtiva(novaTab);
     if (novaTab === 'atividades') {
       setSearchParams({ aba: 'atividades' }, { replace: true });
     } else {
@@ -80,6 +68,8 @@ export const Materia = () => {
     carregarConfig();
   }, [materia, todasConfigs]);
 
+  const nomeMateriaExibicao = configMateria.nome || (materia ? (TRADUCAO_NOMES[materia] || materia.replace(/[-_]/g, ' ')) : '');
+
   const listaAssuntos = useMemo(() => {
     const caminhos = Object.keys(todosArquivos);
     const materiaLower = materia?.toLowerCase();
@@ -107,9 +97,8 @@ export const Materia = () => {
       .map(path => {
         const partes = path.split('/');
         const idxAtividades = partes.findIndex(p => p.toLowerCase() === 'atividades');
-        const nomePasta = partes[idxAtividades + 1]; // ex: "atividade02"
+        const nomePasta = partes[idxAtividades + 1];
         
-        // Busca a chave correspondente no config ignorando maiúsculas/minúsculas
         const chaveConfig = Object.keys(configMateria.atividades || {}).find(
           key => key.toLowerCase() === nomePasta.toLowerCase()
         );
@@ -117,7 +106,6 @@ export const Materia = () => {
         const dadosCatalogados = chaveConfig ? configMateria.atividades?.[chaveConfig] : null;
         const nomeExibicao = dadosCatalogados?.nome || nomePasta.replace(/[-_]/g, ' ');
 
-        // Mantemos o nome original da pasta para montar a URL física correta
         return { path, nomePasta, nomeExibicao };
       })
       .filter((value, index, self) => 
@@ -131,7 +119,7 @@ export const Materia = () => {
       <Breadcrumbs abaAtiva={tabAtiva} />
       <S.PageWrapper>
         <S.Header>
-          <h1>{configMateria.nome || (materia ? (TRADUCAO_NOMES[materia] || materia.replace(/[-_]/g, ' ')) : '')}</h1>
+          <h1>{nomeMateriaExibicao}</h1>
         </S.Header>
 
         <S.TabContainer>
@@ -139,11 +127,9 @@ export const Materia = () => {
             Assuntos
           </S.TabButton>
           
-          {listaAtividades.length > 0 && (
-            <S.TabButton $active={tabAtiva === 'atividades'} onClick={() => handleTrocaTab('atividades')}>
-              Atividades
-            </S.TabButton>
-          )}
+          <S.TabButton $active={tabAtiva === 'atividades'} onClick={() => handleTrocaTab('atividades')}>
+            Atividades
+          </S.TabButton>
         </S.TabContainer>
 
         <S.ContentList>
@@ -168,7 +154,13 @@ export const Materia = () => {
 
         {tabAtiva === 'assuntos' && listaAssuntos.length === 0 && (
           <p style={{ textAlign: 'center', color: '#64748b', marginTop: '2rem' }}>
-            Nenhum assunto encontrado na pasta /assuntos/
+            Nenhum assunto encontrado referente a {nomeMateriaExibicao}...
+          </p>
+        )}
+
+        {tabAtiva === 'atividades' && listaAtividades.length === 0 && (
+          <p style={{ textAlign: 'center', color: '#64748b', marginTop: '2rem' }}>
+            Nenhuma atividade encontrada referente a {nomeMateriaExibicao}...
           </p>
         )}
       </S.PageWrapper>
