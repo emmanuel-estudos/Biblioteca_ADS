@@ -42,7 +42,10 @@
     "DNAT",
     "adsads",
     "nginx",
-    "keyout"
+    "keyout",
+
+    // DAC - P6
+    "TOGAF",
   ],
 
   "cSpell.ignoreRegExpList": [

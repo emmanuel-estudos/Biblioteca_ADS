@@ -12,10 +12,10 @@ export const config = {
 
 	// Mapeamento das pastas da aba 'Atividade' da matéria (arquivo Materia.tsx)
 	atividades: {
-		"atividade01": {
-			nome: "Atividade 01",
+		"Atividades-Sala": {
+			nome: "Atividades de Sala",
 			arquivos: {
-				"Teste01": "Teste de arquivo 01"
+				"Atividade-24_08_2026": "Atividade do dia 24/08/2026"
 			}
 		},
 		"atividade02": {
