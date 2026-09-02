@@ -1,37 +1,65 @@
-import styled from 'styled-components';
-import { CorTexto } from '../EstilosGerais';
+import styled, { css } from 'styled-components';
 
-// Container da Imagem
-export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  
-  
-  width: 100%;
+interface BoxImageProps {
+  $temLegenda?: boolean;
+}
+
+interface ElementoImagemProps {
+  $corPrimaria?: string;
+}
+
+export const BoxImage = styled.figure<BoxImageProps>`
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: fit-content;
   max-width: 100%;
+
+  ${({ $temLegenda }) =>
+    $temLegenda
+      ? css`
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin: 1.5rem auto;
+        `
+      : css`
+          display: inline-flex;
+          flex-direction: column;
+          align-items: center;
+          margin: 0.5rem;
+          vertical-align: top;
+        `}
 `;
 
-// Elemento da Imagem
-export const ElementoImagem = styled.img`
-  display: block;
+export const ElementoImagem = styled.img<ElementoImagemProps>`
   max-width: 100%;
   height: auto;
+  display: block;
+  margin: 0 auto;
   border-radius: 8px;
-  
-  border: 1px solid ${props => props.theme.corPrimaria || '#27272a'};
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+
+  /* A borda envolve exclusivamente a imagem */
+  border: 2px solid ${({ theme, $corPrimaria }) =>
+    $corPrimaria || theme.corPrimaria || '#3f3f46'};
 `;
 
-// Legenda
-export const Legenda = styled.p`
-  margin-top: 0.75rem;
-  font-size: 0.85rem;
-  color: ${CorTexto};
-  opacity: 0.6;
+export const Legenda = styled.figcaption`
+  margin: 0;
+  margin-top: 6px; /* Distanciamento sutil estilo referência de artigo */
+  width: 100%;
+  padding: 0 4px;
+  font-size: 0.875rem;
   text-align: center;
-  font-style: italic;
-  line-height: 1.4;
-  max-width: 80%;
+  box-sizing: border-box;
+  color: gray;
+  text-indent: 0;
+
+  p {
+    margin: 0;
+    padding: 0;
+    text-indent: 0;
+    text-align: center;
+  }
 `;
