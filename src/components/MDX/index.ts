@@ -22,14 +22,16 @@ import { CodeArea } from './CodeArea';
 import { Comment } from './Comentario';
 import { Resultado } from './Resultado';
 import { Table } from './Tabela';
+import { TituloTabela } from './Tabela/TituloTabela';
 
 export const MDX = {
   Table,
+  TituloTabela,
   TituloH1,
   TituloH2,
   TituloH3,
   TituloH4,
-	VoltarQuestao,
+  VoltarQuestao,
   Paragraph,
   Questao,
   QuestaoLink,
@@ -46,7 +48,7 @@ export const MDX = {
   Link,
   ItemListaNaoOrdenada,
   ListaNaoOrdenada,
-	ListaOrdenada,
+  ListaOrdenada,
   Imagem,
-	ItemLista
+  ItemLista,
 };

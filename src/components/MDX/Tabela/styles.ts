@@ -1,5 +1,31 @@
 import styled from 'styled-components';
 
+export const StyledTituloTabela = styled.div`
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: #18181b;
+  color: #f4f4f5;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.025em;
+  border: 1px solid #27272a;
+  border-bottom: 1px solid #3f3f46;
+  border-radius: 8px 8px 0 0;
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  box-sizing: border-box;
+  word-break: break-word;
+
+  /* Remove a margem superior e integra o container da tabela que estiver logo abaixo */
+  & + div {
+    margin-top: 0 !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-top: none !important;
+  }
+`;
+
 // Wrapper responsável por conter a tabela dentro dos limites do pai
 export const TableWrapper = styled.div`
   width: 100%;
@@ -9,6 +35,7 @@ export const TableWrapper = styled.div`
   border: 1px solid #27272a;
   box-sizing: border-box;
   overflow-x: auto; /* Mantém um scroll de segurança APENAS em telas muito pequenas como mobile */
+  background-color: #111111;
 `;
 
 export const StyledTable = styled.table`
@@ -24,7 +51,7 @@ export const StyledTable = styled.table`
   table-layout: auto; 
 
   thead {
-    background-color: #18181b;
+    background-color: #141417;
     border-bottom: 2px solid #27272a;
 
     th {

@@ -35,6 +35,7 @@ const components = {
   Linha: MDX.LinhaTerminal,
   Questao: MDX.Questao,
   QuestaoLink: MDX.QuestaoLink,
+  TituloTabela: MDX.TituloTabela,
 };
 
 const todosArquivosBrutos = import.meta.glob('/src/contents/**/*.mdx');
