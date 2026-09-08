@@ -7,7 +7,7 @@ export const config = {
 
 	// Mapeamento de arquivos da matéria (arquivo Materia.tsx)
 	assuntos: {
-		"Teste": "Teste de Arquivo",
+		"aula01-IA": "Aula 01: Inteligência Artificial",
 	},
 
 	// Mapeamento das pastas da aba 'Atividade' da matéria (arquivo Materia.tsx)
@@ -15,7 +15,8 @@ export const config = {
 		"Atividades-Sala": {
 			nome: "Atividades de Sala",
 			arquivos: {
-				"Atividade-24_08_2026": "Atividade do dia 24/08/2026"
+				"Atividade-2026_08_24": "Atividade 01 - 24/08/2026",
+        "Atividade-2026_09_08": "Atividade 02 - 08/09/2026"
 			}
 		},
 		"atividade02": {
