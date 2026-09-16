@@ -118,3 +118,180 @@ SGBDs orientados a objetos realizam o armazenamento e a recuperação de objetos
 ### Otimização de consultas
 
 O SGBD oferece ferramentas que otimizam o plano de execução de consultas para minimizar o tempo de resposta: **além de índices que aceleram o tempo de resposta das consultas**. Estas ferramentas permitem a resolução de consultas de forma mais eficiente.
+
+### Backup e Recuperação
+
+SGBDs oferecem módulos de recuperação, que permitem que o banco de dados seja revertido para um estado válido após uma falha de hardware ou software.
+
+Módulos de backup permitem o backup dos dados para recuperação após uma eventual falha de disco catastrófica.
+
+### Múltiplas interfaces com o usuário
+
+O SGBD normalmente oferece várias interfaces para o gerenciamento do banco de dados: **interface gráfica, linha de comando, drivers para
+acesso via aplicações, etc**.
+
+### Redução no tempo de desenvolvimento de aplicações
+
+Todas as tarefas relativas ao gerenciamento dos dados ficam na responsabilidade do SGBD.
+
+O programador pode focar no desenvolvimento da aplicação.
+
+## Os primeiros SGBDs
+
+Os primeiros SGBDs surgiram mais ou menos na década de 1960.
+
+Os dados eram organizados em arquivos de registros. Os relacionamentos entre os dados eram descritos por meio de ponteiros.
+
+### Modelos de Destaque da Época
+
+**Modelo hierárquico**: os dados eram estruturados por meio de uma árvore.
+
+**Modelo de redes**: representação mais livre, sem a noção de hierarquia.
+
+### Sistemas que tiveram destaque na época
+
+Os SGBDs eram chamados de **bancos de dados navegacionais**: foram utilizados da década de 1960 até meados da década de 1980.
+
+Alguns sistemas de bancos de dados tiveram destaque nessa época:
+
+- O Integrated Data Store (IDS), desenvolvido Charles W. Bachman na General Electric.
+- O modelo desenvolvido pelo CODASYL (Committee on Data Systems Languages).
+- O Information Management System (IMS), criado pela IBM;
+
+### Problemas dos bancos de dados navegacionais
+
+- Os sistemas eram muito complexos
+- Os sistemas exigiam muito tempo de treinamento por parte dos novos usuários
+- Dificuldade para expressar consultas
+
+## Modelo Relacional
+
+Modelo proposto por Edgar Codd em 1970, com os primeiros SGBDs relacionais surgindo alguns anos depois.
+
+• Fundamentação matemática para os bancos de dados: **os relacionamentos entre os dados são descritos por meio do conceito matemático de relações**. Um elemento do conjunto A está relacionado com um elemento do conjunto B.
+
+Os dados são estruturados e armazenados na forma de tabelas:
+
+<TituloTabela>Empregado</TituloTabela>
+| Matrícula | Nome | Salário | Supervisor | CodDepartamento |
+| :-------: | :--: | :-----: | :--------: | :-------------: |
+| 1111-1 | João | 2500 | 1111-4 | 1 |
+| 1111-2 | Maria | 2500 | 1111-3 | 2 |
+| 1111-3 | Calos | 4500 |  | 2 |
+| 1111-4 | Joaquim | 4500 |  | 1 |
+| 1111-5 | Ana | 3000 | 1111-4 | 1 |
+| 1111-6 | Patrícia | 2500 | 1111-3 | 2 |
+| 1111-7 | Sérgio | 1000 | 1111-3 | 2 |
+
+Exemplos de SGBDs que implementam o modelo relacional:
+
+![PostgreSQL](https://www.vectorlogo.zone/logos/postgresql/postgresql-ar21~bgwhite.svg)
+![MySQL](https://www.vectorlogo.zone/logos/mysql/mysql-ar21~bgwhite.svg)
+![ORACLE](https://www.vectorlogo.zone/logos/oracle/oracle-ar21~bgwhite.svg)
+![Microsoft SQL Server](https://www.clipartmax.com/png/small/156-1565797_microsoft-logo-transparent-background-microsoft-sql-server-logo.png)
+![IBM BD2](https://www.vectorlogo.zone/logos/ibm/ibm-ar21~bgwhite.svg)
+
+## Modelo Orientado a objetos
+
+Surgiram devido à popularidade do paradigma de programação orientada a objetos nos anos 80.
+
+Incorporação dos principais conceitos deste paradigma à aplicações de bancos de dados: **classes, objetos, métodos, encapsulamento, herança, etc**.
+
+Foram propostos também para resolver o problema de impedância entre a aplicação e o banco de dados.
+
+- Criação do Object Database Management Group (ODMG).
+- Criação da Object Query Language (OQL).
+
+Exemplos de SGBDs orientados a objetos:
+
+- Vbase
+- O2
+- Orion
+- Gemstone
+- Jasmine
+- ObjectStore
+
+Mesmo com as vantagens oferecidas, os SGBDs orientados a objetos não conquistaram muita popularidade.
+
+O modelo o relacional seguiu dominando o mercado de bancos de dados.
+
+## Bancos de Dados Objeto-Relacionais
+
+Depois de um tempo, alguns SGBDs relacionais passaram a dar suporte também ao modelo orientado a objetos.
+
+Permitiam que os usuários aproveitassem as melhores características dos dois modelos: **facilidade de migração de bancos de dados de sistemas legados**.
+
+Exemplos de SGBDs que se tornaram objeto-relacionais:
+
+![ORACLE](https://www.vectorlogo.zone/logos/oracle/oracle-ar21~bgwhite.svg)
+![Microsoft SQL Server](https://www.clipartmax.com/png/small/156-1565797_microsoft-logo-transparent-background-microsoft-sql-server-logo.png)
+![IBM BD2](https://www.vectorlogo.zone/logos/ibm/ibm-ar21~bgwhite.svg)
+
+Mesmo com o desenvolvimento dos bancos de dados objeto-relacionais, o modelo orientado a objetos não alcançou tanta popularidade.
+
+**Assim, o modelo relacional dominou o mercado de bancos de dados por aproximadamente quarenta anos**.
+
+## Outras Aplicações de Bancos de Dados
+
+Com o passar dos anos, os bancos de dados relacionais evoluíram e começaram a dar suporte ao desenvolvimento de novas aplicações.
+
+Essas novas aplicações permitiam o gerenciamento de dados ainda mais sofisticados.
+
+### Bancos de Dados Multimídia
+
+Um SGBD multimídia oferece estruturas voltadas para o armazenamento e recuperação de dados multimídia, exemplo: **documentos, áudios, fotos e vídeos**.
+
+Oferecimento de tipos de dados, índices e algoritmos especiais para a recuperação desse tipo de informação.
+
+Exemplo de uma consulta resolvida por um banco de dados multimídia:
+
+- Recuperar todas as imagens parecidas com uma determinada imagem.
+- Recuperar todos os vídeos com duração maior do que dois minutos.
+
+### Bancos de Dados Espaciais
+
+Um SGBD espacial oferece suporte ao armazenamento e recuperação de dados geoespaciais.
+
+Oferecem o suporte para o desenvolvimento de Sistemas de Informações Geográficas;
+
+Exemplos de consultas que podem ser resolvidas por um banco de dados espacial:
+
+- Recuperar os nomes de todos os rios que passam pelo estado da Paraíba.
+- Recuperar todas as unidades de saúde que estão próximas de um determinado local.
+
+### Data Warehouse
+
+Aplicações que processam e analisam dados históricos de grandes bancos de dados para auxiliar gestores em processos de tomadas de decisão.
+
+São usados para a criação de aplicações de Business Intelligence.
+
+Um data warehouse é formado a partir da coleta e agrupamento de dados de múltiplos bancos de dados: **a partir de um processo chamado ETL (ExtractTransform-Load)**.
+
+Exemplos de consultas que podem ser resolvidas por um data warehouse:
+
+- Gerar um relatório mostrando as categorias de produtos mais vendidos em uma determinada filial.
+- Gerar um relatório exibindo o lucro de cada filial durante o primeiro mês do ano.
+- Gerar um relatório exibindo a evolução do lucro da empresa em um determinado ano.
+
+### Mineração de Dados (Data mining):
+
+Aplicações que buscam encontrar padrões ou tendências em grandes volumes de dados. Também são aplicadas para a realização de análise preditiva dos dados.
+
+São comumente usadas em conjunto com data warehouses.
+
+### Big Data
+
+São aplicações que precisam armazenar, recuperar e processar grandes quantidades de dados em um curto intervalo de tempo.
+
+Surgiram porque, com o tempo, muitas aplicações começaram a gerar uma quantidade enorme de dados.
+
+## A era do Big Data
+
+O surgimento da era do big data foi impulsionado por alguns fatores:
+
+- Grande redução nos custos dos dispositivos de armazenamento de dados.
+- A evolução da tecnologia da computação em nuvem.
+- Internet das coisas (IoT).
+- Desenvolvimento de novos modelos para o processamento de dados distribuídos. Exemplo: **Map Reduce**.
+- Desenvolvimento de infraestruturas que implementam esses novos modelos. Exemplo: **Hadoop** e, posteriormente, o **Spark**.
+

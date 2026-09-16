@@ -127,3 +127,55 @@ export const ORDEM_LINGUAGENS: string[] = [
 ```
 
 Caso uma linguagem não esteja cadastrada em CORES_LINGUAGENS, o componente aplicará automaticamente o tema `default`.
+
+## Inserindo imagens em arquivos MDX 
+
+1. Sintaxe Markdown (MDX)
+
+- Sem legenda visual: O alt serve apenas para leitores de tela.
+
+```md
+![Descrição da imagem](/caminho/imagem.png)
+```
+
+- Com legenda visual: O title (entre aspas) ativa a legenda na tela.
+
+```md
+![Descrição da imagem](/caminho/imagem.png "Texto da legenda aqui")
+```
+
+2. Chamada via componente React (`.tsx` ou `.mdx`)
+
+- Sem legenda:
+
+```tsx
+<Imagem src="/caminho/imagem.png" alt="Descrição acessível" />
+```
+
+- Com legenda automática:
+
+```tsx
+<Imagem src="/caminho/imagem.png" alt="Descrição" legenda="Legenda visível" />
+```
+
+- Forçar ocultação da legenda (mesmo informando o texto):
+
+```tsx
+<Imagem 
+  src="/caminho/imagem.png" 
+  alt="Descrição" 
+  legenda="Texto oculto" 
+  exibirLegenda={false} 
+/>
+```
+
+- Forçar exibição usando o atributo `title`:
+
+```tsx
+<Imagem 
+  src="/caminho/imagem.png" 
+  alt="Descrição" 
+  title="Sua legenda" 
+  exibirLegenda={true} 
+/>
+```
