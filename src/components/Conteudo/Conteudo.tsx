@@ -25,7 +25,13 @@ const components = {
   ol: MDX.ListaOrdenada,
   ul: MDX.ListaNaoOrdenada,
   li: MDX.ItemLista,
-  img: MDX.Imagem,
+  img: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
+    <MDX.Imagem tipo="referencia" {...props} />
+  ),
+  Imagem: MDX.Imagem,
+  Icone: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
+    <MDX.Imagem tipo="icone" {...props} />
+  ),
   Terminal: MDX.Box,
   Abas: MDX.TabsContainer,
   Aba: MDX.AbaTerminal,
