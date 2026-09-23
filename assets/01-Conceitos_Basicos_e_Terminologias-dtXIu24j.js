@@ -1,11 +1,11 @@
-import{n as e,r as t}from"./lib-CrvGBhFj.js";var n=t();function r(t){let r={h1:`h1`,h2:`h2`,h3:`h3`,h4:`h4`,hr:`hr`,img:`img`,li:`li`,p:`p`,strong:`strong`,table:`table`,tbody:`tbody`,td:`td`,th:`th`,thead:`thead`,tr:`tr`,ul:`ul`,...e(),...t.components},{TituloTabela:i}=r;return i||a(`TituloTabela`,!0),(0,n.jsxs)(n.Fragment,{children:[(0,n.jsx)(r.h1,{id:`conceitos-básicos`,children:`Conceitos Básicos`}),`
+import{n as e,r as t}from"./lib-CrvGBhFj.js";var n=t();function r(t){let r={h1:`h1`,h2:`h2`,h3:`h3`,h4:`h4`,hr:`hr`,li:`li`,p:`p`,strong:`strong`,table:`table`,tbody:`tbody`,td:`td`,th:`th`,thead:`thead`,tr:`tr`,ul:`ul`,...e(),...t.components},{Icone:i,TituloTabela:o}=r;return i||a(`Icone`,!0),o||a(`TituloTabela`,!0),(0,n.jsxs)(n.Fragment,{children:[(0,n.jsx)(r.h1,{id:`conceitos-básicos`,children:`Conceitos Básicos`}),`
 `,(0,n.jsxs)(r.p,{children:[`Nesse documento, serão apresentados `,(0,n.jsx)(r.strong,{children:`Conceitos Básicos`}),` e principais `,(0,n.jsx)(r.strong,{children:`Terminologias`}),` de Banco de Dados.`]}),`
 `,(0,n.jsx)(r.h2,{id:`introdução`,children:`Introdução`}),`
 `,(0,n.jsx)(r.p,{children:`Diariamente, realizamos tarefas que envolvem alguma interação com bancos de dados:`}),`
 `,(0,n.jsxs)(r.ul,{children:[`
-`,(0,n.jsx)(r.li,{children:`Ao realizar uma transação bancária;`}),`
-`,(0,n.jsx)(r.li,{children:`Ao reservar um hotel ou uma passagem;`}),`
-`,(0,n.jsx)(r.li,{children:`Ao acessar o catálogo de uma loja;`}),`
+`,(0,n.jsx)(r.li,{children:`Ao realizar uma transação bancária.`}),`
+`,(0,n.jsx)(r.li,{children:`Ao reservar um hotel ou uma passagem.`}),`
+`,(0,n.jsx)(r.li,{children:`Ao acessar o catálogo de uma loja.`}),`
 `]}),`
 `,(0,n.jsx)(r.p,{children:`Muitos sistemas atuais envolvem o uso de um banco de dados.`}),`
 `,(0,n.jsx)(r.p,{children:`Para entendermos os fundamentos da tecnologia de banco de dados, precisamos compreender primeiro alguns de seus conceitos básicos.`}),`
@@ -30,12 +30,12 @@ import{n as e,r as t}from"./lib-CrvGBhFj.js";var n=t();function r(t){let r={h1:`
 `,(0,n.jsx)(r.p,{children:`Um SGBD é uma coleção de programas que permite a criação e o gerenciamento de bancos de dados.`}),`
 `,(0,n.jsx)(r.p,{children:`Exemplos de SGDBs`}),`
 `,(0,n.jsxs)(r.ul,{children:[`
-`,(0,n.jsx)(r.li,{children:`MySQL;`}),`
-`,(0,n.jsx)(r.li,{children:`PostgreSQL;`}),`
-`,(0,n.jsx)(r.li,{children:`MongoDB;`}),`
-`,(0,n.jsx)(r.li,{children:`Microsoft SQL Server;`}),`
-`,(0,n.jsx)(r.li,{children:`Oracle;`}),`
-`,(0,n.jsx)(r.li,{children:`IBM DB2;`}),`
+`,(0,n.jsx)(r.li,{children:`MySQL.`}),`
+`,(0,n.jsx)(r.li,{children:`PostgreSQL.`}),`
+`,(0,n.jsx)(r.li,{children:`MongoDB.`}),`
+`,(0,n.jsx)(r.li,{children:`Microsoft SQL Server.`}),`
+`,(0,n.jsx)(r.li,{children:`Oracle.`}),`
+`,(0,n.jsx)(r.li,{children:`IBM DB2.`}),`
 `]}),`
 `,(0,n.jsx)(r.h2,{id:`vantagens-do-uso-de-sgbds`,children:`Vantagens do uso de SGBDs`}),`
 `,(0,n.jsx)(r.h3,{id:`sgbds-têm-natureza-autodescritiva`,children:`SGBDs têm natureza autodescritiva`}),`
@@ -87,7 +87,7 @@ acesso via aplicações, etc`}),`.`]}),`
 `,(0,n.jsxs)(r.ul,{children:[`
 `,(0,n.jsx)(r.li,{children:`O Integrated Data Store (IDS), desenvolvido Charles W. Bachman na General Electric.`}),`
 `,(0,n.jsx)(r.li,{children:`O modelo desenvolvido pelo CODASYL (Committee on Data Systems Languages).`}),`
-`,(0,n.jsx)(r.li,{children:`O Information Management System (IMS), criado pela IBM;`}),`
+`,(0,n.jsx)(r.li,{children:`O Information Management System (IMS), criado pela IBM.`}),`
 `]}),`
 `,(0,n.jsx)(r.h3,{id:`problemas-dos-bancos-de-dados-navegacionais`,children:`Problemas dos bancos de dados navegacionais`}),`
 `,(0,n.jsxs)(r.ul,{children:[`
@@ -99,14 +99,14 @@ acesso via aplicações, etc`}),`.`]}),`
 `,(0,n.jsx)(r.p,{children:`Modelo proposto por Edgar Codd em 1970, com os primeiros SGBDs relacionais surgindo alguns anos depois.`}),`
 `,(0,n.jsxs)(r.p,{children:[`• Fundamentação matemática para os bancos de dados: `,(0,n.jsx)(r.strong,{children:`os relacionamentos entre os dados são descritos por meio do conceito matemático de relações`}),`. Um elemento do conjunto A está relacionado com um elemento do conjunto B.`]}),`
 `,(0,n.jsx)(r.p,{children:`Os dados são estruturados e armazenados na forma de tabelas:`}),`
-`,(0,n.jsx)(i,{children:`Empregado`}),`
+`,(0,n.jsx)(o,{children:`Empregado`}),`
 `,(0,n.jsxs)(r.table,{children:[(0,n.jsx)(r.thead,{children:(0,n.jsxs)(r.tr,{children:[(0,n.jsx)(r.th,{style:{textAlign:`center`},children:`Matrícula`}),(0,n.jsx)(r.th,{style:{textAlign:`center`},children:`Nome`}),(0,n.jsx)(r.th,{style:{textAlign:`center`},children:`Salário`}),(0,n.jsx)(r.th,{style:{textAlign:`center`},children:`Supervisor`}),(0,n.jsx)(r.th,{style:{textAlign:`center`},children:`CodDepartamento`})]})}),(0,n.jsxs)(r.tbody,{children:[(0,n.jsxs)(r.tr,{children:[(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`1111-1`}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`João`}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`2500`}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`1111-4`}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`1`})]}),(0,n.jsxs)(r.tr,{children:[(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`1111-2`}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`Maria`}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`2500`}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`1111-3`}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`2`})]}),(0,n.jsxs)(r.tr,{children:[(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`1111-3`}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`Calos`}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`4500`}),(0,n.jsx)(r.td,{style:{textAlign:`center`}}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`2`})]}),(0,n.jsxs)(r.tr,{children:[(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`1111-4`}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`Joaquim`}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`4500`}),(0,n.jsx)(r.td,{style:{textAlign:`center`}}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`1`})]}),(0,n.jsxs)(r.tr,{children:[(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`1111-5`}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`Ana`}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`3000`}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`1111-4`}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`1`})]}),(0,n.jsxs)(r.tr,{children:[(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`1111-6`}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`Patrícia`}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`2500`}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`1111-3`}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`2`})]}),(0,n.jsxs)(r.tr,{children:[(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`1111-7`}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`Sérgio`}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`1000`}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`1111-3`}),(0,n.jsx)(r.td,{style:{textAlign:`center`},children:`2`})]})]})]}),`
 `,(0,n.jsx)(r.p,{children:`Exemplos de SGBDs que implementam o modelo relacional:`}),`
-`,(0,n.jsxs)(r.p,{children:[(0,n.jsx)(r.img,{src:`https://www.vectorlogo.zone/logos/postgresql/postgresql-ar21~bgwhite.svg`,alt:`PostgreSQL`}),`\r
-`,(0,n.jsx)(r.img,{src:`https://www.vectorlogo.zone/logos/mysql/mysql-ar21~bgwhite.svg`,alt:`MySQL`}),`\r
-`,(0,n.jsx)(r.img,{src:`https://www.vectorlogo.zone/logos/oracle/oracle-ar21~bgwhite.svg`,alt:`ORACLE`}),`\r
-`,(0,n.jsx)(r.img,{src:`https://www.clipartmax.com/png/small/156-1565797_microsoft-logo-transparent-background-microsoft-sql-server-logo.png`,alt:`Microsoft SQL Server`}),`\r
-`,(0,n.jsx)(r.img,{src:`https://www.vectorlogo.zone/logos/ibm/ibm-ar21~bgwhite.svg`,alt:`IBM BD2`})]}),`
+`,(0,n.jsx)(i,{src:`https://www.vectorlogo.zone/logos/postgresql/postgresql-ar21~bgwhite.svg`,alt:`PostgreSQL`}),`
+`,(0,n.jsx)(i,{src:`https://www.vectorlogo.zone/logos/mysql/mysql-ar21~bgwhite.svg`,alt:`MySQL`}),`
+`,(0,n.jsx)(i,{src:`https://www.vectorlogo.zone/logos/oracle/oracle-ar21~bgwhite.svg`,alt:`ORACLE`}),`
+`,(0,n.jsx)(i,{src:`https://www.clipartmax.com/png/small/156-1565797_microsoft-logo-transparent-background-microsoft-sql-server-logo.png`,alt:`Microsoft SQL Server`}),`
+`,(0,n.jsx)(i,{src:`https://www.vectorlogo.zone/logos/ibm/ibm-ar21~bgwhite.svg`,alt:`IBM BD2`}),`
 `,(0,n.jsx)(r.h2,{id:`modelo-orientado-a-objetos`,children:`Modelo Orientado a objetos`}),`
 `,(0,n.jsx)(r.p,{children:`Surgiram devido à popularidade do paradigma de programação orientada a objetos nos anos 80.`}),`
 `,(0,n.jsxs)(r.p,{children:[`Incorporação dos principais conceitos deste paradigma à aplicações de bancos de dados: `,(0,n.jsx)(r.strong,{children:`classes, objetos, métodos, encapsulamento, herança, etc`}),`.`]}),`
@@ -130,9 +130,9 @@ acesso via aplicações, etc`}),`.`]}),`
 `,(0,n.jsx)(r.p,{children:`Depois de um tempo, alguns SGBDs relacionais passaram a dar suporte também ao modelo orientado a objetos.`}),`
 `,(0,n.jsxs)(r.p,{children:[`Permitiam que os usuários aproveitassem as melhores características dos dois modelos: `,(0,n.jsx)(r.strong,{children:`facilidade de migração de bancos de dados de sistemas legados`}),`.`]}),`
 `,(0,n.jsx)(r.p,{children:`Exemplos de SGBDs que se tornaram objeto-relacionais:`}),`
-`,(0,n.jsxs)(r.p,{children:[(0,n.jsx)(r.img,{src:`https://www.vectorlogo.zone/logos/oracle/oracle-ar21~bgwhite.svg`,alt:`ORACLE`}),`\r
-`,(0,n.jsx)(r.img,{src:`https://www.clipartmax.com/png/small/156-1565797_microsoft-logo-transparent-background-microsoft-sql-server-logo.png`,alt:`Microsoft SQL Server`}),`\r
-`,(0,n.jsx)(r.img,{src:`https://www.vectorlogo.zone/logos/ibm/ibm-ar21~bgwhite.svg`,alt:`IBM BD2`})]}),`
+`,(0,n.jsx)(i,{src:`https://www.vectorlogo.zone/logos/oracle/oracle-ar21~bgwhite.svg`,alt:`ORACLE`}),`
+`,(0,n.jsx)(i,{src:`https://www.clipartmax.com/png/small/156-1565797_microsoft-logo-transparent-background-microsoft-sql-server-logo.png`,alt:`Microsoft SQL Server`}),`
+`,(0,n.jsx)(i,{src:`https://www.vectorlogo.zone/logos/ibm/ibm-ar21~bgwhite.svg`,alt:`IBM BD2`}),`
 `,(0,n.jsx)(r.p,{children:`Mesmo com o desenvolvimento dos bancos de dados objeto-relacionais, o modelo orientado a objetos não alcançou tanta popularidade.`}),`
 `,(0,n.jsxs)(r.p,{children:[(0,n.jsx)(r.strong,{children:`Assim, o modelo relacional dominou o mercado de bancos de dados por aproximadamente quarenta anos`}),`.`]}),`
 `,(0,n.jsx)(r.h2,{id:`outras-aplicações-de-bancos-de-dados`,children:`Outras Aplicações de Bancos de Dados`}),`
@@ -148,7 +148,7 @@ acesso via aplicações, etc`}),`.`]}),`
 `]}),`
 `,(0,n.jsx)(r.h3,{id:`bancos-de-dados-espaciais`,children:`Bancos de Dados Espaciais`}),`
 `,(0,n.jsx)(r.p,{children:`Um SGBD espacial oferece suporte ao armazenamento e recuperação de dados geoespaciais.`}),`
-`,(0,n.jsx)(r.p,{children:`Oferecem o suporte para o desenvolvimento de Sistemas de Informações Geográficas;`}),`
+`,(0,n.jsx)(r.p,{children:`Oferecem o suporte para o desenvolvimento de Sistemas de Informações Geográficas.`}),`
 `,(0,n.jsx)(r.p,{children:`Exemplos de consultas que podem ser resolvidas por um banco de dados espacial:`}),`
 `,(0,n.jsxs)(r.ul,{children:[`
 `,(0,n.jsx)(r.li,{children:`Recuperar os nomes de todos os rios que passam pelo estado da Paraíba.`}),`
@@ -236,7 +236,7 @@ acesso via aplicações, etc`}),`.`]}),`
 `,(0,n.jsx)(r.li,{children:`Tolerância à partição.`}),`
 `]}),`
 `,(0,n.jsx)(r.p,{children:`Desde a sua proposição, vários bancos de dados noSQL têm sido desenvolvidos.`}),`
-`,(0,n.jsxs)(r.p,{children:[`Esses bancos de dados usam diferentes abstrações para a estruturação e armazenamento dos dados: `,(0,n.jsx)(r.strong,{children:`One size DOES NOT fit all`}),`;`]}),`
+`,(0,n.jsxs)(r.p,{children:[`Esses bancos de dados usam diferentes abstrações para a estruturação e armazenamento dos dados: `,(0,n.jsx)(r.strong,{children:`One size DOES NOT fit all`}),`.`]}),`
 `,(0,n.jsx)(r.p,{children:`Os bancos de dados noSQL são classificados em:`}),`
 `,(0,n.jsxs)(r.ul,{children:[`
 `,(0,n.jsx)(r.li,{children:`Bancos de dados colunares.`}),`
@@ -249,9 +249,81 @@ acesso via aplicações, etc`}),`.`]}),`
 `,(0,n.jsx)(r.p,{children:`Cada tabela contém a "família de colunas" necessária para a resolução de uma ou mais consultas.`}),`
 `,(0,n.jsx)(r.p,{children:`As tabelas são divididas em partições, que são usadas como critério de distribuição.`}),`
 `,(0,n.jsx)(r.p,{children:`Exemplos de bancos de dados colunares:`}),`
-`,(0,n.jsxs)(r.p,{children:[(0,n.jsx)(r.img,{src:`https://www.vectorlogo.zone/logos/apache_cassandra/apache_cassandra-ar21~bgwhite.svg`,alt:`cassandra`}),`\r
-`,(0,n.jsx)(r.img,{src:`https://www.vectorlogo.zone/logos/scylladb/scylladb-ar21~bgwhite.svg`,alt:`scylla`})]}),`
-`,(0,n.jsx)(`img`,{src:`https://www.vectorlogo.zone/logos/apache_cassandra/apache_cassandra-ar21~bgwhite.svg`,alt:`Cassandra`}),`
-`,(0,n.jsx)(`img`,{src:`https://www.vectorlogo.zone/logos/scylladb/scylladb-ar21~bgwhite.svg`,alt:`Scylla`}),`
-`,(0,n.jsx)(`img`,{src:`https://d1.awsstatic.com/product-marketing/EMR/hbase-logo.e139b77f7031062f738f0fc28210e0ffa6ca26c8.png`,alt:`Apache HBase`}),`
-`,(0,n.jsx)(`img`,{src:`https://www.ipnet.cloud/wp-content/uploads/2026/02/GCP-BigTable.png.webp`,alt:`GCP BigTable`})]})}function i(t={}){let{wrapper:i}={...e(),...t.components};return i?(0,n.jsx)(i,{...t,children:(0,n.jsx)(r,{...t})}):r(t)}function a(e,t){throw Error(`Expected `+(t?`component`:`object`)+" `"+e+"` to be defined: you likely forgot to import, pass, or provide it.")}export{i as default};
+`,(0,n.jsx)(i,{src:`https://www.vectorlogo.zone/logos/apache_cassandra/apache_cassandra-ar21~bgwhite.svg`,alt:`Cassandra`}),`
+`,(0,n.jsx)(i,{src:`https://www.vectorlogo.zone/logos/scylladb/scylladb-ar21~bgwhite.svg`,alt:`Scylla`}),`
+`,(0,n.jsx)(i,{src:`https://d1.awsstatic.com/product-marketing/EMR/hbase-logo.e139b77f7031062f738f0fc28210e0ffa6ca26c8.png`,alt:`Apache HBase`}),`
+`,(0,n.jsx)(i,{src:`https://www.ipnet.cloud/wp-content/uploads/2026/02/GCP-BigTable.png.webp`,alt:`GCP BigTable`}),`
+`,(0,n.jsx)(i,{src:`https://isagebrum.com/images/technology/dynamo_db-image.svg`,alt:`DynamoDB`}),`
+`,(0,n.jsx)(i,{src:`https://www.scrapestorm.com/wp-content/uploads/2021/04/hypertable-logo.png`,alt:`HyperTable`}),`
+`,(0,n.jsx)(r.h2,{id:`bancos-de-dados-chave-valor-75`,children:`Bancos de Dados Chave-Valor (75)`}),`
+`,(0,n.jsx)(r.p,{children:`Os dados são armazenados e gerenciados por meio de estruturas como tabelas hash e dicionários.`}),`
+`,(0,n.jsx)(r.p,{children:`Os dados são armazenados como registros e são identificados unicamente por meio de uma chave única.`}),`
+`,(0,n.jsx)(r.p,{children:`Exemplos de bancos de dados chave/valor:`}),`
+`,(0,n.jsx)(i,{src:`https://www.vectorlogo.zone/logos/redis/redis-ar21~bgwhite.svg`,alt:`Redis`}),`
+`,(0,n.jsx)(i,{src:`https://download.logo.wine/logo/Aerospike_(company)/Aerospike_(company)-Logo.wine.png`,alt:`Aerospike`}),`
+`,(0,n.jsx)(i,{src:`https://isagebrum.com/images/technology/dynamo_db-image.svg`,alt:`DynamoDB`}),`
+`,(0,n.jsx)(i,{src:`https://www.vectorlogo.zone/logos/memcached/memcached-ar21~bgwhite.svg`,alt:`Memcached`}),`
+`,(0,n.jsx)(r.h2,{id:`bancos-de-dados-de-documentos-77`,children:`Bancos de Dados de Documentos (77)`}),`
+`,(0,n.jsx)(r.p,{children:`Os dados são armazenados e gerenciados no formato de coleções de documentos.`}),`
+`,(0,n.jsx)(r.p,{children:`Foram desenvolvidos para facilitar o gerenciamento de dados semiestruturados.`}),`
+`,(0,n.jsx)(r.p,{children:`Exemplos de bancos de dados de documentos:`}),`
+`,(0,n.jsx)(i,{src:`https://www.vectorlogo.zone/logos/mongodb/mongodb-ar21~bgwhite.svg`,alt:`MongoDB`}),`
+`,(0,n.jsx)(i,{src:`https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/Elasticsearch_logo.svg/960px-Elasticsearch_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail&_=20210414071206`,alt:`ElasticSearch`}),`
+`,(0,n.jsx)(i,{src:`https://orientdb.dev/home_logo.png`,alt:`OrientDB`}),`
+`,(0,n.jsx)(i,{src:`https://www.vectorlogo.zone/logos/apache_couchdb/apache_couchdb-ar21~bgwhite.svg`,alt:`CouchDB`}),`
+`,(0,n.jsx)(i,{src:`https://www.vectorlogo.zone/logos/arangodb/arangodb-ar21~bgwhite.svg`,alt:`ArangoDB`}),`
+`,(0,n.jsx)(r.h2,{id:`bancos-de-dados-de-grafos-79`,children:`Bancos de Dados de Grafos (79)`}),`
+`,(0,n.jsx)(r.p,{children:`Os dados são armazenados e gerenciados no formato de grafos.`}),`
+`,(0,n.jsx)(r.p,{children:`Os vértices do grafo representam os dados que devem ser armazenados.`}),`
+`,(0,n.jsx)(r.p,{children:`Os arcos descrevem os relacionamentos que existem entre esses dados.`}),`
+`,(0,n.jsx)(r.p,{children:`Exemplos de bancos de dados de grafos:`}),`
+`,(0,n.jsx)(i,{src:`https://www.vectorlogo.zone/logos/neo4j/neo4j-ar21~bgwhite.svg`,alt:`neo4j`}),`
+`,(0,n.jsx)(i,{src:`https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Apache_Giraph_Logo.svg/1280px-Apache_Giraph_Logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=thumbnail`,alt:`Apache Giraph`}),`
+`,(0,n.jsx)(i,{src:`https://orientdb.dev/home_logo.png`,alt:`OrientDB`}),`
+`,(0,n.jsx)(i,{src:`https://www.vectorlogo.zone/logos/arangodb/arangodb-ar21~bgwhite.svg`,alt:`ArangoDB`}),`
+`,(0,n.jsx)(i,{src:`https://dbdb.io/media/logos/allegrograph.png.280x250_q85.png`,alt:`AllegroGraph`}),`
+`,(0,n.jsx)(r.h2,{id:`bancos-de-dados-newsql-81`,children:`Bancos de Dados NewSQL (81)`}),`
+`,(0,n.jsx)(r.p,{children:`São bancos de dados que tentam prover o mesmo desempenho dos bancos de dados noSQL para o modelo relacional.`}),`
+`,(0,n.jsx)(r.p,{children:`Permitem utilizar o modelo relacional com todas as vantagens oferecidas pelos bancos de dados noSQL.`}),`
+`,(0,n.jsx)(r.p,{children:`Exemplos de bancos de dados NewSQL:`}),`
+`,(0,n.jsx)(i,{src:`https://www.vectorlogo.zone/logos/cockroachlabs/cockroachlabs-ar21~bgwhite.svg`,alt:`CockroachLabs`}),`
+`,(0,n.jsx)(i,{src:`https://azimutt.app/images/logos/amazon-aurora-109b871a0fd94fe6c0794f2a66cc3e25.png?vsn=d`,alt:`Amazon Aurora`}),`
+`,(0,n.jsx)(i,{src:`https://trafodion.apache.org/images/logos/trafodion-dragon-large.png`,alt:`Apache Trafodion`}),`
+`,(0,n.jsx)(i,{src:`https://miro.medium.com/1*iNlSTFEy1xpftvwji_PIXA.png`,alt:`Google Cloud Spanner`}),`
+`,(0,n.jsx)(i,{src:`https://clustrixglobal.com/favicon-512.png`,alt:`Clustrix`}),`
+`,(0,n.jsx)(i,{src:`https://upload.wikimedia.org/wikipedia/commons/3/39/NuoDB.png?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original`,alt:`NuoDB`}),`
+`,(0,n.jsx)(r.h2,{id:`profissionais-de-bancos-de-dados-83`,children:`Profissionais de Bancos de Dados (83)`}),`
+`,(0,n.jsx)(r.p,{children:`O desenvolvimento de um banco de dados envolve dois tipos de profissionais:`}),`
+`,(0,n.jsxs)(r.ul,{children:[`
+`,(0,n.jsx)(r.li,{children:`Projetista ou administrador de dados`}),`
+`,(0,n.jsx)(r.li,{children:`Administrador (DBA)`}),`
+`]}),`
+`,(0,n.jsx)(r.h3,{id:`atribuições-do-projetista-ou-administrador-de-dados-84`,children:`Atribuições do Projetista ou Administrador de Dados (84)`}),`
+`,(0,n.jsx)(r.p,{children:`Interagir com os potenciais usuários do banco de dados para identificar as suas necessidades.`}),`
+`,(0,n.jsx)(r.p,{children:`Identificar os dados que serão armazenados no banco de dados.`}),`
+`,(0,n.jsx)(r.p,{children:`Definir como os dados serão representados e organizados no banco de dados.`}),`
+`,(0,n.jsx)(r.p,{children:`Garantir que a estrutura do banco de dados vai satisfazer todos os requisitos levantados.`}),`
+`,(0,n.jsx)(r.h3,{id:`atribuições-do-administrador-do-banco-de-dados-86`,children:`Atribuições do Administrador do Banco de Dados (86)`}),`
+`,(0,n.jsx)(r.p,{children:`Implementar o projeto do banco de dados no SGBD.`}),`
+`,(0,n.jsx)(r.p,{children:`Coordenar o uso do SGBD: Questões de segurança, restrições de acesso, controlar o desempenho, backup e replicação dos dados, etc.`}),`
+`,(0,n.jsx)(r.h2,{id:`usuários-de-bancos-de-dados-87`,children:`Usuários de Bancos de Dados (87)`}),`
+`,(0,n.jsx)(r.p,{children:`Uma vez criado, o banco de dados pode ser usado por usuários de diferentes níveis:`}),`
+`,(0,n.jsxs)(r.ul,{children:[`
+`,(0,n.jsx)(r.li,{children:`Programadores de Aplicações.`}),`
+`,(0,n.jsx)(r.li,{children:`Usuários especialistas.`}),`
+`,(0,n.jsx)(r.li,{children:`Usuários paramétricos.`}),`
+`]}),`
+`,(0,n.jsx)(r.p,{children:`Os usuários podem acessar o banco de dados de duas formas:`}),`
+`,(0,n.jsxs)(r.ul,{children:[`
+`,(0,n.jsx)(r.li,{children:`Diretamente, por meio de uma ferramenta disponibilizada pelo SGBD.`}),`
+`,(0,n.jsx)(r.li,{children:`Indiretamente, por meio de uma aplicação.`}),`
+`]}),`
+`,(0,n.jsx)(r.p,{children:`Exemplos de atividades realizadas por usuários de bancos de dados:`}),`
+`,(0,n.jsxs)(r.ul,{children:[`
+`,(0,n.jsx)(r.li,{children:`Inserção de novos dados.`}),`
+`,(0,n.jsx)(r.li,{children:`Atualização dos dados existentes.`}),`
+`,(0,n.jsx)(r.li,{children:`Realização de consultas.`}),`
+`,(0,n.jsx)(r.li,{children:`Execução de transações.`}),`
+`,(0,n.jsx)(r.li,{children:`Obtenção de relatórios.`}),`
+`]}),`
+`,(0,n.jsx)(r.h2,{id:`conceitos-importantes-de-bancos-de-dados`,children:`Conceitos importantes de bancos de dados`})]})}function i(t={}){let{wrapper:i}={...e(),...t.components};return i?(0,n.jsx)(i,{...t,children:(0,n.jsx)(r,{...t})}):r(t)}function a(e,t){throw Error(`Expected `+(t?`component`:`object`)+" `"+e+"` to be defined: you likely forgot to import, pass, or provide it.")}export{i as default};
