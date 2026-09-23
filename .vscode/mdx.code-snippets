@@ -78,7 +78,7 @@
 	},
 
 	"Link para Resposta de Questão": {
-		"prefix": "/link_questao",
+		"prefix": "/questao_link",
 		"body": [
 			"<QuestaoLink slug=\"${1:arquivo resposta}\" linguagem=\"${2:linguagem abreviada}\" />"
 		],
@@ -133,5 +133,31 @@
 			"[INSERIR AQUI]"
 		],
 		"description": "Insere a estrutura padronizada para o arquivo de resolução de questão."
+	},
+
+	"Estrutura de Imagem de Ícone": {
+		"prefix": "/imagem_icone",
+		"body": [
+			"<Icone src=\"LINK\" alt=\"LEGENDA\" />"
+		],
+		"description": "Insere a estrutura para inserção de uma imagem pequena para ícone."
+	},
+
+	"Estrutura de Imagem de Referência (markdown)": {
+		"prefix": "/imagem_referencia_MARKDOWN",
+		"body": "![LEGENDA](LINK)",
+		"description": "Insere a estrutura para inserção de uma imagem grande, para referência."
+	},
+
+	"Estrutura de Imagem de Referência (componente)": {
+		"prefix": "/imagem_referencia_COMPONENTE",
+		"body": [
+			"<Imagem",
+  			"src=\"LINK\"",
+  			"alt=\"TEXTO ALTERNATIVO\"",
+  			"legenda=\"LEGENDA\"",
+			"/>"
+		],
+		"description": "Insere a estrutura para inserção de uma imagem grande, para referência."
 	}
 }

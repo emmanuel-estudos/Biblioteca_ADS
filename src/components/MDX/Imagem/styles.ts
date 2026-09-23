@@ -57,6 +57,7 @@ export const ElementoImagem = styled.img<ElementoImagemProps>`
           /* Força imagens grandes a ficarem limitadas ao tamanho de ícone */
           width: 120px;
 					height: 60px;
+					margin-top: 12px;
           object-fit: contain;
 					background-color: #ffffff
         `

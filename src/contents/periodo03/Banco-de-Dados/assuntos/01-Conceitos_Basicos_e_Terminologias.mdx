@@ -6,9 +6,9 @@ Nesse documento, serão apresentados **Conceitos Básicos** e principais **Termi
 
 Diariamente, realizamos tarefas que envolvem alguma interação com bancos de dados:
 
-- Ao realizar uma transação bancária;
-- Ao reservar um hotel ou uma passagem;
-- Ao acessar o catálogo de uma loja;
+- Ao realizar uma transação bancária.
+- Ao reservar um hotel ou uma passagem.
+- Ao acessar o catálogo de uma loja.
 
 Muitos sistemas atuais envolvem o uso de um banco de dados.
 
@@ -54,12 +54,12 @@ Um SGBD é uma coleção de programas que permite a criação e o gerenciamento 
 
 Exemplos de SGDBs
 
-- MySQL;
-- PostgreSQL;
-- MongoDB;
-- Microsoft SQL Server;
-- Oracle;
-- IBM DB2;
+- MySQL.
+- PostgreSQL.
+- MongoDB.
+- Microsoft SQL Server.
+- Oracle.
+- IBM DB2.
 
 ## Vantagens do uso de SGBDs
 
@@ -156,7 +156,7 @@ Alguns sistemas de bancos de dados tiveram destaque nessa época:
 
 - O Integrated Data Store (IDS), desenvolvido Charles W. Bachman na General Electric.
 - O modelo desenvolvido pelo CODASYL (Committee on Data Systems Languages).
-- O Information Management System (IMS), criado pela IBM;
+- O Information Management System (IMS), criado pela IBM.
 
 ### Problemas dos bancos de dados navegacionais
 
@@ -185,11 +185,11 @@ Os dados são estruturados e armazenados na forma de tabelas:
 
 Exemplos de SGBDs que implementam o modelo relacional:
 
-![PostgreSQL](https://www.vectorlogo.zone/logos/postgresql/postgresql-ar21~bgwhite.svg)
-![MySQL](https://www.vectorlogo.zone/logos/mysql/mysql-ar21~bgwhite.svg)
-![ORACLE](https://www.vectorlogo.zone/logos/oracle/oracle-ar21~bgwhite.svg)
-![Microsoft SQL Server](https://www.clipartmax.com/png/small/156-1565797_microsoft-logo-transparent-background-microsoft-sql-server-logo.png)
-![IBM BD2](https://www.vectorlogo.zone/logos/ibm/ibm-ar21~bgwhite.svg)
+<Icone src="https://www.vectorlogo.zone/logos/postgresql/postgresql-ar21~bgwhite.svg" alt="PostgreSQL" />
+<Icone src="https://www.vectorlogo.zone/logos/mysql/mysql-ar21~bgwhite.svg" alt="MySQL" />
+<Icone src="https://www.vectorlogo.zone/logos/oracle/oracle-ar21~bgwhite.svg" alt="ORACLE" />
+<Icone src="https://www.clipartmax.com/png/small/156-1565797_microsoft-logo-transparent-background-microsoft-sql-server-logo.png" alt="Microsoft SQL Server" />
+<Icone src="https://www.vectorlogo.zone/logos/ibm/ibm-ar21~bgwhite.svg" alt="IBM BD2" />
 
 ## Modelo Orientado a objetos
 
@@ -223,9 +223,9 @@ Permitiam que os usuários aproveitassem as melhores características dos dois m
 
 Exemplos de SGBDs que se tornaram objeto-relacionais:
 
-![ORACLE](https://www.vectorlogo.zone/logos/oracle/oracle-ar21~bgwhite.svg)
-![Microsoft SQL Server](https://www.clipartmax.com/png/small/156-1565797_microsoft-logo-transparent-background-microsoft-sql-server-logo.png)
-![IBM BD2](https://www.vectorlogo.zone/logos/ibm/ibm-ar21~bgwhite.svg)
+<Icone src="https://www.vectorlogo.zone/logos/oracle/oracle-ar21~bgwhite.svg" alt="ORACLE" />
+<Icone src="https://www.clipartmax.com/png/small/156-1565797_microsoft-logo-transparent-background-microsoft-sql-server-logo.png" alt="Microsoft SQL Server" />
+<Icone src="https://www.vectorlogo.zone/logos/ibm/ibm-ar21~bgwhite.svg" alt="IBM BD2" />
 
 Mesmo com o desenvolvimento dos bancos de dados objeto-relacionais, o modelo orientado a objetos não alcançou tanta popularidade.
 
@@ -252,7 +252,7 @@ Exemplo de uma consulta resolvida por um banco de dados multimídia:
 
 Um SGBD espacial oferece suporte ao armazenamento e recuperação de dados geoespaciais.
 
-Oferecem o suporte para o desenvolvimento de Sistemas de Informações Geográficas;
+Oferecem o suporte para o desenvolvimento de Sistemas de Informações Geográficas.
 
 Exemplos de consultas que podem ser resolvidas por um banco de dados espacial:
 
@@ -295,3 +295,206 @@ O surgimento da era do big data foi impulsionado por alguns fatores:
 - Desenvolvimento de novos modelos para o processamento de dados distribuídos. Exemplo: **Map Reduce**.
 - Desenvolvimento de infraestruturas que implementam esses novos modelos. Exemplo: **Hadoop** e, posteriormente, o **Spark**.
 
+### Características das Aplicações de Big Data
+
+---
+
+#### Volume
+
+Os dados dessas aplicações são altamente volumosos, na casa de terabytes.
+
+#### Velocidade
+
+Novos dados são inseridos no banco de dados a uma velocidade muito grande.
+
+#### Variedade
+
+Os dados manipulados pelo banco de dados possuem múltiplos formatos.
+
+- Dados estruturados.
+- Dados semiestruturados.
+- Dados não estruturados.
+
+---
+
+Todos esses dados precisam ser armazenados, recuperados e analisados em um tempo adequado.
+
+O objetivo consiste em extrair novos insights para oferecer vantagem competitiva para a organização: **Mais um V: Valor**.
+
+Os SGBDs relacionais não se mostraram muito efetivos para a resolução desses novos desafios:
+
+- O modelo baseado em tabelas é muito pouco flexível.
+- Os bancos relacionais escalam de forma vertical, o que é caro e limitado.
+
+Os SGBDs relacionais não se mostraram tão efetivos para o desenvolvimento de aplicações de big data:
+
+- Junções de tabelas são muito lentas.
+- A manutenção das propriedades ACID tem muito impacto no desempenho e na escalabilidade das aplicações.
+- Tabelas não representam a melhor abstração para representar e analisar certos tipos de dados.
+
+Foi necessário o desenvolvimento de novas alternativas para solucionar essas questões: **foram desenvolvidos os bancos de dados noSQL**.
+
+## Após das Aplicações de Big Data
+
+Exemplos de outras fontes de dados:
+
+- As consultas realizadas pelos usuários.
+- Os comentários e ratings gerados durante a avaliação de produtos.
+- Serviços de reclamação de usuários.
+- O padrão de navegação dos usuários no website.
+- Padrão de mobilidade do GPS do celular.
+- As conversas de aplicativos de mensagens.
+- Aplicativos de compartilhamento de fotos.
+
+## Bancos de dados noSQL
+
+Bancos de dados desenvolvidos para melhorar o gerenciamento e análise de bancos de dados de grande porte.
+
+Quando esse movimento começou, o objetivo era desenvolver mecanismos mais eficientes e mais baratos para o gerenciamento de dados.
+
+Principais características:
+
+- Esquemas de dados mais flexíveis.
+- Escalabilidade horizontal.
+- Nem todas as propriedades ACID são garantidas.
+- Novas abstrações para a representação, armazenamento e análise dos dados.
+
+## O Teorema CAP
+
+Um banco de dados noSQL só tem condições de ofertar duas das propriedades abaixo:
+
+- Consistência.
+- Disponibilidade.
+- Tolerância à partição.
+
+Desde a sua proposição, vários bancos de dados noSQL têm sido desenvolvidos.
+
+Esses bancos de dados usam diferentes abstrações para a estruturação e armazenamento dos dados: **One size DOES NOT fit all**.
+
+Os bancos de dados noSQL são classificados em:
+
+- Bancos de dados colunares.
+- Bancos de dados chave/valor.
+- Bancos de dados de documentos.
+- Bancos de dados de grafos.
+
+## Bancos de Dados Colunares
+
+Os dados são representados e armazenados na forma de tabelas.
+
+Cada tabela contém a "família de colunas" necessária para a resolução de uma ou mais consultas.
+
+As tabelas são divididas em partições, que são usadas como critério de distribuição.
+
+Exemplos de bancos de dados colunares:
+
+<Icone src="https://www.vectorlogo.zone/logos/apache_cassandra/apache_cassandra-ar21~bgwhite.svg" alt="Cassandra" />
+<Icone src="https://www.vectorlogo.zone/logos/scylladb/scylladb-ar21~bgwhite.svg" alt="Scylla" />
+<Icone src="https://d1.awsstatic.com/product-marketing/EMR/hbase-logo.e139b77f7031062f738f0fc28210e0ffa6ca26c8.png" alt="Apache HBase" />
+<Icone src="https://www.ipnet.cloud/wp-content/uploads/2026/02/GCP-BigTable.png.webp" alt="GCP BigTable" />
+<Icone src="https://isagebrum.com/images/technology/dynamo_db-image.svg" alt="DynamoDB" />
+<Icone src="https://www.scrapestorm.com/wp-content/uploads/2021/04/hypertable-logo.png" alt="HyperTable" />
+
+## Bancos de Dados Chave-Valor (75)
+
+Os dados são armazenados e gerenciados por meio de estruturas como tabelas hash e dicionários.
+
+Os dados são armazenados como registros e são identificados unicamente por meio de uma chave única.
+
+Exemplos de bancos de dados chave/valor:
+
+<Icone src="https://www.vectorlogo.zone/logos/redis/redis-ar21~bgwhite.svg" alt="Redis" />
+<Icone src="https://download.logo.wine/logo/Aerospike_(company)/Aerospike_(company)-Logo.wine.png" alt="Aerospike" />
+<Icone src="https://isagebrum.com/images/technology/dynamo_db-image.svg" alt="DynamoDB" />
+<Icone src="https://www.vectorlogo.zone/logos/memcached/memcached-ar21~bgwhite.svg" alt="Memcached" />
+
+## Bancos de Dados de Documentos (77)
+
+Os dados são armazenados e gerenciados no formato de coleções de documentos.
+
+Foram desenvolvidos para facilitar o gerenciamento de dados semiestruturados.
+
+Exemplos de bancos de dados de documentos:
+
+<Icone src="https://www.vectorlogo.zone/logos/mongodb/mongodb-ar21~bgwhite.svg" alt="MongoDB" />
+<Icone src="https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/Elasticsearch_logo.svg/960px-Elasticsearch_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail&_=20210414071206" alt="ElasticSearch" />
+<Icone src="https://orientdb.dev/home_logo.png" alt="OrientDB" />
+<Icone src="https://www.vectorlogo.zone/logos/apache_couchdb/apache_couchdb-ar21~bgwhite.svg" alt="CouchDB" />
+<Icone src="https://www.vectorlogo.zone/logos/arangodb/arangodb-ar21~bgwhite.svg" alt="ArangoDB" />
+
+## Bancos de Dados de Grafos (79)
+
+Os dados são armazenados e gerenciados no formato de grafos.
+
+Os vértices do grafo representam os dados que devem ser armazenados.
+
+Os arcos descrevem os relacionamentos que existem entre esses dados.
+
+Exemplos de bancos de dados de grafos:
+
+<Icone src="https://www.vectorlogo.zone/logos/neo4j/neo4j-ar21~bgwhite.svg" alt="neo4j" />
+<Icone src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Apache_Giraph_Logo.svg/1280px-Apache_Giraph_Logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=thumbnail" alt="Apache Giraph" />
+<Icone src="https://orientdb.dev/home_logo.png" alt="OrientDB" />
+<Icone src="https://www.vectorlogo.zone/logos/arangodb/arangodb-ar21~bgwhite.svg" alt="ArangoDB" />
+<Icone src="https://dbdb.io/media/logos/allegrograph.png.280x250_q85.png" alt="AllegroGraph" />
+
+## Bancos de Dados NewSQL (81)
+
+São bancos de dados que tentam prover o mesmo desempenho dos bancos de dados noSQL para o modelo relacional.
+
+Permitem utilizar o modelo relacional com todas as vantagens oferecidas pelos bancos de dados noSQL.
+
+Exemplos de bancos de dados NewSQL:
+
+<Icone src="https://www.vectorlogo.zone/logos/cockroachlabs/cockroachlabs-ar21~bgwhite.svg" alt="CockroachLabs" />
+<Icone src="https://azimutt.app/images/logos/amazon-aurora-109b871a0fd94fe6c0794f2a66cc3e25.png?vsn=d" alt="Amazon Aurora" />
+<Icone src="https://trafodion.apache.org/images/logos/trafodion-dragon-large.png" alt="Apache Trafodion" />
+<Icone src="https://miro.medium.com/1*iNlSTFEy1xpftvwji_PIXA.png" alt="Google Cloud Spanner" />
+<Icone src="https://clustrixglobal.com/favicon-512.png" alt="Clustrix" />
+<Icone src="https://upload.wikimedia.org/wikipedia/commons/3/39/NuoDB.png?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original" alt="NuoDB" />
+
+## Profissionais de Bancos de Dados (83)
+
+O desenvolvimento de um banco de dados envolve dois tipos de profissionais:
+
+- Projetista ou administrador de dados
+- Administrador (DBA)
+
+### Atribuições do Projetista ou Administrador de Dados (84)
+
+Interagir com os potenciais usuários do banco de dados para identificar as suas necessidades.
+
+Identificar os dados que serão armazenados no banco de dados.
+
+Definir como os dados serão representados e organizados no banco de dados.
+
+Garantir que a estrutura do banco de dados vai satisfazer todos os requisitos levantados.
+
+### Atribuições do Administrador do Banco de Dados (86)
+
+Implementar o projeto do banco de dados no SGBD.
+
+Coordenar o uso do SGBD: Questões de segurança, restrições de acesso, controlar o desempenho, backup e replicação dos dados, etc.
+
+## Usuários de Bancos de Dados (87)
+
+Uma vez criado, o banco de dados pode ser usado por usuários de diferentes níveis:
+
+- Programadores de Aplicações.
+- Usuários especialistas.
+- Usuários paramétricos.
+
+Os usuários podem acessar o banco de dados de duas formas:
+
+- Diretamente, por meio de uma ferramenta disponibilizada pelo SGBD.
+- Indiretamente, por meio de uma aplicação.
+
+Exemplos de atividades realizadas por usuários de bancos de dados:
+
+- Inserção de novos dados.
+- Atualização dos dados existentes.
+- Realização de consultas.
+- Execução de transações.
+- Obtenção de relatórios.
+
+## Conceitos importantes de bancos de dados
