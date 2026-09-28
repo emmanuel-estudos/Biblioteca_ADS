@@ -1,0 +1,14 @@
+resolucoes = {
+  "VGA": (640, 480),
+  "HD": (1280, 720),
+  "Full HD": (1920, 1080),
+  "4K UHD": (3840, 2160),
+}
+
+for nome, valor in resolucoes.items():
+  pixels_vga = 640 * 480
+  total_pixels = valor[0] * valor[1]
+  total_pixels_formatado = f"{total_pixels:,}"
+  vezes_maior = total_pixels / pixels_vga
+  print(f"{nome} -> Total de Pixels: {total_pixels_formatado} & {vezes_maior} vezes maior que o formato VGA")
+

@@ -5,7 +5,7 @@
   titulo=""
   linksResolucao={
     <>
-      <QuestaoLink slug="q001-py" linguagem="py" />
+      <QuestaoLink slug="q2.1-py" linguagem="py" />
     </>
   }
 >
@@ -21,7 +21,7 @@
   titulo=""
   linksResolucao={
     <>
-      <QuestaoLink slug="q002-py" linguagem="py" />
+      <QuestaoLink slug="q2.2-py" linguagem="py" />
     </>
   }
 >
@@ -33,4 +33,30 @@
     `"Full HD": (1920, 1080)`,
     `"4K UHD": (3840, 2160)`,
   `}`
+</Questao>
+
+<Questao
+  id="q003"
+  titulo=""
+  linksResolucao={
+    <>
+      <QuestaoLink slug="q2.3-py" linguagem="py" />
+    </>
+  }
+>
+  Uma "linha" de uma imagem em tons de cinza é dada pela lista linha. Usando apenas fatiamento e list comprehension:
+
+  - obtenha a linha espelhada;
+  - obtenha uma versão subamostrada (um pixel sim, outro não);
+  - obtenha a versão limiarizada: 255 se o valor for maior que 100, senão 0.
+
+  ```py
+  linha = [12, 40, 90, 130, 180, 220, 250, 200, 150, 60]
+
+  espelhada = None      # SEU CÓDIGO AQUI
+  subamostrada = None   # SEU CÓDIGO AQUI
+  limiarizada = None    # SEU CÓDIGO AQUI
+
+  print(espelhada, subamostrada, limiarizada, sep="\n")
+  ```
 </Questao>

@@ -16,8 +16,9 @@ export const config = {
 			nome: "Atividade 01: Principais Conceitos",
 			arquivos: {
 				"Lista": "Lista de Questões",
-				"q001-py": "Questão 001",
-				"q002-py": "Questão 002",
+				"q2.1-py": "Questão 2.1",
+				"q2.2-py": "Questão 2.2",
+				"q2.3-py": "Questão 2.3",
 			},
 		},
 	}

@@ -1,4 +1,4 @@
-# Questão 002
+# Questão 2.2
 
 ## Enunciado
 
@@ -14,6 +14,13 @@ Dado o dicionário de resoluções abaixo, use um laço for para imprimir, para 
 ## Resolução
 
 ```py
+resolucoes = {
+  "VGA": (640, 480),
+  "HD": (1280, 720),
+  "Full HD": (1920, 1080),
+  "4K UHD": (3840, 2160),
+}
+
 for nome, valor in resolucoes.items():
   pixels_vga = 640 * 480
   total_pixels = valor[0] * valor[1]
