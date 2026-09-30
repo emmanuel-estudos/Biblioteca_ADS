@@ -1,7 +1,7 @@
 # Atividade 01
 
 <Questao
-  id="q001"
+  id="q2_1"
   titulo=""
   linksResolucao={
     <>
@@ -17,7 +17,7 @@
 </Questao>
 
 <Questao
-  id="q002"
+  id="q2_2"
   titulo=""
   linksResolucao={
     <>
@@ -36,7 +36,7 @@
 </Questao>
 
 <Questao
-  id="q003"
+  id="q2_3"
   titulo=""
   linksResolucao={
     <>
@@ -59,4 +59,50 @@
 
   print(espelhada, subamostrada, limiarizada, sep="\n")
   ```
+</Questao>
+
+<Questao
+  id="q3_1"
+  titulo="Moldura"
+  linksResolucao={
+    <>
+      <QuestaoLink slug="q3.1-py" linguagem="py" />
+    </>
+  }
+>
+  Crie um array `moldura` de `uint8` com formato `(7, 9)`, todo preto (0), com uma **borda de 1 pixel branca (255)**. Use `np.zeros` e fatiamento (sem laços).
+</Questao>
+
+<Questao
+  id="q3_2"
+  titulo="Gradiente"
+  linksResolucao={
+    <>
+      <QuestaoLink slug="q3.2-py" linguagem="py" />
+    </>
+  }
+>
+  Crie uma imagem `gradiente` de formato `(100, 256)` e tipo `uint8` em que **cada coluna `j` tenha valor `j`** (preto à esquerda, branco à direita). Não use laços: use `np.arange` e _broadcasting_ (ou `np.tile`).
+
+  Imprima o `shape`, o `dtype` e os valores da linha 0 nas colunas 0, 128 e 255.
+</Questao>
+
+<Questao
+  id="q3_3"
+  titulo="Limiarização com Máscara"
+  linksResolucao={
+    <>
+      <QuestaoLink slug="q3.3-py" linguagem="py" />
+    </>
+  }
+>
+  Dada a matriz aleatória `ruido`:
+
+  1. calcule a porcentagem de pixels com valor maior que 128;
+  2. crie `binaria`, com 255 onde `ruido > 128` e 0 no restante, **sem alterar `ruido`**.
+
+  Dica: `np.where(condicao, valor_se_verdadeiro, valor_se_falso)`.
+
+  `ruido = np.random.default_rng(7).integers(0, 256, size=(6, 6), dtype=np.uint8)`
+  print(ruido)
 </Questao>

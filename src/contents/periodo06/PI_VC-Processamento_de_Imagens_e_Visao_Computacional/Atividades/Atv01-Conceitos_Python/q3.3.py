@@ -1,0 +1,28 @@
+#  Dada a matriz aleatória `ruido`:
+#
+#  1. calcule a porcentagem de pixels com valor maior que 128;
+#  2. crie `binaria`, com 255 onde `ruido > 128` e 0 no restante, **sem alterar `ruido`**.
+#
+#  Dica: `np.where(condicao, valor_se_verdadeiro, valor_se_falso)`.
+#
+#  `ruido = np.random.default_rng(7).integers(0, 256, size=(6, 6), dtype=np.uint8)`
+
+import numpy as np
+
+## criando ruido (semente '7', então o restultado é sempre o mesmo)
+ruido = np.random.default_rng(7).integers(0, 256, size=(6, 6), dtype=np.uint8)
+
+## calculando porcentagem ('quantos maiores que 128'/'total' * 'multiplicado por 100')
+porcentagem = float((ruido > 128).mean()) * 100
+
+## criando matriz binária
+matrizBinaria = np.where(
+	ruido > 128,
+ 	255,
+  0
+).astype(np.uint8)
+
+## mostrando resultados
+print("Matriz Original (ruido):\n", ruido)
+print("\nMatriz Binária:\n", matrizBinaria)
+print(f"\nPorcentagem de pixels > 128: {porcentagem:.2f}%")

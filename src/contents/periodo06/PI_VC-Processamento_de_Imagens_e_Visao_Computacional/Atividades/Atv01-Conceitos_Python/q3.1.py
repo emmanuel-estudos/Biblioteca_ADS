@@ -1,12 +1,5 @@
-# Questão 3.1
+# Crie um array `moldura` de `uint8` com formato `(7, 9)`, todo preto (0), com uma **borda de 1 pixel branca (255)**. Use `np.zeros` e fatiamento (sem laços)
 
-## Enunciado
-
-Crie um array `moldura` de `uint8` com formato `(7, 9)`, todo preto (0), com uma **borda de 1 pixel branca (255)**. Use `np.zeros` e fatiamento (sem laços)
-
-## Resolução
-
-```py
 import numpy as np
 
 ## criando a imagem
@@ -23,4 +16,3 @@ moldura[:, [0, -1]] = 255
 
 ## exibindo imagem
 print(moldura)
-```
