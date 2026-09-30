@@ -7,6 +7,64 @@ export interface BreadcrumbsProps {
   abaAtiva?: 'atividades' | 'assuntos';
 }
 
+/**
+ * Identifica se um segmento da URL representa uma questão
+ * e retorna o nome formatado com base na posição relativa no DOM (ex: Questão 001).
+ */
+const obterNomeQuestaoFormatado = (value: string, listaIdsDom: string[]): string | null => {
+  const valLower = value.toLowerCase();
+  
+  // Verifica se o segmento possui padrão de identificador de questão (ex: q1, q-01, questao-1, q1-titulo)
+  const isPadraoQuestao = /^(q|questao)[-_]?\d+/i.test(valLower);
+
+  // Procura o índice do contêiner correspondente no DOM
+  let indexNoDom = -1;
+
+  if (listaIdsDom.length > 0) {
+    indexNoDom = listaIdsDom.findIndex((idDom) => {
+      const idLower = idDom.toLowerCase();
+      
+      // 1. Match exato de ID
+      if (idLower === valLower) return true;
+      
+      // 2. Match de prefixo (ex: idDom = "q1-exercicio-der", value = "q1")
+      if (idLower.startsWith(`${valLower}-`) || valLower.startsWith(`${idLower}-`)) return true;
+
+      // 3. Match pelos dígitos
+      const digitosVal = valLower.replace(/\D/g, '');
+      const digitosDom = idLower.replace(/\D/g, '');
+      if (digitosVal && digitosDom && digitosVal === digitosDom) return true;
+
+      return false;
+    });
+  }
+
+  // Se não corresponder a um padrão de questão nem existir no DOM, ignora
+  if (!isPadraoQuestao && indexNoDom === -1) {
+    return null;
+  }
+
+  // Posição 1-based no DOM
+  let posicaoFinal: number | null = null;
+
+  if (indexNoDom !== -1) {
+    posicaoFinal = indexNoDom + 1;
+  } else {
+    // Fallback: extrai o número do próprio parâmetro caso o DOM ainda não tenha carregado
+    const digitos = value.replace(/\D/g, '');
+    if (digitos) {
+      posicaoFinal = parseInt(digitos, 10);
+    }
+  }
+
+  if (posicaoFinal !== null && !isNaN(posicaoFinal)) {
+    const numeroFormatado = String(posicaoFinal).padStart(3, '0');
+    return `Questão ${numeroFormatado}`;
+  }
+
+  return null;
+};
+
 export const Breadcrumbs: React.FC<BreadcrumbsProps> = () => {
   const location = useLocation();
   const { periodo, materia, atividade, slug } = useParams<{
@@ -19,8 +77,38 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = () => {
   const [traducoesCustom, setTraducoesCustom] = useState<Record<string, string>>({});
   const [corPrimaria, setCorPrimaria] = useState<string | undefined>(undefined);
   const [corSecundaria, setCorSecundaria] = useState<string | undefined>(undefined);
+  const [questoesIds, setQuestoesIds] = useState<string[]>([]);
 
   const pathnames = location.pathname.split('/').filter((x) => x);
+
+  // Sincroniza os contêineres de questão renderizados na página com o Breadcrumbs
+  useEffect(() => {
+    const atualizarQuestoes = () => {
+      const elementos = Array.from(
+        document.querySelectorAll<HTMLElement>('[data-questao-container]')
+      );
+      const ids = elementos.map((el) => el.id || '');
+      
+      setQuestoesIds((prev) => {
+        if (prev.length === ids.length && prev.every((id, i) => id === ids[i])) {
+          return prev;
+        }
+        return ids;
+      });
+    };
+
+    atualizarQuestoes();
+    const timer = setTimeout(atualizarQuestoes, 100);
+
+    // MutationObserver para capturar alterações e montagens dinâmicas no DOM
+    const observer = new MutationObserver(atualizarQuestoes);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      clearTimeout(timer);
+      observer.disconnect();
+    };
+  }, [location.pathname]);
 
   useEffect(() => {
     let cancelado = false;
@@ -101,16 +189,24 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = () => {
   }, [materia, atividade, slug, location.pathname]);
 
   const formatarNome = (value: string) => {
-    const valLower = value.toLowerCase();
+    // 1. Tenta formatar como questão baseada na ordem relativa no DOM
+    const nomeQuestao = obterNomeQuestaoFormatado(value, questoesIds);
+    if (nomeQuestao) {
+      return nomeQuestao;
+    }
 
+    // 2. Traduções customizadas vindas do config.ts da matéria
+    const valLower = value.toLowerCase();
     if (traducoesCustom[valLower]) {
       return traducoesCustom[valLower];
     }
 
+    // 3. Dicionário de traduções globais
     if (TRADUCAO_NOMES[value]) {
       return TRADUCAO_NOMES[value];
     }
 
+    // 4. Fallback padrão
     return value.replace(/-/g, ' ');
   };
 
@@ -122,7 +218,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = () => {
     return `/${pathnames.slice(0, index + 1).join('/')}`;
   };
 
-  // Encontra o índice de onde a matéria começa no caminho (ex: index 1 para /1-periodo/Algoritmos)
+  // Encontra o índice de onde a matéria começa no caminho
   const indiceMateria = materia 
     ? pathnames.findIndex(p => p.toLowerCase() === materia.toLowerCase()) 
     : -1;
@@ -139,19 +235,16 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = () => {
           const isLast = index === pathnames.length - 1;
           const nomeFormatado = formatarNome(value);
 
-          // É considerado "dentro da matéria" se o item atual for a matéria ou estiver depois dela
           const isDentroDaMateria = indiceMateria !== -1 && index >= indiceMateria;
 
           return (
             <S.BreadcrumbsItem 
               key={to + index} 
               $isLast={isLast} 
-              $corPrimaria={corPrimaria}
-              $isDentroDaMateria={isDentroDaMateria}
+              $corPrimaria={corPrimaria}$isDentroDaMateria={isDentroDaMateria}
             >
               <S.Separator 
-                $corSecundaria={corSecundaria} 
-                $isDentroDaMateria={isDentroDaMateria}
+                $corSecundaria={corSecundaria}$isDentroDaMateria={isDentroDaMateria}
               >
                 /
               </S.Separator>
