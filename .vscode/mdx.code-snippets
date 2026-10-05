@@ -71,7 +71,7 @@
 			"    </>",
 			"  }",
 			">",
-			" ${1:Enunciado}",
+			"  ${1:Enunciado}",
 			"</Questao>",
 		],
 		"description": "Insere a estrutura para uma questão de uma lista."
@@ -159,5 +159,10 @@
 			"/>"
 		],
 		"description": "Insere a estrutura para inserção de uma imagem grande, para referência."
+	},
+	"Estrutura de Título para Tabela": {
+		"prefix": "/titulo_tabela",
+		"body": "<TituloTabela>TITULO</TituloTabela>",
+		"description": "Insere a estrutura para inserir um título de tabela."
 	}
 }

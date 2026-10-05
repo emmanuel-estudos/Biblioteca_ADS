@@ -497,4 +497,195 @@ Exemplos de atividades realizadas por usuários de bancos de dados:
 - Execução de transações.
 - Obtenção de relatórios.
 
-## Conceitos importantes de bancos de dados
+## Conceitos Importantes de Bancos de Dados (90)
+
+Quando falamos de bancos de dados, três conceitos são importantes:
+
+- Modelo de Dados.
+- Esquema de Dados.
+- Instância de um banco de dados.
+
+### Modelos de Dados
+
+Conjunto de conceitos usados para descrever a estrutura de um banco de dados.
+
+Podem ser classificados em três tipos:
+
+- Modelo conceitual.
+- Modelo lógico.
+- Modelo físico.
+
+### Modelo Conceitual
+
+É um modelo de alto nível.
+
+Representa os dados de acordo com a visão do usuário, sem informações referentes ao armazenamento no banco de dados.
+
+Corresponde a uma representação do "mini-mundo" descrito pelo banco de dados.
+
+O projetista do banco de dados usa o modelo conceitual para validar a sua percepção do "mini-mundo" junto ao cliente.
+
+Baseado principalmente em três elementos: entidades, atributos e relacionamentos.
+
+Exemplos de ferramentas usadas para modelagem conceitual:
+
+- O modelo entidade-relacionamento.
+- A linguagem UML.
+
+### Modelo Lógico
+
+Também conhecido como modelo de implementação ou representacional.
+
+Baseado em uma representação intermediária entre o usuário e o armazenamento físico.
+
+Descreve como os dados serão organizados no banco de dados.
+
+O modelo lógico é voltado para a equipe de desenvolvimento.
+
+É o modelo usado como base para a implementação do banco de dados no SGBD.
+
+Exemplos de modelos lógicos:
+
+- Modelo relacional.
+- Modelo orientado a objetos.
+- Modelo de redes.
+- Modelo hierárquico.
+
+### Modelo Físico
+
+É um modelo de baixo nível, que descreve como os dados estão armazenados fisicamente.
+
+Estrutura dos registros, rotas de acesso, etc.
+
+Exemplos:
+
+- Modelo unificado.
+- Modelo de partição de memória.
+
+### Esquema de Dados
+
+Corresponde a uma instância de um modelo de dados.
+
+Descreve a estrutura do banco de dados: **Tabelas, colunas, tipos de dados, restrições dos dados, etc**.
+
+O esquema pode ser conceitual, lógico ou físico, de acordo com o tipo de modelo que o mesmo instancia.
+
+### Instância de um Banco de Dados
+
+Corresponde a uma implementação do banco de dados, criada de acordo com um esquema de dados.
+
+É na instância do banco de dados onde os usuários podem carregar, consultar e manipular dados.
+
+Os dados do banco de dados em um determinado instante de tempo correspondem ao estado do banco.
+
+O estado do banco de dados é válido quando os dados satisfazem todas as restrições definidas no esquema.
+
+## Linguagens de Bancos de Dados
+
+Usamos dois tipos de linguagem para a criação e manipulação de um banco de dados:
+
+- Linguagem de definição de dados (DDL).
+- Linguagem de manipulação de dados (DML).
+
+### Linguagem de Definição de Dados
+
+#### Data Definition Language (DDL)
+
+Usada para realizar instruções relativas à estrutura do banco de dados.
+
+Exemplos: Criação, alteração e exclusão de tabelas, visões, índices, etc.
+
+#### Data Manipulation Language (DML)
+
+Usada para realizar instruções relativas ao gerenciamento dos dados do banco de dados.
+
+Exemplos: inserção, alteração e exclusão de dados.
+
+### A linguagem SQL
+
+Linguagem padrão utilizada por SGDBs que implementam o modelo relacional ou objeto-relacional.
+
+Permite tanto a definição quanto a manipulação de dados.
+
+Pode ser usada diretamente no BD ou embutida na aplicação.
+
+## Níveis de Abstração em um SGBD
+
+Em um SGBD os dados são descritos em três níveis de abstração:
+
+1. Esquemas Externos
+2. Esquema Conceitual
+3. Esquema Físico
+4. Disco
+
+### Esquema Físico
+
+Especifica os detalhes sobre como os dados do banco de dados devem ser armazenados no disco.
+
+Também especifica as estruturas adicionais que devem ser usadas para acelerar o processo de recuperação dos dados.
+
+Exemplos de decisões referentes ao esquema físico:
+
+- Armazene todas as tabelas como um arquivo não ordenado de registros.
+- Crie um índice para a primeira coluna de cada tabela do banco de dados.
+
+### Esquema Conceitual
+
+Descreve como os dados estão organizados logicamente no banco de dados, **mas sem detalhar como os dados são armazenados e recuperados no disco**.
+
+Em um banco de dados relacional, o esquema conceitual descreve a estrutura de cada tabela do banco de dados.
+
+Exemplos de decisões referentes ao esquema conceitual:
+
+- Crie uma tabela empregado com os atributos _matrícula_, _nome_, _salário_, _função_, _cpf_, _data de nascimento_ e _data de admissão_.
+- Crie uma tabela dependente com os atributos _código_, _nome_, _matrícula do empregado_, _data de nascimento_ e _grau de parentesco_.
+
+### Esquema Externos
+
+Usados para criar visões personalizadas do banco de dados.
+
+Os esquemas externos nos permite controlar quais informações serão mostradas para cada grupo de usuários **e como os dados serão apresentados**.
+
+As visões dos esquemas externos são tabelas virtuais, ou seja, não são armazenadas fisicamente no disco: **a consulta é executada no banco de dados sempre que a visão é solicitada por um usuário**.
+
+Exemplos de decisões referentes ao esquema externo:
+
+- Crie uma visão mostrando a _matrícula_, o _nome_ e a _quantidade de dependentes_ de cada empregado da empresa.
+- Crie uma visão mostrando a _quantidade de empregados_ alocados em cada projeto da empresa.
+
+<TituloTabela>Tabela - Empregados</TituloTabela>
+
+| Matrícula | Nome | Salário | Função |
+| --------- | ---- | ------- | ------ |
+| | | | | | | |
+| | | | | | | |
+| | | | | | | |
+| | | | | | | |
+
+<TituloTabela>Tabela - Dependentes</TituloTabela>
+
+| Matrícula | Nome | Salário | Função |
+| --------- | ---- | ------- | ------ |
+| | | | | | | |
+| | | | | | | |
+| | | | | | | |
+| | | | | | | |
+
+<TituloTabela>Visão - Número de Dependentes por Empregado</TituloTabela>
+
+| Matrícula | Nome | Salário |
+| --------- | ---- | ------- |
+| | | | | |
+| | | | | |
+| | | | | |
+| | | | | |
+
+### Importantes
+
+Para cada banco de dados, o serviço de catálogo do SGBD mantém informações sobre os esquemas dos três níveis.
+
+Esta arquitetura é importante, pois ajuda a permitir a independência de dados.
+
+Mudanças no esquema físico não afetam o esquema conceitual e nem os esquemas externos.
+
+Mudanças no esquema conceitual requerem pouca ou nenhuma alteração nos esquemas externos.
