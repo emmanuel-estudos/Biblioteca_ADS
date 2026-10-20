@@ -8,6 +8,7 @@ export const config = {
 	// Mapeamento de arquivos da matéria (arquivo Materia.tsx)
 	assuntos: {
 		"aula01-IA": "Aula 01: Inteligência Artificial",
+    "aula02-Persistencia_de_Dados": "Aula 02: Persistência de Dados"
 	},
 
 	// Mapeamento das pastas da aba 'Atividade' da matéria (arquivo Materia.tsx)
