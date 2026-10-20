@@ -43,9 +43,11 @@
     "adsads",
     "nginx",
     "keyout",
+    "LGPD",
 
-    // DAC - P6
+    // Desenvolvimento de Aplicações Corporativas - DAC - P6
     "TOGAF",
+    "RDBMS",
   ],
 
   "cSpell.ignoreRegExpList": [

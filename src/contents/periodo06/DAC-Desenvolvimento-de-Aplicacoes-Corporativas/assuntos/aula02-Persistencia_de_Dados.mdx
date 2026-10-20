@@ -1,0 +1,320 @@
+# Persistência de Dados
+
+## Agenda
+
+- Persistência de Dados
+- Principais problemas
+- Tipos de Persistência
+- Técnicas de Persistência
+- O problema da Normalização
+- Persistência em micro-serviços
+
+## Persistência de Dados
+
+### Do que se trata o estudo sobre Persistência de Dados?
+
+- Estados de técnicas, padrões e estratégias para armazenar e recuperar dados de forma durável e confiável
+- Envolve escolha de tecnologias, modelagem, otimização e garantias de consistência
+- Vai além da simples gravação: inclui transações, recuperação de falhas, replicação e distribuição
+
+### Por que é importante entender Persistência de Dados no mundo corporativo?
+
+- Dados são o ativo mais valioso das empresas modernas
+- Decisões incorretas geram custos altos de manutenção, retrabalho e migração
+- Impacta diretamente em performance, disponibilidade e custos operacionais
+- Requisitos de conformidade (LGPD, GDPR) dependem de estratégias adequadas
+
+### Qual a diferença do estudo de Persistência de Dados e Banco de Dados?
+
+#### Banco de Dados
+
+- Foco na tecnologia específica (PostgreSQL, MongoDB, etc)
+- Preocupa-se em como criar armazenamento para uma tecnologia específica
+
+#### Persistência de Dados
+
+- Visão arquitetural mais ampla
+- Inclui caching, filas, event sourcing, CQRS, arquivos, objetivos (S3)
+- Considera o ciclo completo: captura, armazenamento, acesso, migração e arquivamento
+
+### Dimensões da Persistência de Dados
+
+- **Durabilidade**: garantir que dados não sejam perdidos
+- **Consistência**: manter integridade dos dados
+- **Disponibilidade**: acesso aos dados quando necessário
+- **Escalabilidade**: crescimento horizontal e vertical
+- **Performance**: latência e throughput adequados
+
+### Contexto Corporativo Escalável
+
+- Alto volume de transações simultâneas
+- Distribuição geográfica de dados e usuários
+- Requisitos de recuperação de desastres (RTO/RPO)
+- Compliance e auditoria
+- Custo total de propriedade (TCO)
+
+## Principais Problemas
+
+### Problema 01: Crescimento Descontrolado de Dados
+
+- Volume de dados cresce exponencialmente
+- Custo de armazenamento e processamento aumentam
+- Queries ficam lentas com tabelas grandes
+- Backups demoram cada vez mais
+
+#### Solução
+
+- Estratégias de particionamento e sharding
+- Arquivamento de dados históricos
+- Compressão e otimização de storage
+- Data lifecycle management
+
+### Problema 02: Baixa Disponibilidade
+
+- Downtime causa perda de receita e reputação
+- Single point of failure no Banco de Dados
+- Manutenções programadas requerem paradas
+- Falhas de hardware ou data-center
+
+#### Solução
+
+- Replicação multi-região
+- Failover automático
+- Arquiteturas active-active
+- Redundância em múltiplas camadas
+- Health checks e circuit breakers
+
+### Problema 03: Inconsistência de Dados
+
+- Dados duplicados em múltiplos sistemas
+- Falta de transações distribuídas
+- Race conditions em operações concorrentes
+- Problemas de sincronização entre réplicas
+
+#### Solução
+
+- Padrões de consistência eventual
+- Saga pattern para transações distribuídas
+- Event sourcing para auditoria completa
+- Idempotência em operações
+- Conflict resolution strategies
+
+### Problema 04: Acoplamento entre Aplicações e Persistência
+
+- Mudanças no schema impactam toda a aplicação
+- Dificuldade para evoluir o modelo de dados
+- Lock-in com tecnologia específica
+- Queries complexas espalhadas pelo código
+
+#### Solução
+
+- Repository pattern
+- Abstração da camada de persistência
+- Domain-Driven Design (DDD)
+- Database per service em micro-serviços
+- Anti-corruption layers
+
+## Tipos de Persistência
+
+### Persistência Relacional (RDBMS)
+
+- Características: ACID, schema fixo, SQL
+- Exemplos: PostgreSQL, MySQL, Oracle, SQL Server
+
+#### Casos de Uso
+
+- Dados estruturados com relacionamentos complexos
+- Transações financeiras
+- Sistemas ERP, CRM
+
+#### Prós
+
+Consistência forte, integridade referencial, queries complexas
+
+#### Contras
+
+Dificuldade de escalar horizontalmente, schema rígido
+
+### Persistência NoSQL: Documentos
+
+- Características: Schema flexível, JSON/BSON, queries por documento
+- Exemplos: MongoDB, CouchDB, DocumentoDB
+
+#### Casos de Uso
+
+- Catálogos de produtos
+- Gestão de conteúdo
+- Perfis de usuários
+
+#### Prós
+
+Flexibilidade de schema, fácil escalonamento horizontal
+
+#### Contras
+
+Joins limitados, consistência eventual
+
+### NoSQL: Chave-Valor
+
+- Características: acesso ultra-rápido por chave
+- Exemplos: Redis, DynamoDB, Riak
+
+#### Casos de Uso
+
+- Caches
+- Sessões
+- Configurações
+
+#### Prós
+
+Performance extrema, simplicidade
+
+### Contras
+
+Queries limitadas, modelo simples
+
+### NoSQL: Colunar
+
+- Características: Otimizado para leitura de colunas, compressão eficiente
+- Exemplos: Cassandra, HBase, ScyllaDB
+
+#### Casos de Uso
+
+- Time series data
+- Análise e armazenamento de dados
+- Logs e métricas
+
+#### Prós
+
+Escala massiva, alta disponibilidade
+
+#### Contras
+
+Modelo de consistência complexo
+
+### NoSQL: Grafos
+
+- CaCaracterísticas: Relacionamentos como cidadãos de primeira classe
+- Exemplos: Neo4j, Amazon Neptune, ArangoDB
+
+#### Casos de Uso
+
+- Redes sociais, recomendações, detecção de fraudes
+- Armazenamento vetorial de dados para RAG/IA
+
+#### Prós
+
+Queries de relacionamentos eficientes
+
+#### Contras
+
+Complexidade operacional
+
+### Persistência em Memória
+
+- Características: Dados armazenados em RAM, extrema velocidade
+- Exemplos: Redis, Memcached, Hazelcast
+
+#### Casos de Uso
+
+- Cache distribuído
+- Sessões
+- Rate limiting
+
+#### Prós
+
+Latência sub-milissegundo
+
+#### Contras
+
+Volatilidade, custo de RAM
+
+### Object Storage
+
+- Características: Armazenamento de arquivos binários
+- Exemplos: Amazon S3, MinIO, Azure Blob
+
+#### Casos de Uso
+
+- Imagens
+- Vídeos
+- Backups
+- Data lakes
+
+#### Prós
+
+Escalabilidade ilimitada, baixo custo
+
+#### Contras
+
+Não estruturado, latência mais alta
+
+### Persistência por Arquivo
+
+- Características: Dados armazenados em arquivo no disco e são dentro da aplicação
+- Exemplos: FALTANDO
+
+#### Casos de Uso
+
+- Cache interno de aplicação
+- Uso alternativa ao Redis (meio termo entre memória e disco)
+- Logging
+
+#### Prós 
+
+Latência sub-milissegundo
+
+#### Contras 
+
+Volatilidade média, sem uma política de remoção o disco pode ficar cheio
+
+## Técnicas de Persistência: Caching Estratégico
+
+#### Cache-Aside (Lazy Loading)
+
+- Aplicação busca do cache primeiro
+- Em caso de miss, busca da fonte e popula cache
+- Controle total da aplicação
+
+#### Write-Through
+
+- Dados escritos no cache e no banco simultaneamente
+- Garante consistência entre cache e persistência
+- Penalidade em latência de escrita
+
+#### Write-Behind
+
+- Escrita no cache imediata, persistência assíncrona
+- Melhor performance de escrita
+- Risco de perda de dados em falhas
+
+#### Connection Pooling
+
+- Reutilização de conexões com banco de dados
+- Evita overhead de criar/destruir conexões
+- Configuração crítica: tamanho do pool, timeouts
+- Ferramentas: HikariCP, c3p0, pgBouncer
+
+#### Batch Processing
+
+- Agrupar múltiplas operações em lote
+- Reduz round-trips ao banco
+- Melhora throughput significativamente
+- Exemplos: bulk inserts, batch updates
+
+#### Horizontal: distribuir linhas por múltiplos nós
+
+- Por range: datas, IDs
+- Por hash: distribuição uniforme
+- Por geografia: dados próximos aos usuários
+
+#### Vertical: separar colunas em diferentes tabelas
+
+- Colunas frequentes vs. raramente acessadas
+- BLOBs separados de dados transacionais
+
+#### Desafios
+
+- Queries cross-shard
+- Rebalanceamento
+- Escolha da shard key
