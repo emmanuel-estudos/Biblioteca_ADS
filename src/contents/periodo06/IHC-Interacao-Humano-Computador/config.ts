@@ -7,7 +7,9 @@ export const config = {
 
 	// Mapeamento de arquivos da matéria (arquivo Materia.tsx)
 	assuntos: {
-		"Teste": "Teste de Arquivo",
+		"Cap_01": "Aula 01: Introdução",
+    "Cap_02": "Aula 02: Conceitos Básicos",
+    "Cap_03": "Aula 03: Processo de Design",
 	},
 
 	// Mapeamento das pastas da aba 'Atividade' da matéria (arquivo Materia.tsx)
