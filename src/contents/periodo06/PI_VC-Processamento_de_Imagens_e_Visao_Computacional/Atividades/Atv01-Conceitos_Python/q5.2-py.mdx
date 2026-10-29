@@ -1,0 +1,35 @@
+# Questão 5.2
+
+## Enunciado
+
+Monte **uma única imagem** com a imagem `gato` original, espelhada e negativa **lado a lado** (horizontalmente). Salve como `painel_gato.png` e exiba.
+
+Dica: `np.hstack([a, b, c])` concatena arrays horizontalmente (eles precisam ter a mesma altura).
+
+## Resolução
+
+```py
+# copiando imagem
+gatoC = gato.copy()
+
+# espelhando imagem horizontalmente
+gato_espelhado_horizontal = gatoC[:, ::-1]
+
+# negativando a imagem
+gato_negativo = 255 - gatoC
+
+# mostrando as imagens
+mostrar_varias(
+                [gatoC, gato_espelhado_horizontal, gato_negativo],
+                ["gato original", "gato espelhado horizontalmente", "gato negativo"],
+                colunas=3
+              )
+
+# juntando imagens
+gatosJuntinhos = np.hstack([gatoC, gato_espelhado_horizontal, gato_negativo])
+
+# salvando imagens
+salvando = cv2.imwrite("gatos_juntos.png", gatosJuntinhos)
+
+mostrar(cv2.imread("gatos_juntos.png"), titulo="gatos juntinhos")
+```

@@ -22,6 +22,9 @@ export const config = {
 				"q3.1-py": "Questão 3.1",
 				"q3.2-py": "Questão 3.2",
 				"q3.3-py": "Questão 3.3",
+				"q5.1-py": "Questão 5.1",
+				"q5.2-py": "Questão 5.2",
+				"q5.3-py": "Questão 5.3"
 			},
 		},
 	}
