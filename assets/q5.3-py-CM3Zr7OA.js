@@ -1,0 +1,18 @@
+import{n as e,r as t}from"./lib-CrvGBhFj.js";var n=t();function r(t){let r={code:`code`,h1:`h1`,h2:`h2`,p:`p`,pre:`pre`,span:`span`,strong:`strong`,...e(),...t.components};return(0,n.jsxs)(n.Fragment,{children:[(0,n.jsx)(r.h1,{id:`questão-53`,children:`Questão 5.3`}),`
+`,(0,n.jsx)(r.h2,{id:`enunciado`,children:`Enunciado`}),`
+`,(0,n.jsxs)(r.p,{children:[`Crie do zero uma imagem `,(0,n.jsx)(r.code,{children:`300 x 450`}),` (altura x largura) com a `,(0,n.jsx)(r.strong,{children:`bandeira da Itália`}),`: três faixas verticais de mesma largura — `,(0,n.jsx)(r.strong,{children:`verde`}),` `,(0,n.jsx)(r.code,{children:`(RGB 0,146,70)`}),`, `,(0,n.jsx)(r.strong,{children:`branco`}),` e `,(0,n.jsx)(r.strong,{children:`vermelho`}),` `,(0,n.jsx)(r.code,{children:`(RGB 206,43,55)`}),`.`]}),`
+`,(0,n.jsxs)(r.p,{children:[`⚠️ Lembre que estamos em `,(0,n.jsx)(r.strong,{children:`BGR`}),`!`]}),`
+`,(0,n.jsx)(r.h2,{id:`resolução`,children:`Resolução`}),`
+`,(0,n.jsx)(r.pre,{children:(0,n.jsxs)(r.code,{className:`hljs language-py`,children:[(0,n.jsx)(r.span,{className:`hljs-comment`,children:`# criação da imagem`}),`\r
+bandeira = np.zeros((`,(0,n.jsx)(r.span,{className:`hljs-number`,children:`300`}),`, `,(0,n.jsx)(r.span,{className:`hljs-number`,children:`450`}),`, `,(0,n.jsx)(r.span,{className:`hljs-number`,children:`3`}),`), dtype=np.uint8)\r
+\r
+`,(0,n.jsx)(r.span,{className:`hljs-comment`,children:`# verde`}),`\r
+cv2.rectangle(bandeira, (`,(0,n.jsx)(r.span,{className:`hljs-number`,children:`0`}),`, `,(0,n.jsx)(r.span,{className:`hljs-number`,children:`0`}),`), (`,(0,n.jsx)(r.span,{className:`hljs-number`,children:`150`}),`, `,(0,n.jsx)(r.span,{className:`hljs-number`,children:`300`}),`), (`,(0,n.jsx)(r.span,{className:`hljs-number`,children:`70`}),`, `,(0,n.jsx)(r.span,{className:`hljs-number`,children:`146`}),`, `,(0,n.jsx)(r.span,{className:`hljs-number`,children:`0`}),`), -`,(0,n.jsx)(r.span,{className:`hljs-number`,children:`1`}),`)\r
+\r
+`,(0,n.jsx)(r.span,{className:`hljs-comment`,children:`# branco`}),`\r
+cv2.rectangle(bandeira, (`,(0,n.jsx)(r.span,{className:`hljs-number`,children:`150`}),`, `,(0,n.jsx)(r.span,{className:`hljs-number`,children:`0`}),`), (`,(0,n.jsx)(r.span,{className:`hljs-number`,children:`300`}),`, `,(0,n.jsx)(r.span,{className:`hljs-number`,children:`300`}),`), (`,(0,n.jsx)(r.span,{className:`hljs-number`,children:`255`}),`, `,(0,n.jsx)(r.span,{className:`hljs-number`,children:`255`}),`, `,(0,n.jsx)(r.span,{className:`hljs-number`,children:`255`}),`), -`,(0,n.jsx)(r.span,{className:`hljs-number`,children:`1`}),`)\r
+\r
+`,(0,n.jsx)(r.span,{className:`hljs-comment`,children:`# vermelho`}),`\r
+cv2.rectangle(bandeira, (`,(0,n.jsx)(r.span,{className:`hljs-number`,children:`300`}),`, `,(0,n.jsx)(r.span,{className:`hljs-number`,children:`0`}),`), (`,(0,n.jsx)(r.span,{className:`hljs-number`,children:`450`}),`, `,(0,n.jsx)(r.span,{className:`hljs-number`,children:`300`}),`), (`,(0,n.jsx)(r.span,{className:`hljs-number`,children:`55`}),`, `,(0,n.jsx)(r.span,{className:`hljs-number`,children:`43`}),`, `,(0,n.jsx)(r.span,{className:`hljs-number`,children:`206`}),`), -`,(0,n.jsx)(r.span,{className:`hljs-number`,children:`1`}),`)\r
+mostrar(bandeira, `,(0,n.jsx)(r.span,{className:`hljs-string`,children:`"Itália"`}),`, eixos=`,(0,n.jsx)(r.span,{className:`hljs-literal`,children:`True`}),`)
+`]})})]})}function i(t={}){let{wrapper:i}={...e(),...t.components};return i?(0,n.jsx)(i,{...t,children:(0,n.jsx)(r,{...t})}):r(t)}export{i as default};

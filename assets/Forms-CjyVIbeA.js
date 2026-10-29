@@ -1,0 +1,72 @@
+import{n as e,r as t}from"./lib-CrvGBhFj.js";var n=t();function r(t){let r={h1:`h1`,h2:`h2`,h3:`h3`,li:`li`,p:`p`,ul:`ul`,...e(),...t.components};return(0,n.jsxs)(n.Fragment,{children:[(0,n.jsx)(r.h1,{id:`formulário`,children:`Formulário`}),`
+`,(0,n.jsx)(r.h2,{id:`questão-01`,children:`Questão 01`}),`
+`,(0,n.jsx)(r.h3,{id:`enunciado`,children:`Enunciado`}),`
+`,(0,n.jsx)(r.p,{children:`Quais são as três consequências diretas da definição de um sistema distribuído e de que maneira elas alteram os pressupostos clássicos do desenvolvimento de software centralizado?`}),`
+`,(0,n.jsx)(r.h3,{id:`resposta`,children:`Resposta`}),`
+`,(0,n.jsx)(r.p,{children:`Um sistema distribuído é aquele que os componentes das máquinas, localizadas em computadores interligados em rede, comunicam-se e coordenam suas ações apenas enviando mensagens entre si.`}),`
+`,(0,n.jsx)(r.p,{children:`Isso implica dizer que um sistema distribuído tem algumas consequências, como:`}),`
+`,(0,n.jsxs)(r.ul,{children:[`
+`,(0,n.jsx)(r.li,{children:`Concorrência: em uma rede de computadores, a execução concorrente de programas é a norma. Dispositivos usam os mesmos arquivos para consulta ou páginas web, quando necessário. Para fazer com que o sistema seja capaz de gerenciar o compartilhamento de mais recursos, basta adicionar mais uma máquina.`}),`
+`,(0,n.jsx)(r.li,{children:`Inexistência de relógio global: quando os programas precisam cooperar, eles coordenam suas ações trocando mensagens, com uma noção compartilhada de tempo e sem uma definição externa de tempo definitivo.`}),`
+`,(0,n.jsx)(r.li,{children:`Falhas independentes: todos os sistemas de computador podem falhar, e é responsabilidade dos projetistas de sistema pensar nas consequências das possíveis falhas. As falhas na rede resultam em isolamento de máquinas, que continuam funcionando normalmente, mas sem se comunicar. Os componentes também podem falhar de forma isolada, deixando outros funcionando.`}),`
+`]}),`
+`,(0,n.jsx)(r.p,{children:`No desenvolvimento de clássico, há um ambiente de execução único, com memória física compartilhada e um relógio centralizado. Os Sistemas Distribuídos alteram esses pontos de algumas maneiras:`}),`
+`,(0,n.jsxs)(r.ul,{children:[`
+`,(0,n.jsx)(r.li,{children:`A memória compartilhada ocorre sob o controle do sistema operacional centralizado. Mas os Sistemas Distribuídos, por não possuírem memória física compartilhada exige que qualquer coordenação ou compartilhamento de estado ocorra exclusivamente por troca de mensagens pela rede, introduzindo desafios de latência e concorrência.`}),`
+`,(0,n.jsx)(r.li,{children:`Em relação ao tempo, em um ambiente centralizado o relógio do processador estabelece a ordem temporal única e definitiva para todos os eventos. A ausência de um relógio centralizado em Sistemas Distribuídos impede a existência incontestável de uma ordem de eventos, forçando que o sistema tenha abordagens alternativas.`}),`
+`,(0,n.jsx)(r.li,{children:`Nas falhas, em um sistema centralizado colapsa de uma única vez (ou tudo funciona ou nada funciona), enquanto nos distribuídos existem falhas parciais com alguns componentes parando e outros continuando.`}),`
+`]}),`
+`,(0,n.jsx)(r.h2,{id:`questão-02`,children:`Questão 02`}),`
+`,(0,n.jsx)(r.h3,{id:`enunciado-1`,children:`Enunciado`}),`
+`,(0,n.jsx)(r.p,{children:`De que forma a camada de middleware oculta a heterogeneidade do ambiente subjacente e quais são os dois tipos primordiais de transparência de rede que garantem a facilidade de acesso aos recursos?`}),`
+`,(0,n.jsx)(r.h3,{id:`resposta-1`,children:`Resposta`}),`
+`,(0,n.jsx)(r.p,{children:`A camada de middleware atua como uma camada de software intermediária posicionada sobre os sistemas operacionais e o hardware de rede.`}),`
+`,(0,n.jsxs)(r.ul,{children:[`
+`,(0,n.jsx)(r.li,{children:`Mascaramento de hardware e sistemas operacionais: Trata das variações entre arquiteturas de computadores e padroniza as chamadas de sistema e interfaces de programação que diferem entre sistemas operacionais (como UNIX e Windows).`}),`
+`,(0,n.jsx)(r.li,{children:`Abstração das redes subjacentes: A maior parte das soluções de middleware é implementada sobre protocolos de comunicação comuns (como os protocolos Internet), escondendo a diversidade e as particularidades das redes físicas subjacentes.`}),`
+`,(0,n.jsx)(r.li,{children:`Tratamento de linguagens de programação e representação de dados: Harmoniza as diferentes formas como as linguagens de programação representam estruturas de dados e caracteres no código, utilizando padrões comuns de empacotamento (marshalling) e formatos de mensagens.`}),`
+`,(0,n.jsx)(r.li,{children:`Oferecimento de um modelo computacional uniforme: Eleva o nível das atividades de comunicação ao fornecer aos desenvolvedores abstrações de programação homogêneas, como a invocação remota de objetos (RMI/RPC), a notificação de eventos e o acesso remoto a bancos de dados.`}),`
+`]}),`
+`,(0,n.jsx)(r.h2,{id:`questão-03`,children:`Questão 03`}),`
+`,(0,n.jsx)(r.h3,{id:`enunciado-2`,children:`Enunciado`}),`
+`,(0,n.jsx)(r.p,{children:`Como o conceito de escalabilidade define a eficiência de um SD e quais técnicas de arquitetura (como replicação, particionamento e uso de cache) evitam que o sistema sofra perda substancial de desempenho?`}),`
+`,(0,n.jsx)(r.h3,{id:`resposta-2`,children:`Resposta`}),`
+`,(0,n.jsx)(r.p,{children:`O conceito de escalabilidade define a eficiência de um sistema distribuído pela sua capacidade de continuar funcionando de forma efetiva, eficaz e com desempenho adequado à medida que há um aumento significativo no número de usuários e de recursos.`}),`
+`,(0,n.jsx)(r.p,{children:`Em termos arquiteturais e de projeto, a escalabilidade mensura a eficiência do sistema a partir de dois critérios fundamentais:`}),`
+`,(0,n.jsxs)(r.ul,{children:[`
+`,(0,n.jsx)(r.li,{children:`Controle do custo dos recursos físicos: Para que o sistema seja eficiente em larga escala, a quantidade de recursos físicos exigida para suportar N usuários deve crescer de forma razoável e proporcional, ou seja, no máximo O(n). Em termos de acréscimo incremental, o custo da adição de um novo usuário deve ser mantido como um valor constante.`}),`
+`,(0,n.jsx)(r.li,{children:`Controle da perda de desempenho: Conforme o volume de dados ou de usuários aumenta, os algoritmos e estruturas de dados adotados não devem sofrer degradação acentuada de desempenho. O uso de estruturas hierárquicas é preferível às estruturas lineares, garantindo que a perda de desempenho não ultrapasse O(log n).`}),`
+`,(0,n.jsx)(r.li,{children:`Prevenção contra gargalos e esgotamento: Um sistema escalável evita o uso de componentes centrais (que geram gargalos de desempenho) e previne o esgotamento de recursos de software, como limites em identificadores de endereçamento.`}),`
+`]}),`
+`,(0,n.jsx)(r.p,{children:`Para evitar quedas substanciais de desempenho e gargalos à medida que o sistema se expande, utilizam-se três técnicas principais de arquitetura:`}),`
+`,(0,n.jsxs)(r.ul,{children:[`
+`,(0,n.jsx)(r.li,{children:`Particionamento (Distribuição): Divide o conjunto total de dados, de tarefas ou do espaço de trabalho e os distribui entre múltiplos servidores descentralizados. Evita que um único ponto do sistema se torne um gargalo central de processamento ou memória.`}),`
+`,(0,n.jsx)(r.li,{children:`Replicação: Mantém cópias duplicadas dos mesmos dados ou serviços em múltiplos computadores mantidos na rede. Permite que múltiplos servidores processem requisições semelhantes concorrentemente, dividindo a carga de leitura e aumentando a disponibilidade e a tolerância a falhas.`}),`
+`,(0,n.jsx)(r.li,{children:`Uso de Cache: Armazena temporariamente os objetos ou dados recentemente acessados em um local fisicamente ou logicamente mais próximo do cliente (seja na memória do próprio cliente ou em um servidor proxy). Quando um recurso é solicitado repetidamente, ele é entregue diretamente da cache local sem a necessidade de trafegar novamente pela rede até o servidor de origem, diminuindo significativamente a latência percebida pelo usuário e diminui o tráfego de rede e a carga sobre os servidores centrais.`}),`
+`]}),`
+`,(0,n.jsx)(r.h2,{id:`questão-04`,children:`Questão 04`}),`
+`,(0,n.jsx)(r.h3,{id:`enunciado-3`,children:`Enunciado`}),`
+`,(0,n.jsx)(r.p,{children:`Quais são os limites e suposições que distinguem um modelo de sistema distribuído síncrono de um assíncrono, e por que a Internet se enquadra no modelo assíncrono?`}),`
+`,(0,n.jsx)(r.h3,{id:`resposta-3`,children:`Resposta`}),`
+`,(0,n.jsx)(r.p,{children:`A distinção entre os modelos de sistemas distribuídos síncrono e assíncrono reside no estabelecimento de garantias e limites temporais sobre o comportamento dos processos, dos relógios e da rede.`}),`
+`,(0,n.jsx)(r.p,{children:`Um sistema é classificado como síncrono quando são definidos e garantidos limites conhecidos para três parâmetros fundamentais:`}),`
+`,(0,n.jsxs)(r.ul,{children:[`
+`,(0,n.jsx)(r.li,{children:`Tempo de execução dos processos: Existe um limite inferior e um limite superior conhecidos para a execução de cada etapa de um processo.`}),`
+`,(0,n.jsx)(r.li,{children:`Atraso na transmissão de mensagens: Cada mensagem transmitida por um canal de comunicação é recebida dentro de um tempo limite conhecido e limitado.`}),`
+`,(0,n.jsx)(r.li,{children:`Taxa de desvio dos relógios (clock drift): Cada processo possui um relógio local cuja taxa de variação/desvio em relação ao tempo real tem um valor máximo conhecido.`}),`
+`,(0,n.jsx)(r.li,{children:`Implicação prática: Em um modelo síncrono, é possível utilizar estouros de tempo (timeouts) determinísticos para detectar falhas de componentes com certeza. Se uma resposta não chegar dentro do limite máximo calculado, assume-se conclusivamente que o processo remoto ou o canal falhou.`}),`
+`]}),`
+`,(0,n.jsx)(r.p,{children:`No modelo assíncrono, não é feita nenhuma suposição ou restrição sobre intervalos de tempo:`}),`
+`,(0,n.jsx)(r.p,{children:`Velocidade de execução arbitrária: Uma etapa de um processo pode levar desde um picossegundo até um tempo arbitrariamente longo para ser concluída.`}),`
+`,(0,n.jsxs)(r.ul,{children:[`
+`,(0,n.jsx)(r.li,{children:`Atrasos de mensagem arbitrários: Uma mensagem pode ser entregue quase instantaneamente ou demorar um tempo arbitrariamente longo para chegar ao destino.`}),`
+`,(0,n.jsx)(r.li,{children:`Taxa de desvio de relógio arbitrária: As taxas de variação dos relógios locais em relação ao tempo real não possuem limites conhecidos.`}),`
+`,(0,n.jsx)(r.li,{children:`Implicação prática: Um timeout não permite distinguir se um computador/processo remoto colapsou e parou de funcionar ou se ele está apenas operando muito devagar/enfrentando congestionamento na rede.`}),`
+`]}),`
+`,(0,n.jsx)(r.p,{children:`A Internet é o exemplo clássico de um sistema distribuído assíncrono pelos seguintes motivos:`}),`
+`,(0,n.jsxs)(r.ul,{children:[`
+`,(0,n.jsx)(r.li,{children:`Inexistência de limites de carga: Não há limites intrínsecos para a carga imposta aos servidores ou ao tráfego nos enlaces da rede.`}),`
+`,(0,n.jsx)(r.li,{children:`Compartilhamento dinâmico de recursos: Múltiplos processos de características e origens desconhecidas disputam o mesmo tempo de processamento nos nós e a mesma largura de banda nos canais de comunicação.`}),`
+`,(0,n.jsx)(r.li,{children:`Imprevisibilidade nas latências: O tempo necessário para transferir um arquivo ou entregar uma mensagem (como um e-mail ou uma requisição Web) pode variar imensamente devido ao congestionamento, retransmissões e alterações nas rotas de roteamento. Uma mensagem pode ser entregue em milissegundos ou levar minutos (e até dias em casos de e-mail).`}),`
+`]}),`
+`,(0,n.jsx)(r.p,{children:`Embora alguns componentes ou protocolos tentem impor temporizadores, a infraestrutura subjacente da Internet não oferece garantias rígidas de tempo de ponta a ponta, tornando o modelo assíncrono a representação adequada para o projeto de seus algoritmos.`})]})}function i(t={}){let{wrapper:i}={...e(),...t.components};return i?(0,n.jsx)(i,{...t,children:(0,n.jsx)(r,{...t})}):r(t)}export{i as default};

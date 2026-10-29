@@ -1,4 +1,4 @@
-import{n as e,r as t}from"./lib-CrvGBhFj.js";var n=t();function r(t){let r={h1:`h1`,h2:`h2`,h3:`h3`,h4:`h4`,hr:`hr`,li:`li`,p:`p`,strong:`strong`,table:`table`,tbody:`tbody`,td:`td`,th:`th`,thead:`thead`,tr:`tr`,ul:`ul`,...e(),...t.components},{Icone:i,TituloTabela:o}=r;return i||a(`Icone`,!0),o||a(`TituloTabela`,!0),(0,n.jsxs)(n.Fragment,{children:[(0,n.jsx)(r.h1,{id:`conceitos-básicos`,children:`Conceitos Básicos`}),`
+import{n as e,r as t}from"./lib-CrvGBhFj.js";var n=t();function r(t){let r={em:`em`,h1:`h1`,h2:`h2`,h3:`h3`,h4:`h4`,hr:`hr`,li:`li`,ol:`ol`,p:`p`,strong:`strong`,table:`table`,tbody:`tbody`,td:`td`,th:`th`,thead:`thead`,tr:`tr`,ul:`ul`,...e(),...t.components},{Icone:i,TituloTabela:o}=r;return i||a(`Icone`,!0),o||a(`TituloTabela`,!0),(0,n.jsxs)(n.Fragment,{children:[(0,n.jsx)(r.h1,{id:`conceitos-básicos`,children:`Conceitos Básicos`}),`
 `,(0,n.jsxs)(r.p,{children:[`Nesse documento, serão apresentados `,(0,n.jsx)(r.strong,{children:`Conceitos Básicos`}),` e principais `,(0,n.jsx)(r.strong,{children:`Terminologias`}),` de Banco de Dados.`]}),`
 `,(0,n.jsx)(r.h2,{id:`introdução`,children:`Introdução`}),`
 `,(0,n.jsx)(r.p,{children:`Diariamente, realizamos tarefas que envolvem alguma interação com bancos de dados:`}),`
@@ -326,4 +326,120 @@ acesso via aplicações, etc`}),`.`]}),`
 `,(0,n.jsx)(r.li,{children:`Execução de transações.`}),`
 `,(0,n.jsx)(r.li,{children:`Obtenção de relatórios.`}),`
 `]}),`
-`,(0,n.jsx)(r.h2,{id:`conceitos-importantes-de-bancos-de-dados`,children:`Conceitos importantes de bancos de dados`})]})}function i(t={}){let{wrapper:i}={...e(),...t.components};return i?(0,n.jsx)(i,{...t,children:(0,n.jsx)(r,{...t})}):r(t)}function a(e,t){throw Error(`Expected `+(t?`component`:`object`)+" `"+e+"` to be defined: you likely forgot to import, pass, or provide it.")}export{i as default};
+`,(0,n.jsx)(r.h2,{id:`conceitos-importantes-de-bancos-de-dados-90`,children:`Conceitos Importantes de Bancos de Dados (90)`}),`
+`,(0,n.jsx)(r.p,{children:`Quando falamos de bancos de dados, três conceitos são importantes:`}),`
+`,(0,n.jsxs)(r.ul,{children:[`
+`,(0,n.jsx)(r.li,{children:`Modelo de Dados.`}),`
+`,(0,n.jsx)(r.li,{children:`Esquema de Dados.`}),`
+`,(0,n.jsx)(r.li,{children:`Instância de um banco de dados.`}),`
+`]}),`
+`,(0,n.jsx)(r.h3,{id:`modelos-de-dados`,children:`Modelos de Dados`}),`
+`,(0,n.jsx)(r.p,{children:`Conjunto de conceitos usados para descrever a estrutura de um banco de dados.`}),`
+`,(0,n.jsx)(r.p,{children:`Podem ser classificados em três tipos:`}),`
+`,(0,n.jsxs)(r.ul,{children:[`
+`,(0,n.jsx)(r.li,{children:`Modelo conceitual.`}),`
+`,(0,n.jsx)(r.li,{children:`Modelo lógico.`}),`
+`,(0,n.jsx)(r.li,{children:`Modelo físico.`}),`
+`]}),`
+`,(0,n.jsx)(r.h3,{id:`modelo-conceitual`,children:`Modelo Conceitual`}),`
+`,(0,n.jsx)(r.p,{children:`É um modelo de alto nível.`}),`
+`,(0,n.jsx)(r.p,{children:`Representa os dados de acordo com a visão do usuário, sem informações referentes ao armazenamento no banco de dados.`}),`
+`,(0,n.jsx)(r.p,{children:`Corresponde a uma representação do "mini-mundo" descrito pelo banco de dados.`}),`
+`,(0,n.jsx)(r.p,{children:`O projetista do banco de dados usa o modelo conceitual para validar a sua percepção do "mini-mundo" junto ao cliente.`}),`
+`,(0,n.jsx)(r.p,{children:`Baseado principalmente em três elementos: entidades, atributos e relacionamentos.`}),`
+`,(0,n.jsx)(r.p,{children:`Exemplos de ferramentas usadas para modelagem conceitual:`}),`
+`,(0,n.jsxs)(r.ul,{children:[`
+`,(0,n.jsx)(r.li,{children:`O modelo entidade-relacionamento.`}),`
+`,(0,n.jsx)(r.li,{children:`A linguagem UML.`}),`
+`]}),`
+`,(0,n.jsx)(r.h3,{id:`modelo-lógico`,children:`Modelo Lógico`}),`
+`,(0,n.jsx)(r.p,{children:`Também conhecido como modelo de implementação ou representacional.`}),`
+`,(0,n.jsx)(r.p,{children:`Baseado em uma representação intermediária entre o usuário e o armazenamento físico.`}),`
+`,(0,n.jsx)(r.p,{children:`Descreve como os dados serão organizados no banco de dados.`}),`
+`,(0,n.jsx)(r.p,{children:`O modelo lógico é voltado para a equipe de desenvolvimento.`}),`
+`,(0,n.jsx)(r.p,{children:`É o modelo usado como base para a implementação do banco de dados no SGBD.`}),`
+`,(0,n.jsx)(r.p,{children:`Exemplos de modelos lógicos:`}),`
+`,(0,n.jsxs)(r.ul,{children:[`
+`,(0,n.jsx)(r.li,{children:`Modelo relacional.`}),`
+`,(0,n.jsx)(r.li,{children:`Modelo orientado a objetos.`}),`
+`,(0,n.jsx)(r.li,{children:`Modelo de redes.`}),`
+`,(0,n.jsx)(r.li,{children:`Modelo hierárquico.`}),`
+`]}),`
+`,(0,n.jsx)(r.h3,{id:`modelo-físico`,children:`Modelo Físico`}),`
+`,(0,n.jsx)(r.p,{children:`É um modelo de baixo nível, que descreve como os dados estão armazenados fisicamente.`}),`
+`,(0,n.jsx)(r.p,{children:`Estrutura dos registros, rotas de acesso, etc.`}),`
+`,(0,n.jsx)(r.p,{children:`Exemplos:`}),`
+`,(0,n.jsxs)(r.ul,{children:[`
+`,(0,n.jsx)(r.li,{children:`Modelo unificado.`}),`
+`,(0,n.jsx)(r.li,{children:`Modelo de partição de memória.`}),`
+`]}),`
+`,(0,n.jsx)(r.h3,{id:`esquema-de-dados`,children:`Esquema de Dados`}),`
+`,(0,n.jsx)(r.p,{children:`Corresponde a uma instância de um modelo de dados.`}),`
+`,(0,n.jsxs)(r.p,{children:[`Descreve a estrutura do banco de dados: `,(0,n.jsx)(r.strong,{children:`Tabelas, colunas, tipos de dados, restrições dos dados, etc`}),`.`]}),`
+`,(0,n.jsx)(r.p,{children:`O esquema pode ser conceitual, lógico ou físico, de acordo com o tipo de modelo que o mesmo instancia.`}),`
+`,(0,n.jsx)(r.h3,{id:`instância-de-um-banco-de-dados`,children:`Instância de um Banco de Dados`}),`
+`,(0,n.jsx)(r.p,{children:`Corresponde a uma implementação do banco de dados, criada de acordo com um esquema de dados.`}),`
+`,(0,n.jsx)(r.p,{children:`É na instância do banco de dados onde os usuários podem carregar, consultar e manipular dados.`}),`
+`,(0,n.jsx)(r.p,{children:`Os dados do banco de dados em um determinado instante de tempo correspondem ao estado do banco.`}),`
+`,(0,n.jsx)(r.p,{children:`O estado do banco de dados é válido quando os dados satisfazem todas as restrições definidas no esquema.`}),`
+`,(0,n.jsx)(r.h2,{id:`linguagens-de-bancos-de-dados`,children:`Linguagens de Bancos de Dados`}),`
+`,(0,n.jsx)(r.p,{children:`Usamos dois tipos de linguagem para a criação e manipulação de um banco de dados:`}),`
+`,(0,n.jsxs)(r.ul,{children:[`
+`,(0,n.jsx)(r.li,{children:`Linguagem de definição de dados (DDL).`}),`
+`,(0,n.jsx)(r.li,{children:`Linguagem de manipulação de dados (DML).`}),`
+`]}),`
+`,(0,n.jsx)(r.h3,{id:`linguagem-de-definição-de-dados`,children:`Linguagem de Definição de Dados`}),`
+`,(0,n.jsx)(r.h4,{id:`data-definition-language-ddl`,children:`Data Definition Language (DDL)`}),`
+`,(0,n.jsx)(r.p,{children:`Usada para realizar instruções relativas à estrutura do banco de dados.`}),`
+`,(0,n.jsx)(r.p,{children:`Exemplos: Criação, alteração e exclusão de tabelas, visões, índices, etc.`}),`
+`,(0,n.jsx)(r.h4,{id:`data-manipulation-language-dml`,children:`Data Manipulation Language (DML)`}),`
+`,(0,n.jsx)(r.p,{children:`Usada para realizar instruções relativas ao gerenciamento dos dados do banco de dados.`}),`
+`,(0,n.jsx)(r.p,{children:`Exemplos: inserção, alteração e exclusão de dados.`}),`
+`,(0,n.jsx)(r.h3,{id:`a-linguagem-sql`,children:`A linguagem SQL`}),`
+`,(0,n.jsx)(r.p,{children:`Linguagem padrão utilizada por SGDBs que implementam o modelo relacional ou objeto-relacional.`}),`
+`,(0,n.jsx)(r.p,{children:`Permite tanto a definição quanto a manipulação de dados.`}),`
+`,(0,n.jsx)(r.p,{children:`Pode ser usada diretamente no BD ou embutida na aplicação.`}),`
+`,(0,n.jsx)(r.h2,{id:`níveis-de-abstração-em-um-sgbd`,children:`Níveis de Abstração em um SGBD`}),`
+`,(0,n.jsx)(r.p,{children:`Em um SGBD os dados são descritos em três níveis de abstração:`}),`
+`,(0,n.jsxs)(r.ol,{children:[`
+`,(0,n.jsx)(r.li,{children:`Esquemas Externos`}),`
+`,(0,n.jsx)(r.li,{children:`Esquema Conceitual`}),`
+`,(0,n.jsx)(r.li,{children:`Esquema Físico`}),`
+`,(0,n.jsx)(r.li,{children:`Disco`}),`
+`]}),`
+`,(0,n.jsx)(r.h3,{id:`esquema-físico`,children:`Esquema Físico`}),`
+`,(0,n.jsx)(r.p,{children:`Especifica os detalhes sobre como os dados do banco de dados devem ser armazenados no disco.`}),`
+`,(0,n.jsx)(r.p,{children:`Também especifica as estruturas adicionais que devem ser usadas para acelerar o processo de recuperação dos dados.`}),`
+`,(0,n.jsx)(r.p,{children:`Exemplos de decisões referentes ao esquema físico:`}),`
+`,(0,n.jsxs)(r.ul,{children:[`
+`,(0,n.jsx)(r.li,{children:`Armazene todas as tabelas como um arquivo não ordenado de registros.`}),`
+`,(0,n.jsx)(r.li,{children:`Crie um índice para a primeira coluna de cada tabela do banco de dados.`}),`
+`]}),`
+`,(0,n.jsx)(r.h3,{id:`esquema-conceitual`,children:`Esquema Conceitual`}),`
+`,(0,n.jsxs)(r.p,{children:[`Descreve como os dados estão organizados logicamente no banco de dados, `,(0,n.jsx)(r.strong,{children:`mas sem detalhar como os dados são armazenados e recuperados no disco`}),`.`]}),`
+`,(0,n.jsx)(r.p,{children:`Em um banco de dados relacional, o esquema conceitual descreve a estrutura de cada tabela do banco de dados.`}),`
+`,(0,n.jsx)(r.p,{children:`Exemplos de decisões referentes ao esquema conceitual:`}),`
+`,(0,n.jsxs)(r.ul,{children:[`
+`,(0,n.jsxs)(r.li,{children:[`Crie uma tabela empregado com os atributos `,(0,n.jsx)(r.em,{children:`matrícula`}),`, `,(0,n.jsx)(r.em,{children:`nome`}),`, `,(0,n.jsx)(r.em,{children:`salário`}),`, `,(0,n.jsx)(r.em,{children:`função`}),`, `,(0,n.jsx)(r.em,{children:`cpf`}),`, `,(0,n.jsx)(r.em,{children:`data de nascimento`}),` e `,(0,n.jsx)(r.em,{children:`data de admissão`}),`.`]}),`
+`,(0,n.jsxs)(r.li,{children:[`Crie uma tabela dependente com os atributos `,(0,n.jsx)(r.em,{children:`código`}),`, `,(0,n.jsx)(r.em,{children:`nome`}),`, `,(0,n.jsx)(r.em,{children:`matrícula do empregado`}),`, `,(0,n.jsx)(r.em,{children:`data de nascimento`}),` e `,(0,n.jsx)(r.em,{children:`grau de parentesco`}),`.`]}),`
+`]}),`
+`,(0,n.jsx)(r.h3,{id:`esquema-externos`,children:`Esquema Externos`}),`
+`,(0,n.jsx)(r.p,{children:`Usados para criar visões personalizadas do banco de dados.`}),`
+`,(0,n.jsxs)(r.p,{children:[`Os esquemas externos nos permite controlar quais informações serão mostradas para cada grupo de usuários `,(0,n.jsx)(r.strong,{children:`e como os dados serão apresentados`}),`.`]}),`
+`,(0,n.jsxs)(r.p,{children:[`As visões dos esquemas externos são tabelas virtuais, ou seja, não são armazenadas fisicamente no disco: `,(0,n.jsx)(r.strong,{children:`a consulta é executada no banco de dados sempre que a visão é solicitada por um usuário`}),`.`]}),`
+`,(0,n.jsx)(r.p,{children:`Exemplos de decisões referentes ao esquema externo:`}),`
+`,(0,n.jsxs)(r.ul,{children:[`
+`,(0,n.jsxs)(r.li,{children:[`Crie uma visão mostrando a `,(0,n.jsx)(r.em,{children:`matrícula`}),`, o `,(0,n.jsx)(r.em,{children:`nome`}),` e a `,(0,n.jsx)(r.em,{children:`quantidade de dependentes`}),` de cada empregado da empresa.`]}),`
+`,(0,n.jsxs)(r.li,{children:[`Crie uma visão mostrando a `,(0,n.jsx)(r.em,{children:`quantidade de empregados`}),` alocados em cada projeto da empresa.`]}),`
+`]}),`
+`,(0,n.jsx)(o,{children:`Tabela - Empregados`}),`
+`,(0,n.jsxs)(r.table,{children:[(0,n.jsx)(r.thead,{children:(0,n.jsxs)(r.tr,{children:[(0,n.jsx)(r.th,{children:`Matrícula`}),(0,n.jsx)(r.th,{children:`Nome`}),(0,n.jsx)(r.th,{children:`Salário`}),(0,n.jsx)(r.th,{children:`Função`})]})}),(0,n.jsxs)(r.tbody,{children:[(0,n.jsxs)(r.tr,{children:[(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{})]}),(0,n.jsxs)(r.tr,{children:[(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{})]}),(0,n.jsxs)(r.tr,{children:[(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{})]}),(0,n.jsxs)(r.tr,{children:[(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{})]})]})]}),`
+`,(0,n.jsx)(o,{children:`Tabela - Dependentes`}),`
+`,(0,n.jsxs)(r.table,{children:[(0,n.jsx)(r.thead,{children:(0,n.jsxs)(r.tr,{children:[(0,n.jsx)(r.th,{children:`Matrícula`}),(0,n.jsx)(r.th,{children:`Nome`}),(0,n.jsx)(r.th,{children:`Salário`}),(0,n.jsx)(r.th,{children:`Função`})]})}),(0,n.jsxs)(r.tbody,{children:[(0,n.jsxs)(r.tr,{children:[(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{})]}),(0,n.jsxs)(r.tr,{children:[(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{})]}),(0,n.jsxs)(r.tr,{children:[(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{})]}),(0,n.jsxs)(r.tr,{children:[(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{})]})]})]}),`
+`,(0,n.jsx)(o,{children:`Visão - Número de Dependentes por Empregado`}),`
+`,(0,n.jsxs)(r.table,{children:[(0,n.jsx)(r.thead,{children:(0,n.jsxs)(r.tr,{children:[(0,n.jsx)(r.th,{children:`Matrícula`}),(0,n.jsx)(r.th,{children:`Nome`}),(0,n.jsx)(r.th,{children:`Salário`})]})}),(0,n.jsxs)(r.tbody,{children:[(0,n.jsxs)(r.tr,{children:[(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{})]}),(0,n.jsxs)(r.tr,{children:[(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{})]}),(0,n.jsxs)(r.tr,{children:[(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{})]}),(0,n.jsxs)(r.tr,{children:[(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{}),(0,n.jsx)(r.td,{})]})]})]}),`
+`,(0,n.jsx)(r.h3,{id:`importantes`,children:`Importantes`}),`
+`,(0,n.jsx)(r.p,{children:`Para cada banco de dados, o serviço de catálogo do SGBD mantém informações sobre os esquemas dos três níveis.`}),`
+`,(0,n.jsx)(r.p,{children:`Esta arquitetura é importante, pois ajuda a permitir a independência de dados.`}),`
+`,(0,n.jsx)(r.p,{children:`Mudanças no esquema físico não afetam o esquema conceitual e nem os esquemas externos.`}),`
+`,(0,n.jsx)(r.p,{children:`Mudanças no esquema conceitual requerem pouca ou nenhuma alteração nos esquemas externos.`})]})}function i(t={}){let{wrapper:i}={...e(),...t.components};return i?(0,n.jsx)(i,{...t,children:(0,n.jsx)(r,{...t})}):r(t)}function a(e,t){throw Error(`Expected `+(t?`component`:`object`)+" `"+e+"` to be defined: you likely forgot to import, pass, or provide it.")}export{i as default};
