@@ -5,8 +5,8 @@ export interface UltimaAtualizacaoData {
 }
 
 // Preencha aqui a data e a hora separadamente:
-const dataPtBr = "30/08/2026"; // DD/MM/YYYY
-const hora = "04:00";          // HH:mm ou HH:mm:ss
+const dataPtBr = "25/10/2026"; // DD/MM/YYYY
+const hora = "15:00";          // HH:mm ou HH:mm:ss
 const fusoHorario = "-03:00";  // Fuso de Brasília
 
 // Função auxiliar para converter PT-BR + Hora em ISO 8601
@@ -19,13 +19,11 @@ const criarDataHoraISO = (data: string, horaStr: string, fuso: string = "-03:00"
 
 // Montagem do objeto final exportado
 export const ultimaAtualizacaoInfo: UltimaAtualizacaoData = {
-  mensagem: "DOCS: adição das matérias do 6º período",
+  mensagem: "DOCS: Atividades feitas.",
   descricao: `
-    - (DAC) Desenvolvimento de Aplicações Corporativas.\n
-    - (IHC) Interação Humano-Computador.\n
-    - (Extensão 02) Práticas Curriculares em Sociedade 02.\n
-    - (PDM) Programação para Dispositivos Móveis.\n
-    - (SD) Sistemas Distribuídos.
+    - (DAC) Desenvolvimento de Aplicações Corporativas: Primeira atividade para casa.\n
+    - (SD) Sistemas Distribuídos: Atividades 01-03.\n
+		- (PI_VC) Processamento de Imagens e Visão Computacional: questões do Tópico 05.
   `,
   dataHora: criarDataHoraISO(dataPtBr, hora, fusoHorario),
 };
