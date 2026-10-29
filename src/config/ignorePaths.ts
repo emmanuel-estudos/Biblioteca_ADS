@@ -33,6 +33,9 @@ export const IGNORED_PATHS_IN_PROD: string[] = [
 	'SD-Sistemas_Distribuidos/Atividades/Atividade02/Forms.mdx',
 	'SD-Sistemas_Distribuidos/Atividades/Atividade03/Forms.mdx',
 
+	// P6 - Desenvolvimento de Aplicações Corporativas (DAC)
+	'DAC-Desenvolvimento-de-Aplicacoes-Corporativas/atividades/Atividades-Casa/Atividade-2026_10_28.mdx',
+
   // Adicione novos caminhos aqui facilmente quando precisar:
   	// 'materia/atividades/PastaDaAtividade/',
 		// 'materia/atividades/PastaDaAtividade/arquivo.extensao'
