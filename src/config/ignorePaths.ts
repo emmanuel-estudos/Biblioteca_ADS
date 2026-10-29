@@ -28,6 +28,11 @@ export const IGNORED_PATHS_IN_PROD: string[] = [
 	// P5 - Extensão 01
 	'Extensao-01/assuntos/JavaScript/',
 
+	// P6 - Sistemas Distribuídos
+	'SD-Sistemas_Distribuidos/Atividades/Atividade01/Forms.mdx',
+	'SD-Sistemas_Distribuidos/Atividades/Atividade02/Forms.mdx',
+	'SD-Sistemas_Distribuidos/Atividades/Atividade03/Forms.mdx',
+
   // Adicione novos caminhos aqui facilmente quando precisar:
   	// 'materia/atividades/PastaDaAtividade/',
 		// 'materia/atividades/PastaDaAtividade/arquivo.extensao'
