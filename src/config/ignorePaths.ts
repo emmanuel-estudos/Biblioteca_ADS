@@ -36,6 +36,11 @@ export const IGNORED_PATHS_IN_PROD: string[] = [
 	// P6 - Desenvolvimento de Aplicações Corporativas (DAC)
 	'DAC-Desenvolvimento-de-Aplicacoes-Corporativas/atividades/Atividades-Casa/Atividade-2026_10_28.mdx',
 
+	// P6 - Interação Humano-Computador
+	'IHC-Interacao-Humano-Computador/Atividades/Atividade02/01-Instrucoes.md',
+	'IHC-Interacao-Humano-Computador/Atividades/Atividade02/02-Esquematizacao.md',
+	'IHC-Interacao-Humano-Computador/Atividades/Atividade02/03-Respostas_das_Perguntas.md',
+
   // Adicione novos caminhos aqui facilmente quando precisar:
   	// 'materia/atividades/PastaDaAtividade/',
 		// 'materia/atividades/PastaDaAtividade/arquivo.extensao'
