@@ -1,0 +1,149 @@
+# Atividade 04
+
+## Questão 01
+
+### Enunciado
+
+Princípio do baixo acoplamento: Segundo Thomas Erl, qual é a importância do baixo acoplamento entre serviços em uma arquitetura SOA e como esse princípio contribui para a autonomia dos serviços?
+
+### Resposta
+
+Segundo o autor, o baixo acoplamento entre serviços na arquitetura SOA é importante porque assim as funções e o sistema devem ser disponibilizados interconectados mas sem dependência rígida entre si, garantindo que:
+
+- A comunicação entre consumidor e provedor aconteça somente em interfaces bem definidas (contratos) e sem compartilhamento de código ou detalhes de implementação.
+- Seja possível a conectividade de aplicações desenvolvidas em diferentes linguagens, plataformas ou middlewares.
+- Reduza drasticamente o impactor de alterações, já que consumidores não precisam alterar suas estruturas com a adição de novos componentes e serviços.
+- Haja velocidade em responder a mudanças e exigências do ambiente de negócio.
+
+O baixo acoplamento assegura a autonomia dos serviços de duas formas:
+
+- Isolamento de Lógica e Estado: abstrai e oculta a lógica interna da interface, fazendo com que o serviço tenha controle total sobre seus recursos e processamentos se interferências externas de chamadas ou de outros componentes.
+- Evolução e Governança Independentes: já que o contrato de interfaces estabiliza a forma de acesso, cada parte do serviço pode ser mantido, atualizado ou reestruturado separadamente. Isso garante que diversas parte do negócio governem e desenvolvam seus serviços de forma independente.
+
+## Questão 02
+
+### Enunciado
+
+Contrato de serviço: O que é um contrato de serviço (Service Contract) na arquitetura SOA e qual é sua importância para estabelecer a comunicação e a interoperabilidade entre diferentes serviços?
+
+### Resposta
+
+Nessa arquitetura, o Contrato de Serviço é o responsável por definir tudo que é necessário para um consumidor interagir com o serviço. É um acordo entre o provedor e o consumidor.
+
+Em um Contrato de Serviço, são definidos os elementos:
+
+- Interface: operações disponíveis, estrutura das mensagens trocadas, protocolos de transporte, localização de serviço.
+- Padronização: através de especificações e tecnologias formais, como WSDL (Web Service Description Language) e XML Schemas, descreve formalmente a interface e a estrutura dos dados.
+- Regras: detalha os requisitos de sequenciamento das chamadas, o tratamento de exceções e a documentação semântica das operações.
+- Políticas e SLAs: pode incluir acordos de nível de serviço (Service Level Agreements - SLA), requisitos de segurança e obrigações legais.
+
+Ele é importante para a Comunicação e interoperabilidade graças a:
+
+- Abstração e Encapsulamento: expõe apenas a interface pública do serviço, mantendo a implementação e o armazenamento de dados oculta e encapsulada. Com isso, os consumidores não dependem de detalhes.
+- Interoperabilidade entre Plataformas Heterogêneas: faz com que sistemas desenvolvidos de diferentes formas, linguagens ou ambientes possam trocar mensagens de forma transparente pela rede.
+- Baixo Acoplamento e Reuso: o contrato formal compartilhado garante o baixo acoplamento entre os programas, fazendo com que possam ser reusados e alterados em sua lógica interna sem impactar os consumidores.
+- Publicidade, Descoberta e Governança: os contratos são guardados em repositórios de serviço (como o UDDI), permitindo que os consumidores localizem (find), se associem (bind), e invoquem o serviço (invoke). O registro centralizado de contratos viabiliza a governança ao longo de todo o ciclo de vida do SOA.
+
+## Questão 03
+
+### Enunciado
+
+Autonomia de serviço: Explique o princípio da autonomia de serviços segundo Thomas Erl. Como esse princípio influencia a capacidade de um serviço controlar seu próprio ambiente de execução e seus recursos?
+
+### Resposta
+
+O conceito de Princípio de Autonomia de Serviço, descrito por Thomas Erl, é um dos pilares fundamentais para assegurar que cada serviço opere independentemente e de forma auto-suficiente. Ele trás alguns pontos:
+
+- Independência de Estado: um serviço autônomo é construído para operar independentemente do estado de outros, não sendo necessário que outros serviços mantenham dados ou estados anteriores ativos para operações.
+- Limites Bem Definidos: o serviço possui barreiras e limites bem estabelecidos, deixando exposta somente a interface pública e ocultando todos os dados e formas de implementação.
+- Encapsulamento de Lógica: todas as lógicas de negócio necessárias para a execução ficam encapsuladas dentro do próprio serviço, baseando-se em contratos compartilhados no lugar de código compartilhado.
+  
+O Princípio de Autonomia impacta diretamente como o serviço irá gerenciar seu ambiente de execução e seus recursos:
+
+- Gestão e Liberação de Recursos: para preservar sua autonomia e seu desempenho, os serviços são projetados para não alocar recursos por longos períodos. Isso implica no consumo e na liberação rápida de conexões, memória e threads de processamento, impedindo que o serviço fique preso aguardando outros componentes.
+- Isolamento do Ambiente de Execução: os contratos garantem o isolamento do ambiente que o serviço está sendo executado não seja diretamente afetado por falhas, alterações ou variações, seja de consumidores ou de provedores.
+- Autonomia de Governança e Operações: garante que cada parte do serviço se mantenha, administre ou escale os recursos ou o ambiente de execução de forma independente.
+
+## Questão 04
+
+### Enunciado
+
+Reutilização de serviços: Por que a reutilização é considerada um dos princípios fundamentais da arquitetura SOA? Como a aplicação desse princípio pode reduzir custos e evitar redundâncias no desenvolvimento de sistemas?
+
+### Resposta
+
+A reutilização é considerada um dos princípios fundamentais da SOA porque, uma das premissas dessa arquitetura é disponibilizar as funcionalidades (funcionalidades -> serviços -> componentes) reutilizáveis. Com isso, é promovida a flexibilidade e agilidade para que o serviço se adapte a mudanças no mercado.
+
+Com a aplicação desse princípio, ocorrerá a eliminação de boa parte da redundância de código, já que o reuso centraliza a lógica de negócio em serviços comuns. A quantidade de conexões necessárias também serão reduzidas, já que em outras arquiteturas a falta de padronização leva à "arquitetura acidental", onde sistemas se conectam de forma ponto-a-ponto, criando dezenas de interfaces redundantes e difíceis de manter.
+
+Ocorrerá também a redução de custo operacionais e de desenvolvimento, já que a reutilização evita refazer soluções já existentes e por consequência reduz custos com licenciamento, consultoria, desenvolvimento e manutenção.
+
+Com a padronização e governança, os repositórios centrais de serviço registram os metadados e contratos dos serviços reutilizáveis, garantindo governança, evitando a criação de serviços duplicados por diferentes unidades de negócio e facilitando a descoberta e subscrição das capacidades disponíveis.
+
+## Questão 05
+
+### Enunciado
+
+Quais são os principais tipos de webservices encontrados no mercado? Apresente e explique quais os principais protocolos que eles adotam.
+
+### Resposta
+
+Os Web-Services são conjuntos de mecanismos padrão de troca de mensagens na internet ou redes corporativas, usados para conectar aplicações em plataformas heterogêneas.
+
+Os principais tipos encontrados no mercado são:
+
+SOAP (Simple Object Access Protocol / Web Services Baseados em Padrões), que tem uma abordagem estruturada e altamente padronizada, focada em contatos formais e rígidos de interface. É usado principalmente em ambientes corporativos e integrações B2B que exigem segurança avançada, transações e conformidade estrita de esquema.
+
+REST / RESTful Web Services, que possui um estilo arquitetural focado na manipulação direta de recursos através de identificadores e do protocolo de comunicação web. Oferece menor overhead e maior leveza em relação ao SOAP, sendo amplamente adotado em aplicações web modernas e dispositivos móveis.
+
+RPC (Remote Procedure Call / XML-RPC / JSON-RPC / gRPC), que tem uma abordagem focada na invocação direta de procedimentos e funções remotas como se fossem locais. Otimizado para comunicação direta de alto desempenho entre sistemas distribuídos.
+
+Os principais protocolos e padrões utilizados adotados por eles são:
+
+-  Protocolos de Transporte e Comunicação:
+  - HTTP / HTTPS: Protocolo base da Web utilizado para o transporte de mensagens tanto em arquiteturas REST quanto SOAP.
+  - TCP/IP: Camada de rede subjacente que garante o suporte ao acesso remoto entre plataformas distintas.
+	- Outros transportes: JMS (Java Message Service), FTP e SMTP, frequentemente integrados via barramentos de serviços (ESB).
+
+- Formatos de Dados e Mensageria:
+	- XML ( Extensible Markup Language ): Padrão para estruturação e intercâmbio de dados em Web Services formais e mensagens SOAP.
+  - JSON ( JavaScript Object Notation ): Formato leve de representação de dados, amplamente utilizado em serviços REST e RPC modernos.
+  - SOAP: Protocolo e especificação do envelope da mensagem utilizada na troca de informações estruturadas.
+
+- Contratos e Descoberta:
+	- WSDL ( Web Service Description Language ): Linguagem baseada em XML usada para definir formalmente o contrato do serviço, incluindo suas operações, mensagens esperadas, tipos de dados e localização.
+	- UDDI ( Universal Description, Discovery and Integration ): Padrão de diretório utilizado para registrar, publicar e localizar contratos de Web Services na rede.
+
+## Questão 06
+
+### Enunciado
+
+Considerando as modernas técnicas de comunicação entre serviços cite pelo menos duas tecnologias modernas e como elas diferem dos tradicionais webservices e quais suas vantagens em relação a eles.
+
+### Resposta
+
+No cenário moderno de arquitetura de software e microserviços, duas das principais tecnologias que evoluíram em relação a esses webservices tradicionais são o gRPC e o GraphQL:
+
+Sobre o gRPC (Google Remote Procedure Call):
+
+Enquanto os webservices tradicionais utilizam XML como formato de mensagem e o protocolo HTTP/1.1, o gRPC adota o HTTP/2 como transporte e o Protocol Buffers (Protobuf) como linguagem de definição de interface e formato de serialização binária.
+
+As vantagens atribuídas a ele são:
+
+Alto Desempenho e Latência Reduzida: A serialização binária do Protobuf gera payloads significativamente menores e mais rápidos de processar do que documentos XML.
+
+Comunicação Multidirecional e Streaming: O uso do HTTP/2 permite multiplexação de requisições sobre a mesma conexão TCP e suporta streaming de dados bidirecional (cliente e servidor), superando as limitações do modelo puramente síncrono request/reply.
+
+Contratos Fortemente Tipados: Mantém a garantia de contratos bem definidos (similar ao WSDL), mas com geração de código automatizada e leve para diversas linguagens.
+
+Sobre o GraphQL:
+
+Nos webservices tradicionais, as operações e estruturas de dados retornadas são rigidamente predefinidas pela interface do provedor do serviço. O GraphQL inverte essa dinâmica: disponibiliza um endpoint único em que o consumidor declara exatamente a estrutura dos dados de que necessita.
+
+As vantagens atribuídas a ele são:
+
+Eliminação de Over-fetching e Under-fetching: O cliente solicita e recebe apenas os campos necessários em formato JSON, evitando a transferência desnecessária de grandes blocos de dados típicos dos envelopes XML.
+
+Agregação em Requisição Única: Permite buscar dados de múltiplas fontes ou entidades relacionadas em uma única chamada à API, eliminando a necessidade de encadear múltiplas invocações síncronas.
+
+Evolução Flexível do Esquema: Permite adicionar novos campos e tipos sem quebrar clientes existentes, facilitando a governança e o versionamento da API.
