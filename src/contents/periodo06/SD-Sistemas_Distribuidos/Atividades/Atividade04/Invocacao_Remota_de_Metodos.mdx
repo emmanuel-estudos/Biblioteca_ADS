@@ -1,0 +1,228 @@
+import { criarContextoImagens } from '../../../../../utils/imagens';
+export const getImg = criarContextoImagens('p6/sd-sistemas_distribuidos/atividades/atividade04');
+
+# Invocação Remota de Métodos
+
+## Protocolos
+
+Representa um conjunto de regras para a execução de uma determinada operação.
+
+No caso da computação, pode englobar:
+- Algoritmos
+- Formatação de Dados
+- Empacotamento e Desempacotamento de Dados
+- Implementação no hardware e/ou no software, de forma combinada
+
+Propriedades comuns:
+- detecção da conexão física subjacente ou a existência de um nó
+- handshaking (estabelecimento da ligação)
+- negociação de várias características de uma conexão
+- como iniciar e finalizar uma mensagem
+- como formatar uma mensagem
+- o que fazer com a mensagem comprometida ou mal formatada
+- como detectar perda inesperada de conexão e o que fazer em seguida
+- término de sessão ou conexão
+
+Funções comuns:
+- Endereçamento: especificação clara do ponto de destino da mensagem
+- Numeração e Sequência: individualização de cada mensagem, através do número sequencial
+- Estabelecimento da Conexão: estabelecimento de um canal lógico fechado entre fonte e destino
+- Confirmação de Recepção: confirmação do destinatário, com ou sem erro, após cada segmento de mensagem
+- Controle de Erro: detecção e correção de erros
+- Retransmissão: repetição da mensagem a cada recepção de mensagem
+- Conversão de Código: adequação do código às características do destinatário
+- Controle de Fluxo: manutenção de fluxos compatíveis com os recursos disponíveis
+
+### Protocolo Sockets (TCP e UDP)
+
+Primitivas: bind - listen - accept - connect - send - receive - close
+
+<Imagem
+src={getImg('01_Protocolo_Sockets_(TCP_e_UDP).png')}
+alt="Diagrama de linha do tempo do protocolo TCP ilustrando a interação por sockets entre duas aplicações (Host 1 e Host 2). A imagem exibe a sequência cronológica de chamadas de API de ambos os lados — incluindo SOCKET, BIND, LISTEN, ACCEPT, CONNECT, troca de ACKs, escrita e recepção de dados (WRITE/RECEIVE) — até o fechamento da conexão (CLOSE)."
+legenda="Protocolo Sockets (TCP e UDP)"
+/>
+
+---
+
+## Protocolo de Socket
+
+Socket é um protocolo:
+- utilizado para a comunicação entre processos através da rede
+- que utiliza primitivas sobre o protocolo de transporte
+
+Possui pouca transparência quando o assunto é comunicação.
+
+Para aplicações estruturadas e orientadas a objetos, faz-se necessário uma nova camada de protocolo:
+- protocolos de Middleware: RCP, RMI, IIOP
+
+---
+
+## Protocolo de Middleware
+
+"_Não estão fortemente vinculados a nenhuma aplicação específica; em vez disso, podem ser integrados a um sistema de middleware como um serviço geral._"
+
+### Protocolos de Autenticação e de Autorização
+
+Os de Autorização concedem a usuários processos autenticado, permissão de acesso somente a recursos para os quais tenham autorização.
+
+Tendem a ter uma natureza geral, independente da aplicação.
+
+### Protocolos de Comportamento
+
+Estabelecem que, em um grupo de processos, ou todos os processos executam determinada operação ou a operação não é executada.
+
+Denominado de atomicidade, tem ampla aplicação em transações.
+
+### Protocolo Distribuído de Bloqueio
+
+Um recurso pode ser protegido contra acesso simultâneo por um conjunto de processos que são distribuídos por várias máquinas.
+
+Os de comunicação de middleware suportam serviços de comunicação de alto nível.
+
+### Protocolos de Comunicação de Middleware
+
+Alguns dos protocolos de comunicação de middleware poderiam, com igual prioridade, pertencer a camada de transporte, por exemplo: serviços multicasting confiáveis que garantem escalabilidade.
+
+Um sistema de middleware pode oferecer diferentes protocolos (adaptáveis), cada um, por sua vez, usando diferentes protocolos de transporte, mas oferecendo uma única interface.
+
+Em comparação com o modelo OSI:
+- As camadas de sessão e apresentação podem ser substituídas por uma camada única de middleware que contem protocolos independentes de aplicação.
+- Os serviços de transportes originais também podem ser oferecidos como um servi~ço de middleware, sem modificação, por exemplo: UDP como Serviço de Multicast
+
+## Serviços de Comunicação de Middleware
+
+<Imagem
+src={getImg('02_Serviços_de_Comunicação_de_Middleware.png')}
+alt="Diagrama de arquitetura em camadas ilustrando os serviços de comunicação de middleware entre dois nós. Cada lado exibe três camadas empilhadas verticalmente: Application (Aplicação), Middleware framework (Framework de middleware) e Network protocol (Protocolo de rede). Setas indicam o fluxo de comunicação que parte da camada inferior de protocolo de rede de um sistema e se estende até a camada de aplicação do outro."
+legenda="Comunicação de Middleware"
+/>
+
+- Uma estrutura de middleware de comunicação fornece um ambiente que permite que duas aplicações criem uma conversa e troquem dados.
+- Normalmente, essa troca de dados envolverá o desencadeamento de uma ou mais transações de longo do caminho.
+- Serviços de comunicação de middleware podem incluir serviços de troca de mensagens comparáveis aos oferecidos pela camada de transporte, por exemplo:
+  - Princípio da Janela Deslizante do TCP comparável ao MOM - ambos garantem a entrega de mensagens.
+
+## Camada de Middleware
+
+<Imagem
+src={getImg('03_Camada_de_Middleware.png')}
+alt="Diagrama de arquitetura em camadas representando a estrutura e a posição do middleware. A pilha exibe no topo a camada de 'Aplicativos, serviços', seguida pelas 'Camadas de middleware' — que englobam 'RMI e RPC' e 'Protocolo baseado em requisição-resposta empacotamento e representação de dados externa' —, tendo na base a camada de protocolos de transporte 'UDP e TCP'."
+legenda="Camada de Middleware"
+/>
+
+## Protocolo de Middleware
+
+### Requisição-Resposta
+
+Representam um padrão sobre a passagem de mensagens e suportam a troca bilateral de mensagens, como a encontrada no modelo cliente-servidor.
+
+O protocolo descrito em Colouris é baseado em um trio de primitivas de comunicação:
+
+- doOperation
+- getRequest
+- sendReply
+
+Protocolos baseados em chamadas de procedimentos ou invocação de métodos:
+
+- RCP-Protocol: remote procedure call protocol
+- RMI-JRMP: java remote method protocol
+- XPC: OS X interprocess communication (???)
+- DCOM: distributed component object model protocol
+- ORB-IIOP: internet inter-object protocol
+
+## Protocolo de Requisição e Resposta
+
+<Imagem
+src={getImg('04_Protocolo_de_Requisição_e_Resposta.png')}
+alt="Diagrama ilustrando o fluxo de operações em um protocolo de requisição-resposta entre um lado Cliente e um lado Servidor. No lado do cliente, a função `doOperation` envia uma 'Mensagem de requisição' e aguarda (estado de espera). No lado do servidor, a mensagem é processada através de `getRequest`, operação `select` e operação `execute`, retornando em seguida uma 'Mensagem de resposta' via `sendReply` para que o cliente retome sua execução (continuação)."
+legenda="Protocolo de Requisição e Resposta"
+/>
+
+Ele pode ser projetado para fornecer certas garantias de entrega.
+
+Se forem usados datagramas UDP, as garantias de entrega deverão ser fornecidas pelo próprio protocolo de requisição-resposta.
+
+As primitivas desde protocolo trabalham sobre as operações _send_ e _receive_ do Socket.
+
+### Requisição e Resposta: doOperation()
+
+É usado pelos clientes para **invocar/chamar operações remotas**.
+
+Seus argumentos especificam:
+- o servidor remoto
+- a operação a ser invocada
+- os argumentos da operação a ser invocada
+- todos os argumentos são empacotadas em um vetor de bytes
+
+Seu resultado é um vetor de bytes contendo a resposta.
+
+É bloqueado até que o servidor execute a operação solicitada e transmita uma mensagem de resposta para ele.
+
+Implementação em Java usando UDP:
+- **RemoteRef s**: representa a referência para os servidores remotos.
+- **int operationId**: representa a identidade da operação (melhor que o nome).
+- **byte[] arguments**: representa uma sequência de valores que devem ser passados para a operação remota (observe que estes argumentos foram convertidos em vetor de bytes).
+
+```java
+public byte[] doOperation (RemoteRef s, int operationId, byte[] arguments):
+```
+Descrição: Envia uma mensagem de requisição para o servidor remoto e retorna a resposta. Os argumentos especificam o servidor remoto, a operação a ser invocada e os argumentos dessa operação.
+
+### Requisição e Resposta: getRequest()
+
+É usado pelos servidores para obter requisição de operações do serviço.
+
+Não possui argumentos.
+
+É bloqueado até que o cliente requisite uma operação e esta seja executada e encaminhada a mensagem de resposta.
+
+#### Implementação em Java usando UDP
+
+```java
+public byte[] getRequest():
+```
+
+Descrição: Lê uma requisição do cliente por meio da porta do servidor.
+
+### Requisição e Resposta: sendReply()
+
+É usado pelo servido para **encaminhar a resposta da execução da operação do serviço**.
+
+Seus argumentos especificam:
+- a resposta no formato de um vetor de bytes.
+- o endereço e a porta do cliente (requisitor).
+
+Esta primitiva encerra o ciclo de uma requisição-resposta, desbloqueando `doOperation()`.
+
+#### Implementação em Java usando UDP:
+
+- **int[] reply**: representa a resposta no formato de um vetor de bytes.
+- **InetAddress clientHost**: representa a localização do servidor.
+- **int clientPort**: representa a porta do servidor.
+
+```java
+public void sendReply (byte[] reply, InetAddress clientHost, int clientPort)
+```
+
+Descrição: Envia a mensagem de resposta _reply_ para o cliente como seu endereço de internet e porta.
+
+### Requisição e Resposta: a mensagem
+
+<Imagem
+src={getImg('05_Resquisição_e_Resposta_(Mensagem).png')}
+alt="TEsquema estrutural detalhando os campos de uma mensagem de requisição e resposta. A tabela lista os atributos e seus respectivos tipos de dados: messageType (int, onde 0=Request e 1=Reply), requestId (int), remoteReference (RemoteRef), operationId (int ou operação) e arguments (// vetor de bytes)."
+legenda="Requisição e Resposta (Mensagem)"
+/>
+
+| Argumento | Tipo |
+| --------- | ---- |
+| messageType | `int (0=Request, 1=Reply)` |
+| requestId | `int` |
+| remoteReference | `RemoreRef` |
+| OperationId | `int` ou operação |
+| arguments | vetor de bytes |
+
+## Atividade
+
+Implemente este protocolo usando os conhecimentos já adquiridos na disciplina. Pode usar a linguagem Java ou qualquer outra linguagem que possibilite o uso de Socket com Datagrama.

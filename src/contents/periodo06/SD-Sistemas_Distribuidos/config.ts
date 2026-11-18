@@ -12,16 +12,28 @@ export const config = {
 
 	// Mapeamento das pastas da aba 'Atividade' da matéria (arquivo Materia.tsx)
 	atividades: {
-		"atividade01": {
-			nome: "Atividade 01",
+		"Atividade01": {
+			nome: "Atividade 01 - 26/10/2026 - Capítulo 01",
 			arquivos: {
-				"Teste01": "Teste de arquivo 01"
+				"Forms": "Formulário"
 			}
 		},
-		"atividade02": {
-			nome: "Atividade 02",
+		"Atividade02": {
+			nome: "Atividade 02 - 27/10/2026 - Capítulo 02",
 			arquivos: {
-				"Teste02": "Test de arquivo 02"
+				"Forms": "Formulário"
+			}
+		},
+		"Atividade03": {
+			nome: "Atividade 03 - 28/11/2026 - Capítulo 04",
+			arquivos: {
+				"Forms": "Formulário"
+			}
+		},
+		"Atividade04": {
+			nome: "Atividade 04 - 17/11/2026 - Invocação Remota",
+			arquivos: {
+				"Invocacao_Remota_de_Metodos": "Invocação Remota de Métodos"
 			}
 		}
 	}
