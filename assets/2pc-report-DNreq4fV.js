@@ -1,0 +1,1 @@
+var e=`/Biblioteca_ADS/assets/2pc-report-Bvr0tH2R.txt`;export{e as default};
