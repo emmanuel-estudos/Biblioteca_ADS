@@ -27,5 +27,12 @@ export const config = {
 				"q5.3-py": "Questão 5.3"
 			},
 		},
+
+		"Projeto_01": {
+			nome: "Projeto 01: Manipulação de Imagens",
+			arquivos: {
+				"Explicacoes": "Explicações dos Códigos"
+			}
+		}
 	}
 };

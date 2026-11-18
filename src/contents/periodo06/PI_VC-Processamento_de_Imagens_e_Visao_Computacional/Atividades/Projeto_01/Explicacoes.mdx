@@ -1,0 +1,754 @@
+# Explicações dos Códigos
+
+## Etapa 01
+
+### Tarefa 1.1
+
+```py
+# 📤 Para usar outra imagem nesta tarefa, altere ENVIAR para True, execute e selecione o arquivo.
+#    A imagem permanece armazenada; após o envio, retorne ENVIAR para False.
+ENVIAR = False
+img_1_1 = imagem_da_tarefa("1.1", ENVIAR, padrao=img_teste)
+
+def filtro_gameboy(img):
+    """Simula a tela do Game Boy original com 4 tons de verde.
+    """
+
+    # convertendo para tons de cinza
+    foto_cinza = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    # equivalência de 256 níveis para 4 níveis (0, 1, 2, 3) e reescalar para a intensidade (0, 85, 170, 255)
+    cinza_equivalencia = (foto_cinza // 64) * 85
+
+    # criação de imagem totalmente preta com o formato da foto de entrada
+    foto_saida = np.zeros_like(img)
+
+    # copiando os tons de cinza, somente para o canal verde (G - índice 1)
+    foto_saida[:, :, 1] = cinza_equivalencia
+
+    return foto_saida
+    # raise NotImplementedError
+
+_ = mostrar_resultado(filtro_gameboy, img_1_1)
+```
+
+- **foto_cinza = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)**: converte a imagem para cinza
+- **cinza_equivalencia = (foto_cinza // 64) * 85**: dividindo por 64 (um quarto de 256) para dividir em 4 níveis (0, 1, 2, 3). Multiplicado por 85 para reescalar o brilho (0 - preto, 85 - verde escuro, 170 - verde claro e 255 - verde vibrante)
+- **foto_saida = np.zeros_like(img)**: criando uma imagem completamente preta
+- **foto_saida[:, :, 1] = cinza_equivalencia**: pega a matriz com os quatro níveis calculados e coloca somente no canal verde (1)
+
+### Tarefa 1.2
+
+```py
+# 📤 Para usar outra imagem nesta tarefa, altere ENVIAR para True, execute e selecione o arquivo.
+#    A imagem permanece armazenada; após o envio, retorne ENVIAR para False.
+ENVIAR = False
+img_1_2 = imagem_da_tarefa("1.2", ENVIAR, padrao=img_teste)
+
+def filtro_8bit(img, fator=8, bits=2):
+    """Simula gráficos de consoles 8-bit com pixels grandes e poucas cores.
+    """
+    # pegando altura e largura originais
+    h, w = img.shape[:2]
+
+    # reduzindo resolução
+    h_reduzida = h // fator
+    w_reduzida = w // fator
+    img_reduzida = cv2.resize(img, (w_reduzida, h_reduzida), interpolation=cv2.INTER_AREA)
+
+    # amplicar para o tamanho original
+    img_pixelada = cv2.resize(img_reduzida, (w, h), interpolation=cv2.INTER_NEAREST)
+
+    # quantização de cores dos 3 canais
+    niveis = 2 ** bits # número de níveis por canal, de acordo com o número de bits
+    tamanho_intervalo = 256 / niveis
+
+    # aplicando a quantificação de forma vetorizada para todos os canais
+      ## dividindo pelo intervalo, convertendo para inteiro, reescalonando para a faixa de 0-255
+    img_quantizada = (img_pixelada // tamanho_intervalo) * (255 / (niveis - 1))
+
+    # convertendo novamente para uint8
+    saida = img_quantizada.astype(np.uint8)
+
+    return saida
+
+    # raise NotImplementedError
+
+_ = mostrar_resultado(filtro_8bit, img_1_2)
+```
+
+- **h, w = img.shape[:2]**: pegando a altura e a largura originais da foto
+- **h_reduzida = h // fator** e **w_reduzida = w // fator**: dividem as dimensões pelo `fator` definido na chamada da função.
+- **img_reduzida = cv2.resize(img, (w_reduzida, h_reduzida), interpolation=cv2.INTER_AREA)**: faz uma interpolação e diminui a imagem por meio das médias dos pixeis da região
+- **img_pixelada = cv2.resize(img_reduzida, (w, h), interpolation=cv2.INTER_NEAREST)**: a imagem antes reduzida é esticada para o tamanho original
+- **niveis = 2 ** bits**: Com `bits=2`, temos $2^2 = 4$ tons possíveis por canal de cor (Azul, Verde e Vermelho separadamente)
+- **tamanho_intervalo = 256 / niveis**: Divide o espectro total de 256 tons (0 a 255) em blocos (com bits=2, cada bloco tem tamanho $256 / 4 = 64$)
+- img_quantizada = (img_pixelada // tamanho_intervalo) * (255 / (niveis - 1))
+  - **img_pixelada // tamanho_intervalo** agrupa os valores de cor contínuos em faixas discretas (ex: 0, 1, 2, 3)
+  - **(255 / (niveis - 1))** reescala esses valores para que voltem a ocupar o intervalo total de intensidade de 0 a 255, mas agora limitados a apenas poucos degraus de cor bem definidos
+
+### Tarefa 1.3
+
+```py
+# 📤 Para usar outra imagem nesta tarefa, altere ENVIAR para True, execute e selecione o arquivo.
+#    A imagem permanece armazenada; após o envio, retorne ENVIAR para False.
+ENVIAR = False
+img_1_3 = imagem_da_tarefa("1.3", ENVIAR, padrao=img_teste)
+
+def caixa_de_dialogo(img, texto="quando me levanto muito rapido, vejo assim"):
+    """Cria uma tela de RPG aplicando o filtro 8-bit e desenhando uma caixa de
+    diálogo com borda e texto na parte inferior.
+    """
+
+    # aplicando o filtro 8-bit para obter o visual
+    cena = filtro_8bit(img, fator=8, bits=2)
+
+    # copiando para desenhar a caixa de diálogo por cima
+    saida = cena.copy()
+
+    # definindo a altura e a largura da imagem original
+    h, w = img.shape[:2]
+
+    # colocando a caixa de diálogo na parte inferior da imagem
+      ## margem fixa: 20px na lateral e 100px na base
+    espaco_lateral = 20
+    altura_caixa = 150
+
+    y1, y2 = h - (espaco_lateral + altura_caixa), h - espaco_lateral
+    x1, x2 = espaco_lateral, w - espaco_lateral
+
+    # fundo da caixa de diálogo
+    saida[y1:y2, x1:x2] = (255, 255, 255)
+
+    # borda da caixa de diálogo
+    cv2.rectangle(saida, (x1, y1), (x2, y2), (0, 0, 0), 2)
+
+    # texto dentro da caixa de diálogo
+    lineIndex = 0
+    for phrase in texto.split("\n"):
+      cv2.putText(saida, phrase, (x1 + 25, y1 + 55 + (55 * lineIndex)), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2, cv2.LINE_AA)
+      lineIndex += 1
+
+    return saida
+
+_ = mostrar_resultado(caixa_de_dialogo, img_1_3)
+```
+
+- **cena = filtro_8bit(img, fator=8, bits=2)**: aplicando o filtro da atividade anterior
+- **saida = cena.copy()**: fazendo uma cópia da imagem
+- **h, w = img.shape[:2]**: pegando as dimensões originais
+- **espaco_lateral = 20** e **altura_caixa = 150**: definem espaçamentos fixos
+- **y1, y2 = h - (espaco_lateral + altura_caixa), h - espaco_lateral**: definindo coordenadas verticais
+- **x1, x2 = espaco_lateral, w - espaco_lateral**: definindo coordenadas horizontais
+- **saida[y1:y2, x1:x2] = (255, 255, 255)**: coloca um fundo branco na caixa de diálogo
+- **cv2.rectangle(saida, (x1, y1), (x2, y2), (0, 0, 0), 2)**: borda para a caixa
+- **for**: quebra o texto recebido em linhas, caso necessário, e insere o texto
+
+## Etapa 02
+
+### Tarefa 2.1
+
+```py
+# 📤 Para usar outra imagem nesta tarefa, altere ENVIAR para True, execute e selecione o arquivo.
+#    A imagem permanece armazenada; após o envio, retorne ENVIAR para False.
+ENVIAR = False
+img_2_1 = imagem_da_tarefa("2.1", ENVIAR, padrao=img_teste)
+
+def meme_classico(img, topo="QUANDO ESTOU NA REUNIAO", base="ESSA EH A UNICA COISA QUE PENSO"):
+    """Cria um meme clássico com textos em maiúsculas, centralizados,
+    com contorno preto e preenchimento branco no topo e na base.
+    """
+
+    # copiando a imagem original
+    saida = img.copy()
+    h, w = saida.shape[:2]
+
+    # Configurações: fonte e margem
+    fonte = cv2.FONT_HERSHEY_DUPLEX
+    margem = max(20, h // 15)  # Margem proporcional à altura da imagem
+
+    # TEXTO DO TOPO
+    texto_topo = topo.upper()
+    escala_topo = w / 600
+    esp_contorno_topo = max(3, int(escala_topo * 5))
+    esp_texto_topo = max(1, int(escala_topo * 2))
+
+    # Reduzir escala se o texto for muito largo
+    while cv2.getTextSize(texto_topo, fonte, escala_topo, esp_contorno_topo)[0][0] > w - 40:
+        escala_topo -= 0.05
+        if escala_topo <= 0.2:
+            break
+
+    (tw_topo, th_topo), _ = cv2.getTextSize(texto_topo, fonte, escala_topo, esp_contorno_topo)
+    x_topo = (w - tw_topo) // 2
+    y_topo = margem + th_topo  # Linha de base no topo
+
+    # contorno preto (mais grosso) e texto branco por cima
+    cv2.putText(saida, texto_topo, (x_topo, y_topo), fonte, escala_topo, (0, 0, 0), esp_contorno_topo, cv2.LINE_AA)
+    cv2.putText(saida, texto_topo, (x_topo, y_topo), fonte, escala_topo, (255, 255, 255), esp_texto_topo, cv2.LINE_AA)
+
+    # TEXTO DA BASE
+    texto_base = base.upper()
+    escala_base = w / 600
+    esp_contorno_base = max(3, int(escala_base * 5))
+    esp_texto_base = max(1, int(escala_base * 2))
+
+    # diminuir escala se o texto for muito largo
+    while cv2.getTextSize(texto_base, fonte, escala_base, esp_contorno_base)[0][0] > w - 40:
+        escala_base -= 0.05
+        if escala_base <= 0.2:
+            break
+
+    (tw_base, th_base), _ = cv2.getTextSize(texto_base, fonte, escala_base, esp_contorno_base)
+    x_base = (w - tw_base) // 2
+    y_base = h - margem  # Linha de base na base da imagem
+
+    # contorno preto (mais grosso) e texto branco por cima
+    cv2.putText(saida, texto_base, (x_base, y_base), fonte, escala_base, (0, 0, 0), esp_contorno_base, cv2.LINE_AA)
+    cv2.putText(saida, texto_base, (x_base, y_base), fonte, escala_base, (255, 255, 255), esp_texto_base, cv2.LINE_AA)
+
+    return saida
+
+    # raise NotImplementedError
+
+_ = mostrar_resultado(meme_classico, img_2_1)
+```
+
+- **saida = img.copy()**: faz uma cópia da imagem
+- **h, w = saida.shape[:2]**: pega as dimensões originais da imagem
+- **fonte = cv2.FONT_HERSHEY_DUPLEX** e **margem = max(20, h // 15)**: definição da fonte e da sua margem
+- **texto_topo = topo.upper()**: transforma o texto em caixa alta
+- **escala_topo = w / 600**: calcula o tamanho da fonte proporcionalmente ao tamanho da imagem
+- **while**: vai verificando se o tamanho do texto ultrapassa os limites da imagem. vai reduzindo a imagem até não ultrapassar
+- **x_topo = (w - tw_topo) // 2**: cálculo para centralizar horizontalmente o texto
+- **y_topo**: define a altura da linha de base do texto
+- **cv2.putText(saida, texto_topo, (x_topo, y_topo), fonte, escala_topo, (0, 0, 0), esp_contorno_topo, cv2.LINE_AA)** e **cv2.putText(saida, texto_topo, (x_topo, y_topo), fonte, escala_topo, (255, 255, 255), esp_texto_topo, cv2.LINE_AA)**: contorno e preenchimento. Para deixar com cara de meme
+
+### Tarefa 2.2
+
+```py
+# 📤 Para usar outra imagem nesta tarefa, altere ENVIAR para True, execute e selecione o arquivo.
+#    A imagem permanece armazenada; após o envio, retorne ENVIAR para False.
+ENVIAR = False
+img_2_2 = imagem_da_tarefa("2.2", ENVIAR, padrao=img_teste)
+
+def zoom_dramatico(img, centro=None, niveis=3, tamanho=300):
+  """Cria um painel lado a lado com recortes progressivamente menores
+    (zoom dramático) centrados em um ponto da imagem.
+  """
+
+  # pegando as dimensões da imagem
+  h, w = img.shape[:2]
+
+  # caso o centro não foi fornecido, pega o centro da imagem
+  if centro is None:
+      cx, cy = w // 2, h // 2
+  else:
+      cx, cy = centro
+
+  # Definir o tamanho do recorte inicial
+    ## (ex: metade da menor dimensão da imagem)
+  tamanho_recorte_inicial = min(h, w) // 2
+
+  # criando array onde ficarão as imagens
+  quadros = []
+
+  # 'for' para ir reduzindo recursivamente
+  for i in range(niveis):
+        # a cada nível, o tamanho do recorte cai pela metade (o zoom dobra)
+        l = int(tamanho_recorte_inicial / (2 ** i))
+        l = max(10, l)  # Garante um tamanho mínimo seguro
+
+        # Calcular coordenadas do retângulo centrado em (cx, cy)
+        x1 = max(0, cx - l // 2)
+        y1 = max(0, cy - l // 2)
+        x2 = min(w, cx + l // 2)
+        y2 = min(h, cy + l // 2)
+
+        # extrai a Região de Interesse (ROI)
+        roi = img[y1:y2, x1:x2]
+
+        # redimensiona o recorte para o tamanho padrão do painel
+        quadro_redimensionado = cv2.resize(roi, (tamanho, tamanho), interpolation=cv2.INTER_LINEAR)
+
+        quadros.append(quadro_redimensionado)
+
+  # Juntar todos os quadros lado a lado horizontalmente
+  painel = np.hstack(quadros)
+
+  return painel
+
+  # raise NotImplementedError
+
+_ = mostrar_resultado(zoom_dramatico, img_2_2)
+```
+
+- **h, w = img.shape[:2]**: pegando as dimensões originais
+- **if centro is None:**: calcula o centro caso ele não seja fornecido
+- **tamanho_recorte_inicial = min(h, w) // 2**: define onde vai ser o primeiro recorte (metade da menor dimensão da imagem)
+- **quadros = []**: cria um array para guardar as imagens
+- **for**: redução recursiva, diminuindo pela metade em cada ciclo, garante um tamanho mínimo seguro, calcula as coordenadas do corte, extrai a região do corte, redimensiona o corte, coloca o quadro no array
+- **painel = np.hstack(quadros)**: junta todos os quadros
+
+### Tarefa 2.3
+
+```py
+# 📤 Para usar outra imagem nesta tarefa, altere ENVIAR para True, execute e selecione o arquivo.
+#    A imagem permanece armazenada; após o envio, retorne ENVIAR para False.
+ENVIAR = False
+img_2_3 = imagem_da_tarefa("2.3", ENVIAR, padrao=img_teste)
+
+def recorte_quadrado(img, lado=512):
+    """Recorta o maior quadrado central de uma imagem e
+    a redimensiona para lado x lado."""
+
+    # pegando o tamanho da imagem
+    h, w = img.shape[:2]
+
+    # verificando o tamanho do menor lado para garantir um quadrado perfeito central
+    tamanho_min = min(h, w)
+
+    # calculando as coordenadas centrais para o corte
+    y_inicio = (h - tamanho_min) // 2
+    x_inicio = (w - tamanho_min) // 2
+
+    # recortando a região quadrada central
+    recorte = img[y_inicio:y_inicio + tamanho_min, x_inicio:x_inicio + tamanho_min]
+
+    # redicionamento para o tamanho final desejado
+    img_quadrada = cv2.resize(recorte, (lado, lado), interpolation=cv2.INTER_AREA)
+
+    return img_quadrada
+    # raise NotImplementedError
+
+
+def figurinha(img, texto="estou assim", lado=512):
+    """Cria uma figurinha BGRA com recorte circular suave (canal alfa)
+    e uma legenda inferior com contorno."""
+
+    # deixa a iamgem quadrada, usando a função auxiliar
+    img_quadrada = recorte_quadrado(img, lado)
+
+    # convertendo BGR para BGRA (canal de transparência)
+    img_bgra = cv2.cvtColor(img_quadrada, cv2.COLOR_BGR2BGRA)
+
+    # criando círculo
+    y, x = np.mgrid[:lado, :lado]
+    centro = lado / 2.0
+    raio = lado / 2.0 - 10
+
+    # calculando a distância de cada pixel para o centro
+    distancia = np.sqrt((x - centro) ** 2 + (y - centro) ** 2)
+
+    # criando suavização na borda
+    alfa = np.clip((raio - distancia) + 1.5, 0, 1.5) / 1.5
+    alfa = (alfa * 255).astype(np.uint8)
+
+    # aplicando 'alfa' na imagem BGRA
+    img_bgra[:, :, 3] = alfa
+
+    # adicionando a legenda
+    texto = texto.upper()
+    fonte = cv2.FONT_HERSHEY_DUPLEX
+    escala = lado / 600
+    esp_contorno = max(2, int(escala * 4))
+    esp_texto = max(1, int(escala * 2))
+
+    # garantindo que o texto caiba na figurinha (largura)
+    while cv2.getTextSize(texto, fonte, escala, esp_contorno)[0][0] > lado - 30:
+        escala -= 0.05
+        if escala <= 0.2:
+            break
+
+    (tw, th), _ = cv2.getTextSize(texto, fonte, escala, esp_contorno)
+    tx = (lado - tw) // 2
+    ty = lado - int(lado * 0.1)
+
+    # cores na legenda
+      ## também com 4 canais
+    cor_preta = (0, 0, 0, 255)
+    cor_branca = (255, 255, 255, 255)
+
+    # colocando texto na imagem
+    cv2.putText(img_bgra, texto, (tx, ty), fonte, escala, cor_preta, esp_contorno, cv2.LINE_AA)
+    cv2.putText(img_bgra, texto, (tx, ty), fonte, escala, cor_branca, esp_texto, cv2.LINE_AA)
+
+    return img_bgra
+    # raise NotImplementedError
+
+FIGURINHA = mostrar_resultado(figurinha, img_2_3)
+```
+
+Função `recorte_quadrado`:
+
+- **h, w = img.shape[:2]**: pega as dimensões originais
+- **tamanho_min = min(h, w)**: pega a menor dimensão para sair um quadrado perfeito
+- **y_inicio = (h - tamanho_min) // 2** e **x_inicio = (w - tamanho_min) // 2**: para pegar as coordenadas centrais da imagem
+- **recorte = img[y_inicio:y_inicio + tamanho_min, x_inicio:x_inicio + tamanho_min]**: recortando a área central
+- **img_quadrada = cv2.resize(recorte, (lado, lado), interpolation=cv2.INTER_AREA)**: deixando no tamanho final desejado
+
+Função `figurinha`:
+
+- **img_quadrada = recorte_quadrado(img, lado)**: deixa a imagem quadrada, usando a função anterior
+- **img_bgra = cv2.cvtColor(img_quadrada, cv2.COLOR_BGR2BGRA)**: convertendo de BGR para BGRA
+- **y, x = np.mgrid[:lado, :lado]**, **centro = lado / 2.0** e **raio = lado / 2.0 - 10**: para a criação de um círculo
+- **distancia = np.sqrt((x - centro) ** 2 + (y - centro) ** 2)**: calculando a distância a partir do certo
+- **alfa = np.clip((raio - distancia) + 1.5, 0, 1.5) / 1.5** e **alfa = (alfa * 255).astype(np.uint8)**: para a suavização da borda, definindo que pixels dentro do raio serão opacos e pixels fora serão transparentes
+- **img_bgra[:, :, 3] = alfa**: aplicando suavização na imagem
+- **inserção da legenda**: mesmo método já usado e explicado anteriormente
+
+## Etapa 03
+
+### Tarefa 3.1
+
+```py
+# 📤 Para usar outra imagem nesta tarefa, altere ENVIAR para True, execute e selecione o arquivo.
+#    A imagem permanece armazenada; após o envio, retorne ENVIAR para False.
+ENVIAR = False
+img_3_1 = imagem_da_tarefa("3.1", ENVIAR, padrao=img_teste)
+
+def faixa_de_foco(img, centro=0.6, largura=0.15, transicao=0.25):
+    """Gera uma máscara 2D de foco com uma faixa horizontal nítida
+    e transição gradual (efeito Tilt-Shift / miniatura)."""
+
+    # pegando as dimensões da imagem
+    h, w = img.shape[:2]
+
+    # colocando frações em coordenadas
+    y_centro = centro * h
+    meia_largura = (largura * h) / 2.0
+    t_transicao = max(1.0, transicao * h)  # evita divisão por zero
+
+    # criando um vetor de coordenadas y para cada linha da imagem (shape: (h,))
+    y = np.arange(h, dtype=np.float32)
+
+    # calculando a distância absoluta de cada linha em relação aos limites da faixa de foco
+      ## Distância é 0 se estiver dentro da faixa nítida, e positiva se estiver fora
+    distancia = np.maximum(0, np.abs(y - y_centro) - meia_largura)
+
+    # calculando a opacidade/máscara com base na transição gradual
+      ## distância normalizada de 0 (foco total) a 1 (fora da transição)
+    mascara_linha = 1.0 - np.clip(distancia / t_transicao, 0.0, 1.0)
+
+    # expandindo para 2D usando broadcasting (replicando o valor da linha para todas as colunas w)
+      ## resultado shape: (h, w) com valores de 0.0 a 1.0
+    mascara_2d = np.tile(mascara_linha[:, np.newaxis], (1, w))
+
+    # convertendo para uint8 na faixa 0 a 255
+    mascara_uint8 = (mascara_2d * 255).astype(np.uint8)
+
+    return mascara_uint8
+
+_ = mostrar_resultado(faixa_de_foco, img_3_1)
+```
+
+- **h, w = img.shape[:2]**: pegando as dimensões originais da imagem
+- **y_centro = centro * h**, **meia_largura = (largura * h) / 2.0** e **t_transicao = max(1.0, transicao * h)**: colocam os parâmetros passados em coordenadas referentes a imagem
+- **y = np.arange(h, dtype=np.float32)**: vetor para as coordenadas verticais das linhas da imagem
+- **distancia = np.maximum(0, np.abs(y - y_centro) - meia_largura)**: calcula a distância de cada linha para o `limite` da faixa de foco (0 = dentro e positiva = distância)
+- **mascara_linha = 1.0 - np.clip(distancia / t_transicao, 0.0, 1.0)**: cria a máscara de acordo com a `transição` (0 = no foco, positivo = distância do foco e 1 = fora)
+- **mascara_2d = np.tile(mascara_linha[:, np.newaxis], (1, w))**: transformando em 2D para a criação da imagem
+- **mascara_uint8 = (mascara_2d * 255).astype(np.uint8)**: converte a matriz criada no passo anterior para `unit8`.
+
+### Tarefa 3.2
+
+```py
+# 📤 Para usar outra imagem nesta tarefa, altere ENVIAR para True, execute e selecione o arquivo.
+#    A imagem permanece armazenada; após o envio, retorne ENVIAR para False.
+ENVIAR = False
+img_3_2 = imagem_da_tarefa("3.2", ENVIAR, padrao=img_teste)
+
+def desfoque_reamostragem(img, fator=6, passadas=2):
+    """Gera uma versão fortemente desfocada da imagem para compor
+    o fundo da miniatura (efeito Tilt-Shift)."""
+
+    # pegando informações da imagem: dimensões e cópia
+    h, w = img.shape[:2]
+    saida = img.copy()
+
+    # processo de redução
+    for _ in range(passadas):
+        # reduzindo a imagem atual pelo fator
+        h_novo = max(1, saida.shape[0] // fator)
+        w_novo = max(1, saida.shape[1] // fator)
+        reduzida = cv2.resize(saida, (w_novo, h_novo), interpolation=cv2.INTER_AREA)
+
+        # ampliando de volta para o tamanho original com interpolação suave (bicúbica)
+        saida = cv2.resize(reduzida, (w, h), interpolation=cv2.INTER_CUBIC)
+
+    return saida
+
+_ = mostrar_resultado(desfoque_reamostragem, img_3_2)
+```
+
+- **h, w = img.shape[:2]**: pegando dimensões da imagem
+- **saida = img.copy()**: fazendo uma cópia da imagem
+- **for**: reduz a imagem original pelo `fator`, x vezes definidas pela quantidade de `passadas`
+- **reduzida = cv2.resize(saida, (w_novo, h_novo), interpolation=cv2.INTER_AREA)**: tira os ruídos das reduções da imagem
+- **saida = cv2.resize(reduzida, (w, h), interpolation=cv2.INTER_CUBIC)**: estica a imagem ao tamanho normal
+
+### Tarefa 3.3
+
+```py
+# 📤 Para usar outra imagem nesta tarefa, altere ENVIAR para True, execute e selecione o arquivo.
+#    A imagem permanece armazenada; após o envio, retorne ENVIAR para False.
+ENVIAR = False
+img_3_3 = imagem_da_tarefa("3.3", ENVIAR, padrao=img_teste)
+
+def saturar(img, k=1.6):
+    """Aumenta a saturação da imagem multiplicando a distância
+    entre cada pixel e o seu valor de cinza correspondente."""
+
+    # convertendo a imagem para float32 para evitar estouro de valores (wrap-around)
+    img_f = img.astype(np.float32)
+
+    # obtendo a luminância/tons de cinza de cada pixel (formato 2D)
+    cinza = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    # expandindo o canal de cinza para 3 dimensões (h, w, 1) usando broadcasting para casar com BGR
+    cinza_3d = cinza[:, :, np.newaxis]
+
+    # afastando cada cor do seu tom de cinza correspondente pelo fator k
+      ## Fórmula: cinza + k * (pixel - cinza)
+    img_saturada = cinza_3d + k * (img_f - cinza_3d)
+
+    # garantindo que os valores fiquem restritos ao intervalo válido [0, 255] e converter para uint8
+    img_saturada = np.clip(img_saturada, 0, 255).astype(np.uint8)
+
+    return img_saturada
+
+def miniatura(img, centro=0.6, largura=0.15, transicao=0.25, fator=8):
+    """Gera o efeito miniatura (Tilt-Shift) combinando foco nítido na faixa central,
+    desfoque nas bordas e aumento de saturação e contraste."""
+
+    # gerarando a imagem desfocada para o fundo
+    fundo = desfoque_reamostragem(img, fator=fator, passadas=2)
+
+    # gerarndo a máscara de foco e convertê-la para o intervalo [0.0, 1.0]
+    mascara_uint8 = faixa_de_foco(img, centro=centro, largura=largura, transicao=transicao)
+    alfa = mascara_uint8.astype(np.float32) / 255.0
+
+    # expandindo o alfa para 3 canais (h, w, 3) usando broadcasting para aplicar no BGR
+    alfa_3d = alfa[:, :, np.newaxis]
+
+    # frente nítida (com cores intensificadas para dar o aspecto de maquete)
+      ## aplicamos a saturação
+    frente = saturar(img, k=1.6)
+
+    # composição alfa: alfa * frente + (1 - alfa) * fundo
+    composicao = alfa_3d * frente.astype(np.float32) + (1.0 - alfa_3d) * fundo.astype(np.float32)
+
+    # convertendo o resultado final de volta para uint8
+    saida = np.clip(composicao, 0, 255).astype(np.uint8)
+
+    return saida
+
+_ = mostrar_resultado(miniatura, img_3_3)
+```
+
+Função `saturar`:
+
+- **img_f = img.astype(np.float32)**: transforma em `float32` para evitar estouro de valores
+- **cinza = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)**: pegando o tom de cinza de cada pixel
+- **cinza_3d = cinza[:, :, np.newaxis]**: expande para três dimensões
+- **img_saturada = cinza_3d + k * (img_f - cinza_3d)**: afasta cada cor do seu valor de cinza, de acordo com o fator `k`
+- **img_saturada = np.clip(img_saturada, 0, 255).astype(np.uint8)**: garantindo restrição no intervalo de [0, 255]
+
+Função `miniatura`:
+
+- **fundo = desfoque_reamostragem(img, fator=fator, passadas=2)**: gerando a imagem desfocada de fundo, de acordo com os parâmetros
+- **mascara_uint8 = faixa_de_foco(img, centro=centro, largura=largura, transicao=transicao)**: gerando a máscara de foco e convertendo para o intervalo [0, 1]
+- **alfa = mascara_uint8.astype(np.float32) / 255.0**: transformando a máscara para `float32`
+- **alfa_3d = alfa[:, :, np.newaxis]**: expandindo para 3 canais
+- **frente = saturar(img, k=1.6)**: satura a frente, garantindo que a faixa de foco fique com cores vibrantes
+- **composicao = alfa_3d * frente.astype(np.float32) + (1.0 - alfa_3d) * fundo.astype(np.float32)**: na faixa central = imagem nítida e saturada. Fora da faixa central = desfoque. Zona de transição = mesclagem
+
+## Etapa 04
+
+### Tarefa 4.1
+
+```py
+# 📤 Para usar outra imagem nesta tarefa, altere ENVIAR para True, execute e selecione o arquivo.
+#    A imagem permanece armazenada; após o envio, retorne ENVIAR para False.
+ENVIAR = False
+img_4_1 = imagem_da_tarefa("4.1", ENVIAR, padrao=img_teste)
+
+def simetria_4(img, lado=600):
+    """Gera uma imagem perfeitamente simétrica em 4 quadrantes a partir
+    do quadrante superior esquerdo (espelhamentos horizontal e vertical)."""
+
+    # garante que a imagem seja quadrada, usando a função 'recorte_quadrado' feita anteriormente
+    img_quadrada = recorte_quadrado(img, lado)
+
+    # pegando os pontos médios para as divisões dos quadrantes
+    meio_h = lado // 2
+    meio_w = lado // 2
+
+    # extrai o quadrante superior esquerdo (base da simetria)
+      ## Obs: se o tamanho for ímpar, é garantido que a divisão pegue o tamanho exato usando slice
+    q1 = img_quadrada[:meio_h, :meio_w]
+
+    # gerando os outros três quadrantes por espelhamento:
+    q2 = q1[:, ::-1] # Q2 (Superior Direito)
+    q3 = q1[::-1, :] # Q3 (Inferior Esquerdo)
+    q4 = q1[::-1, ::-1] # Q4 (Inferior Direito)
+
+    # juntando os quadrantes em uma imagem (horizontalmente)
+    topo = np.hstack([q1, q2])
+    base = np.hstack([q3, q4])
+
+    # juntando topo e base verticalmente para formar a imagem final completa
+    simetrica = np.vstack([topo, base])
+
+    return simetrica
+
+_ = mostrar_resultado(simetria_4, img_4_1)
+```
+
+- **img_quadrada = recorte_quadrado(img, lado)**: garante que a imagem seja quadrada
+- **meio_h = lado // 2** e **meio_w = lado // 2**: paga os pontos médios para a divisão dos quadrantes
+- **q1 = img_quadrada[:meio_h, :meio_w]**: recortando o primeiro quadrante
+- **q2 = q1[:, ::-1]**, **q3 = q1[::-1, :]** e **q4 = q1[::-1, ::-1]**: formação dos quadrantes 2, 3 e 4 por espelhamento
+  - q2 = linhas iguais e colunas invertidas
+  - q3 = inversão das linhas de cima para baixo e mantém as colunas iguais
+  - q4 = inverte as linhas e as colunas
+- **topo = np.hstack([q1, q2])** e **base = np.hstack([q3, q4])**: junta os quadrantes em pares
+- **simetrica = np.vstack([topo, base])**: junta os pares de quadrantes
+
+### Tarefa 4.2
+
+```py
+# 📤 Para usar outra imagem nesta tarefa, altere ENVIAR para True, execute e selecione o arquivo.
+#    A imagem permanece armazenada; após o envio, retorne ENVIAR para False.
+ENVIAR = False
+img_4_2 = imagem_da_tarefa("4.2", ENVIAR, padrao=img_teste)
+
+def caleidoscopio_8(img, lado=600):
+    """Gera um padrão de caleidoscópio com 8 setores simétricos,
+    dobrando o quadrante base em sua diagonal principal."""
+
+    # garantindo que a imagem seja quadrada (usando a função)
+    img_quadrada = recorte_quadrado(img, lado)
+
+    # definindo o ponto médio
+    meio = lado // 2
+    q = img_quadrada[:meio, :meio]
+
+    # dobrando o quadrante na diagonal principal
+      ## criando coordenadas de grade para o quadrante
+    yy, xx = np.mgrid[:meio, :meio]
+
+    # transpondo o quadrante (trocar linhas por colunas preservando os canais BGR)
+      ## Em arrays 3D (H, W, C), transpomos os dois primeiros eixos: (1, 0, 2)
+    q_transposto = q.transpose(1, 0, 2)
+
+    # Máscara: onde a coluna (xx) for maior que a linha (yy), estamos acima da diagonal
+    acima_diagonal = xx > yy
+
+    # criando o setor triangular base combinando o original e o transposto
+    setor_base = q.copy()
+
+    # aplicando a máscara 2D diretamente (o NumPy aplica automaticamente nos 3 canais)
+    setor_base[acima_diagonal] = q_transposto[acima_diagonal]
+
+    # partindo do setor base dobrado, gerar a simetria de 4 quadrantes
+    q1 = setor_base                # Superior Esquerdo
+    q2 = setor_base[:, ::-1]       # Superior Direito
+    q3 = setor_base[::-1, :]       # Inferior Esquerdo
+    q4 = setor_base[::-1, ::-1]    # Inferior Direito
+
+    # juntando os blocos horizontalmente e verticalmente para formar o caleidoscópio de 8
+    topo = np.hstack([q1, q2])
+    base = np.hstack([q3, q4])
+    caleidoscopio = np.vstack([topo, base])
+
+    return caleidoscopio
+
+_ = mostrar_resultado(caleidoscopio_8, img_4_2)
+```
+
+- **img_quadrada = recorte_quadrado(img, lado)**: garante que a imagem seja quadrada
+- **meio = lado // 2**: define o meio de acordo com o `lado` passado como parâmetro
+- **q = img_quadrada[:meio, :meio]**: isola o quadrante superior esquerdo (q1)
+- **yy, xx = np.mgrid[:meio, :meio]**: dobra o quadrante na diagonal principal (q1 para q4)
+- **q_transposto = q.transpose(1, 0, 2)**: inverte as linhas e colunas da matriz tridimensional da imagem. Em arrays 3D (H, W, C)
+- **acima_diagonal = xx > yy**: identifica quais pixels estão acima da linha diagonal principal do quadrante
+- **setor_base = q.copy()**: cria o setor triangular base, combinando o original e o transposto
+- **setor_base[acima_diagonal] = q_transposto[acima_diagonal]**: pega os pixels da imagem transposta e os encaixa nos locais indicados pela máscara sobre uma cópia do quadrante original (`setor_base`). O resultado é um setor triangular perfeitamente simétrico nas bordas internas.
+- **q1 = setor_base**, **q2 = setor_base[:, ::-1]**, **q3 = setor_base[::-1, :]** e **q4 = setor_base[::-1, ::-1]**: para replicar o quadrante 01
+- **topo = np.hstack([q1, q2])** e **base = np.hstack([q3, q4])**: para juntar os quadrantes horizontalmente
+- **caleidoscopio = np.vstack([topo, base])**: para juntar os quadrantes verticalmente
+
+### Tarefa 4.3
+
+```py
+# 📤 Para usar outra imagem nesta tarefa, altere ENVIAR para True, execute e selecione o arquivo.
+#    A imagem permanece armazenada; após o envio, retorne ENVIAR para False.
+ENVIAR = False
+img_4_3 = imagem_da_tarefa("4.3", ENVIAR, padrao=img_teste)
+
+def caleidoscopio_radial(img, setores=6, lado=600):
+    """Gera um caleidoscópio radial circular, dividindo a imagem em fatias
+    simétricas baseadas em coordenadas polares."""
+
+    # garantindo que a imagem seja quadrada e obtendo centro
+    img_q = recorte_quadrado(img, lado)
+    centro = lado / 2.0
+
+    # criando grade de coordenadas para todos os pixels da imagem final
+    y, x = np.mgrid[:lado, :lado]
+
+    # estabelecendo distâncias horizontal e vertical até o centro
+    dx = x - centro
+    dy = y - centro
+
+    ## calculando distância e ângulo
+    distancia = np.sqrt(dx**2 + dy**2)
+    angulo = np.degrees(np.arctan2(dy, dx)) % 360
+
+    ## ajustando o ângulo para a primeira fatia com espelhamento interno
+    angulo_fatia = 360.0 / setores
+    metade_fatia = angulo_fatia / 2.0
+
+    ### posição do ângulo dentro de uma fatia (0 até angulo_fatia)
+    ang_na_fatia = angulo % angulo_fatia
+
+    ### espelhando a segunda metade de cada fatia para garantir a simetria entre vizinhas
+    ang_mapeado = np.where(ang_na_fatia > metade_fatia, angulo_fatia - ang_na_fatia, ang_na_fatia)
+
+    ## convertendo de polar (distância e novo ângulo) de volta para cartesiano (linhas e colunas)
+    radianos = np.radians(ang_mapeado)
+    colunas_origem = centro + distancia * np.cos(radianos)
+    linhas_origem = centro + distancia * np.sin(radianos)
+
+    # arredondando para inteiros e restringir aos limites da imagem
+    colunas_idx = np.clip(np.round(colunas_origem), 0, lado - 1).astype(np.intp)
+    linhas_idx = np.clip(np.round(linhas_origem), 0, lado - 1).astype(np.intp)
+
+    # copiando a cor dos pixels correspondentes da foto de forma vetorizada
+    saida = img_q[linhas_idx, colunas_idx]
+
+    # máscara circular para escurecer bordas fora do caleidoscópio
+    raio_max = lado / 2.0
+    fora_circulo = distancia > raio_max
+    saida[fora_circulo] = (0, 0, 0)
+
+    return saida
+
+_ = mostrar_resultado(caleidoscopio_radial, img_4_3)
+
+```
+
+- **img_q = recorte_quadrado(img, lado)**: garante que a imagem seja quadrada
+- **centro = lado / 2.0**: pega o centro da imagem
+- **y, x = np.mgrid[:lado, :lado]**: cria uma grade de coordenadas para todos os pixeis da imagem
+- **dx = x - centro** e **dy = y - centro**: estabelece distâncias horizontal e vertical até o centro
+- **distancia = np.sqrt(dx**2 + dy**2)**: calculando a distância de cada pixel até o centro
+- **angulo = np.degrees(np.arctan2(dy, dx)) % 360**: calculando o ângulo de cada pixel até o centro
+- **angulo_fatia = 360.0 / setores** e **metade_fatia = angulo_fatia / 2.0**: ajusta o ângulo para a primeira fatia com espelhamento interno
+- **ang_na_fatia = angulo % angulo_fatia**: determina a posição do ângulo dentro de cada fatia
+- **ang_mapeado = np.where(ang_na_fatia > metade_fatia, angulo_fatia - ang_na_fatia, ang_na_fatia)**: espelha a segunda metade de cada fatia, garantindo as simetrias entre as vizinhas
+- **radianos = np.radians(ang_mapeado)**, **colunas_origem = centro + distancia * np.cos(radianos)** e **linhas_origem = centro + distancia * np.sin(radianos)**: converte de polar (distância e novo ângulo) de volta para cartesiano (linhas e colunas)
+- **colunas_idx = np.clip(np.round(colunas_origem), 0, lado - 1).astype(np.intp)** e **linhas_idx = np.clip(np.round(linhas_origem), 0, lado - 1).astype(np.intp)**: arredonda para inteiros e restringir aos limites da imagem
+- **saida = img_q[linhas_idx, colunas_idx]**: copia a cor dos pixels correspondentes da foto de forma vetorizada
+- **raio_max = lado / 2.0**, **fora_circulo = distancia > raio_max** e **saida[fora_circulo] = (0, 0, 0)**: máscara circular para escurecer bordas fora do caleidoscópio
