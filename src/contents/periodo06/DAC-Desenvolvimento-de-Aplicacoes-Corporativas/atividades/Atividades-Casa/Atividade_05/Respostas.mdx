@@ -1,0 +1,92 @@
+# Atividade 05
+
+## Instruções para o Aluno:
+
+Responda às questões a seguir com base nos materiais da aula e nas fontes de pesquisa indicadas abaixo de cada pergunta.
+A entrega esperada é um documento (DOCX) contendo as respostas de cada pergunta.
+
+## Questão 01
+
+### Enunciado
+
+Qual é a diferença fundamental entre uma Arquitetura Centralizada (Monolítica) e uma Arquitetura Não-Centralizada (Distribuída) no que diz respeito às regras de negócio e aos requisitos transversais (como alta performance, escalabilidade e tolerância a falhas)?
+
+- Artigo de Martin Fowler: [Microservices Architecture]([suspicious link removed])
+- Guia AWS: [Monolithic vs Microservices Architecture]([suspicious link removed])
+- "Monolithic architecture vs distributed systems", "Cross-cutting concerns microservices"
+
+### Resposta
+
+Na Arquitetura Centralizada (Monolítica), o foco principal está na centralização das regras de negócio e dos dados, priorizando a facilidade de manutenção em um único local. Para contornar problemas de complexidade, o sistema é estruturado internamente por meio de módulos e componentes (como arquivos .exe e .dll).
+
+Na Arquitetura Não-Centralizada (Distribuída), o foco desloca-se para a distribuição das regras de negócio a fim de atender diretamente aos requisitos transversais, como alta performance, escalabilidade, tolerância a falhas e alta disponibilidade. Para viabilizar essa distribuição sem comprometer o sistema, utilizam-se contratos de comunicação bem definidos e uma forte atenção às dependências.
+
+## Questão 02
+
+### Enunciado
+
+Como Martin Fowler (2014) define a Arquitetura de Microsserviços e de que maneira esses serviços devem ser estruturalmente organizados em relação ao negócio?
+
+- Martin Fowler (2014): [Organized around Business Capabilities]([suspicious link removed])
+- Portal Microservices.io: [Pattern: Microservice Architecture]([suspicious link removed])
+- "Martin Fowler microservices definition", "Business capability microservices"
+
+### Resposta
+
+Martin Fowler descreve a Arquitetura de Microsserviços como uma forma específica de desenvolver software distribuído na figura de suítes de serviços com implantação (deploy) independente.
+
+Os serviços devem ser estritamente organizados em torno das capacidades de negócio (business capabilities), mantendo o foco no produto e na entrega de valor contínua, e não apenas em projetos temporários.
+
+## Questão 03
+
+### Enunciado
+
+O que significa o princípio dos () em microsserviços e qual a sua importância para a coesão e o desacoplamento do sistema?
+
+- Martin Fowler: [Smart Endpoints and Dumb Pipes]([suspicious link removed])
+- Artigo Red Hat: [O que são microsserviços e integração?]([suspicious link removed])
+- "Smart endpoints and dumb pipes microservices", "Cohesion and decoupling in distributed systems"
+
+### Resposta
+
+Considerando, pelas fontes, que o princípio citado sejam o de "Endpoints Inteligentes e Tubos Burros" (Smart Endpoints and Dumb Pipes):
+
+Este princípio estabelece que toda a inteligência, o processamento e as regras de negócio devem residir nos próprios serviços (smart endpoints). Em contrapartida, os canais de comunicação e integração (dumb pipes) devem ser mantidos o mais simples e leves possível (utilizando, por exemplo, protocolos básicos de mensagem ou HTTP/REST).
+
+Ao evitar que barramentos de comunicação concentrem regras de integração ou transformações complexas, garante-se que a lógica permaneça confinada e coesa dentro do microsserviço, promovendo um forte desacoplamento em relação à infraestrutura de comunicação do sistema distribuído.
+
+## Questão 04
+
+### Enunciado
+
+Em que consistem os princípios de e em uma arquitetura baseada em microsserviços?
+
+- Martin Fowler: [Decentralized Governance & Data Management]([suspicious link removed])
+- Microservices.io: [Database per Service Pattern]([suspicious link removed])
+- "Database per service pattern", "Polyglot persistence microservices"
+
+### Resposta
+
+Considerando, pelas fontes, que os princípios citados sejam os de "Governança Descentralizada e Gerenciamento Descentralizado de Dados":
+
+A Governança Descentralizada prega a autonomia das equipes para definir e adotar as ferramentas, plataformas e linguagens de programação mais adequadas para responder às demandas de cada serviço específico, promovendo a modularização sem prender a organização a uma única pilha tecnológica.
+
+O Gerenciamento Descentralizado de Dados estabelece que cada microsserviço deve ter a propriedade e o controle exclusivo de sua própria base de dados (padrão Database per Service). Essa abordagem elimina os problemas de um banco monolítico centralizado e possibilita a persistência poliglota, na qual cada serviço escolhe o modelo de dados (relacional, documento, chave-valor, etc.) que melhor atenda aos seus requisitos de armazenamento.
+
+## Questão 05
+
+### Enunciado
+
+O que prega o princípio () em sistemas distribuídos e por que ele torna indispensável a automação da infraestrutura?
+
+- Martin Fowler: [Design for Failure]([suspicious link removed])
+- AWS Well-Architected Framework: [Reliability Pillar]([suspicious link removed])
+- "Design for failure microservices", "Resilience in distributed systems"
+
+### Resposta
+
+Considerando, pelas fontes, que o princípio citado sejam os de "Projetar para Falhas" ( Design for Failure)":
+
+O Princípio Design for Failure, em um ambiente de rede com múltiplos computadores e serviços autônomos, assume-se que falhas são inevitáveis e ocorrerão a qualquer momento. Portanto, os serviços devem ser proativamente projetados para detectar, tolerar e se recuperar de falhas de forma resiliente, sem provocar a queda em cascata de todo o sistema.
+
+Com dezenas de serviços operando e sujeitos a oscilações em um ambiente distribuído, o gerenciamento manual torna-se inviável. A automação da infraestrutura (integrando processos de CI/CD, contêineres e orquestração) torna-se indispensável para testar, provisionar, implantar, monitorar e realizar correções ou rollbacks de forma automática e imediata.

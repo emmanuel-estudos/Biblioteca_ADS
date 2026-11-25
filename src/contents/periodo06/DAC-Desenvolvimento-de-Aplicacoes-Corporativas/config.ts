@@ -20,10 +20,31 @@ export const config = {
         "Atividade-2026_09_08": "Atividade 02 - 08/09/2026"
 			}
 		},
-		"atividade02": {
-			nome: "Atividade 02",
-			arquivos: {
-				"Teste02": "Test de arquivo 02"
+		"Atividades-Casa": {
+			nome: "Atividades de Casa",
+			"Atividade_02": {
+				nome: "Atividade 02 - (28/10/2026)",
+				arquivos: {
+					"Atividade-2026_10_28": "Atividade 02"
+				}
+			},
+			"Atividade_03": {
+				nome: "Atividade 03 - (03/11/2026)",
+				arquivos: {
+					"Relatorio_Persistencia": "Atividade 03: Relatório de Persistência"
+				}
+			},
+			"Atividade_04": {
+				nome: "Atividade 04 - (09/11/2026)",
+				arquivos: {
+					"Respostas": "Respostas"
+				}
+			},
+			"Atividade_05": {
+				nome: "Atividade 05 - (24/11/2026)",
+				arquivos: {
+					"Respostas": "Respostas"
+				}
 			}
 		}
 	}
